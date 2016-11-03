@@ -1,0 +1,71 @@
+<ion-navbar *navbar>
+  <ion-title>Animal</ion-title>
+</ion-navbar>
+
+<ion-content padding class="page1">
+  <ion-card>
+
+    <img src="{{animal.getFoto()}}" class="tamanoreal"/>
+
+   <ion-card-content>
+      <h2 class="card-title">
+        {{animal.getNumero()}}
+      </h2>
+      <p>
+        {{animal.getAlias()}}
+      </p>
+
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col width-20>
+                <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>
+              </ion-col>
+              <ion-col width-80>
+                <input type="string" value="{{animal.getRaza()}}">
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col width-20>
+                <ion-icon name='shuffle' item-left class="color-iconos"></ion-icon>
+              </ion-col>
+              <ion-col width-80>
+                  
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col width-20>
+                <ion-icon name='map' item-left class="color-iconos"></ion-icon>
+              </ion-col>
+              <ion-col width-80>
+                <ion-item class="text-label">
+                        <ion-label primary>Date:</ion-label>
+                        <ion-datetime displayFormat="YYYY-MM-DD"> </ion-datetime>
+                  </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col width-20>
+                <ion-icon name='color-wand' item-left class="color-iconos"></ion-icon>
+              </ion-col>
+              <ion-col width-80>
+                <div *ngFor="let textoLabel of animal.getVacunas()" >
+                  <ion-textarea ngDefaultControl> {{textoLabel}} </ion-textarea>
+                </div>        
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col width-20>
+                <ion-icon name='lock' item-left class="color-iconos"></ion-icon>
+              </ion-col>
+              <ion-col width-80>
+                <div *ngFor="let textoLabel of animal.getVacunas()" >
+                  <ion-textarea ngDefaultControl> {{textoLabel}} </ion-textarea>
+                </div> 
+              </ion-col>
+            </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar hideBackButton="true"> 
+      <button ion-button menuToggle right>
+          <ion-icon name="ios-menu-outline"></ion-icon>
+      </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page3">
+
+	<div padding>
+	  <ion-segment [(ngModel)]="tipoMostrado">
+	    <ion-segment-button value="hembras">
+	      Hembras
+	    </ion-segment-button>
+	    <ion-segment-button value="machos">
+	      Machos
+	    </ion-segment-button>
+	  </ion-segment>
+	</div>
+
+	<div [ngSwitch]="tipoMostrado">
+	  <ion-list *ngSwitchCase="'hembras'">
+	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">
+	      <ion-thumbnail item-left>
+	        <img src="{{animal.getFoto()}}">
+	      </ion-thumbnail>
+	      	<h2>{{animal.getNumero()}}</h2>
+	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>
+	    </ion-item>
+	    
+	  </ion-list>
+
+	  <ion-list *ngSwitchCase="'machos'">
+	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">
+	      <ion-thumbnail item-left>
+	        <img src="{{animal.getFoto()}}">
+	      </ion-thumbnail>
+	      	<h2>{{animal.getNumero()}}</h2>
+			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>
+	    </ion-item>
+	    
+	  </ion-list>
+	</div>
+
+</ion-content>

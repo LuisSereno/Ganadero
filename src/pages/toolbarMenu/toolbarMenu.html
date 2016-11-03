@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar hideBackButton="true"> 
+      <button ion-button menuToggle right>
+          <ion-icon name="ios-menu-outline"></ion-icon>
+      </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-menu side="left" [content]="content">
+
+  <ion-header>
+    <ion-toolbar color="secondary">
+      <ion-title>Left Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="colorfondo">
+    <ion-list>
+      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <!--<button block (click)="logoutApp()">Logout</button>-->
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
