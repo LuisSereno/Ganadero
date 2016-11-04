@@ -1,13 +1,11 @@
-/*// app/pages/profile/profile.ts
+// app/pages/profile/profile.ts
 import { NavController } from 'ionic-angular';
 import {Component} from '@angular/core';
-//import {AuthService} from '../../servicios/auth/auth';
-import {AuthService} from '../../servicios/auth/auth.nuevo';
+import {AuthService} from '../../servicios/auth/auth';
 import {ToolBarMenu} from '../toolbarMenu/toolbarMenu';
 
 @Component({
-  templateUrl: 'profile.html',
-  providers: [AuthService]
+  templateUrl: 'profile.html'
 })
 export class PerfilAutenticacion {
   
@@ -18,7 +16,7 @@ export class PerfilAutenticacion {
 	}
 
 	redirectToSearch(){
-/*	  if(this.auth.authenticated()) {
+	  if(this.auth.authenticated()) {
 	    //this.navCtrl.push(TabsPage);
 	  	this.navCtrl.setRoot(ToolBarMenu);
 	  }else{
@@ -29,16 +27,4 @@ export class PerfilAutenticacion {
 	  } 
 	}
 
-}*/
-import {Component} from '@angular/core';
-import {AuthService} from '../../servicios/auth/auth';
-
-@Component({
-  templateUrl: 'profile.html'
-})
-export class PerfilAutenticacion {
-  
-  // We need to inject AuthService so that we can
-  // use it in the view
-  constructor(public auth: AuthService) {}
 }

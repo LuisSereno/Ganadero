@@ -12,9 +12,18 @@ export class Detalle {
 	
 	animal:Animal;
 
+	fechaNacimiento: String;
+
 	constructor(public navCtrl: NavController,  params: NavParams) {
-		let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),[],[],new Date());
-		this.animal=vaca2;
-		let animalito=params.get("animal");
+		//let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),[],[],new Date());
+		//this.animal=vaca2;
+		let animalito:Animal=params.get("animal");
+		this.fechaNacimiento=animalito.getFechaNacimiento().toISOString();
+		this.animal=animalito;
 	}
+
+	private volver(){
+		this.navCtrl.pop();
+	}
+
 }

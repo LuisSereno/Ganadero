@@ -20,17 +20,16 @@ export class ListaGanado {
 
   	constructor(public navCtrl: NavController) {
 
-		let toro1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),[],[],new Date());
-		let toro2:Animal = new Macho(34,"pilonazo","blonda",null,5676,new Date(),[],[],new Date());
-		let vaca1:Animal = new Hembra(35,"pili","blonda",null,5677,new Date(),[],[],new Date());
-		let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),[],[],new Date());
+		let toro1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),["Ag5","A4E"],["cirrosis","quiste"],new Date());
+		let toro2:Animal = new Macho(34,"pilonazo","blonda",null,5676,new Date(),["sere","as3","9oi"],["cirrosis2","quiste2"],new Date());
+		let vaca1:Animal = new Hembra(35,"pili","blonda",null,5677,new Date(),["Iu2","34e","23f"],["cirrosis3","quiste3"],new Date());
+		let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),["3r3","23f","bm3"],["cirrosis4","quiste4"],new Date());
 
 		this.arrayHembras=[vaca1,vaca2];
 		this.arrayMachos=[toro1,toro2];
 	}
 
 	protected detalle(animalito:Animal){
-		alert(animalito.getAlias());
 		this.navCtrl.push(Detalle,{animal:animalito});
 	}
 }

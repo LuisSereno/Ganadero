@@ -30,7 +30,7 @@ constructor(public menuCtrl: MenuController,public navCtrl: NavController) {
   }
 
   initializeApp() {
-    this.menuCtrl.open();
+    console.log("Se inicializala apliciacion con el initializeApp");
   }
 
  ngOnInit() {

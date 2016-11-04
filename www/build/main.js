@@ -101962,80 +101962,6 @@ var AuthService = (function () {
     return AuthService;
 }());
 
-var __decorate$108 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$2 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var PerfilAutenticacion = (function () {
-    // We need to inject AuthService so that we can
-    // use it in the view
-    function PerfilAutenticacion(auth) {
-        this.auth = auth;
-    }
-    PerfilAutenticacion = __decorate$108([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\profile\profile.html"*/' <!-- app/pages/profile/profile.html \n\n<ion-navbar *navbar>\n\n  <ion-title>Profile</ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content  style="height:100vh;" padding *ngIf="!auth.authenticated()">\n\n  \n\n  <button block (click)="auth.login()">Login</button>\n\n\n\n</ion-content>\n\n-->\n\n\n\n\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Profile</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding *ngIf="!auth.authenticated()">\n\n  \n\n  <button ion-button block (click)="auth.login()">Login</button>\n\n  \n\n</ion-content>\n\n\n\n<ion-content padding *ngIf="auth.authenticated()">\n\n  \n\n  <ion-card>\n\n\n\n    <ion-item *ngIf="auth.user">\n\n      <ion-avatar item-left>\n\n        <img src="{{ auth.user.picture }}">\n\n      </ion-avatar>\n\n      <h2>{{ auth.user.nickname }}</h2>\n\n      <p>{{ auth.user.email }}</p>\n\n    </ion-item>\n\n  \n\n  </ion-card>\n\n  \n\n  <button ion-button block (click)="auth.logout()">Logout</button>\n\n  \n\n</ion-content>'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\profile\profile.html"*/
-        }), 
-        __metadata$2('design:paramtypes', [AuthService])
-    ], PerfilAutenticacion);
-    return PerfilAutenticacion;
-}());
-
-var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$1 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var MyApp = (function () {
-    function MyApp(platform) {
-        this.rootPage = PerfilAutenticacion;
-        platform.ready().then(function () {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            StatusBar.styleDefault();
-            Splashscreen.hide();
-        });
-    }
-    MyApp = __decorate$1([
-        Component({
-            template: "<ion-nav [root]=\"rootPage\"></ion-nav>",
-            providers: []
-        }), 
-        __metadata$1('design:paramtypes', [Platform])
-    ], MyApp);
-    return MyApp;
-}());
-
-var __decorate$112 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var AboutPage = (function () {
-    function AboutPage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    AboutPage = __decorate$112([
-        Component({
-            selector: 'page-about',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<ion-item>\n	  <ion-label>Date</ion-label>\n	  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>\n	</ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\about\about.html"*/
-        }), 
-        __metadata$5('design:paramtypes', [NavController])
-    ], AboutPage);
-    return AboutPage;
-}());
-
 var __decorate$113 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -102045,82 +101971,13 @@ var __decorate$113 = (undefined && undefined.__decorate) || function (decorators
 var __metadata$6 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var ContactPage = (function () {
-    function ContactPage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    ContactPage = __decorate$113([
-        Component({
-            selector: 'page-contact',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\contact\contact.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="ionic" item-left></ion-icon>\n      @ionicframework\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\contact\contact.html"*/
-        }), 
-        __metadata$6('design:paramtypes', [NavController])
-    ], ContactPage);
-    return ContactPage;
-}());
-
-var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$7 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var HomePage = (function () {
-    function HomePage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    HomePage = __decorate$114([
-        Component({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Ionic!</h2>\n  <p>\n    This starter project comes with simple tabs-based layout for apps\n    that are going to primarily use a Tabbed UI.\n  </p>\n  <p>\n    Take a look at the <code>src/pages/</code> directory to add or change tabs,\n    update any existing page or create new pages.\n  </p>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\home\home.html"*/
-        }), 
-        __metadata$7('design:paramtypes', [NavController])
-    ], HomePage);
-    return HomePage;
-}());
-
-var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$8 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var TabsPage = (function () {
-    function TabsPage() {
-        // this tells the tabs component which Pages
-        // should be each tab's root Page
-        this.tab1Root = HomePage;
-        this.tab2Root = AboutPage;
-        this.tab3Root = ContactPage;
-    }
-    TabsPage = __decorate$115([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\tabs\tabs.html"*/
-        }), 
-        __metadata$8('design:paramtypes', [])
-    ], TabsPage);
-    return TabsPage;
-}());
-
-var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var ListaDocumentos = (function () {
     function ListaDocumentos() {
     }
-    ListaDocumentos = __decorate$117([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\listadoDocumentos\listado.html"*/'\n\n<ion-navbar *navbar>\n\n  <ion-title>\n\n    Puntuacion\n\n  </ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="medusas">\n\n	      Medusas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="hadas">\n\n	      Hada\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchWhen="\'medusas\'">\n\n	    <ion-item *ngFor="#person of arrayAteneas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/reloj.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	    	<p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchWhen="\'hadas\'">\n\n	    <ion-item *ngFor="#person of arrayMedusas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/perfecto512bit32.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	      <p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\listadoDocumentos\listado.html"*/
+    ListaDocumentos = __decorate$113([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/'\n\n<ion-navbar *navbar>\n\n  <ion-title>\n\n    Puntuacion\n\n  </ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="medusas">\n\n	      Medusas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="hadas">\n\n	      Hada\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchWhen="\'medusas\'">\n\n	    <ion-item *ngFor="#person of arrayAteneas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/reloj.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	    	<p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchWhen="\'hadas\'">\n\n	    <ion-item *ngFor="#person of arrayMedusas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/perfecto512bit32.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	      <p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/
         }), 
-        __metadata$10('design:paramtypes', [])
+        __metadata$6('design:paramtypes', [])
     ], ListaDocumentos);
     return ListaDocumentos;
 }());
@@ -102254,37 +102111,42 @@ var Macho = (function (_super) {
     return Macho;
 }(Animal));
 
-var __decorate$119 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$8 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var Detalle = (function () {
     function Detalle(navCtrl, params) {
         this.navCtrl = navCtrl;
-        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), [], [], new Date());
-        this.animal = vaca2;
+        //let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),[],[],new Date());
+        //this.animal=vaca2;
         var animalito = params.get("animal");
+        this.fechaNacimiento = animalito.getFechaNacimiento().toISOString();
+        this.animal = animalito;
     }
-    Detalle = __decorate$119([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\detalle\detalle.html"*/'<ion-navbar *navbar>\n\n  <ion-title>Animal</ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content padding class="page1">\n\n  <ion-card>\n\n\n\n    <img src="{{animal.getFoto()}}" class="tamanoreal"/>\n\n\n\n   <ion-card-content>\n\n      <h2 class="card-title">\n\n        {{animal.getNumero()}}\n\n      </h2>\n\n      <p>\n\n        {{animal.getAlias()}}\n\n      </p>\n\n\n\n        <ion-row>\n\n          <ion-col>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <input type="string" value="{{animal.getRaza()}}">\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <ion-icon name=\'shuffle\' item-left class="color-iconos"></ion-icon>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                  \n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <ion-item class="text-label">\n\n                        <ion-label primary>Date:</ion-label>\n\n                        <ion-datetime displayFormat="YYYY-MM-DD"> </ion-datetime>\n\n                  </ion-item>\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <ion-icon name=\'color-wand\' item-left class="color-iconos"></ion-icon>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                  <ion-textarea ngDefaultControl> {{textoLabel}} </ion-textarea>\n\n                </div>        \n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <ion-icon name=\'lock\' item-left class="color-iconos"></ion-icon>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                  <ion-textarea ngDefaultControl> {{textoLabel}} </ion-textarea>\n\n                </div> \n\n              </ion-col>\n\n            </ion-row>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\detalle\detalle.html"*/
+    Detalle.prototype.volver = function () {
+        this.navCtrl.pop();
+    };
+    Detalle = __decorate$115([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding class="page1">\n\n  <ion-card>\n\n\n\n    <img src="{{animal.getFoto()}}" class="tamanoreal"/>\n\n\n\n   <ion-card-content>\n\n      <h2 class="card-title">\n\n        {{animal.getNumero()}}\n\n      </h2>\n\n      <p>\n\n        {{animal.getAlias()}}\n\n      </p>\n\n\n\n        <ion-row>\n\n          <ion-col>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Raza \n\n                  <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>\n\n                </label>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <input type="string" value="{{animal.getRaza()}}">\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Fecha Nacimiento\n\n                  <ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>\n\n                 </label>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                  <ion-item class="text-label">\n\n                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>\n\n                  </ion-item>\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Vacunas\n\n                  <ion-icon name=\'color-wand\' item-left class="color-iconos"></ion-icon>\n\n                </label>  \n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                <input type="string" value="{{textoLabel}}">\n\n                </div>        \n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Enfermedades\n\n                  <ion-icon name=\'lock\' item-left class="color-iconos"></ion-icon>\n\n                </label>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <div *ngFor="let textoLabel of animal.getEnfermedades()" >\n\n                <input type="string" value="{{textoLabel}}">\n\n                </div> \n\n              </ion-col>\n\n            </ion-row>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-card-content>\n\n    <button ion-button color="dark" round right>Light</button>\n\n  </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/
         }), 
-        __metadata$12('design:paramtypes', [NavController, NavParams])
+        __metadata$8('design:paramtypes', [NavController, NavParams])
     ], Detalle);
     return Detalle;
 }());
 
-var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$7 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ListaGanado = (function () {
@@ -102292,32 +102154,31 @@ var ListaGanado = (function () {
         this.navCtrl = navCtrl;
         //Este valor dependera de lo que seas tu, asi se te mostrara el primero
         this.tipoMostrado = "hembras";
-        var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), [], [], new Date());
-        var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), [], [], new Date());
-        var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), [], [], new Date());
-        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), [], [], new Date());
+        var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date());
+        var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date());
+        var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date());
+        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date());
         this.arrayHembras = [vaca1, vaca2];
         this.arrayMachos = [toro1, toro2];
     }
     ListaGanado.prototype.detalle = function (animalito) {
-        alert(animalito.getAlias());
         this.navCtrl.push(Detalle, { animal: animalito });
     };
-    ListaGanado = __decorate$118([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\listadoGanado\listado.html"*/'<ion-header>\n\n  <ion-navbar hideBackButton="true"> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="hembras">\n\n	      Hembras\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="machos">\n\n	      Machos\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'hembras\'">\n\n	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'machos\'">\n\n	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\listadoGanado\listado.html"*/
+    ListaGanado = __decorate$114([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="hembras">\n\n	      Hembras\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="machos">\n\n	      Machos\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'hembras\'">\n\n	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'machos\'">\n\n	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n	\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/
         }), 
-        __metadata$11('design:paramtypes', [NavController])
+        __metadata$7('design:paramtypes', [NavController])
     ], ListaGanado);
     return ListaGanado;
 }());
 
-var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$13 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ListaVentas = (function () {
@@ -102334,21 +102195,21 @@ var ListaVentas = (function () {
                 this.arrayAteneas=[personajito,defensor];
                 this.arrayMedusas=[atacante2,defensor2]; */
     }
-    ListaVentas = __decorate$120([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\listadoVentas\listado.html"*/'\n\n<ion-navbar *navbar>\n\n  <ion-title>\n\n    Puntuacion\n\n  </ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="medusas">\n\n	      Medusas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="hadas">\n\n	      Hada\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchWhen="\'medusas\'">\n\n	    <ion-item *ngFor="#person of arrayAteneas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/reloj.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	    	<p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchWhen="\'hadas\'">\n\n	    <ion-item *ngFor="#person of arrayMedusas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/perfecto512bit32.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	      <p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\listadoVentas\listado.html"*/
+    ListaVentas = __decorate$116([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoVentas\listado.html"*/'\n\n<ion-navbar *navbar>\n\n  <ion-title>\n\n    Puntuacion\n\n  </ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="medusas">\n\n	      Medusas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="hadas">\n\n	      Hada\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchWhen="\'medusas\'">\n\n	    <ion-item *ngFor="#person of arrayAteneas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/reloj.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	    	<p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchWhen="\'hadas\'">\n\n	    <ion-item *ngFor="#person of arrayMedusas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/perfecto512bit32.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	      <p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoVentas\listado.html"*/
         }), 
-        __metadata$13('design:paramtypes', [])
+        __metadata$9('design:paramtypes', [])
     ], ListaVentas);
     return ListaVentas;
 }());
 
-var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$112 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 //import {AuthService} from '../../servicios/auth/auth';
@@ -102369,7 +102230,7 @@ var ToolBarMenu = (function () {
         ];
     }
     ToolBarMenu.prototype.initializeApp = function () {
-        this.menuCtrl.open();
+        console.log("Se inicializala apliciacion con el initializeApp");
     };
     ToolBarMenu.prototype.ngOnInit = function () {
         console.log("Se inicializala apliciacion con el ngOnInit");
@@ -102379,12 +102240,170 @@ var ToolBarMenu = (function () {
         //this.platform.exitApp();
         location.reload();
     };
-    ToolBarMenu = __decorate$116([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\toolbarMenu\toolbarMenu.html"*/'<ion-header>\n\n  <ion-navbar hideBackButton="true"> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Left Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\cutePuppyPics\src\pages\toolbarMenu\toolbarMenu.html"*/,
+    ToolBarMenu = __decorate$112([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/'<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Left Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/,
         }), 
-        __metadata$9('design:paramtypes', [MenuController, NavController])
+        __metadata$5('design:paramtypes', [MenuController, NavController])
     ], ToolBarMenu);
     return ToolBarMenu;
+}());
+
+var __decorate$108 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$2 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var PerfilAutenticacion = (function () {
+    // We need to inject AuthService so that we can
+    // use it in the view
+    function PerfilAutenticacion(navCtrl, auth) {
+        this.navCtrl = navCtrl;
+        this.auth = auth;
+        this.redirectToSearch();
+    }
+    PerfilAutenticacion.prototype.redirectToSearch = function () {
+        var _this = this;
+        if (this.auth.authenticated()) {
+            //this.navCtrl.push(TabsPage);
+            this.navCtrl.setRoot(ToolBarMenu);
+        }
+        else {
+            this.auth.lock.on('authenticated', function (authResult) {
+                //this.navCtrl.push(TabsPage);
+                _this.navCtrl.setRoot(ToolBarMenu);
+            });
+        }
+    };
+    PerfilAutenticacion = __decorate$108([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\profile\profile.html"*/' <!-- app/pages/profile/profile.html \n\n<ion-navbar *navbar>\n\n  <ion-title>Profile</ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content  style="height:100vh;" padding *ngIf="!auth.authenticated()">\n\n  \n\n  <button block (click)="auth.login()">Login</button>\n\n\n\n</ion-content>\n\n-->\n\n\n\n\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Profile</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding *ngIf="!auth.authenticated()">\n\n  \n\n  <button ion-button block (click)="auth.login()">Login</button>\n\n  \n\n</ion-content>\n\n\n\n<ion-content padding *ngIf="auth.authenticated()">\n\n  \n\n  <ion-card>\n\n\n\n    <ion-item *ngIf="auth.user">\n\n      <ion-avatar item-left>\n\n        <img src="{{ auth.user.picture }}">\n\n      </ion-avatar>\n\n      <h2>{{ auth.user.nickname }}</h2>\n\n      <p>{{ auth.user.email }}</p>\n\n    </ion-item>\n\n  \n\n  </ion-card>\n\n  \n\n  <button ion-button block (click)="auth.logout()">Logout</button>\n\n  \n\n</ion-content>'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\profile\profile.html"*/
+        }), 
+        __metadata$2('design:paramtypes', [NavController, AuthService])
+    ], PerfilAutenticacion);
+    return PerfilAutenticacion;
+}());
+
+var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$1 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var MyApp = (function () {
+    function MyApp(platform) {
+        this.rootPage = PerfilAutenticacion;
+        platform.ready().then(function () {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            StatusBar.styleDefault();
+            Splashscreen.hide();
+        });
+    }
+    MyApp = __decorate$1([
+        Component({
+            template: "<ion-nav [root]=\"rootPage\"></ion-nav>",
+            providers: []
+        }), 
+        __metadata$1('design:paramtypes', [Platform])
+    ], MyApp);
+    return MyApp;
+}());
+
+var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var AboutPage = (function () {
+    function AboutPage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    AboutPage = __decorate$117([
+        Component({
+            selector: 'page-about',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<ion-item>\n	  <ion-label>Date</ion-label>\n	  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>\n	</ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\about\about.html"*/
+        }), 
+        __metadata$10('design:paramtypes', [NavController])
+    ], AboutPage);
+    return AboutPage;
+}());
+
+var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ContactPage = (function () {
+    function ContactPage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    ContactPage = __decorate$118([
+        Component({
+            selector: 'page-contact',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\contact\contact.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="ionic" item-left></ion-icon>\n      @ionicframework\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\contact\contact.html"*/
+        }), 
+        __metadata$11('design:paramtypes', [NavController])
+    ], ContactPage);
+    return ContactPage;
+}());
+
+var __decorate$119 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var HomePage = (function () {
+    function HomePage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    HomePage = __decorate$119([
+        Component({
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Ionic!</h2>\n  <p>\n    This starter project comes with simple tabs-based layout for apps\n    that are going to primarily use a Tabbed UI.\n  </p>\n  <p>\n    Take a look at the <code>src/pages/</code> directory to add or change tabs,\n    update any existing page or create new pages.\n  </p>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\home\home.html"*/
+        }), 
+        __metadata$12('design:paramtypes', [NavController])
+    ], HomePage);
+    return HomePage;
+}());
+
+var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$13 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var TabsPage = (function () {
+    function TabsPage() {
+        // this tells the tabs component which Pages
+        // should be each tab's root Page
+        this.tab1Root = HomePage;
+        this.tab2Root = AboutPage;
+        this.tab3Root = ContactPage;
+    }
+    TabsPage = __decorate$120([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\tabs\tabs.html"*/
+        }), 
+        __metadata$13('design:paramtypes', [])
+    ], TabsPage);
+    return TabsPage;
 }());
 
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
