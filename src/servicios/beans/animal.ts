@@ -18,6 +18,10 @@ export abstract class Animal {
 
 	private enfermedades: Array<string>;
 
+	private ascendencia: Array<Animal>;
+
+	private descendencia: Array<Animal>;
+
 
 	constructor() {
 		this.id = 0;
@@ -28,6 +32,8 @@ export abstract class Animal {
 		this.fechaNacimiento = new Date();
 		this.vacunas=new Array<string>();
 		this.enfermedades=new Array<string>();
+		this.ascendencia=new Array<Animal>();
+		this.descendencia=new Array<Animal>();
 	}
 
 	public getId(): number {
@@ -86,7 +92,7 @@ export abstract class Animal {
 		this.fechaNacimiento = fecNac;
 	}
 
-	public getVacunas()  : Array<string>{
+	public getVacunas():Array<string>{
 		return this.vacunas;
 	}
 
@@ -100,6 +106,22 @@ export abstract class Animal {
 
 	public setEnfermedades(enf:Array<string>){
 		this.enfermedades = enf;
+	}
+
+	public getAscendencia() : Array<Animal>{
+		return this.ascendencia;
+	}
+
+	public setAscendencia(ascen:Array<Animal>){
+		this.ascendencia = ascen;
+	}
+
+	public getDescendencia() : Array<Animal>{
+		return this.descendencia;
+	}
+
+	public setDescendencia(descen:Array<Animal>){
+		this.descendencia = descen;
 	}
 
 /*	public abstract ataquePrimario();

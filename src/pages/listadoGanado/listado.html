@@ -18,7 +18,6 @@
 	    </ion-segment-button>
 	  </ion-segment>
 	</div>
-
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'hembras'">
 	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">
@@ -42,5 +41,4 @@
 	    
 	  </ion-list>
 	</div>
-	
 </ion-content>

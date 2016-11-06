@@ -9,64 +9,90 @@
     <img src="{{animal.getFoto()}}" class="tamanoreal"/>
 
    <ion-card-content>
-      <h2 class="card-title">
+      <h2 text-center class="card-title">
         {{animal.getNumero()}}
       </h2>
-      <p>
+      <p text-center>
         {{animal.getAlias()}}
       </p>
-
-        <ion-row>
-          <ion-col>
+      <ion-card>
+        <ion-grid>
             <ion-row>
-              <ion-col width-20>
-                <label>Raza 
-                  <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>
-                </label>
-              </ion-col>
-              <ion-col width-80>
-                <input type="string" value="{{animal.getRaza()}}">
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col width-20>
-                <label>Fecha Nacimiento
-                  <ion-icon name='map' item-left class="color-iconos"></ion-icon>
-                 </label>
-              </ion-col>
-              <ion-col width-80>
-                  <ion-item class="text-label">
-                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>
-                  </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col width-20>
-                <label>Vacunas
-                  <ion-icon name='color-wand' item-left class="color-iconos"></ion-icon>
-                </label>  
-              </ion-col>
-              <ion-col width-80>
-                <div *ngFor="let textoLabel of animal.getVacunas()" >
-                <input type="string" value="{{textoLabel}}">
-                </div>        
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col width-20>
-                <label>Enfermedades
-                  <ion-icon name='lock' item-left class="color-iconos"></ion-icon>
-                </label>
-              </ion-col>
-              <ion-col width-80>
-                <div *ngFor="let textoLabel of animal.getEnfermedades()" >
-                <input type="string" value="{{textoLabel}}">
-                </div> 
-              </ion-col>
-            </ion-row>
-        </ion-col>
-      </ion-row>
+              <ion-col>
+                <ion-row>
+                  <ion-col width-20>
+                    <label>
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Raza 
+                    </label>
+                  </ion-col>
+                  <ion-col width-80>
+                    <input type="string" value="{{animal.getRaza()}}">
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col width-20>
+                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
+                     </label>
+                  </ion-col>
+                  <ion-col width-80>
+                      <ion-item class="text-label">
+                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col width-20>
+                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Ascendencia
+                     </label>
+                  </ion-col>
+                  <ion-col width-80>
+                    <div *ngFor="let ganado of animal.getAscendencia()" >
+                      <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col width-20>
+                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Descendencia
+                     </label>
+                  </ion-col>
+                  <ion-col width-80>
+                      <div *ngFor="let ganado of animal.getDescendencia()" >
+                        <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
+                      </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col width-20>
+                    <label><ion-icon name='color-wand' item-left class="color-iconos"></ion-icon>Vacunas
+                    </label>  
+                  </ion-col>
+                  <ion-col width-80>
+                    <div *ngFor="let textoLabel of animal.getVacunas()" >
+                    <input type="string" value="{{textoLabel}}">
+                    </div>        
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col width-20>
+                    <label><ion-icon name='lock' item-left class="color-iconos"></ion-icon>Enfermedades
+                    </label>
+                  </ion-col>
+                  <ion-col width-80>
+                    <div *ngFor="let textoLabel of animal.getEnfermedades()" >
+                    <input type="string" value="{{textoLabel}}">
+                    </div> 
+                  </ion-col>
+                </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
     </ion-card-content>
-    <button ion-button color="dark" round right>Light</button>
+    <ion-row>
+     <ion-col offset-90>
+        <button ion-button color="dark" round right>Guardar</button>
+     </ion-col>
+    </ion-row>
   </ion-card>
 </ion-content>

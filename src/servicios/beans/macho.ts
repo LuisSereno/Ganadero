@@ -5,7 +5,8 @@ export class Macho extends Animal{
 
 	constructor(id:number,alias:string,raza:string,foto:string,
 		numero:number,fechaNacimiento:Date,vacu:Array<string>,
-		enfer:Array<string>,fechaUltimoNacimiento:Date){
+		enfer:Array<string>,fechaUltimoNacimiento:Date,
+		ascen:Array<Animal>,descen:Array<Animal>){
 		super();
 		this.setId(id);
 		this.setAlias(alias);
@@ -15,6 +16,8 @@ export class Macho extends Animal{
 		this.setFechaNacimiento(fechaNacimiento);
 		this.setVacunas(vacu);
 		this.setEnfermedades(enfer);
+		this.setAscendencia(ascen);
+		this.setDescendencia(descen);
 	}
 
 }

@@ -102000,6 +102000,8 @@ var Animal = (function () {
         this.fechaNacimiento = new Date();
         this.vacunas = new Array();
         this.enfermedades = new Array();
+        this.ascendencia = new Array();
+        this.descendencia = new Array();
     }
     Animal.prototype.getId = function () {
         return this.id;
@@ -102059,6 +102061,18 @@ var Animal = (function () {
     Animal.prototype.setEnfermedades = function (enf) {
         this.enfermedades = enf;
     };
+    Animal.prototype.getAscendencia = function () {
+        return this.ascendencia;
+    };
+    Animal.prototype.setAscendencia = function (ascen) {
+        this.ascendencia = ascen;
+    };
+    Animal.prototype.getDescendencia = function () {
+        return this.descendencia;
+    };
+    Animal.prototype.setDescendencia = function (descen) {
+        this.descendencia = descen;
+    };
     return Animal;
 }());
 
@@ -102069,7 +102083,7 @@ var __extends$264 = (undefined && undefined.__extends) || function (d, b) {
 };
 var Hembra = (function (_super) {
     __extends$264(Hembra, _super);
-    function Hembra(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento) {
+    function Hembra(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento, ascen, descen) {
         _super.call(this);
         this.setId(id);
         this.setAlias(alias);
@@ -102080,6 +102094,8 @@ var Hembra = (function (_super) {
         this.setVacunas(vacu);
         this.setEnfermedades(enfer);
         this.setFechaUltimoNacimiento(fechaUltimoNacimiento);
+        this.setAscendencia(ascen);
+        this.setDescendencia(descen);
     }
     Hembra.prototype.setFechaUltimoNacimiento = function (fecUlti) {
         this.fechaUltimoNacimiento = fecUlti;
@@ -102097,7 +102113,7 @@ var __extends$265 = (undefined && undefined.__extends) || function (d, b) {
 };
 var Macho = (function (_super) {
     __extends$265(Macho, _super);
-    function Macho(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento) {
+    function Macho(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento, ascen, descen) {
         _super.call(this);
         this.setId(id);
         this.setAlias(alias);
@@ -102107,6 +102123,8 @@ var Macho = (function (_super) {
         this.setFechaNacimiento(fechaNacimiento);
         this.setVacunas(vacu);
         this.setEnfermedades(enfer);
+        this.setAscendencia(ascen);
+        this.setDescendencia(descen);
     }
     return Macho;
 }(Animal));
@@ -102132,8 +102150,14 @@ var Detalle = (function () {
     Detalle.prototype.volver = function () {
         this.navCtrl.pop();
     };
+    Detalle.prototype.irDetalleDesdeDetalle = function (animalito) {
+        this.navCtrl.push(Detalle, { animal: animalito });
+    };
+    Detalle.prototype.devuelveColorBadge = function (tipoObjeto) {
+        return tipoObjeto instanceof Macho ? 'danger' : 'secondary';
+    };
     Detalle = __decorate$115([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding class="page1">\n\n  <ion-card>\n\n\n\n    <img src="{{animal.getFoto()}}" class="tamanoreal"/>\n\n\n\n   <ion-card-content>\n\n      <h2 class="card-title">\n\n        {{animal.getNumero()}}\n\n      </h2>\n\n      <p>\n\n        {{animal.getAlias()}}\n\n      </p>\n\n\n\n        <ion-row>\n\n          <ion-col>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Raza \n\n                  <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>\n\n                </label>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <input type="string" value="{{animal.getRaza()}}">\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Fecha Nacimiento\n\n                  <ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>\n\n                 </label>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                  <ion-item class="text-label">\n\n                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>\n\n                  </ion-item>\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Vacunas\n\n                  <ion-icon name=\'color-wand\' item-left class="color-iconos"></ion-icon>\n\n                </label>  \n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                <input type="string" value="{{textoLabel}}">\n\n                </div>        \n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n              <ion-col width-20>\n\n                <label>Enfermedades\n\n                  <ion-icon name=\'lock\' item-left class="color-iconos"></ion-icon>\n\n                </label>\n\n              </ion-col>\n\n              <ion-col width-80>\n\n                <div *ngFor="let textoLabel of animal.getEnfermedades()" >\n\n                <input type="string" value="{{textoLabel}}">\n\n                </div> \n\n              </ion-col>\n\n            </ion-row>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-card-content>\n\n    <button ion-button color="dark" round right>Light</button>\n\n  </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding class="page1">\n\n  <ion-card>\n\n\n\n    <img src="{{animal.getFoto()}}" class="tamanoreal"/>\n\n\n\n   <ion-card-content>\n\n      <h2 text-center class="card-title">\n\n        {{animal.getNumero()}}\n\n      </h2>\n\n      <p text-center>\n\n        {{animal.getAlias()}}\n\n      </p>\n\n      <ion-card>\n\n        <ion-grid>\n\n            <ion-row>\n\n              <ion-col>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label>\n\n                     <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>Raza \n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <input type="string" value="{{animal.getRaza()}}">\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Fecha Nacimiento\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                      <ion-item class="text-label">\n\n                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>\n\n                      </ion-item>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Ascendencia\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let ganado of animal.getAscendencia()" >\n\n                      <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>\n\n                    </div>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Descendencia\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                      <div *ngFor="let ganado of animal.getDescendencia()" >\n\n                        <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>\n\n                      </div>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'color-wand\' item-left class="color-iconos"></ion-icon>Vacunas\n\n                    </label>  \n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                    <input type="string" value="{{textoLabel}}">\n\n                    </div>        \n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'lock\' item-left class="color-iconos"></ion-icon>Enfermedades\n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let textoLabel of animal.getEnfermedades()" >\n\n                    <input type="string" value="{{textoLabel}}">\n\n                    </div> \n\n                  </ion-col>\n\n                </ion-row>\n\n            </ion-col>\n\n          </ion-row>\n\n        </ion-grid>\n\n      </ion-card>\n\n    </ion-card-content>\n\n    <ion-row>\n\n     <ion-col offset-90>\n\n        <button ion-button color="dark" round right>Guardar</button>\n\n     </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/
         }), 
         __metadata$8('design:paramtypes', [NavController, NavParams])
     ], Detalle);
@@ -102154,10 +102178,14 @@ var ListaGanado = (function () {
         this.navCtrl = navCtrl;
         //Este valor dependera de lo que seas tu, asi se te mostrara el primero
         this.tipoMostrado = "hembras";
-        var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date());
-        var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date());
-        var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date());
-        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date());
+        var toroPadre1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), [], []);
+        var vacaMadre2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), [], []);
+        var arrayAscen = [toroPadre1, vacaMadre2];
+        var arrayDescen = [toroPadre1, toroPadre1];
+        var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), arrayAscen, arrayDescen);
+        var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date(), arrayAscen, arrayDescen);
+        var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date(), arrayAscen, arrayDescen);
+        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), arrayAscen, arrayDescen);
         this.arrayHembras = [vaca1, vaca2];
         this.arrayMachos = [toro1, toro2];
     }
@@ -102165,7 +102193,7 @@ var ListaGanado = (function () {
         this.navCtrl.push(Detalle, { animal: animalito });
     };
     ListaGanado = __decorate$114([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="hembras">\n\n	      Hembras\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="machos">\n\n	      Machos\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'hembras\'">\n\n	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'machos\'">\n\n	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n	\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="hembras">\n\n	      Hembras\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="machos">\n\n	      Machos\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'hembras\'">\n\n	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'machos\'">\n\n	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/
         }), 
         __metadata$7('design:paramtypes', [NavController])
     ], ListaGanado);

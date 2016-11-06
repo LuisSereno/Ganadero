@@ -1,3 +1,4 @@
+
 import {NavController,NavParams} from 'ionic-angular';
 import { Component } from '@angular/core';
 import {Hembra} from '../../servicios/beans/hembra'
@@ -24,6 +25,14 @@ export class Detalle {
 
 	private volver(){
 		this.navCtrl.pop();
+	}
+
+	protected irDetalleDesdeDetalle(animalito:Animal){
+		this.navCtrl.push(Detalle,{animal:animalito});
+	}
+
+	protected devuelveColorBadge(tipoObjeto:any):String{
+		return tipoObjeto instanceof Macho ? 'danger' : 'secondary'
 	}
 
 }
