@@ -8,6 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ToolBarMenu } from '../pages/toolbarMenu/toolbarMenu';
 import { PerfilAutenticacion } from '../pages/profile/profile';
 import { ListaGanado } from '../pages/listadoGanado/listado';
+import { ListaDocumentos } from '../pages/listadoDocumentos/listado';
 import { Detalle } from '../pages/detalle/detalle';
 import { Storage } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
@@ -34,7 +35,8 @@ export function getAuthHttp(http) {
     ToolBarMenu,
     PerfilAutenticacion,
     ListaGanado,
-    Detalle
+    Detalle,
+    ListaDocumentos
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -50,6 +52,7 @@ export function getAuthHttp(http) {
     PerfilAutenticacion,
     ListaGanado,
     Detalle,
+    ListaDocumentos
   ],
   providers: [
     AuthService,

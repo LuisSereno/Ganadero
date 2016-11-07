@@ -1,45 +1,23 @@
+<ion-header>
+  <ion-navbar> 
+      <button ion-button menuToggle right>
+          <ion-icon name="ios-menu-outline"></ion-icon>
+      </button>
+  </ion-navbar>
+</ion-header>
 
-<ion-navbar *navbar>
-  <ion-title>
-    Puntuacion
-  </ion-title>
-</ion-navbar>
+<ion-content>
 
-<ion-content class="page3">
+	<ion-list>
+	  <ion-item>
+	    <ion-thumbnail item-left>
+	      <img src="img/thumbnail-totoro.png">
+	    </ion-thumbnail>
+	    <h2>My Neighbor Totoro</h2>
+	    <p>Hayao Miyazaki • 1988</p>
+	    <button clear item-right>View</button>
+	  </ion-item>
+	</ion-list>
 
-	<div padding>
-	  <ion-segment [(ngModel)]="tipoMostrado">
-	    <ion-segment-button value="medusas">
-	      Medusas
-	    </ion-segment-button>
-	    <ion-segment-button value="hadas">
-	      Hada
-	    </ion-segment-button>
-	  </ion-segment>
-	</div>
-
-	<div [ngSwitch]="tipoMostrado">
-	  <ion-list *ngSwitchWhen="'medusas'">
-	    <ion-item *ngFor="#person of arrayAteneas">
-	      <ion-thumbnail item-left>
-	        <img src="img/reloj.png">
-	      </ion-thumbnail>
-	      <h2>{{person.getNombre()}}</h2>
-	    	<p>{{person.getDescripcion()}}</p>
-	    </ion-item>
-	    
-	  </ion-list>
-
-	  <ion-list *ngSwitchWhen="'hadas'">
-	    <ion-item *ngFor="#person of arrayMedusas">
-	      <ion-thumbnail item-left>
-	        <img src="img/perfecto512bit32.png">
-	      </ion-thumbnail>
-	      <h2>{{person.getNombre()}}</h2>
-	      <p>{{person.getDescripcion()}}</p>
-	    </ion-item>
-	    
-	  </ion-list>
-	</div>
 
 </ion-content>

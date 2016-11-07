@@ -101962,6 +101962,59 @@ var AuthService = (function () {
     return AuthService;
 }());
 
+var Documento = (function () {
+    function Documento() {
+        this.id = 0;
+        this.nombre = "";
+        this.url = "";
+        this.tipo = "";
+        this.fechaAlta = new Date();
+    }
+    Documento.prototype.getId = function () {
+        return this.id;
+    };
+    Documento.prototype.setId = function (identificador) {
+        this.id = identificador;
+    };
+    Documento.prototype.getNombre = function () {
+        return this.nombre;
+    };
+    Documento.prototype.setNombre = function (nom) {
+        this.nombre = nom;
+    };
+    Documento.prototype.getUrl = function () {
+        return this.url;
+    };
+    Documento.prototype.setUrl = function (url) {
+        this.url = url;
+    };
+    Documento.prototype.getTipo = function () {
+        return this.tipo;
+    };
+    Documento.prototype.setTipo = function (tip) {
+        this.tipo = tip;
+    };
+    Documento.prototype.getFechaAlta = function () {
+        return this.fechaAlta;
+    };
+    Documento.prototype.setFechaAlta = function (fecha) {
+        this.fechaAlta = fecha;
+    };
+    return Documento;
+}());
+
+//Fichero de constantes
+var Constantes = (function () {
+    function Constantes() {
+    }
+    Constantes.FOTO_ANIMAL_DEFECTO = "../../assets/img/vaca.png";
+    Constantes.TIPODOCUMENTOIMAGEN = "img";
+    Constantes.TIPODOCUMENTOPDF = "pdf";
+    Constantes.TIPODOCUMENTOWORD = "word";
+    Constantes.TIPODOCUMENTOEXCEL = "excel";
+    return Constantes;
+}());
+
 var __decorate$113 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -101973,21 +102026,38 @@ var __metadata$6 = (undefined && undefined.__metadata) || function (k, v) {
 };
 var ListaDocumentos = (function () {
     function ListaDocumentos() {
+        var doc1 = new Documento();
+        doc1.setId(1);
+        doc1.setNombre("luis.word");
+        doc1.setUrl("/hola/holitaMou");
+        doc1.setTipo(Constantes.TIPODOCUMENTOWORD);
+        doc1.setFechaAlta(new Date());
+        var doc2 = new Documento();
+        doc2.setId(1);
+        doc2.setNombre("maria.excel");
+        doc2.setUrl("/hola/holitaMou/excel");
+        doc2.setTipo(Constantes.TIPODOCUMENTOEXCEL);
+        doc2.setFechaAlta(new Date());
+        var doc3 = new Documento();
+        doc3.setId(1);
+        doc3.setNombre("alberto.gimp");
+        doc3.setUrl("/hola/holitaMou/envida");
+        doc3.setTipo(Constantes.TIPODOCUMENTOIMAGEN);
+        doc3.setFechaAlta(new Date());
+        var doc4 = new Documento();
+        doc4.setId(1);
+        doc4.setNombre("nochebuena.pdf");
+        doc4.setUrl("/hola/holitaMou/nuevamejoramiga");
+        doc4.setTipo(Constantes.TIPODOCUMENTOPDF);
+        doc4.setFechaAlta(new Date());
+        this.arrayDocumentos = [doc1, doc2, doc3, doc4];
     }
     ListaDocumentos = __decorate$113([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/'\n\n<ion-navbar *navbar>\n\n  <ion-title>\n\n    Puntuacion\n\n  </ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="medusas">\n\n	      Medusas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="hadas">\n\n	      Hada\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchWhen="\'medusas\'">\n\n	    <ion-item *ngFor="#person of arrayAteneas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/reloj.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	    	<p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchWhen="\'hadas\'">\n\n	    <ion-item *ngFor="#person of arrayMedusas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/perfecto512bit32.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	      <p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n	<ion-list>\n\n	  <ion-item>\n\n	    <ion-thumbnail item-left>\n\n	      <img src="img/thumbnail-totoro.png">\n\n	    </ion-thumbnail>\n\n	    <h2>My Neighbor Totoro</h2>\n\n	    <p>Hayao Miyazaki • 1988</p>\n\n	    <button clear item-right>View</button>\n\n	  </ion-item>\n\n	</ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/
         }), 
         __metadata$6('design:paramtypes', [])
     ], ListaDocumentos);
     return ListaDocumentos;
-}());
-
-//Fichero de constantes
-var Constantes = (function () {
-    function Constantes() {
-    }
-    Constantes.FOTO_ANIMAL_DEFECTO = "../../assets/img/vaca.png";
-    return Constantes;
 }());
 
 var Animal = (function () {
@@ -102243,8 +102313,7 @@ var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
 //import {AuthService} from '../../servicios/auth/auth';
 var ToolBarMenu = (function () {
     // constructor(public menuCtrl: MenuController,private _auth: AuthService) {
-    function ToolBarMenu(menuCtrl, navCtrl) {
-        this.menuCtrl = menuCtrl;
+    function ToolBarMenu(navCtrl) {
         this.navCtrl = navCtrl;
         // make HelloIonicPage the root (or first) page
         this.rootPage = ListaGanado;
@@ -102263,15 +102332,18 @@ var ToolBarMenu = (function () {
     ToolBarMenu.prototype.ngOnInit = function () {
         console.log("Se inicializala apliciacion con el ngOnInit");
     };
+    ToolBarMenu.prototype.openPage = function (page) {
+        this.navCtrl.setRoot(page.component);
+    };
     ToolBarMenu.prototype.logoutApp = function () {
         //  this._auth.logout();
         //this.platform.exitApp();
         location.reload();
     };
     ToolBarMenu = __decorate$112([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/'<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Left Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/,
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/'<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Left Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages"  (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/,
         }), 
-        __metadata$5('design:paramtypes', [MenuController, NavController])
+        __metadata$5('design:paramtypes', [NavController])
     ], ToolBarMenu);
     return ToolBarMenu;
 }());
@@ -102464,7 +102536,8 @@ var AppModule = (function () {
                 ToolBarMenu,
                 PerfilAutenticacion,
                 ListaGanado,
-                Detalle
+                Detalle,
+                ListaDocumentos
             ],
             imports: [
                 IonicModule.forRoot(MyApp)
@@ -102480,6 +102553,7 @@ var AppModule = (function () {
                 PerfilAutenticacion,
                 ListaGanado,
                 Detalle,
+                ListaDocumentos
             ],
             providers: [
                 AuthService,

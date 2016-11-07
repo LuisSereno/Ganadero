@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MenuController } from 'ionic-angular';
 import {ListaDocumentos} from '../listadoDocumentos/listado';
 import {ListaGanado} from '../listadoGanado/listado';
 import {ListaVentas} from '../listadoVentas/listado';
@@ -16,7 +15,7 @@ export class ToolBarMenu{
   pages: Array<{title: string, component: any}>;
 
 // constructor(public menuCtrl: MenuController,private _auth: AuthService) {
-constructor(public menuCtrl: MenuController,public navCtrl: NavController) {
+constructor(public navCtrl: NavController) {
     console.log("El constructor de app.ts");
     
     this.initializeApp();
@@ -36,6 +35,10 @@ constructor(public menuCtrl: MenuController,public navCtrl: NavController) {
  ngOnInit() {
    console.log("Se inicializala apliciacion con el ngOnInit");
  }
+
+  openPage(page) { 
+    this.navCtrl.setRoot(page.component);
+  }
 
  logoutApp(){
  //  this._auth.logout();
