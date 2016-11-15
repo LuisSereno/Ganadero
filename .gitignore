@@ -35,6 +35,9 @@ build/Release
 node_modules
 jspm_packages
 
+#anadidos por mi
+plugins
+
 # Optional npm cache directory
 .npm
 

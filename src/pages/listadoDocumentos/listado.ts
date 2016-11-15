@@ -1,6 +1,11 @@
 import {Component} from '@angular/core';
 import {Documento} from '../../servicios/beans/documento'
 import {Constantes} from '../../servicios/constantes';
+import { NavController } from 'ionic-angular';
+//import { Transfer } from 'ionic-native';
+
+// Cordova
+//declare var cordova: any;
 
 @Component({
   templateUrl: 'listado.html'
@@ -10,7 +15,9 @@ export class ListaDocumentos {
 	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
 	arrayDocumentos: Array<Documento>;
 
-  	constructor() {
+	//fileTransfer = new Transfer();
+
+  	constructor(public navCtrl: NavController) {
 
 		let doc1:Documento = new Documento();
 		doc1.setId(1);
@@ -39,4 +46,21 @@ export class ListaDocumentos {
 
 		this.arrayDocumentos=[doc1,doc2,doc3,doc4];
 	}
+
+	protected visualizar(doc:Documento){
+		window.open('assets/documentos/descarga.pdf', '_system', 'location=yes');
+	}
+
+
+
+	protected descargar(doc:Documento) {
+	  let url = 'assets/documentos/descarga.pdf';
+/*	  this.fileTransfer.download(url, cordova.file.dataDirectory + 'file.pdf').then((entry) => {
+	    console.log('download complete: ' + entry.toURL());
+	  }, (error) => {
+	    // handle error
+	    console.log('errorazo');
+	  }); */
+	}
+
 }

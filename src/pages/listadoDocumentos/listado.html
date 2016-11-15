@@ -9,13 +9,17 @@
 <ion-content>
 
 	<ion-list>
-	  <ion-item>
-	    <ion-thumbnail item-left>
-	      <img src="img/thumbnail-totoro.png">
+	  <ion-item *ngFor="let docu of arrayDocumentos">
+	    <ion-thumbnail item-left [ngSwitch]="docu.getTipo()">
+	      <img *ngSwitchCase="'img'" src="assets/icon/img.jpg">
+	      <img *ngSwitchCase="'pdf'" src="assets/icon/pdf.jpg">
+	      <img *ngSwitchCase="'word'" src="assets/icon/word.png">
+	      <img *ngSwitchCase="'excel'" src="assets/icon/excel.png">
 	    </ion-thumbnail>
 	    <h2>My Neighbor Totoro</h2>
 	    <p>Hayao Miyazaki • 1988</p>
-	    <button clear item-right>View</button>
+	    <button clear item-right (click)="visualizar(docu)" >View</button>
+	    <button clear item-right (click)="descargar(docu)" >Download</button>
 	  </ion-item>
 	</ion-list>
 
