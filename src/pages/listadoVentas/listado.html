@@ -1,45 +1,58 @@
-
-<ion-navbar *navbar>
-  <ion-title>
-    Puntuacion
-  </ion-title>
-</ion-navbar>
+<ion-header>
+  <ion-navbar> 
+      <button ion-button menuToggle right>
+          <ion-icon name="ios-menu-outline"></ion-icon>
+      </button>
+  </ion-navbar>
+</ion-header>
 
 <ion-content class="page3">
 
 	<div padding>
 	  <ion-segment [(ngModel)]="tipoMostrado">
-	    <ion-segment-button value="medusas">
-	      Medusas
+	    <ion-segment-button value="ventas">
+	      Ventas
 	    </ion-segment-button>
-	    <ion-segment-button value="hadas">
-	      Hada
+	    <ion-segment-button value="compras">
+	      Compras
 	    </ion-segment-button>
 	  </ion-segment>
 	</div>
-
 	<div [ngSwitch]="tipoMostrado">
-	  <ion-list *ngSwitchWhen="'medusas'">
-	    <ion-item *ngFor="#person of arrayAteneas">
-	      <ion-thumbnail item-left>
-	        <img src="img/reloj.png">
-	      </ion-thumbnail>
-	      <h2>{{person.getNombre()}}</h2>
-	    	<p>{{person.getDescripcion()}}</p>
+	  <ion-list *ngSwitchCase="'ventas'">
+	    <ion-item *ngFor="let venta of arrayVentas" (click)="verListadoAnimales(venta.getAnimales())">
+	      	<h1>{{venta.getAgrupacion()}}</h1>
+	      	
+	      	<ion-row>
+	      		<ion-col width-33>
+		      		<label>
+		      			<b>Precio:</b> {{venta.getPrecio()}}
+		      		</label>
+	      		</ion-col>
+	      		<ion-col width-33>
+		      		<label>
+		      			<b>Fecha:</b> {{venta.getFecha().toLocaleDateString()}}
+		      		</label>
+	      		</ion-col>
+	      		<ion-col width-33>
+		      		<label>
+		      			<b>Animales:</b> {{venta.getAnimales().length}}
+		      		</label>
+	      		</ion-col>
+	      	</ion-row>
+	      	
 	    </ion-item>
 	    
 	  </ion-list>
 
-	  <ion-list *ngSwitchWhen="'hadas'">
-	    <ion-item *ngFor="#person of arrayMedusas">
-	      <ion-thumbnail item-left>
-	        <img src="img/perfecto512bit32.png">
-	      </ion-thumbnail>
-	      <h2>{{person.getNombre()}}</h2>
-	      <p>{{person.getDescripcion()}}</p>
+	  <ion-list *ngSwitchCase="'compras'">
+	    <ion-item *ngFor="let compra of arrayCompras" (click)="verListadoAnimales(venta.getAnimales())">
+	      	<h1>{{compra.getAgrupacion()}}</h1>
+	      	<h2>{{compra.getPrecio()}}</h2>
+	    	<p>{{compra.getFecha().toLocaleDateString()}}</p>
+	    	<p>{{compra.getAnimales().length}}</p>
 	    </ion-item>
 	    
 	  </ion-list>
 	</div>
-
 </ion-content>

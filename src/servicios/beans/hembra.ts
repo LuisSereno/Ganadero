@@ -7,7 +7,7 @@ export class Hembra extends Animal{
 	constructor(id:number,alias:string,raza:string,foto:string,
 		numero:number,fechaNacimiento:Date,vacu:Array<string>,
 		enfer:Array<string>,fechaUltimoNacimiento:Date,
-		ascen:Array<Animal>,descen:Array<Animal>){
+		ascen:Array<Animal>,descen:Array<Animal>,precioCompra:number,precioVenta:number){
 		super();
 		this.setId(id);
 		this.setAlias(alias);
@@ -20,6 +20,8 @@ export class Hembra extends Animal{
 		this.setFechaUltimoNacimiento(fechaUltimoNacimiento);
 		this.setAscendencia(ascen);
 		this.setDescendencia(descen);
+		this.setPrecioCompra(precioCompra);
+		this.setPrecioVenta(precioVenta);
 	}
 
 	public setFechaUltimoNacimiento(fecUlti:Date){

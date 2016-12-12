@@ -1,12 +1,13 @@
 import { Component,ViewChild } from '@angular/core';
 import { Platform, Nav, NavController, Modal } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import {ToolBarMenu} from '../pages/toolbarMenu/toolbarMenu';
+//import {ToolBarMenu} from '../pages/toolbarMenu/toolbarMenu';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PerfilAutenticacion } from '../pages/profile/profile';
 import {ListaDocumentos} from '../pages/listadoDocumentos/listado';
 import {ListaGanado} from '../pages/listadoGanado/listado';
 import {ListaVentas} from '../pages/listadoVentas/listado';
+import {AuthService} from '../servicios/auth/auth';
 import { MenuController } from 'ionic-angular';
 
 @Component({
@@ -17,12 +18,12 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = ListaGanado;
+  rootPage = null;
 
   pages: Array<{title: string, component: any}>;
 
 
-  constructor(platform: Platform,public menuCtrl: MenuController) {
+  constructor(platform: Platform,public menuCtrl: MenuController,public auth: AuthService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -31,9 +32,13 @@ export class MyApp {
     });
 
      console.log("El constructor de app.ts");
-    
-    this.initializeApp();
 
+      if(!this.auth.authenticated()) {
+        console.log("ENTRA AQUI PORQUE NO HAY AUTH")
+        //this.navCtrl.push(TabsPage);
+        this.rootPage=PerfilAutenticacion;
+      }
+      
     // set our app's pages
     this.pages = [
       { title: 'Ganado', component: ListaGanado },
@@ -42,13 +47,15 @@ export class MyApp {
     ];
   }
 
-    initializeApp() {
-      console.log("Se inicializala apliciacion con el initializeApp");
-    }
-
    ngOnInit() {
      console.log("Se inicializala apliciacion con el ngOnInit");
+
    }
+
+    ionViewDidLoad(){
+      console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");
+      this.rootPage=ListaGanado;
+    }
 
     openPage(page) { 
       this.nav.setRoot(page.component);

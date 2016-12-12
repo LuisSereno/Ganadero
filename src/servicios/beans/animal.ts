@@ -22,6 +22,9 @@ export abstract class Animal {
 
 	private descendencia: Array<Animal>;
 
+	private precioCompra: number;
+
+	private precioVenta: number;
 
 	constructor() {
 		this.id = 0;
@@ -34,6 +37,8 @@ export abstract class Animal {
 		this.enfermedades=new Array<string>();
 		this.ascendencia=new Array<Animal>();
 		this.descendencia=new Array<Animal>();
+		this.precioCompra=0;
+		this.precioVenta=0;
 	}
 
 	public getId(): number {
@@ -122,6 +127,22 @@ export abstract class Animal {
 
 	public setDescendencia(descen:Array<Animal>){
 		this.descendencia = descen;
+	}
+
+	public getPrecioCompra() : number{
+		return this.precioCompra;
+	}
+
+	public setPrecioCompra(precio:number){
+		this.precioCompra = precio;
+	}
+
+	public getPrecioVenta() : number{
+		return this.precioVenta;
+	}
+
+	public setPrecioVenta(precio:number){
+		this.precioVenta = precio;
 	}
 
 /*	public abstract ataquePrimario();

@@ -5,10 +5,11 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { ToolBarMenu } from '../pages/toolbarMenu/toolbarMenu';
+//import { ToolBarMenu } from '../pages/toolbarMenu/toolbarMenu';
 import { PerfilAutenticacion } from '../pages/profile/profile';
 import { ListaGanado } from '../pages/listadoGanado/listado';
 import { ListaDocumentos } from '../pages/listadoDocumentos/listado';
+import { ListaVentas } from '../pages/listadoVentas/listado';
 import { Detalle } from '../pages/detalle/detalle';
 import { Storage } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
@@ -32,9 +33,10 @@ export function getAuthHttp(http) {
     ContactPage,
     HomePage,
     TabsPage,
-    ToolBarMenu,
+  //  ToolBarMenu,
     PerfilAutenticacion,
     ListaGanado,
+    ListaVentas,
     Detalle,
     ListaDocumentos
   ],
@@ -48,7 +50,8 @@ export function getAuthHttp(http) {
     ContactPage,
     HomePage,
     TabsPage,
-    ToolBarMenu,
+    ListaVentas,
+    //ToolBarMenu,
     PerfilAutenticacion,
     ListaGanado,
     Detalle,
