@@ -14,6 +14,7 @@ import { Detalle } from '../pages/detalle/detalle';
 import { Storage } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import {AuthService} from '../servicios/auth/auth';
+import {ServicioDatos} from '../servicios/servicioDatos';
 import { Http } from '@angular/http';
 
 let storage: Storage = new Storage();

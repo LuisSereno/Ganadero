@@ -81368,556 +81368,6 @@ setTimeout(function () {
     }
 }, DEVICE_READY_TIMEOUT);
 
-var Documento = (function () {
-    function Documento() {
-        this.id = 0;
-        this.nombre = "";
-        this.url = "";
-        this.tipo = "";
-        this.fechaAlta = new Date();
-    }
-    Documento.prototype.getId = function () {
-        return this.id;
-    };
-    Documento.prototype.setId = function (identificador) {
-        this.id = identificador;
-    };
-    Documento.prototype.getNombre = function () {
-        return this.nombre;
-    };
-    Documento.prototype.setNombre = function (nom) {
-        this.nombre = nom;
-    };
-    Documento.prototype.getUrl = function () {
-        return this.url;
-    };
-    Documento.prototype.setUrl = function (url) {
-        this.url = url;
-    };
-    Documento.prototype.getTipo = function () {
-        return this.tipo;
-    };
-    Documento.prototype.setTipo = function (tip) {
-        this.tipo = tip;
-    };
-    Documento.prototype.getFechaAlta = function () {
-        return this.fechaAlta;
-    };
-    Documento.prototype.setFechaAlta = function (fecha) {
-        this.fechaAlta = fecha;
-    };
-    return Documento;
-}());
-
-//Fichero de constantes
-var Constantes = (function () {
-    function Constantes() {
-    }
-    Constantes.FOTO_ANIMAL_DEFECTO = "../../assets/img/vaca.png";
-    Constantes.TIPODOCUMENTOIMAGEN = "img";
-    Constantes.TIPODOCUMENTOPDF = "pdf";
-    Constantes.TIPODOCUMENTOWORD = "word";
-    Constantes.TIPODOCUMENTOEXCEL = "excel";
-    return Constantes;
-}());
-
-var __decorate$108 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$2 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-//import { Transfer } from 'ionic-native';
-// Cordova
-//declare var cordova: any;
-var ListaDocumentos = (function () {
-    //fileTransfer = new Transfer();
-    function ListaDocumentos(navCtrl) {
-        this.navCtrl = navCtrl;
-        var doc1 = new Documento();
-        doc1.setId(1);
-        doc1.setNombre("luis.word");
-        doc1.setUrl("/hola/holitaMou");
-        doc1.setTipo(Constantes.TIPODOCUMENTOWORD);
-        doc1.setFechaAlta(new Date());
-        var doc2 = new Documento();
-        doc2.setId(1);
-        doc2.setNombre("maria.excel");
-        doc2.setUrl("/hola/holitaMou/excel");
-        doc2.setTipo(Constantes.TIPODOCUMENTOEXCEL);
-        doc2.setFechaAlta(new Date());
-        var doc3 = new Documento();
-        doc3.setId(1);
-        doc3.setNombre("alberto.gimp");
-        doc3.setUrl("/hola/holitaMou/envida");
-        doc3.setTipo(Constantes.TIPODOCUMENTOIMAGEN);
-        doc3.setFechaAlta(new Date());
-        var doc4 = new Documento();
-        doc4.setId(1);
-        doc4.setNombre("nochebuena.pdf");
-        doc4.setUrl("/hola/holitaMou/nuevamejoramiga");
-        doc4.setTipo(Constantes.TIPODOCUMENTOPDF);
-        doc4.setFechaAlta(new Date());
-        this.arrayDocumentos = [doc1, doc2, doc3, doc4];
-    }
-    ListaDocumentos.prototype.visualizar = function (doc) {
-        window.open('assets/documentos/descarga.pdf', '_system', 'location=yes');
-    };
-    ListaDocumentos.prototype.descargar = function (doc) {
-        var url = 'assets/documentos/descarga.pdf';
-        /*	  this.fileTransfer.download(url, cordova.file.dataDirectory + 'file.pdf').then((entry) => {
-                console.log('download complete: ' + entry.toURL());
-              }, (error) => {
-                // handle error
-                console.log('errorazo');
-              }); */
-    };
-    ListaDocumentos = __decorate$108([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n	<ion-list>\n\n	  <ion-item *ngFor="let docu of arrayDocumentos">\n\n	    <ion-thumbnail item-left [ngSwitch]="docu.getTipo()">\n\n	      <img *ngSwitchCase="\'img\'" src="assets/icon/img.jpg">\n\n	      <img *ngSwitchCase="\'pdf\'" src="assets/icon/pdf.jpg">\n\n	      <img *ngSwitchCase="\'word\'" src="assets/icon/word.png">\n\n	      <img *ngSwitchCase="\'excel\'" src="assets/icon/excel.png">\n\n	    </ion-thumbnail>\n\n	    <h2>My Neighbor Totoro</h2>\n\n	    <p>Hayao Miyazaki • 1988</p>\n\n	    <button clear item-right (click)="visualizar(docu)" >View</button>\n\n	    <button clear item-right (click)="descargar(docu)" >Download</button>\n\n	  </ion-item>\n\n	</ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/
-        }), 
-        __metadata$2('design:paramtypes', [NavController])
-    ], ListaDocumentos);
-    return ListaDocumentos;
-}());
-
-var Animal = (function () {
-    function Animal() {
-        this.id = 0;
-        this.alias = "";
-        this.raza = "";
-        this.foto = "";
-        this.numero = 0;
-        this.fechaNacimiento = new Date();
-        this.vacunas = new Array();
-        this.enfermedades = new Array();
-        this.ascendencia = new Array();
-        this.descendencia = new Array();
-    }
-    Animal.prototype.getId = function () {
-        return this.id;
-    };
-    Animal.prototype.setId = function (identificador) {
-        this.id = identificador;
-    };
-    Animal.prototype.getAlias = function () {
-        return this.alias;
-    };
-    Animal.prototype.setAlias = function (alias) {
-        this.alias = alias;
-    };
-    Animal.prototype.getRaza = function () {
-        return this.raza;
-    };
-    Animal.prototype.setRaza = function (raza) {
-        this.raza = raza;
-    };
-    Animal.prototype.getFoto = function () {
-        if (this.foto != null) {
-            return this.foto;
-        }
-        else {
-            return Constantes.FOTO_ANIMAL_DEFECTO;
-        }
-    };
-    Animal.prototype.setFoto = function (foto) {
-        if (foto != null && foto.trim() != "") {
-            this.foto = foto;
-        }
-        else {
-            this.foto = null;
-        }
-    };
-    Animal.prototype.getNumero = function () {
-        return this.numero;
-    };
-    Animal.prototype.setNumero = function (num) {
-        this.numero = num;
-    };
-    Animal.prototype.getFechaNacimiento = function () {
-        return this.fechaNacimiento;
-    };
-    Animal.prototype.setFechaNacimiento = function (fecNac) {
-        this.fechaNacimiento = fecNac;
-    };
-    Animal.prototype.getVacunas = function () {
-        return this.vacunas;
-    };
-    Animal.prototype.setVacunas = function (vacunas) {
-        this.vacunas = vacunas;
-    };
-    Animal.prototype.getEnfermedades = function () {
-        return this.enfermedades;
-    };
-    Animal.prototype.setEnfermedades = function (enf) {
-        this.enfermedades = enf;
-    };
-    Animal.prototype.getAscendencia = function () {
-        return this.ascendencia;
-    };
-    Animal.prototype.setAscendencia = function (ascen) {
-        this.ascendencia = ascen;
-    };
-    Animal.prototype.getDescendencia = function () {
-        return this.descendencia;
-    };
-    Animal.prototype.setDescendencia = function (descen) {
-        this.descendencia = descen;
-    };
-    return Animal;
-}());
-
-var __extends$140 = (undefined && undefined.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Hembra = (function (_super) {
-    __extends$140(Hembra, _super);
-    function Hembra(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento, ascen, descen) {
-        _super.call(this);
-        this.setId(id);
-        this.setAlias(alias);
-        this.setRaza(raza);
-        this.setFoto(foto);
-        this.setNumero(numero);
-        this.setFechaNacimiento(fechaNacimiento);
-        this.setVacunas(vacu);
-        this.setEnfermedades(enfer);
-        this.setFechaUltimoNacimiento(fechaUltimoNacimiento);
-        this.setAscendencia(ascen);
-        this.setDescendencia(descen);
-    }
-    Hembra.prototype.setFechaUltimoNacimiento = function (fecUlti) {
-        this.fechaUltimoNacimiento = fecUlti;
-    };
-    Hembra.prototype.getFechaUltimoNacimiento = function () {
-        return this.fechaUltimoNacimiento;
-    };
-    return Hembra;
-}(Animal));
-
-var __extends$141 = (undefined && undefined.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Macho = (function (_super) {
-    __extends$141(Macho, _super);
-    function Macho(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento, ascen, descen) {
-        _super.call(this);
-        this.setId(id);
-        this.setAlias(alias);
-        this.setRaza(raza);
-        this.setFoto(foto);
-        this.setNumero(numero);
-        this.setFechaNacimiento(fechaNacimiento);
-        this.setVacunas(vacu);
-        this.setEnfermedades(enfer);
-        this.setAscendencia(ascen);
-        this.setDescendencia(descen);
-    }
-    return Macho;
-}(Animal));
-
-var __decorate$110 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$4 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var Detalle = (function () {
-    function Detalle(navCtrl, params) {
-        this.navCtrl = navCtrl;
-        //let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),[],[],new Date());
-        //this.animal=vaca2;
-        var animalito = params.get("animal");
-        this.fechaNacimiento = animalito.getFechaNacimiento().toISOString();
-        this.animal = animalito;
-    }
-    Detalle.prototype.volver = function () {
-        this.navCtrl.pop();
-    };
-    Detalle.prototype.irDetalleDesdeDetalle = function (animalito) {
-        this.navCtrl.push(Detalle, { animal: animalito });
-    };
-    Detalle.prototype.devuelveColorBadge = function (tipoObjeto) {
-        return tipoObjeto instanceof Macho ? 'danger' : 'secondary';
-    };
-    Detalle = __decorate$110([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding class="page1">\n\n  <ion-card>\n\n\n\n    <img src="{{animal.getFoto()}}" class="tamanoreal"/>\n\n\n\n   <ion-card-content>\n\n      <h2 text-center class="card-title">\n\n        {{animal.getNumero()}}\n\n      </h2>\n\n      <p text-center>\n\n        {{animal.getAlias()}}\n\n      </p>\n\n      <ion-card>\n\n        <ion-grid>\n\n            <ion-row>\n\n              <ion-col>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label>\n\n                     <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>Raza \n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <input type="string" value="{{animal.getRaza()}}">\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Fecha Nacimiento\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                      <ion-item class="text-label">\n\n                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>\n\n                      </ion-item>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Ascendencia\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let ganado of animal.getAscendencia()" >\n\n                      <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>\n\n                    </div>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Descendencia\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                      <div *ngFor="let ganado of animal.getDescendencia()" >\n\n                        <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>\n\n                      </div>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'color-wand\' item-left class="color-iconos"></ion-icon>Vacunas\n\n                    </label>  \n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                    <input type="string" value="{{textoLabel}}">\n\n                    </div>        \n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'lock\' item-left class="color-iconos"></ion-icon>Enfermedades\n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let textoLabel of animal.getEnfermedades()" >\n\n                    <input type="string" value="{{textoLabel}}">\n\n                    </div> \n\n                  </ion-col>\n\n                </ion-row>\n\n            </ion-col>\n\n          </ion-row>\n\n        </ion-grid>\n\n      </ion-card>\n\n    </ion-card-content>\n\n    <ion-row>\n\n     <ion-col offset-90>\n\n        <button ion-button color="dark" round right>Guardar</button>\n\n     </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/
-        }), 
-        __metadata$4('design:paramtypes', [NavController, NavParams])
-    ], Detalle);
-    return Detalle;
-}());
-
-var __decorate$109 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$3 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ListaGanado = (function () {
-    function ListaGanado(navCtrl) {
-        this.navCtrl = navCtrl;
-        //Este valor dependera de lo que seas tu, asi se te mostrara el primero
-        this.tipoMostrado = "hembras";
-        var toroPadre1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), [], []);
-        var vacaMadre2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), [], []);
-        var arrayAscen = [toroPadre1, vacaMadre2];
-        var arrayDescen = [toroPadre1, toroPadre1];
-        var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), arrayAscen, arrayDescen);
-        var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date(), arrayAscen, arrayDescen);
-        var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date(), arrayAscen, arrayDescen);
-        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), arrayAscen, arrayDescen);
-        this.arrayHembras = [vaca1, vaca2];
-        this.arrayMachos = [toro1, toro2];
-    }
-    ListaGanado.prototype.detalle = function (animalito) {
-        this.navCtrl.push(Detalle, { animal: animalito });
-    };
-    ListaGanado = __decorate$109([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n      <button ion-button menuToggle right>\n\n          <ion-icon name="ios-menu-outline"></ion-icon>\n\n      </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="hembras">\n\n	      Hembras\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="machos">\n\n	      Machos\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'hembras\'">\n\n	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'machos\'">\n\n	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/
-        }), 
-        __metadata$3('design:paramtypes', [NavController])
-    ], ListaGanado);
-    return ListaGanado;
-}());
-
-var __decorate$111 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ListaVentas = (function () {
-    //arrayMedusas: Array<Personaje>;
-    //arrayAteneas: Array<Personaje>;
-    function ListaVentas() {
-        //Este valor dependera de lo que seas tu, asi se te mostrara el primero
-        this.tipoMostrado = "medusas";
-        /*		let personajito:Personaje = new Medusa(1,"medusa Luis","Es una medusa muy bo nita","fo ta zo ", 1, 2, 3, 4, 5, 6,7,8,9);
-                let defensor:Personaje = new Medusa(2,"medusa Antonio","Es una medusa muy bo nita","fo ta zo ", 1, 2, 3, 4, 5, 6,7,8,9);
-                let atacante2:Personaje = new Atenea(3,"medusa Manuel","Es una medusa muy bo nita","fo ta zo ", 1, 2, 3, 4, 5, 6,7,8,9);
-                let defensor2:Personaje = new Atenea(4,"medusa Angel","Es una medusa muy bo nita","fo ta zo ", 1, 2, 3, 4, 5, 6,7,8,9);
-        
-                this.arrayAteneas=[personajito,defensor];
-                this.arrayMedusas=[atacante2,defensor2]; */
-    }
-    ListaVentas = __decorate$111([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoVentas\listado.html"*/'\n\n<ion-navbar *navbar>\n\n  <ion-title>\n\n    Puntuacion\n\n  </ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="medusas">\n\n	      Medusas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="hadas">\n\n	      Hada\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchWhen="\'medusas\'">\n\n	    <ion-item *ngFor="#person of arrayAteneas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/reloj.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	    	<p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchWhen="\'hadas\'">\n\n	    <ion-item *ngFor="#person of arrayMedusas">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="img/perfecto512bit32.png">\n\n	      </ion-thumbnail>\n\n	      <h2>{{person.getNombre()}}</h2>\n\n	      <p>{{person.getDescripcion()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoVentas\listado.html"*/
-        }), 
-        __metadata$5('design:paramtypes', [])
-    ], ListaVentas);
-    return ListaVentas;
-}());
-
-var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$1 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var MyApp = (function () {
-    function MyApp(platform, menuCtrl) {
-        this.menuCtrl = menuCtrl;
-        this.rootPage = ListaGanado;
-        platform.ready().then(function () {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            StatusBar.styleDefault();
-            Splashscreen.hide();
-        });
-        console.log("El constructor de app.ts");
-        this.initializeApp();
-        // set our app's pages
-        this.pages = [
-            { title: 'Ganado', component: ListaGanado },
-            { title: 'Documentos', component: ListaDocumentos },
-            { title: 'Ventas', component: ListaVentas },
-        ];
-    }
-    MyApp.prototype.initializeApp = function () {
-        console.log("Se inicializala apliciacion con el initializeApp");
-    };
-    MyApp.prototype.ngOnInit = function () {
-        console.log("Se inicializala apliciacion con el ngOnInit");
-    };
-    MyApp.prototype.openPage = function (page) {
-        this.nav.setRoot(page.component);
-        this.menuCtrl.close();
-    };
-    MyApp.prototype.logoutApp = function () {
-        //  this._auth.logout();
-        //this.platform.exitApp();
-        location.reload();
-    };
-    __decorate$1([
-        ViewChild(Nav), 
-        __metadata$1('design:type', Nav)
-    ], MyApp.prototype, "nav", void 0);
-    MyApp = __decorate$1([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\app\app.html"*/'<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Menú</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages"  (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\app\app.html"*/,
-            providers: []
-        }), 
-        __metadata$1('design:paramtypes', [Platform, MenuController])
-    ], MyApp);
-    return MyApp;
-}());
-
-var __decorate$112 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$6 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var AboutPage = (function () {
-    function AboutPage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    AboutPage = __decorate$112([
-        Component({
-            selector: 'page-about',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<ion-item>\n	  <ion-label>Date</ion-label>\n	  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>\n	</ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\about\about.html"*/
-        }), 
-        __metadata$6('design:paramtypes', [NavController])
-    ], AboutPage);
-    return AboutPage;
-}());
-
-var __decorate$113 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$7 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ContactPage = (function () {
-    function ContactPage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    ContactPage = __decorate$113([
-        Component({
-            selector: 'page-contact',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\contact\contact.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="ionic" item-left></ion-icon>\n      @ionicframework\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\contact\contact.html"*/
-        }), 
-        __metadata$7('design:paramtypes', [NavController])
-    ], ContactPage);
-    return ContactPage;
-}());
-
-var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$8 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var HomePage = (function () {
-    function HomePage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    HomePage = __decorate$114([
-        Component({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Ionic!</h2>\n  <p>\n    This starter project comes with simple tabs-based layout for apps\n    that are going to primarily use a Tabbed UI.\n  </p>\n  <p>\n    Take a look at the <code>src/pages/</code> directory to add or change tabs,\n    update any existing page or create new pages.\n  </p>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\home\home.html"*/
-        }), 
-        __metadata$8('design:paramtypes', [NavController])
-    ], HomePage);
-    return HomePage;
-}());
-
-var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var TabsPage = (function () {
-    function TabsPage() {
-        // this tells the tabs component which Pages
-        // should be each tab's root Page
-        this.tab1Root = HomePage;
-        this.tab2Root = AboutPage;
-        this.tab3Root = ContactPage;
-    }
-    TabsPage = __decorate$115([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\tabs\tabs.html"*/
-        }), 
-        __metadata$9('design:paramtypes', [])
-    ], TabsPage);
-    return TabsPage;
-}());
-
-var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-//import {AuthService} from '../../servicios/auth/auth';
-var ToolBarMenu = (function () {
-    // constructor(public menuCtrl: MenuController,private _auth: AuthService) {
-    function ToolBarMenu(navCtrl) {
-        this.navCtrl = navCtrl;
-        // make HelloIonicPage the root (or first) page
-        this.rootPage = ListaGanado;
-        console.log("El constructor de app.ts");
-        this.initializeApp();
-        // set our app's pages
-        this.pages = [
-            { title: 'Ganado', component: ListaGanado },
-            { title: 'Documentos', component: ListaDocumentos },
-            { title: 'Ventas', component: ListaVentas },
-        ];
-    }
-    ToolBarMenu.prototype.initializeApp = function () {
-        console.log("Se inicializala apliciacion con el initializeApp");
-    };
-    ToolBarMenu.prototype.ngOnInit = function () {
-        console.log("Se inicializala apliciacion con el ngOnInit");
-    };
-    ToolBarMenu.prototype.openPage = function (page) {
-        this.navCtrl.setRoot(page.component);
-    };
-    ToolBarMenu.prototype.logoutApp = function () {
-        //  this._auth.logout();
-        //this.platform.exitApp();
-        location.reload();
-    };
-    ToolBarMenu = __decorate$116([
-        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/'<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Menú</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages"  (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\toolbarMenu\toolbarMenu.html"*/,
-        }), 
-        __metadata$10('design:paramtypes', [NavController])
-    ], ToolBarMenu);
-    return ToolBarMenu;
-}());
-
 var localforage = createCommonjsModule(function (module, exports) {
 /*!
     localForage -- Offline Storage, Improved
@@ -84379,7 +83829,7 @@ var require$$4$2 = ( index && index['default'] ) || index;
 
 var require$$0$4 = ( localforageCordovasqlitedriver_es6 && localforageCordovasqlitedriver_es6['default'] ) || localforageCordovasqlitedriver_es6;
 
-var __decorate$119 = (commonjsGlobal && commonjsGlobal.__decorate) || function (decorators, target, key, desc) {
+var __decorate$110 = (commonjsGlobal && commonjsGlobal.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -84477,7 +83927,7 @@ var Storage$1 = (function () {
     Storage.prototype.forEach = function (iteratorCallback) {
         return this._db.iterate(iteratorCallback);
     };
-    Storage = __decorate$119([
+    Storage = __decorate$110([
         core_1.Injectable()
     ], Storage);
     return Storage;
@@ -86734,7 +86184,7 @@ else {
 }
 });
 
-var __extends$144 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$142 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -86746,7 +86196,7 @@ var Subscriber_1$4 = Subscriber_1$2;
  * @extends {Ignored}
  */
 var InnerSubscriber = (function (_super) {
-    __extends$144(InnerSubscriber, _super);
+    __extends$142(InnerSubscriber, _super);
     function InnerSubscriber(parent, outerValue, outerIndex) {
         _super.call(this);
         this.parent = parent;
@@ -86850,7 +86300,7 @@ var subscribeToResult_1$1 = {
 	subscribeToResult: subscribeToResult_2
 };
 
-var __extends$145 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$143 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -86862,7 +86312,7 @@ var Subscriber_1$5 = Subscriber_1$2;
  * @extends {Ignored}
  */
 var OuterSubscriber = (function (_super) {
-    __extends$145(OuterSubscriber, _super);
+    __extends$143(OuterSubscriber, _super);
     function OuterSubscriber() {
         _super.apply(this, arguments);
     }
@@ -86883,7 +86333,7 @@ var OuterSubscriber_1$1 = {
 	OuterSubscriber: OuterSubscriber_2
 };
 
-var __extends$143 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$141 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -86967,7 +86417,7 @@ var MergeMapOperator_1 = MergeMapOperator;
  * @extends {Ignored}
  */
 var MergeMapSubscriber = (function (_super) {
-    __extends$143(MergeMapSubscriber, _super);
+    __extends$141(MergeMapSubscriber, _super);
     function MergeMapSubscriber(destination, project, resultSelector, concurrent) {
         if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
         _super.call(this, destination);
@@ -87056,18 +86506,18 @@ Observable_1$6.Observable.prototype.flatMap = mergeMap_1.mergeMap;
 
 var require$$3$2 = ( index$1 && index$1['default'] ) || index$1;
 
-var __extends$142 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$140 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __decorate$120 = (commonjsGlobal && commonjsGlobal.__decorate) || function (decorators, target, key, desc) {
+var __decorate$111 = (commonjsGlobal && commonjsGlobal.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$13 = (commonjsGlobal && commonjsGlobal.__metadata) || function (k, v) {
+var __metadata$4 = (commonjsGlobal && commonjsGlobal.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var js_base64_1 = base64;
@@ -87114,7 +86564,7 @@ var AuthConfig = (function () {
 }());
 var AuthConfig_1 = AuthConfig;
 var AuthHttpError = (function (_super) {
-    __extends$142(AuthHttpError, _super);
+    __extends$140(AuthHttpError, _super);
     function AuthHttpError() {
         _super.apply(this, arguments);
     }
@@ -87210,9 +86660,9 @@ var AuthHttp = (function () {
     AuthHttp.prototype.options = function (url, options) {
         return this.requestHelper({ body: '', method: http_1.RequestMethod.Options, url: url }, options);
     };
-    AuthHttp = __decorate$120([
+    AuthHttp = __decorate$111([
         core_1$1.Injectable(), 
-        __metadata$13('design:paramtypes', [AuthConfig, http_1.Http, http_1.RequestOptions])
+        __metadata$4('design:paramtypes', [AuthConfig, http_1.Http, http_1.RequestOptions])
     ], AuthHttp);
     return AuthHttp;
 }());
@@ -87289,7 +86739,7 @@ function tokenNotExpired(tokenName, jwt) {
 }
 var tokenNotExpired_1 = tokenNotExpired;
 
-var __extends$147 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$145 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -87300,7 +86750,7 @@ var Subscription_1$6 = Subscription_1$2;
  * @class AsyncSubject<T>
  */
 var AsyncSubject$1 = (function (_super) {
-    __extends$147(AsyncSubject, _super);
+    __extends$145(AsyncSubject, _super);
     function AsyncSubject() {
         _super.apply(this, arguments);
         this.value = null;
@@ -87340,7 +86790,7 @@ var AsyncSubject_1$2 = {
 	AsyncSubject: AsyncSubject_2
 };
 
-var __extends$146 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$144 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -87355,7 +86805,7 @@ var AsyncSubject_1$1 = AsyncSubject_1$2;
  * @hide true
  */
 var BoundCallbackObservable = (function (_super) {
-    __extends$146(BoundCallbackObservable, _super);
+    __extends$144(BoundCallbackObservable, _super);
     function BoundCallbackObservable(callbackFunc, selector, args, scheduler) {
         _super.call(this);
         this.callbackFunc = callbackFunc;
@@ -87518,7 +86968,7 @@ var Observable_1$9 = Observable_1$1;
 var bindCallback_1 = bindCallback$2;
 Observable_1$9.Observable.bindCallback = bindCallback_1.bindCallback;
 
-var __extends$148 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$146 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -87533,7 +86983,7 @@ var AsyncSubject_1$4 = AsyncSubject_1$2;
  * @hide true
  */
 var BoundNodeCallbackObservable = (function (_super) {
-    __extends$148(BoundNodeCallbackObservable, _super);
+    __extends$146(BoundNodeCallbackObservable, _super);
     function BoundNodeCallbackObservable(callbackFunc, selector, args, scheduler) {
         _super.call(this);
         this.callbackFunc = callbackFunc;
@@ -87717,7 +87167,7 @@ var isScheduler_1$1 = {
 	isScheduler: isScheduler_2
 };
 
-var __extends$150 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$148 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -87729,7 +87179,7 @@ var Observable_1$15 = Observable_1$1;
  * @hide true
  */
 var ScalarObservable = (function (_super) {
-    __extends$150(ScalarObservable, _super);
+    __extends$148(ScalarObservable, _super);
     function ScalarObservable(value, scheduler) {
         _super.call(this);
         this.value = value;
@@ -87778,7 +87228,7 @@ var ScalarObservable_1$1 = {
 	ScalarObservable: ScalarObservable_2
 };
 
-var __extends$151 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$149 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -87790,7 +87240,7 @@ var Observable_1$16 = Observable_1$1;
  * @hide true
  */
 var EmptyObservable = (function (_super) {
-    __extends$151(EmptyObservable, _super);
+    __extends$149(EmptyObservable, _super);
     function EmptyObservable(scheduler) {
         _super.call(this);
         this.scheduler = scheduler;
@@ -87856,7 +87306,7 @@ var EmptyObservable_1$1 = {
 	EmptyObservable: EmptyObservable_2
 };
 
-var __extends$149 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$147 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -87871,7 +87321,7 @@ var isScheduler_1$3 = isScheduler_1$1;
  * @hide true
  */
 var ArrayObservable = (function (_super) {
-    __extends$149(ArrayObservable, _super);
+    __extends$147(ArrayObservable, _super);
     function ArrayObservable(array, scheduler) {
         _super.call(this);
         this.array = array;
@@ -87981,7 +87431,7 @@ var ArrayObservable_1$1 = {
 	ArrayObservable: ArrayObservable_2
 };
 
-var __extends$152 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$150 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -88064,7 +87514,7 @@ var CombineLatestOperator_1 = CombineLatestOperator;
  * @extends {Ignored}
  */
 var CombineLatestSubscriber = (function (_super) {
-    __extends$152(CombineLatestSubscriber, _super);
+    __extends$150(CombineLatestSubscriber, _super);
     function CombineLatestSubscriber(destination, project) {
         _super.call(this, destination);
         this.project = project;
@@ -88211,7 +87661,7 @@ var Observable_1$13 = Observable_1$1;
 var combineLatest_1 = combineLatest_2;
 Observable_1$13.Observable.combineLatest = combineLatest_1.combineLatest;
 
-var __extends$153 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$151 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -88283,7 +87733,7 @@ var MergeAllOperator_1 = MergeAllOperator;
  * @extends {Ignored}
  */
 var MergeAllSubscriber = (function (_super) {
-    __extends$153(MergeAllSubscriber, _super);
+    __extends$151(MergeAllSubscriber, _super);
     function MergeAllSubscriber(destination, concurrent) {
         _super.call(this, destination);
         this.concurrent = concurrent;
@@ -88450,7 +87900,7 @@ var Observable_1$17 = Observable_1$1;
 var concat_1 = concat$4;
 Observable_1$17.Observable.concat = concat_1.concat;
 
-var __extends$154 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$152 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -88464,7 +87914,7 @@ var OuterSubscriber_1$5 = OuterSubscriber_1$1;
  * @hide true
  */
 var DeferObservable = (function (_super) {
-    __extends$154(DeferObservable, _super);
+    __extends$152(DeferObservable, _super);
     function DeferObservable(observableFactory) {
         _super.call(this);
         this.observableFactory = observableFactory;
@@ -88519,7 +87969,7 @@ var DeferObservable = (function (_super) {
 }(Observable_1$19.Observable));
 var DeferObservable_2 = DeferObservable;
 var DeferSubscriber = (function (_super) {
-    __extends$154(DeferSubscriber, _super);
+    __extends$152(DeferSubscriber, _super);
     function DeferSubscriber(destination, factory) {
         _super.call(this, destination);
         this.factory = factory;
@@ -88568,7 +88018,7 @@ var Observable_1$20 = Observable_1$1;
 var empty_1 = empty$3;
 Observable_1$20.Observable.empty = empty_1.empty;
 
-var __extends$155 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$153 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -88584,7 +88034,7 @@ var OuterSubscriber_1$6 = OuterSubscriber_1$1;
  * @hide true
  */
 var ForkJoinObservable = (function (_super) {
-    __extends$155(ForkJoinObservable, _super);
+    __extends$153(ForkJoinObservable, _super);
     function ForkJoinObservable(sources, resultSelector) {
         _super.call(this);
         this.sources = sources;
@@ -88632,7 +88082,7 @@ var ForkJoinObservable_2 = ForkJoinObservable;
  * @extends {Ignored}
  */
 var ForkJoinSubscriber = (function (_super) {
-    __extends$155(ForkJoinSubscriber, _super);
+    __extends$153(ForkJoinSubscriber, _super);
     function ForkJoinSubscriber(destination, sources, resultSelector) {
         _super.call(this, destination);
         this.sources = sources;
@@ -88694,7 +88144,7 @@ var Observable_1$21 = Observable_1$1;
 var forkJoin_1 = forkJoin$2;
 Observable_1$21.Observable.forkJoin = forkJoin_1.forkJoin;
 
-var __extends$157 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$155 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -88708,7 +88158,7 @@ var iterator_1$3 = iterator;
  * @hide true
  */
 var IteratorObservable = (function (_super) {
-    __extends$157(IteratorObservable, _super);
+    __extends$155(IteratorObservable, _super);
     function IteratorObservable(iterator$$1, scheduler) {
         _super.call(this);
         this.scheduler = scheduler;
@@ -88854,7 +88304,7 @@ var IteratorObservable_1$1 = {
 	IteratorObservable: IteratorObservable_2
 };
 
-var __extends$158 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$156 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -88868,7 +88318,7 @@ var EmptyObservable_1$5 = EmptyObservable_1$1;
  * @hide true
  */
 var ArrayLikeObservable = (function (_super) {
-    __extends$158(ArrayLikeObservable, _super);
+    __extends$156(ArrayLikeObservable, _super);
     function ArrayLikeObservable(arrayLike, scheduler) {
         _super.call(this);
         this.arrayLike = arrayLike;
@@ -89057,7 +88507,7 @@ var Notification_1$2 = {
 	Notification: Notification_2
 };
 
-var __extends$159 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$157 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89096,7 +88546,7 @@ var ObserveOnOperator_1 = ObserveOnOperator;
  * @extends {Ignored}
  */
 var ObserveOnSubscriber = (function (_super) {
-    __extends$159(ObserveOnSubscriber, _super);
+    __extends$157(ObserveOnSubscriber, _super);
     function ObserveOnSubscriber(destination, scheduler, delay) {
         if (delay === void 0) { delay = 0; }
         _super.call(this, destination);
@@ -89138,7 +88588,7 @@ var observeOn_1$1 = {
 	ObserveOnMessage: ObserveOnMessage_1
 };
 
-var __extends$156 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$154 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89160,7 +88610,7 @@ var isArrayLike = (function (x) { return x && typeof x.length === 'number'; });
  * @hide true
  */
 var FromObservable = (function (_super) {
-    __extends$156(FromObservable, _super);
+    __extends$154(FromObservable, _super);
     function FromObservable(ish, scheduler) {
         _super.call(this, null);
         this.ish = ish;
@@ -89268,7 +88718,7 @@ var Observable_1$23 = Observable_1$1;
 var from_1 = from$3;
 Observable_1$23.Observable.from = from_1.from;
 
-var __extends$160 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$158 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89299,7 +88749,7 @@ function isEventTarget(sourceObj) {
  * @hide true
  */
 var FromEventObservable = (function (_super) {
-    __extends$160(FromEventObservable, _super);
+    __extends$158(FromEventObservable, _super);
     function FromEventObservable(sourceObj, eventName, selector, options) {
         _super.call(this);
         this.sourceObj = sourceObj;
@@ -89414,7 +88864,7 @@ var Observable_1$28 = Observable_1$1;
 var fromEvent_1 = fromEvent$2;
 Observable_1$28.Observable.fromEvent = fromEvent_1.fromEvent;
 
-var __extends$161 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$159 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89427,7 +88877,7 @@ var Subscription_1$8 = Subscription_1$2;
  * @hide true
  */
 var FromEventPatternObservable = (function (_super) {
-    __extends$161(FromEventPatternObservable, _super);
+    __extends$159(FromEventPatternObservable, _super);
     function FromEventPatternObservable(addHandler, removeHandler, selector) {
         _super.call(this);
         this.addHandler = addHandler;
@@ -89536,7 +88986,7 @@ var Observable_1$30 = Observable_1$1;
 var fromEventPattern_1 = fromEventPattern$2;
 Observable_1$30.Observable.fromEventPattern = fromEventPattern_1.fromEventPattern;
 
-var __extends$162 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$160 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89550,7 +89000,7 @@ var selfSelector = function (value) { return value; };
  * @hide true
  */
 var GenerateObservable = (function (_super) {
-    __extends$162(GenerateObservable, _super);
+    __extends$160(GenerateObservable, _super);
     function GenerateObservable(initialState, condition, iterate, resultSelector, scheduler) {
         _super.call(this);
         this.initialState = initialState;
@@ -89678,7 +89128,7 @@ var Observable_1$32 = Observable_1$1;
 var GenerateObservable_1 = GenerateObservable_1$1;
 Observable_1$32.Observable.generate = GenerateObservable_1.GenerateObservable.create;
 
-var __extends$163 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$161 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89692,7 +89142,7 @@ var OuterSubscriber_1$7 = OuterSubscriber_1$1;
  * @hide true
  */
 var IfObservable = (function (_super) {
-    __extends$163(IfObservable, _super);
+    __extends$161(IfObservable, _super);
     function IfObservable(condition, thenSource, elseSource) {
         _super.call(this);
         this.condition = condition;
@@ -89710,7 +89160,7 @@ var IfObservable = (function (_super) {
 }(Observable_1$35.Observable));
 var IfObservable_2 = IfObservable;
 var IfSubscriber = (function (_super) {
-    __extends$163(IfSubscriber, _super);
+    __extends$161(IfSubscriber, _super);
     function IfSubscriber(destination, condition, thenSource, elseSource) {
         _super.call(this, destination);
         this.condition = condition;
@@ -89768,7 +89218,7 @@ var isNumeric_1$1 = {
 	isNumeric: isNumeric_2
 };
 
-var __extends$166 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$164 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89789,7 +89239,7 @@ var Subscription_1$9 = Subscription_1$2;
  * @class Action<T>
  */
 var Action = (function (_super) {
-    __extends$166(Action, _super);
+    __extends$164(Action, _super);
     function Action(scheduler, work) {
         _super.call(this);
     }
@@ -89815,7 +89265,7 @@ var Action_1$1 = {
 	Action: Action_2
 };
 
-var __extends$165 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$163 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89828,7 +89278,7 @@ var Action_1 = Action_1$1;
  * @extends {Ignored}
  */
 var AsyncAction = (function (_super) {
-    __extends$165(AsyncAction, _super);
+    __extends$163(AsyncAction, _super);
     function AsyncAction(scheduler, work) {
         _super.call(this, scheduler, work);
         this.scheduler = scheduler;
@@ -90012,14 +89462,14 @@ var Scheduler_1$2 = {
 	Scheduler: Scheduler_2
 };
 
-var __extends$167 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$165 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Scheduler_1$1 = Scheduler_1$2;
 var AsyncScheduler = (function (_super) {
-    __extends$167(AsyncScheduler, _super);
+    __extends$165(AsyncScheduler, _super);
     function AsyncScheduler() {
         _super.apply(this, arguments);
         this.actions = [];
@@ -90074,7 +89524,7 @@ var async = {
 	async: async_1$2
 };
 
-var __extends$164 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$162 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90088,7 +89538,7 @@ var async_1$1 = async;
  * @hide true
  */
 var IntervalObservable = (function (_super) {
-    __extends$164(IntervalObservable, _super);
+    __extends$162(IntervalObservable, _super);
     function IntervalObservable(period, scheduler) {
         if (period === void 0) { period = 0; }
         if (scheduler === void 0) { scheduler = async_1$1.async; }
@@ -90321,7 +89771,7 @@ var Observable_1$38 = Observable_1$1;
 var merge_1 = merge$4;
 Observable_1$38.Observable.merge = merge_1.merge;
 
-var __extends$168 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$166 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90385,7 +89835,7 @@ var RaceOperator_1 = RaceOperator;
  * @extends {Ignored}
  */
 var RaceSubscriber = (function (_super) {
-    __extends$168(RaceSubscriber, _super);
+    __extends$166(RaceSubscriber, _super);
     function RaceSubscriber(destination) {
         _super.call(this, destination);
         this.hasFirst = false;
@@ -90450,7 +89900,7 @@ var noop_1$1 = {
 	noop: noop_2
 };
 
-var __extends$169 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$167 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90463,7 +89913,7 @@ var noop_1 = noop_1$1;
  * @hide true
  */
 var NeverObservable = (function (_super) {
-    __extends$169(NeverObservable, _super);
+    __extends$167(NeverObservable, _super);
     function NeverObservable() {
         _super.call(this);
     }
@@ -90534,7 +89984,7 @@ var Observable_1$42 = Observable_1$1;
 var of_1 = of$2;
 Observable_1$42.Observable.of = of_1.of;
 
-var __extends$170 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$168 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90578,7 +90028,7 @@ var OnErrorResumeNextOperator = (function () {
     return OnErrorResumeNextOperator;
 }());
 var OnErrorResumeNextSubscriber = (function (_super) {
-    __extends$170(OnErrorResumeNextSubscriber, _super);
+    __extends$168(OnErrorResumeNextSubscriber, _super);
     function OnErrorResumeNextSubscriber(destination, nextSources) {
         _super.call(this, destination);
         this.destination = destination;
@@ -90617,7 +90067,7 @@ var Observable_1$43 = Observable_1$1;
 var onErrorResumeNext_1 = onErrorResumeNext_1$1;
 Observable_1$43.Observable.onErrorResumeNext = onErrorResumeNext_1.onErrorResumeNextStatic;
 
-var __extends$171 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$169 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90640,7 +90090,7 @@ function dispatch$1(state) {
  * @hide true
  */
 var PairsObservable = (function (_super) {
-    __extends$171(PairsObservable, _super);
+    __extends$169(PairsObservable, _super);
     function PairsObservable(obj, scheduler) {
         _super.call(this);
         this.obj = obj;
@@ -90716,7 +90166,7 @@ var Observable_1$44 = Observable_1$1;
 var pairs_1 = pairs$2;
 Observable_1$44.Observable.pairs = pairs_1.pairs;
 
-var __extends$172 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$170 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90728,7 +90178,7 @@ var Observable_1$47 = Observable_1$1;
  * @hide true
  */
 var RangeObservable = (function (_super) {
-    __extends$172(RangeObservable, _super);
+    __extends$170(RangeObservable, _super);
     function RangeObservable(start, count, scheduler) {
         _super.call(this);
         this.start = start;
@@ -90826,7 +90276,7 @@ var Observable_1$46 = Observable_1$1;
 var range_1 = range$2;
 Observable_1$46.Observable.range = range_1.range;
 
-var __extends$173 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$171 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90840,7 +90290,7 @@ var OuterSubscriber_1$10 = OuterSubscriber_1$1;
  * @hide true
  */
 var UsingObservable = (function (_super) {
-    __extends$173(UsingObservable, _super);
+    __extends$171(UsingObservable, _super);
     function UsingObservable(resourceFactory, observableFactory) {
         _super.call(this);
         this.resourceFactory = resourceFactory;
@@ -90864,7 +90314,7 @@ var UsingObservable = (function (_super) {
 }(Observable_1$49.Observable));
 var UsingObservable_2 = UsingObservable;
 var UsingSubscriber = (function (_super) {
-    __extends$173(UsingSubscriber, _super);
+    __extends$171(UsingSubscriber, _super);
     function UsingSubscriber(destination, resource, observableFactory) {
         _super.call(this, destination);
         this.resource = resource;
@@ -90901,7 +90351,7 @@ var Observable_1$48 = Observable_1$1;
 var using_1 = using$2;
 Observable_1$48.Observable.using = using_1.using;
 
-var __extends$174 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$172 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90913,7 +90363,7 @@ var Observable_1$51 = Observable_1$1;
  * @hide true
  */
 var ErrorObservable = (function (_super) {
-    __extends$174(ErrorObservable, _super);
+    __extends$172(ErrorObservable, _super);
     function ErrorObservable(error, scheduler) {
         _super.call(this);
         this.error = error;
@@ -91006,7 +90456,7 @@ var isDate_1$1 = {
 	isDate: isDate_2
 };
 
-var __extends$175 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$173 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91022,7 +90472,7 @@ var isDate_1 = isDate_1$1;
  * @hide true
  */
 var TimerObservable = (function (_super) {
-    __extends$175(TimerObservable, _super);
+    __extends$173(TimerObservable, _super);
     function TimerObservable(dueTime, period, scheduler) {
         if (dueTime === void 0) { dueTime = 0; }
         _super.call(this);
@@ -91127,7 +90577,7 @@ var Observable_1$52 = Observable_1$1;
 var timer_1 = timer$2;
 Observable_1$52.Observable.timer = timer_1.timer;
 
-var __extends$176 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$174 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91189,7 +90639,7 @@ var ZipOperator_1 = ZipOperator;
  * @extends {Ignored}
  */
 var ZipSubscriber = (function (_super) {
-    __extends$176(ZipSubscriber, _super);
+    __extends$174(ZipSubscriber, _super);
     function ZipSubscriber(destination, project, values) {
         if (values === void 0) { values = Object.create(null); }
         _super.call(this, destination);
@@ -91331,7 +90781,7 @@ var StaticArrayIterator = (function () {
  * @extends {Ignored}
  */
 var ZipBufferIterator = (function (_super) {
-    __extends$176(ZipBufferIterator, _super);
+    __extends$174(ZipBufferIterator, _super);
     function ZipBufferIterator(destination, parent, observable, index) {
         _super.call(this, destination);
         this.parent = parent;
@@ -91398,7 +90848,7 @@ var Observable_1$54 = Observable_1$1;
 var zip_1 = zip$2;
 Observable_1$54.Observable.zip = zip_1.zip;
 
-var __extends$178 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$176 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91461,7 +90911,7 @@ var MapOperator_1 = MapOperator;
  * @extends {Ignored}
  */
 var MapSubscriber = (function (_super) {
-    __extends$178(MapSubscriber, _super);
+    __extends$176(MapSubscriber, _super);
     function MapSubscriber(destination, project, thisArg) {
         _super.call(this, destination);
         this.project = project;
@@ -91489,7 +90939,7 @@ var map_1$1 = {
 	MapOperator: MapOperator_1
 };
 
-var __extends$177 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$175 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91573,7 +91023,7 @@ var ajaxGetJSON_1 = ajaxGetJSON;
  * @hide true
  */
 var AjaxObservable = (function (_super) {
-    __extends$177(AjaxObservable, _super);
+    __extends$175(AjaxObservable, _super);
     function AjaxObservable(urlOrRequest) {
         _super.call(this);
         var request = {
@@ -91649,7 +91099,7 @@ var AjaxObservable_2 = AjaxObservable;
  * @extends {Ignored}
  */
 var AjaxSubscriber = (function (_super) {
-    __extends$177(AjaxSubscriber, _super);
+    __extends$175(AjaxSubscriber, _super);
     function AjaxSubscriber(destination, request) {
         _super.call(this, destination);
         this.request = request;
@@ -91856,7 +91306,7 @@ var AjaxResponse_1 = AjaxResponse$1;
  * @class AjaxError
  */
 var AjaxError$1 = (function (_super) {
-    __extends$177(AjaxError, _super);
+    __extends$175(AjaxError, _super);
     function AjaxError(message, xhr, request) {
         _super.call(this, message);
         this.message = message;
@@ -91873,7 +91323,7 @@ var AjaxError_1 = AjaxError$1;
  * @class AjaxTimeoutError
  */
 var AjaxTimeoutError$1 = (function (_super) {
-    __extends$177(AjaxTimeoutError, _super);
+    __extends$175(AjaxTimeoutError, _super);
     function AjaxTimeoutError(xhr, request) {
         _super.call(this, 'ajax timeout', xhr, request);
     }
@@ -91905,7 +91355,7 @@ var Observable_1$55 = Observable_1$1;
 var ajax_1 = ajax$2;
 Observable_1$55.Observable.ajax = ajax_1.ajax;
 
-var __extends$181 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$179 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91917,7 +91367,7 @@ var AsyncAction_1$3 = AsyncAction_1$1;
  * @extends {Ignored}
  */
 var QueueAction = (function (_super) {
-    __extends$181(QueueAction, _super);
+    __extends$179(QueueAction, _super);
     function QueueAction(scheduler, work) {
         _super.call(this, scheduler, work);
         this.scheduler = scheduler;
@@ -91955,14 +91405,14 @@ var QueueAction_1$1 = {
 	QueueAction: QueueAction_2
 };
 
-var __extends$182 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$180 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var AsyncScheduler_1$3 = AsyncScheduler_1$1;
 var QueueScheduler = (function (_super) {
-    __extends$182(QueueScheduler, _super);
+    __extends$180(QueueScheduler, _super);
     function QueueScheduler() {
         _super.apply(this, arguments);
     }
@@ -91982,7 +91432,7 @@ var queue = {
 	queue: queue_1$2
 };
 
-var __extends$180 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$178 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91994,7 +91444,7 @@ var observeOn_1$3 = observeOn_1$1;
  * @class ReplaySubject<T>
  */
 var ReplaySubject$1 = (function (_super) {
-    __extends$180(ReplaySubject, _super);
+    __extends$178(ReplaySubject, _super);
     function ReplaySubject(bufferSize, windowTime, scheduler) {
         if (bufferSize === void 0) { bufferSize = Number.POSITIVE_INFINITY; }
         if (windowTime === void 0) { windowTime = Number.POSITIVE_INFINITY; }
@@ -92098,7 +91548,7 @@ var assign$1 = {
 	assign: assign_1$1
 };
 
-var __extends$179 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$177 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -92118,7 +91568,7 @@ var assign_1 = assign$1;
  * @hide true
  */
 var WebSocketSubject = (function (_super) {
-    __extends$179(WebSocketSubject, _super);
+    __extends$177(WebSocketSubject, _super);
     function WebSocketSubject(urlConfigOrSource, destination) {
         if (urlConfigOrSource instanceof Observable_1$58.Observable) {
             _super.call(this, destination, urlConfigOrSource);
@@ -92317,7 +91767,7 @@ var Observable_1$57 = Observable_1$1;
 var webSocket_1 = webSocket$2;
 Observable_1$57.Observable.webSocket = webSocket_1.webSocket;
 
-var __extends$183 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$181 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -92375,7 +91825,7 @@ var BufferOperator = (function () {
  * @extends {Ignored}
  */
 var BufferSubscriber = (function (_super) {
-    __extends$183(BufferSubscriber, _super);
+    __extends$181(BufferSubscriber, _super);
     function BufferSubscriber(destination, closingNotifier) {
         _super.call(this, destination);
         this.buffer = [];
@@ -92400,7 +91850,7 @@ var Observable_1$59 = Observable_1$1;
 var buffer_1 = buffer_1$1;
 Observable_1$59.Observable.prototype.buffer = buffer_1.buffer;
 
-var __extends$184 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$182 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -92468,7 +91918,7 @@ var BufferCountOperator = (function () {
  * @extends {Ignored}
  */
 var BufferCountSubscriber = (function (_super) {
-    __extends$184(BufferCountSubscriber, _super);
+    __extends$182(BufferCountSubscriber, _super);
     function BufferCountSubscriber(destination, bufferSize, startBufferEvery) {
         _super.call(this, destination);
         this.bufferSize = bufferSize;
@@ -92521,7 +91971,7 @@ var Observable_1$60 = Observable_1$1;
 var bufferCount_1 = bufferCount_1$1;
 Observable_1$60.Observable.prototype.bufferCount = bufferCount_1.bufferCount;
 
-var __extends$185 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$183 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -92614,7 +92064,7 @@ var Context = (function () {
  * @extends {Ignored}
  */
 var BufferTimeSubscriber = (function (_super) {
-    __extends$185(BufferTimeSubscriber, _super);
+    __extends$183(BufferTimeSubscriber, _super);
     function BufferTimeSubscriber(destination, bufferTimeSpan, bufferCreationInterval, maxBufferSize, scheduler) {
         _super.call(this, destination);
         this.bufferTimeSpan = bufferTimeSpan;
@@ -92726,7 +92176,7 @@ var Observable_1$61 = Observable_1$1;
 var bufferTime_1 = bufferTime_1$1;
 Observable_1$61.Observable.prototype.bufferTime = bufferTime_1.bufferTime;
 
-var __extends$186 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$184 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -92792,7 +92242,7 @@ var BufferToggleOperator = (function () {
  * @extends {Ignored}
  */
 var BufferToggleSubscriber = (function (_super) {
-    __extends$186(BufferToggleSubscriber, _super);
+    __extends$184(BufferToggleSubscriber, _super);
     function BufferToggleSubscriber(destination, openings, closingSelector) {
         _super.call(this, destination);
         this.openings = openings;
@@ -92885,7 +92335,7 @@ var Observable_1$62 = Observable_1$1;
 var bufferToggle_1 = bufferToggle_1$1;
 Observable_1$62.Observable.prototype.bufferToggle = bufferToggle_1.bufferToggle;
 
-var __extends$187 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$185 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -92947,7 +92397,7 @@ var BufferWhenOperator = (function () {
  * @extends {Ignored}
  */
 var BufferWhenSubscriber = (function (_super) {
-    __extends$187(BufferWhenSubscriber, _super);
+    __extends$185(BufferWhenSubscriber, _super);
     function BufferWhenSubscriber(destination, closingSelector) {
         _super.call(this, destination);
         this.closingSelector = closingSelector;
@@ -93070,7 +92520,7 @@ var Observable_1$64 = Observable_1$1;
 var cache_1 = cache_1$1;
 Observable_1$64.Observable.prototype.cache = cache_1.cache;
 
-var __extends$188 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$186 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -93108,7 +92558,7 @@ var CatchOperator = (function () {
  * @extends {Ignored}
  */
 var CatchSubscriber = (function (_super) {
-    __extends$188(CatchSubscriber, _super);
+    __extends$186(CatchSubscriber, _super);
     function CatchSubscriber(destination, selector, caught) {
         _super.call(this, destination);
         this.selector = selector;
@@ -93331,7 +92781,7 @@ var Observable_1$71 = Observable_1$1;
 var concatMap_1 = concatMap_1$1;
 Observable_1$71.Observable.prototype.concatMap = concatMap_1.concatMap;
 
-var __extends$189 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$187 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -93411,7 +92861,7 @@ var MergeMapToOperator_1 = MergeMapToOperator;
  * @extends {Ignored}
  */
 var MergeMapToSubscriber = (function (_super) {
-    __extends$189(MergeMapToSubscriber, _super);
+    __extends$187(MergeMapToSubscriber, _super);
     function MergeMapToSubscriber(destination, ish, resultSelector, concurrent) {
         if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
         _super.call(this, destination);
@@ -93554,7 +93004,7 @@ var Observable_1$72 = Observable_1$1;
 var concatMapTo_1 = concatMapTo_1$1;
 Observable_1$72.Observable.prototype.concatMapTo = concatMapTo_1.concatMapTo;
 
-var __extends$190 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$188 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -93625,7 +93075,7 @@ var CountOperator = (function () {
  * @extends {Ignored}
  */
 var CountSubscriber = (function (_super) {
-    __extends$190(CountSubscriber, _super);
+    __extends$188(CountSubscriber, _super);
     function CountSubscriber(destination, predicate, source) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -93669,7 +93119,7 @@ var Observable_1$73 = Observable_1$1;
 var count_1 = count_1$1;
 Observable_1$73.Observable.prototype.count = count_1.count;
 
-var __extends$191 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$189 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -93728,7 +93178,7 @@ var DeMaterializeOperator = (function () {
  * @extends {Ignored}
  */
 var DeMaterializeSubscriber = (function (_super) {
-    __extends$191(DeMaterializeSubscriber, _super);
+    __extends$189(DeMaterializeSubscriber, _super);
     function DeMaterializeSubscriber(destination) {
         _super.call(this, destination);
     }
@@ -93746,7 +93196,7 @@ var Observable_1$74 = Observable_1$1;
 var dematerialize_1 = dematerialize_1$1;
 Observable_1$74.Observable.prototype.dematerialize = dematerialize_1.dematerialize;
 
-var __extends$192 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$190 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -93814,7 +93264,7 @@ var DebounceOperator = (function () {
  * @extends {Ignored}
  */
 var DebounceSubscriber = (function (_super) {
-    __extends$192(DebounceSubscriber, _super);
+    __extends$190(DebounceSubscriber, _super);
     function DebounceSubscriber(destination, durationSelector) {
         _super.call(this, destination);
         this.durationSelector = durationSelector;
@@ -93880,7 +93330,7 @@ var Observable_1$75 = Observable_1$1;
 var debounce_1 = debounce_1$1;
 Observable_1$75.Observable.prototype.debounce = debounce_1.debounce;
 
-var __extends$193 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$191 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -93954,7 +93404,7 @@ var DebounceTimeOperator = (function () {
  * @extends {Ignored}
  */
 var DebounceTimeSubscriber = (function (_super) {
-    __extends$193(DebounceTimeSubscriber, _super);
+    __extends$191(DebounceTimeSubscriber, _super);
     function DebounceTimeSubscriber(destination, dueTime, scheduler) {
         _super.call(this, destination);
         this.dueTime = dueTime;
@@ -94003,7 +93453,7 @@ var Observable_1$76 = Observable_1$1;
 var debounceTime_1 = debounceTime_1$1;
 Observable_1$76.Observable.prototype.debounceTime = debounceTime_1.debounceTime;
 
-var __extends$194 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$192 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94059,7 +93509,7 @@ var DefaultIfEmptyOperator = (function () {
  * @extends {Ignored}
  */
 var DefaultIfEmptySubscriber = (function (_super) {
-    __extends$194(DefaultIfEmptySubscriber, _super);
+    __extends$192(DefaultIfEmptySubscriber, _super);
     function DefaultIfEmptySubscriber(destination, defaultValue) {
         _super.call(this, destination);
         this.defaultValue = defaultValue;
@@ -94086,7 +93536,7 @@ var Observable_1$77 = Observable_1$1;
 var defaultIfEmpty_1 = defaultIfEmpty_1$1;
 Observable_1$77.Observable.prototype.defaultIfEmpty = defaultIfEmpty_1.defaultIfEmpty;
 
-var __extends$195 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$193 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94157,7 +93607,7 @@ var DelayOperator = (function () {
  * @extends {Ignored}
  */
 var DelaySubscriber = (function (_super) {
-    __extends$195(DelaySubscriber, _super);
+    __extends$193(DelaySubscriber, _super);
     function DelaySubscriber(destination, delay, scheduler) {
         _super.call(this, destination);
         this.delay = delay;
@@ -94228,7 +93678,7 @@ var Observable_1$78 = Observable_1$1;
 var delay_1 = delay_1$1;
 Observable_1$78.Observable.prototype.delay = delay_1.delay;
 
-var __extends$196 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$194 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94305,7 +93755,7 @@ var DelayWhenOperator = (function () {
  * @extends {Ignored}
  */
 var DelayWhenSubscriber = (function (_super) {
-    __extends$196(DelayWhenSubscriber, _super);
+    __extends$194(DelayWhenSubscriber, _super);
     function DelayWhenSubscriber(destination, delayDurationSelector) {
         _super.call(this, destination);
         this.delayDurationSelector = delayDurationSelector;
@@ -94373,7 +93823,7 @@ var DelayWhenSubscriber = (function (_super) {
  * @extends {Ignored}
  */
 var SubscriptionDelayObservable = (function (_super) {
-    __extends$196(SubscriptionDelayObservable, _super);
+    __extends$194(SubscriptionDelayObservable, _super);
     function SubscriptionDelayObservable(source, subscriptionDelay) {
         _super.call(this);
         this.source = source;
@@ -94390,7 +93840,7 @@ var SubscriptionDelayObservable = (function (_super) {
  * @extends {Ignored}
  */
 var SubscriptionDelaySubscriber = (function (_super) {
-    __extends$196(SubscriptionDelaySubscriber, _super);
+    __extends$194(SubscriptionDelaySubscriber, _super);
     function SubscriptionDelaySubscriber(parent, source) {
         _super.call(this);
         this.parent = parent;
@@ -94425,7 +93875,7 @@ var Observable_1$79 = Observable_1$1;
 var delayWhen_1 = delayWhen_1$1;
 Observable_1$79.Observable.prototype.delayWhen = delayWhen_1.delayWhen;
 
-var __extends$197 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$195 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94464,7 +93914,7 @@ var DistinctOperator = (function () {
  * @extends {Ignored}
  */
 var DistinctSubscriber = (function (_super) {
-    __extends$197(DistinctSubscriber, _super);
+    __extends$195(DistinctSubscriber, _super);
     function DistinctSubscriber(destination, compare, flushes) {
         _super.call(this, destination);
         this.values = [];
@@ -94549,7 +93999,7 @@ var Observable_1$82 = Observable_1$1;
 var distinctKey_1 = distinctKey_1$1;
 Observable_1$82.Observable.prototype.distinctKey = distinctKey_1.distinctKey;
 
-var __extends$198 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$196 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94586,7 +94036,7 @@ var DistinctUntilChangedOperator = (function () {
  * @extends {Ignored}
  */
 var DistinctUntilChangedSubscriber = (function (_super) {
-    __extends$198(DistinctUntilChangedSubscriber, _super);
+    __extends$196(DistinctUntilChangedSubscriber, _super);
     function DistinctUntilChangedSubscriber(destination, compare, keySelector) {
         _super.call(this, destination);
         this.keySelector = keySelector;
@@ -94663,7 +94113,7 @@ var Observable_1$84 = Observable_1$1;
 var distinctUntilKeyChanged_1 = distinctUntilKeyChanged_1$1;
 Observable_1$84.Observable.prototype.distinctUntilKeyChanged = distinctUntilKeyChanged_1.distinctUntilKeyChanged;
 
-var __extends$199 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$197 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94733,7 +94183,7 @@ var DoOperator = (function () {
  * @extends {Ignored}
  */
 var DoSubscriber = (function (_super) {
-    __extends$199(DoSubscriber, _super);
+    __extends$197(DoSubscriber, _super);
     function DoSubscriber(destination, nextOrObserver, error, complete) {
         _super.call(this, destination);
         var safeSubscriber = new Subscriber_1$21.Subscriber(nextOrObserver, error, complete);
@@ -94783,7 +94233,7 @@ var do_1 = _do_1;
 Observable_1$85.Observable.prototype.do = do_1._do;
 Observable_1$85.Observable.prototype._do = do_1._do;
 
-var __extends$200 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$198 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94844,7 +94294,7 @@ var SwitchFirstOperator = (function () {
  * @extends {Ignored}
  */
 var SwitchFirstSubscriber = (function (_super) {
-    __extends$200(SwitchFirstSubscriber, _super);
+    __extends$198(SwitchFirstSubscriber, _super);
     function SwitchFirstSubscriber(destination) {
         _super.call(this, destination);
         this.hasCompleted = false;
@@ -94880,7 +94330,7 @@ var Observable_1$86 = Observable_1$1;
 var exhaust_1 = exhaust_1$1;
 Observable_1$86.Observable.prototype.exhaust = exhaust_1.exhaust;
 
-var __extends$201 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$199 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94952,7 +94402,7 @@ var SwitchFirstMapOperator = (function () {
  * @extends {Ignored}
  */
 var SwitchFirstMapSubscriber = (function (_super) {
-    __extends$201(SwitchFirstMapSubscriber, _super);
+    __extends$199(SwitchFirstMapSubscriber, _super);
     function SwitchFirstMapSubscriber(destination, project, resultSelector) {
         _super.call(this, destination);
         this.project = project;
@@ -95024,7 +94474,7 @@ var Observable_1$87 = Observable_1$1;
 var exhaustMap_1 = exhaustMap_1$1;
 Observable_1$87.Observable.prototype.exhaustMap = exhaustMap_1.exhaustMap;
 
-var __extends$202 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$200 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95103,7 +94553,7 @@ var ExpandOperator_1 = ExpandOperator;
  * @extends {Ignored}
  */
 var ExpandSubscriber = (function (_super) {
-    __extends$202(ExpandSubscriber, _super);
+    __extends$200(ExpandSubscriber, _super);
     function ExpandSubscriber(destination, project, concurrent, scheduler) {
         _super.call(this, destination);
         this.project = project;
@@ -95183,7 +94633,7 @@ var Observable_1$88 = Observable_1$1;
 var expand_1 = expand_1$1;
 Observable_1$88.Observable.prototype.expand = expand_1.expand;
 
-var __extends$204 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$202 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95199,7 +94649,7 @@ var __extends$204 = (commonjsGlobal && commonjsGlobal.__extends) || function (d,
  * @class ArgumentOutOfRangeError
  */
 var ArgumentOutOfRangeError$1 = (function (_super) {
-    __extends$204(ArgumentOutOfRangeError, _super);
+    __extends$202(ArgumentOutOfRangeError, _super);
     function ArgumentOutOfRangeError() {
         var err = _super.call(this, 'argument out of range');
         this.name = err.name = 'ArgumentOutOfRangeError';
@@ -95214,7 +94664,7 @@ var ArgumentOutOfRangeError_1$2 = {
 	ArgumentOutOfRangeError: ArgumentOutOfRangeError_2
 };
 
-var __extends$203 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$201 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95281,7 +94731,7 @@ var ElementAtOperator = (function () {
  * @extends {Ignored}
  */
 var ElementAtSubscriber = (function (_super) {
-    __extends$203(ElementAtSubscriber, _super);
+    __extends$201(ElementAtSubscriber, _super);
     function ElementAtSubscriber(destination, index, defaultValue) {
         _super.call(this, destination);
         this.index = index;
@@ -95316,7 +94766,7 @@ var Observable_1$89 = Observable_1$1;
 var elementAt_1 = elementAt_1$1;
 Observable_1$89.Observable.prototype.elementAt = elementAt_1.elementAt;
 
-var __extends$205 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$203 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95382,7 +94832,7 @@ var FilterOperator = (function () {
  * @extends {Ignored}
  */
 var FilterSubscriber = (function (_super) {
-    __extends$205(FilterSubscriber, _super);
+    __extends$203(FilterSubscriber, _super);
     function FilterSubscriber(destination, predicate, thisArg) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -95416,7 +94866,7 @@ var Observable_1$90 = Observable_1$1;
 var filter_1 = filter_1$1;
 Observable_1$90.Observable.prototype.filter = filter_1.filter;
 
-var __extends$206 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$204 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95450,7 +94900,7 @@ var FinallyOperator = (function () {
  * @extends {Ignored}
  */
 var FinallySubscriber = (function (_super) {
-    __extends$206(FinallySubscriber, _super);
+    __extends$204(FinallySubscriber, _super);
     function FinallySubscriber(destination, callback) {
         _super.call(this, destination);
         this.add(new Subscription_1$13.Subscription(callback));
@@ -95467,7 +94917,7 @@ var finally_1 = _finally_1;
 Observable_1$91.Observable.prototype.finally = finally_1._finally;
 Observable_1$91.Observable.prototype._finally = finally_1._finally;
 
-var __extends$207 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$205 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95532,7 +94982,7 @@ var FindValueOperator_1 = FindValueOperator;
  * @extends {Ignored}
  */
 var FindValueSubscriber = (function (_super) {
-    __extends$207(FindValueSubscriber, _super);
+    __extends$205(FindValueSubscriber, _super);
     function FindValueSubscriber(destination, predicate, source, yieldIndex, thisArg) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -95624,7 +95074,7 @@ var Observable_1$93 = Observable_1$1;
 var findIndex_1 = findIndex_1$1;
 Observable_1$93.Observable.prototype.findIndex = findIndex_1.findIndex;
 
-var __extends$209 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$207 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95640,7 +95090,7 @@ var __extends$209 = (commonjsGlobal && commonjsGlobal.__extends) || function (d,
  * @class EmptyError
  */
 var EmptyError$1 = (function (_super) {
-    __extends$209(EmptyError, _super);
+    __extends$207(EmptyError, _super);
     function EmptyError() {
         var err = _super.call(this, 'no elements in sequence');
         this.name = err.name = 'EmptyError';
@@ -95655,7 +95105,7 @@ var EmptyError_1$2 = {
 	EmptyError: EmptyError_2
 };
 
-var __extends$208 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$206 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95733,7 +95183,7 @@ var FirstOperator = (function () {
  * @extends {Ignored}
  */
 var FirstSubscriber = (function (_super) {
-    __extends$208(FirstSubscriber, _super);
+    __extends$206(FirstSubscriber, _super);
     function FirstSubscriber(destination, predicate, resultSelector, defaultValue, source) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -95902,7 +95352,7 @@ var FastMap_1$1 = {
 	FastMap: FastMap_2
 };
 
-var __extends$210 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$208 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -95956,7 +95406,7 @@ var GroupByOperator = (function () {
  * @extends {Ignored}
  */
 var GroupBySubscriber = (function (_super) {
-    __extends$210(GroupBySubscriber, _super);
+    __extends$208(GroupBySubscriber, _super);
     function GroupBySubscriber(destination, keySelector, elementSelector, durationSelector) {
         _super.call(this, destination);
         this.keySelector = keySelector;
@@ -96054,7 +95504,7 @@ var GroupBySubscriber = (function (_super) {
  * @extends {Ignored}
  */
 var GroupDurationSubscriber = (function (_super) {
-    __extends$210(GroupDurationSubscriber, _super);
+    __extends$208(GroupDurationSubscriber, _super);
     function GroupDurationSubscriber(key, group, parent) {
         _super.call(this);
         this.key = key;
@@ -96089,7 +95539,7 @@ var GroupDurationSubscriber = (function (_super) {
  * @class GroupedObservable<K, T>
  */
 var GroupedObservable = (function (_super) {
-    __extends$210(GroupedObservable, _super);
+    __extends$208(GroupedObservable, _super);
     function GroupedObservable(key, groupSubject, refCountSubscription) {
         _super.call(this);
         this.key = key;
@@ -96114,7 +95564,7 @@ var GroupedObservable_1 = GroupedObservable;
  * @extends {Ignored}
  */
 var InnerRefCountSubscription = (function (_super) {
-    __extends$210(InnerRefCountSubscription, _super);
+    __extends$208(InnerRefCountSubscription, _super);
     function InnerRefCountSubscription(parent) {
         _super.call(this);
         this.parent = parent;
@@ -96142,7 +95592,7 @@ var Observable_1$95 = Observable_1$1;
 var groupBy_1 = groupBy_1$1;
 Observable_1$95.Observable.prototype.groupBy = groupBy_1.groupBy;
 
-var __extends$211 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$209 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96178,7 +95628,7 @@ var IgnoreElementsOperator = (function () {
  * @extends {Ignored}
  */
 var IgnoreElementsSubscriber = (function (_super) {
-    __extends$211(IgnoreElementsSubscriber, _super);
+    __extends$209(IgnoreElementsSubscriber, _super);
     function IgnoreElementsSubscriber() {
         _super.apply(this, arguments);
     }
@@ -96196,7 +95646,7 @@ var Observable_1$97 = Observable_1$1;
 var ignoreElements_1 = ignoreElements_1$1;
 Observable_1$97.Observable.prototype.ignoreElements = ignoreElements_1.ignoreElements;
 
-var __extends$212 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$210 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96229,7 +95679,7 @@ var IsEmptyOperator = (function () {
  * @extends {Ignored}
  */
 var IsEmptySubscriber = (function (_super) {
-    __extends$212(IsEmptySubscriber, _super);
+    __extends$210(IsEmptySubscriber, _super);
     function IsEmptySubscriber(destination) {
         _super.call(this, destination);
     }
@@ -96255,7 +95705,7 @@ var Observable_1$98 = Observable_1$1;
 var isEmpty_1 = isEmpty_1$1;
 Observable_1$98.Observable.prototype.isEmpty = isEmpty_1.isEmpty;
 
-var __extends$213 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$211 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96323,7 +95773,7 @@ var AuditOperator = (function () {
  * @extends {Ignored}
  */
 var AuditSubscriber = (function (_super) {
-    __extends$213(AuditSubscriber, _super);
+    __extends$211(AuditSubscriber, _super);
     function AuditSubscriber(destination, durationSelector) {
         _super.call(this, destination);
         this.durationSelector = durationSelector;
@@ -96372,7 +95822,7 @@ var Observable_1$99 = Observable_1$1;
 var audit_1 = audit_1$1;
 Observable_1$99.Observable.prototype.audit = audit_1.audit;
 
-var __extends$214 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$212 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96442,7 +95892,7 @@ var AuditTimeOperator = (function () {
  * @extends {Ignored}
  */
 var AuditTimeSubscriber = (function (_super) {
-    __extends$214(AuditTimeSubscriber, _super);
+    __extends$212(AuditTimeSubscriber, _super);
     function AuditTimeSubscriber(destination, duration, scheduler) {
         _super.call(this, destination);
         this.duration = duration;
@@ -96483,7 +95933,7 @@ var Observable_1$100 = Observable_1$1;
 var auditTime_1 = auditTime_1$1;
 Observable_1$100.Observable.prototype.auditTime = auditTime_1.auditTime;
 
-var __extends$215 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$213 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96529,7 +95979,7 @@ var LastOperator = (function () {
  * @extends {Ignored}
  */
 var LastSubscriber = (function (_super) {
-    __extends$215(LastSubscriber, _super);
+    __extends$213(LastSubscriber, _super);
     function LastSubscriber(destination, predicate, resultSelector, defaultValue, source) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -96628,7 +96078,7 @@ var let_1 = _let$2;
 Observable_1$102.Observable.prototype.let = let_1.letProto;
 Observable_1$102.Observable.prototype.letBind = let_1.letProto;
 
-var __extends$216 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$214 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96663,7 +96113,7 @@ var EveryOperator = (function () {
  * @extends {Ignored}
  */
 var EverySubscriber = (function (_super) {
-    __extends$216(EverySubscriber, _super);
+    __extends$214(EverySubscriber, _super);
     function EverySubscriber(destination, predicate, thisArg, source) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -96707,7 +96157,7 @@ var Observable_1$104 = Observable_1$1;
 var map_1$3 = map_1$1;
 Observable_1$104.Observable.prototype.map = map_1$3.map;
 
-var __extends$217 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$215 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96758,7 +96208,7 @@ var MapToOperator = (function () {
  * @extends {Ignored}
  */
 var MapToSubscriber = (function (_super) {
-    __extends$217(MapToSubscriber, _super);
+    __extends$215(MapToSubscriber, _super);
     function MapToSubscriber(destination, value) {
         _super.call(this, destination);
         this.value = value;
@@ -96777,7 +96227,7 @@ var Observable_1$105 = Observable_1$1;
 var mapTo_1 = mapTo_1$1;
 Observable_1$105.Observable.prototype.mapTo = mapTo_1.mapTo;
 
-var __extends$218 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$216 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96839,7 +96289,7 @@ var MaterializeOperator = (function () {
  * @extends {Ignored}
  */
 var MaterializeSubscriber = (function (_super) {
-    __extends$218(MaterializeSubscriber, _super);
+    __extends$216(MaterializeSubscriber, _super);
     function MaterializeSubscriber(destination) {
         _super.call(this, destination);
     }
@@ -96867,7 +96317,7 @@ var Observable_1$106 = Observable_1$1;
 var materialize_1 = materialize_1$1;
 Observable_1$106.Observable.prototype.materialize = materialize_1.materialize;
 
-var __extends$219 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$217 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -96939,7 +96389,7 @@ var ReduceOperator_1 = ReduceOperator;
  * @extends {Ignored}
  */
 var ReduceSubscriber = (function (_super) {
-    __extends$219(ReduceSubscriber, _super);
+    __extends$217(ReduceSubscriber, _super);
     function ReduceSubscriber(destination, accumulator, seed) {
         _super.call(this, destination);
         this.accumulator = accumulator;
@@ -97026,7 +96476,7 @@ var mergeMapTo_1$3 = mergeMapTo_1$1;
 Observable_1$110.Observable.prototype.flatMapTo = mergeMapTo_1$3.mergeMapTo;
 Observable_1$110.Observable.prototype.mergeMapTo = mergeMapTo_1$3.mergeMapTo;
 
-var __extends$220 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$218 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97066,7 +96516,7 @@ var MergeScanOperator_1 = MergeScanOperator;
  * @extends {Ignored}
  */
 var MergeScanSubscriber = (function (_super) {
-    __extends$220(MergeScanSubscriber, _super);
+    __extends$218(MergeScanSubscriber, _super);
     function MergeScanSubscriber(destination, project, acc, concurrent) {
         _super.call(this, destination);
         this.project = project;
@@ -97169,7 +96619,7 @@ var Observable_1$112 = Observable_1$1;
 var min_1 = min_1$1;
 Observable_1$112.Observable.prototype.min = min_1.min;
 
-var __extends$222 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$220 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97182,7 +96632,7 @@ var Subscription_1$15 = Subscription_1$2;
  * @class ConnectableObservable<T>
  */
 var ConnectableObservable$1 = (function (_super) {
-    __extends$222(ConnectableObservable, _super);
+    __extends$220(ConnectableObservable, _super);
     function ConnectableObservable(source, subjectFactory) {
         _super.call(this);
         this.source = source;
@@ -97222,7 +96672,7 @@ var ConnectableObservable$1 = (function (_super) {
 }(Observable_1$115.Observable));
 var ConnectableObservable_2 = ConnectableObservable$1;
 var ConnectableSubscriber = (function (_super) {
-    __extends$222(ConnectableSubscriber, _super);
+    __extends$220(ConnectableSubscriber, _super);
     function ConnectableSubscriber(destination, connectable) {
         _super.call(this, destination);
         this.connectable = connectable;
@@ -97267,7 +96717,7 @@ var RefCountOperator = (function () {
     return RefCountOperator;
 }());
 var RefCountSubscriber = (function (_super) {
-    __extends$222(RefCountSubscriber, _super);
+    __extends$220(RefCountSubscriber, _super);
     function RefCountSubscriber(destination, connectable) {
         _super.call(this, destination);
         this.connectable = connectable;
@@ -97326,7 +96776,7 @@ var ConnectableObservable_1$3 = {
 	ConnectableObservable: ConnectableObservable_2
 };
 
-var __extends$221 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$219 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97334,7 +96784,7 @@ var __extends$221 = (commonjsGlobal && commonjsGlobal.__extends) || function (d,
 var Observable_1$114 = Observable_1$1;
 var ConnectableObservable_1$2 = ConnectableObservable_1$3;
 var MulticastObservable$1 = (function (_super) {
-    __extends$221(MulticastObservable, _super);
+    __extends$219(MulticastObservable, _super);
     function MulticastObservable(source, subjectFactory, selector) {
         _super.call(this);
         this.source = source;
@@ -97409,7 +96859,7 @@ var Observable_1$117 = Observable_1$1;
 var onErrorResumeNext_1$3 = onErrorResumeNext_1$1;
 Observable_1$117.Observable.prototype.onErrorResumeNext = onErrorResumeNext_1$3.onErrorResumeNext;
 
-var __extends$223 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$221 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97468,7 +96918,7 @@ var PairwiseOperator = (function () {
  * @extends {Ignored}
  */
 var PairwiseSubscriber = (function (_super) {
-    __extends$223(PairwiseSubscriber, _super);
+    __extends$221(PairwiseSubscriber, _super);
     function PairwiseSubscriber(destination) {
         _super.call(this, destination);
         this.hasPrev = false;
@@ -97660,7 +97110,7 @@ var Observable_1$121 = Observable_1$1;
 var publish_1 = publish_1$1;
 Observable_1$121.Observable.prototype.publish = publish_1.publish;
 
-var __extends$224 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$222 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97671,7 +97121,7 @@ var ObjectUnsubscribedError_1$4 = ObjectUnsubscribedError_1$1;
  * @class BehaviorSubject<T>
  */
 var BehaviorSubject$1 = (function (_super) {
-    __extends$224(BehaviorSubject, _super);
+    __extends$222(BehaviorSubject, _super);
     function BehaviorSubject(_value) {
         _super.call(this);
         this._value = _value;
@@ -97786,7 +97236,7 @@ var Observable_1$126 = Observable_1$1;
 var reduce_1$4 = reduce_1$1;
 Observable_1$126.Observable.prototype.reduce = reduce_1$4.reduce;
 
-var __extends$225 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$223 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97836,7 +97286,7 @@ var RepeatOperator = (function () {
  * @extends {Ignored}
  */
 var RepeatSubscriber = (function (_super) {
-    __extends$225(RepeatSubscriber, _super);
+    __extends$223(RepeatSubscriber, _super);
     function RepeatSubscriber(destination, count, source) {
         _super.call(this, destination);
         this.count = count;
@@ -97868,7 +97318,7 @@ var Observable_1$127 = Observable_1$1;
 var repeat_1 = repeat_1$1;
 Observable_1$127.Observable.prototype.repeat = repeat_1.repeat;
 
-var __extends$226 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$224 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -97914,7 +97364,7 @@ var RepeatWhenOperator = (function () {
  * @extends {Ignored}
  */
 var RepeatWhenSubscriber = (function (_super) {
-    __extends$226(RepeatWhenSubscriber, _super);
+    __extends$224(RepeatWhenSubscriber, _super);
     function RepeatWhenSubscriber(destination, notifier, source) {
         _super.call(this, destination);
         this.notifier = notifier;
@@ -97981,7 +97431,7 @@ var Observable_1$128 = Observable_1$1;
 var repeatWhen_1 = repeatWhen_1$1;
 Observable_1$128.Observable.prototype.repeatWhen = repeatWhen_1.repeatWhen;
 
-var __extends$227 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$225 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98025,7 +97475,7 @@ var RetryOperator = (function () {
  * @extends {Ignored}
  */
 var RetrySubscriber = (function (_super) {
-    __extends$227(RetrySubscriber, _super);
+    __extends$225(RetrySubscriber, _super);
     function RetrySubscriber(destination, count, source) {
         _super.call(this, destination);
         this.count = count;
@@ -98057,7 +97507,7 @@ var Observable_1$129 = Observable_1$1;
 var retry_1 = retry_1$1;
 Observable_1$129.Observable.prototype.retry = retry_1.retry;
 
-var __extends$228 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$226 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98103,7 +97553,7 @@ var RetryWhenOperator = (function () {
  * @extends {Ignored}
  */
 var RetryWhenSubscriber = (function (_super) {
-    __extends$228(RetryWhenSubscriber, _super);
+    __extends$226(RetryWhenSubscriber, _super);
     function RetryWhenSubscriber(destination, notifier, source) {
         _super.call(this, destination);
         this.notifier = notifier;
@@ -98170,7 +97620,7 @@ var Observable_1$130 = Observable_1$1;
 var retryWhen_1 = retryWhen_1$1;
 Observable_1$130.Observable.prototype.retryWhen = retryWhen_1.retryWhen;
 
-var __extends$229 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$227 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98230,7 +97680,7 @@ var SampleOperator = (function () {
  * @extends {Ignored}
  */
 var SampleSubscriber = (function (_super) {
-    __extends$229(SampleSubscriber, _super);
+    __extends$227(SampleSubscriber, _super);
     function SampleSubscriber(destination, notifier) {
         _super.call(this, destination);
         this.hasValue = false;
@@ -98263,7 +97713,7 @@ var Observable_1$131 = Observable_1$1;
 var sample_1 = sample_1$1;
 Observable_1$131.Observable.prototype.sample = sample_1.sample;
 
-var __extends$230 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$228 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98327,7 +97777,7 @@ var SampleTimeOperator = (function () {
  * @extends {Ignored}
  */
 var SampleTimeSubscriber = (function (_super) {
-    __extends$230(SampleTimeSubscriber, _super);
+    __extends$228(SampleTimeSubscriber, _super);
     function SampleTimeSubscriber(destination, period, scheduler) {
         _super.call(this, destination);
         this.period = period;
@@ -98361,7 +97811,7 @@ var Observable_1$132 = Observable_1$1;
 var sampleTime_1 = sampleTime_1$1;
 Observable_1$132.Observable.prototype.sampleTime = sampleTime_1.sampleTime;
 
-var __extends$231 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$229 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98424,7 +97874,7 @@ var ScanOperator = (function () {
  * @extends {Ignored}
  */
 var ScanSubscriber = (function (_super) {
-    __extends$231(ScanSubscriber, _super);
+    __extends$229(ScanSubscriber, _super);
     function ScanSubscriber(destination, accumulator, seed) {
         _super.call(this, destination);
         this.accumulator = accumulator;
@@ -98476,7 +97926,7 @@ var Observable_1$133 = Observable_1$1;
 var scan_1 = scan_1$1;
 Observable_1$133.Observable.prototype.scan = scan_1.scan;
 
-var __extends$232 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$230 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98557,7 +98007,7 @@ var SequenceEqualOperator_1 = SequenceEqualOperator;
  * @extends {Ignored}
  */
 var SequenceEqualSubscriber = (function (_super) {
-    __extends$232(SequenceEqualSubscriber, _super);
+    __extends$230(SequenceEqualSubscriber, _super);
     function SequenceEqualSubscriber(destination, compareTo, comparor) {
         _super.call(this, destination);
         this.compareTo = compareTo;
@@ -98622,7 +98072,7 @@ var SequenceEqualSubscriber = (function (_super) {
 }(Subscriber_1$42.Subscriber));
 var SequenceEqualSubscriber_1 = SequenceEqualSubscriber;
 var SequenceEqualCompareToSubscriber = (function (_super) {
-    __extends$232(SequenceEqualCompareToSubscriber, _super);
+    __extends$230(SequenceEqualCompareToSubscriber, _super);
     function SequenceEqualCompareToSubscriber(destination, parent) {
         _super.call(this, destination);
         this.parent = parent;
@@ -98680,7 +98130,7 @@ var Observable_1$135 = Observable_1$1;
 var share_1 = share_1$1;
 Observable_1$135.Observable.prototype.share = share_1.share;
 
-var __extends$233 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$231 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98723,7 +98173,7 @@ var SingleOperator = (function () {
  * @extends {Ignored}
  */
 var SingleSubscriber = (function (_super) {
-    __extends$233(SingleSubscriber, _super);
+    __extends$231(SingleSubscriber, _super);
     function SingleSubscriber(destination, predicate, source) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -98782,7 +98232,7 @@ var Observable_1$136 = Observable_1$1;
 var single_1 = single_1$1;
 Observable_1$136.Observable.prototype.single = single_1.single;
 
-var __extends$234 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$232 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98818,7 +98268,7 @@ var SkipOperator = (function () {
  * @extends {Ignored}
  */
 var SkipSubscriber = (function (_super) {
-    __extends$234(SkipSubscriber, _super);
+    __extends$232(SkipSubscriber, _super);
     function SkipSubscriber(destination, total) {
         _super.call(this, destination);
         this.total = total;
@@ -98840,7 +98290,7 @@ var Observable_1$137 = Observable_1$1;
 var skip_1 = skip_1$1;
 Observable_1$137.Observable.prototype.skip = skip_1.skip;
 
-var __extends$235 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$233 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98878,7 +98328,7 @@ var SkipUntilOperator = (function () {
  * @extends {Ignored}
  */
 var SkipUntilSubscriber = (function (_super) {
-    __extends$235(SkipUntilSubscriber, _super);
+    __extends$233(SkipUntilSubscriber, _super);
     function SkipUntilSubscriber(destination, notifier) {
         _super.call(this, destination);
         this.hasValue = false;
@@ -98918,7 +98368,7 @@ var Observable_1$138 = Observable_1$1;
 var skipUntil_1 = skipUntil_1$1;
 Observable_1$138.Observable.prototype.skipUntil = skipUntil_1.skipUntil;
 
-var __extends$236 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$234 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -98955,7 +98405,7 @@ var SkipWhileOperator = (function () {
  * @extends {Ignored}
  */
 var SkipWhileSubscriber = (function (_super) {
-    __extends$236(SkipWhileSubscriber, _super);
+    __extends$234(SkipWhileSubscriber, _super);
     function SkipWhileSubscriber(destination, predicate) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -99251,7 +98701,7 @@ var Immediate = {
 	Immediate: Immediate_1$1
 };
 
-var __extends$238 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$236 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99264,7 +98714,7 @@ var AsyncAction_1$4 = AsyncAction_1$1;
  * @extends {Ignored}
  */
 var AsapAction = (function (_super) {
-    __extends$238(AsapAction, _super);
+    __extends$236(AsapAction, _super);
     function AsapAction(scheduler, work) {
         _super.call(this, scheduler, work);
         this.scheduler = scheduler;
@@ -99307,14 +98757,14 @@ var AsapAction_1$1 = {
 	AsapAction: AsapAction_2
 };
 
-var __extends$239 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$237 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var AsyncScheduler_1$4 = AsyncScheduler_1$1;
 var AsapScheduler = (function (_super) {
-    __extends$239(AsapScheduler, _super);
+    __extends$237(AsapScheduler, _super);
     function AsapScheduler() {
         _super.apply(this, arguments);
     }
@@ -99355,7 +98805,7 @@ var asap = {
 	asap: asap_1$2
 };
 
-var __extends$237 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$235 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99369,7 +98819,7 @@ var isNumeric_1$4 = isNumeric_1$1;
  * @hide true
  */
 var SubscribeOnObservable = (function (_super) {
-    __extends$237(SubscribeOnObservable, _super);
+    __extends$235(SubscribeOnObservable, _super);
     function SubscribeOnObservable(source, delayTime, scheduler) {
         if (delayTime === void 0) { delayTime = 0; }
         if (scheduler === void 0) { scheduler = asap_1$1.asap; }
@@ -99435,7 +98885,7 @@ var Observable_1$141 = Observable_1$1;
 var subscribeOn_1 = subscribeOn_1$1;
 Observable_1$141.Observable.prototype.subscribeOn = subscribeOn_1.subscribeOn;
 
-var __extends$240 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$238 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99502,7 +98952,7 @@ var SwitchOperator = (function () {
  * @extends {Ignored}
  */
 var SwitchSubscriber = (function (_super) {
-    __extends$240(SwitchSubscriber, _super);
+    __extends$238(SwitchSubscriber, _super);
     function SwitchSubscriber(destination) {
         _super.call(this, destination);
         this.active = 0;
@@ -99551,7 +99001,7 @@ var switch_1 = _switch_1;
 Observable_1$143.Observable.prototype.switch = switch_1._switch;
 Observable_1$143.Observable.prototype._switch = switch_1._switch;
 
-var __extends$241 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$239 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99625,7 +99075,7 @@ var SwitchMapOperator = (function () {
  * @extends {Ignored}
  */
 var SwitchMapSubscriber = (function (_super) {
-    __extends$241(SwitchMapSubscriber, _super);
+    __extends$239(SwitchMapSubscriber, _super);
     function SwitchMapSubscriber(destination, project, resultSelector) {
         _super.call(this, destination);
         this.project = project;
@@ -99697,7 +99147,7 @@ var Observable_1$144 = Observable_1$1;
 var switchMap_1 = switchMap_1$1;
 Observable_1$144.Observable.prototype.switchMap = switchMap_1.switchMap;
 
-var __extends$242 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$240 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99768,7 +99218,7 @@ var SwitchMapToOperator = (function () {
  * @extends {Ignored}
  */
 var SwitchMapToSubscriber = (function (_super) {
-    __extends$242(SwitchMapToSubscriber, _super);
+    __extends$240(SwitchMapToSubscriber, _super);
     function SwitchMapToSubscriber(destination, inner, resultSelector) {
         _super.call(this, destination);
         this.inner = inner;
@@ -99830,7 +99280,7 @@ var Observable_1$145 = Observable_1$1;
 var switchMapTo_1 = switchMapTo_1$1;
 Observable_1$145.Observable.prototype.switchMapTo = switchMapTo_1.switchMapTo;
 
-var __extends$243 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$241 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99898,7 +99348,7 @@ var TakeOperator = (function () {
  * @extends {Ignored}
  */
 var TakeSubscriber = (function (_super) {
-    __extends$243(TakeSubscriber, _super);
+    __extends$241(TakeSubscriber, _super);
     function TakeSubscriber(destination, total) {
         _super.call(this, destination);
         this.total = total;
@@ -99925,7 +99375,7 @@ var Observable_1$146 = Observable_1$1;
 var take_1 = take_1$1;
 Observable_1$146.Observable.prototype.take = take_1.take;
 
-var __extends$244 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$242 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99996,7 +99446,7 @@ var TakeLastOperator = (function () {
  * @extends {Ignored}
  */
 var TakeLastSubscriber = (function (_super) {
-    __extends$244(TakeLastSubscriber, _super);
+    __extends$242(TakeLastSubscriber, _super);
     function TakeLastSubscriber(destination, total) {
         _super.call(this, destination);
         this.total = total;
@@ -100039,7 +99489,7 @@ var Observable_1$147 = Observable_1$1;
 var takeLast_1 = takeLast_1$1;
 Observable_1$147.Observable.prototype.takeLast = takeLast_1.takeLast;
 
-var __extends$245 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$243 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100098,7 +99548,7 @@ var TakeUntilOperator = (function () {
  * @extends {Ignored}
  */
 var TakeUntilSubscriber = (function (_super) {
-    __extends$245(TakeUntilSubscriber, _super);
+    __extends$243(TakeUntilSubscriber, _super);
     function TakeUntilSubscriber(destination, notifier) {
         _super.call(this, destination);
         this.notifier = notifier;
@@ -100121,7 +99571,7 @@ var Observable_1$148 = Observable_1$1;
 var takeUntil_1 = takeUntil_1$1;
 Observable_1$148.Observable.prototype.takeUntil = takeUntil_1.takeUntil;
 
-var __extends$246 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$244 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100182,7 +99632,7 @@ var TakeWhileOperator = (function () {
  * @extends {Ignored}
  */
 var TakeWhileSubscriber = (function (_super) {
-    __extends$246(TakeWhileSubscriber, _super);
+    __extends$244(TakeWhileSubscriber, _super);
     function TakeWhileSubscriber(destination, predicate) {
         _super.call(this, destination);
         this.predicate = predicate;
@@ -100220,7 +99670,7 @@ var Observable_1$149 = Observable_1$1;
 var takeWhile_1 = takeWhile_1$1;
 Observable_1$149.Observable.prototype.takeWhile = takeWhile_1.takeWhile;
 
-var __extends$247 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$245 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100284,7 +99734,7 @@ var ThrottleOperator = (function () {
  * @extends {Ignored}
  */
 var ThrottleSubscriber = (function (_super) {
-    __extends$247(ThrottleSubscriber, _super);
+    __extends$245(ThrottleSubscriber, _super);
     function ThrottleSubscriber(destination, durationSelector) {
         _super.call(this, destination);
         this.destination = destination;
@@ -100335,7 +99785,7 @@ var Observable_1$150 = Observable_1$1;
 var throttle_1 = throttle_1$1;
 Observable_1$150.Observable.prototype.throttle = throttle_1.throttle;
 
-var __extends$248 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$246 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100402,7 +99852,7 @@ var ThrottleTimeOperator = (function () {
  * @extends {Ignored}
  */
 var ThrottleTimeSubscriber = (function (_super) {
-    __extends$248(ThrottleTimeSubscriber, _super);
+    __extends$246(ThrottleTimeSubscriber, _super);
     function ThrottleTimeSubscriber(destination, duration, scheduler) {
         _super.call(this, destination);
         this.duration = duration;
@@ -100437,7 +99887,7 @@ var Observable_1$151 = Observable_1$1;
 var throttleTime_1 = throttleTime_1$1;
 Observable_1$151.Observable.prototype.throttleTime = throttleTime_1.throttleTime;
 
-var __extends$249 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$247 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100479,7 +99929,7 @@ var TimeIntervalOperator = (function () {
  * @extends {Ignored}
  */
 var TimeIntervalSubscriber = (function (_super) {
-    __extends$249(TimeIntervalSubscriber, _super);
+    __extends$247(TimeIntervalSubscriber, _super);
     function TimeIntervalSubscriber(destination, scheduler) {
         _super.call(this, destination);
         this.scheduler = scheduler;
@@ -100504,7 +99954,7 @@ var Observable_1$152 = Observable_1$1;
 var timeInterval_1$1 = timeInterval_1$2;
 Observable_1$152.Observable.prototype.timeInterval = timeInterval_1$1.timeInterval;
 
-var __extends$250 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$248 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100546,7 +99996,7 @@ var TimeoutOperator = (function () {
  * @extends {Ignored}
  */
 var TimeoutSubscriber = (function (_super) {
-    __extends$250(TimeoutSubscriber, _super);
+    __extends$248(TimeoutSubscriber, _super);
     function TimeoutSubscriber(destination, absoluteTimeout, waitFor, errorToSend, scheduler) {
         _super.call(this, destination);
         this.absoluteTimeout = absoluteTimeout;
@@ -100613,7 +100063,7 @@ var Observable_1$153 = Observable_1$1;
 var timeout_1 = timeout_1$1;
 Observable_1$153.Observable.prototype.timeout = timeout_1.timeout;
 
-var __extends$251 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$249 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100655,7 +100105,7 @@ var TimeoutWithOperator = (function () {
  * @extends {Ignored}
  */
 var TimeoutWithSubscriber = (function (_super) {
-    __extends$251(TimeoutWithSubscriber, _super);
+    __extends$249(TimeoutWithSubscriber, _super);
     function TimeoutWithSubscriber(destination, absoluteTimeout, waitFor, withObservable, scheduler) {
         _super.call(this);
         this.destination = destination;
@@ -100730,7 +100180,7 @@ var Observable_1$154 = Observable_1$1;
 var timeoutWith_1 = timeoutWith_1$1;
 Observable_1$154.Observable.prototype.timeoutWith = timeoutWith_1.timeoutWith;
 
-var __extends$252 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$250 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100767,7 +100217,7 @@ var TimestampOperator = (function () {
     return TimestampOperator;
 }());
 var TimestampSubscriber = (function (_super) {
-    __extends$252(TimestampSubscriber, _super);
+    __extends$250(TimestampSubscriber, _super);
     function TimestampSubscriber(destination, scheduler) {
         _super.call(this, destination);
         this.scheduler = scheduler;
@@ -100788,7 +100238,7 @@ var Observable_1$155 = Observable_1$1;
 var timestamp_1$1 = timestamp_1$2;
 Observable_1$155.Observable.prototype.timestamp = timestamp_1$1.timestamp;
 
-var __extends$253 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$251 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100817,7 +100267,7 @@ var ToArrayOperator = (function () {
  * @extends {Ignored}
  */
 var ToArraySubscriber = (function (_super) {
-    __extends$253(ToArraySubscriber, _super);
+    __extends$251(ToArraySubscriber, _super);
     function ToArraySubscriber(destination) {
         _super.call(this, destination);
         this.array = [];
@@ -100844,7 +100294,7 @@ var Observable_1$157 = Observable_1$1;
 var toPromise_1$2 = toPromise_1;
 Observable_1$157.Observable.prototype.toPromise = toPromise_1$2.toPromise;
 
-var __extends$254 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$252 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -100912,7 +100362,7 @@ var WindowOperator = (function () {
  * @extends {Ignored}
  */
 var WindowSubscriber = (function (_super) {
-    __extends$254(WindowSubscriber, _super);
+    __extends$252(WindowSubscriber, _super);
     function WindowSubscriber(destination) {
         _super.call(this, destination);
         this.window = new Subject_1$13.Subject();
@@ -100961,7 +100411,7 @@ var Observable_1$158 = Observable_1$1;
 var window_1 = window_1$1;
 Observable_1$158.Observable.prototype.window = window_1.window;
 
-var __extends$255 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$253 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101037,7 +100487,7 @@ var WindowCountOperator = (function () {
  * @extends {Ignored}
  */
 var WindowCountSubscriber = (function (_super) {
-    __extends$255(WindowCountSubscriber, _super);
+    __extends$253(WindowCountSubscriber, _super);
     function WindowCountSubscriber(destination, windowSize, startWindowEvery) {
         _super.call(this, destination);
         this.destination = destination;
@@ -101099,7 +100549,7 @@ var Observable_1$159 = Observable_1$1;
 var windowCount_1 = windowCount_1$1;
 Observable_1$159.Observable.prototype.windowCount = windowCount_1.windowCount;
 
-var __extends$256 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$254 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101179,7 +100629,7 @@ var WindowTimeOperator = (function () {
  * @extends {Ignored}
  */
 var WindowTimeSubscriber = (function (_super) {
-    __extends$256(WindowTimeSubscriber, _super);
+    __extends$254(WindowTimeSubscriber, _super);
     function WindowTimeSubscriber(destination, windowTimeSpan, windowCreationInterval, scheduler) {
         _super.call(this, destination);
         this.destination = destination;
@@ -101275,7 +100725,7 @@ var Observable_1$160 = Observable_1$1;
 var windowTime_1 = windowTime_1$1;
 Observable_1$160.Observable.prototype.windowTime = windowTime_1.windowTime;
 
-var __extends$257 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$255 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101347,7 +100797,7 @@ var WindowToggleOperator = (function () {
  * @extends {Ignored}
  */
 var WindowToggleSubscriber = (function (_super) {
-    __extends$257(WindowToggleSubscriber, _super);
+    __extends$255(WindowToggleSubscriber, _super);
     function WindowToggleSubscriber(destination, openings, closingSelector) {
         _super.call(this, destination);
         this.openings = openings;
@@ -101462,7 +100912,7 @@ var Observable_1$161 = Observable_1$1;
 var windowToggle_1 = windowToggle_1$1;
 Observable_1$161.Observable.prototype.windowToggle = windowToggle_1.windowToggle;
 
-var __extends$258 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$256 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101529,7 +100979,7 @@ var WindowOperator$1 = (function () {
  * @extends {Ignored}
  */
 var WindowSubscriber$1 = (function (_super) {
-    __extends$258(WindowSubscriber, _super);
+    __extends$256(WindowSubscriber, _super);
     function WindowSubscriber(destination, closingSelector) {
         _super.call(this, destination);
         this.destination = destination;
@@ -101596,7 +101046,7 @@ var Observable_1$162 = Observable_1$1;
 var windowWhen_1 = windowWhen_1$1;
 Observable_1$162.Observable.prototype.windowWhen = windowWhen_1.windowWhen;
 
-var __extends$259 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$257 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101671,7 +101121,7 @@ var WithLatestFromOperator = (function () {
  * @extends {Ignored}
  */
 var WithLatestFromSubscriber = (function (_super) {
-    __extends$259(WithLatestFromSubscriber, _super);
+    __extends$257(WithLatestFromSubscriber, _super);
     function WithLatestFromSubscriber(destination, observables, project) {
         _super.call(this, destination);
         this.observables = observables;
@@ -101809,7 +101259,7 @@ var applyMixins_1$1 = {
 	applyMixins: applyMixins_2
 };
 
-var __extends$261 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$259 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101824,7 +101274,7 @@ var applyMixins_1 = applyMixins_1$1;
  * @extends {Ignored}
  */
 var ColdObservable = (function (_super) {
-    __extends$261(ColdObservable, _super);
+    __extends$259(ColdObservable, _super);
     function ColdObservable(messages, scheduler) {
         _super.call(this, function (subscriber) {
             var observable = this;
@@ -101858,7 +101308,7 @@ var ColdObservable_1$1 = {
 	ColdObservable: ColdObservable_2
 };
 
-var __extends$262 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$260 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101873,7 +101323,7 @@ var applyMixins_1$3 = applyMixins_1$1;
  * @extends {Ignored}
  */
 var HotObservable = (function (_super) {
-    __extends$262(HotObservable, _super);
+    __extends$260(HotObservable, _super);
     function HotObservable(messages, scheduler) {
         _super.call(this);
         this.messages = messages;
@@ -101909,7 +101359,7 @@ var HotObservable_1$1 = {
 	HotObservable: HotObservable_2
 };
 
-var __extends$263 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$261 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -101917,7 +101367,7 @@ var __extends$263 = (commonjsGlobal && commonjsGlobal.__extends) || function (d,
 var AsyncAction_1$5 = AsyncAction_1$1;
 var AsyncScheduler_1$5 = AsyncScheduler_1$1;
 var VirtualTimeScheduler$1 = (function (_super) {
-    __extends$263(VirtualTimeScheduler, _super);
+    __extends$261(VirtualTimeScheduler, _super);
     function VirtualTimeScheduler(SchedulerAction, maxFrames) {
         var _this = this;
         if (SchedulerAction === void 0) { SchedulerAction = VirtualAction; }
@@ -101957,7 +101407,7 @@ var VirtualTimeScheduler_2 = VirtualTimeScheduler$1;
  * @extends {Ignored}
  */
 var VirtualAction = (function (_super) {
-    __extends$263(VirtualAction, _super);
+    __extends$261(VirtualAction, _super);
     function VirtualAction(scheduler, work, index) {
         if (index === void 0) { index = scheduler.index += 1; }
         _super.call(this, scheduler, work);
@@ -102011,7 +101461,7 @@ var VirtualTimeScheduler_1$2 = {
 	VirtualAction: VirtualAction_1
 };
 
-var __extends$260 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$258 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -102024,7 +101474,7 @@ var SubscriptionLog_1 = SubscriptionLog_1$2;
 var VirtualTimeScheduler_1$1 = VirtualTimeScheduler_1$2;
 var defaultMaxFrame = 750;
 var TestScheduler$1 = (function (_super) {
-    __extends$260(TestScheduler, _super);
+    __extends$258(TestScheduler, _super);
     function TestScheduler(assertDeepEqual) {
         _super.call(this, VirtualTimeScheduler_1$1.VirtualAction, defaultMaxFrame);
         this.assertDeepEqual = assertDeepEqual;
@@ -102270,7 +101720,7 @@ var AnimationFrame = {
 	AnimationFrame: AnimationFrame_1$1
 };
 
-var __extends$264 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$262 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -102283,7 +101733,7 @@ var AnimationFrame_1 = AnimationFrame;
  * @extends {Ignored}
  */
 var AnimationFrameAction = (function (_super) {
-    __extends$264(AnimationFrameAction, _super);
+    __extends$262(AnimationFrameAction, _super);
     function AnimationFrameAction(scheduler, work) {
         _super.call(this, scheduler, work);
         this.scheduler = scheduler;
@@ -102326,14 +101776,14 @@ var AnimationFrameAction_1$1 = {
 	AnimationFrameAction: AnimationFrameAction_2
 };
 
-var __extends$265 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$263 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var AsyncScheduler_1$6 = AsyncScheduler_1$1;
 var AnimationFrameScheduler = (function (_super) {
-    __extends$265(AnimationFrameScheduler, _super);
+    __extends$263(AnimationFrameScheduler, _super);
     function AnimationFrameScheduler() {
         _super.apply(this, arguments);
     }
@@ -102374,13 +101824,13 @@ var animationFrame_1$1 = new AnimationFrameScheduler_1.AnimationFrameScheduler(A
 var Observable_1$8 = Observable_1$1;
 var Observable$1 = Observable_1$8.Observable;
 
-var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$109 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$3 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var AuthService = (function () {
@@ -102505,20 +101955,20 @@ var AuthService = (function () {
             console.log(error);
         });
     };
-    AuthService = __decorate$118([
+    AuthService = __decorate$109([
         Injectable(), 
-        __metadata$12('design:paramtypes', [AuthHttp_1, NgZone])
+        __metadata$3('design:paramtypes', [AuthHttp_1, NgZone])
     ], AuthService);
     return AuthService;
 }());
 
-var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$108 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$2 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var PerfilAutenticacion = (function () {
@@ -102533,21 +101983,797 @@ var PerfilAutenticacion = (function () {
         var _this = this;
         if (this.auth.authenticated()) {
             //this.navCtrl.push(TabsPage);
-            this.navCtrl.setRoot(ToolBarMenu);
+            this.navCtrl.setRoot(MyApp);
         }
         else {
             this.auth.lock.on('authenticated', function (authResult) {
                 //this.navCtrl.push(TabsPage);
-                _this.navCtrl.setRoot(ToolBarMenu);
+                _this.navCtrl.setRoot(MyApp);
             });
         }
     };
-    PerfilAutenticacion = __decorate$117([
+    PerfilAutenticacion = __decorate$108([
         Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\profile\profile.html"*/' <!-- app/pages/profile/profile.html \n\n<ion-navbar *navbar>\n\n  <ion-title>Profile</ion-title>\n\n</ion-navbar>\n\n\n\n<ion-content  style="height:100vh;" padding *ngIf="!auth.authenticated()">\n\n  \n\n  <button block (click)="auth.login()">Login</button>\n\n\n\n</ion-content>\n\n-->\n\n\n\n\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Profile</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding *ngIf="!auth.authenticated()">\n\n  \n\n  <button ion-button block (click)="auth.login()">Login</button>\n\n  \n\n</ion-content>\n\n\n\n<ion-content padding *ngIf="auth.authenticated()">\n\n  \n\n  <ion-card>\n\n\n\n    <ion-item *ngIf="auth.user">\n\n      <ion-avatar item-left>\n\n        <img src="{{ auth.user.picture }}">\n\n      </ion-avatar>\n\n      <h2>{{ auth.user.nickname }}</h2>\n\n      <p>{{ auth.user.email }}</p>\n\n    </ion-item>\n\n  \n\n  </ion-card>\n\n  \n\n  <button ion-button block (click)="auth.logout()">Logout</button>\n\n  \n\n</ion-content>'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\profile\profile.html"*/
         }), 
-        __metadata$11('design:paramtypes', [NavController, AuthService])
+        __metadata$2('design:paramtypes', [NavController, AuthService])
     ], PerfilAutenticacion);
     return PerfilAutenticacion;
+}());
+
+var Documento = (function () {
+    function Documento() {
+        this.id = 0;
+        this.nombre = "";
+        this.url = "";
+        this.tipo = "";
+        this.fechaAlta = new Date();
+    }
+    Documento.prototype.getId = function () {
+        return this.id;
+    };
+    Documento.prototype.setId = function (identificador) {
+        this.id = identificador;
+    };
+    Documento.prototype.getNombre = function () {
+        return this.nombre;
+    };
+    Documento.prototype.setNombre = function (nom) {
+        this.nombre = nom;
+    };
+    Documento.prototype.getUrl = function () {
+        return this.url;
+    };
+    Documento.prototype.setUrl = function (url) {
+        this.url = url;
+    };
+    Documento.prototype.getTipo = function () {
+        return this.tipo;
+    };
+    Documento.prototype.setTipo = function (tip) {
+        this.tipo = tip;
+    };
+    Documento.prototype.getFechaAlta = function () {
+        return this.fechaAlta;
+    };
+    Documento.prototype.setFechaAlta = function (fecha) {
+        this.fechaAlta = fecha;
+    };
+    return Documento;
+}());
+
+//Fichero de constantes
+var Constantes = (function () {
+    function Constantes() {
+    }
+    Constantes.FOTO_ANIMAL_DEFECTO = "../../assets/img/vaca.png";
+    Constantes.TIPODOCUMENTOIMAGEN = "img";
+    Constantes.TIPODOCUMENTOPDF = "pdf";
+    Constantes.TIPODOCUMENTOWORD = "word";
+    Constantes.TIPODOCUMENTOEXCEL = "excel";
+    return Constantes;
+}());
+
+var __decorate$112 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+//import { Transfer } from 'ionic-native';
+// Cordova
+//declare var cordova: any;
+var ListaDocumentos = (function () {
+    //fileTransfer = new Transfer();
+    function ListaDocumentos(navCtrl) {
+        this.navCtrl = navCtrl;
+        var doc1 = new Documento();
+        doc1.setId(1);
+        doc1.setNombre("luis.word");
+        doc1.setUrl("/hola/holitaMou");
+        doc1.setTipo(Constantes.TIPODOCUMENTOWORD);
+        doc1.setFechaAlta(new Date());
+        var doc2 = new Documento();
+        doc2.setId(1);
+        doc2.setNombre("maria.excel");
+        doc2.setUrl("/hola/holitaMou/excel");
+        doc2.setTipo(Constantes.TIPODOCUMENTOEXCEL);
+        doc2.setFechaAlta(new Date());
+        var doc3 = new Documento();
+        doc3.setId(1);
+        doc3.setNombre("alberto.gimp");
+        doc3.setUrl("/hola/holitaMou/envida");
+        doc3.setTipo(Constantes.TIPODOCUMENTOIMAGEN);
+        doc3.setFechaAlta(new Date());
+        var doc4 = new Documento();
+        doc4.setId(1);
+        doc4.setNombre("nochebuena.pdf");
+        doc4.setUrl("/hola/holitaMou/nuevamejoramiga");
+        doc4.setTipo(Constantes.TIPODOCUMENTOPDF);
+        doc4.setFechaAlta(new Date());
+        this.arrayDocumentos = [doc1, doc2, doc3, doc4];
+    }
+    ListaDocumentos.prototype.visualizar = function (doc) {
+        window.open('assets/documentos/descarga.pdf', '_system', 'location=yes');
+    };
+    ListaDocumentos.prototype.descargar = function (doc) {
+        var url = 'assets/documentos/descarga.pdf';
+        /*	  this.fileTransfer.download(url, cordova.file.dataDirectory + 'file.pdf').then((entry) => {
+                console.log('download complete: ' + entry.toURL());
+              }, (error) => {
+                // handle error
+                console.log('errorazo');
+              }); */
+    };
+    ListaDocumentos = __decorate$112([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  	  <ion-row center>\n\n	  	  <ion-col width-25>\n\n	  	  	<h5>Explotacion minera</h5>\n\n	  	  	<h5>luisalbertosereno@gmail.com</h5>\n\n	  	  </ion-col>\n\n	  	  <ion-col width-25>\n\n	  	  	<p>Machos: 250</p>\n\n	  	  	<p>Hembras: 300</p>\n\n	  	  </ion-col>\n\n	  	  <ion-col width-25>\n\n	  	  	<p>Total: 13000 €</p>\n\n	  	  	<p>Anual: 500 €</p>\n\n	  	  </ion-col>\n\n	  	   <ion-col width-25 offset-20>\n\n		      <button ion-button menuToggle right>\n\n		          <ion-icon name="ios-menu-outline"></ion-icon>\n\n		      </button>\n\n	      </ion-col>\n\n      </ion-row>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n	<ion-list>\n\n	  <ion-item *ngFor="let docu of arrayDocumentos">\n\n	    <ion-thumbnail item-left [ngSwitch]="docu.getTipo()">\n\n	      <img *ngSwitchCase="\'img\'" src="assets/icon/img.jpg">\n\n	      <img *ngSwitchCase="\'pdf\'" src="assets/icon/pdf.jpg">\n\n	      <img *ngSwitchCase="\'word\'" src="assets/icon/word.png">\n\n	      <img *ngSwitchCase="\'excel\'" src="assets/icon/excel.png">\n\n	    </ion-thumbnail>\n\n	    <h2>My Neighbor Totoro</h2>\n\n	    <p>Hayao Miyazaki • 1988</p>\n\n	    <button clear item-right (click)="visualizar(docu)" >View</button>\n\n	    <button clear item-right (click)="descargar(docu)" >Download</button>\n\n	  </ion-item>\n\n	</ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoDocumentos\listado.html"*/
+        }), 
+        __metadata$5('design:paramtypes', [NavController])
+    ], ListaDocumentos);
+    return ListaDocumentos;
+}());
+
+var Animal = (function () {
+    function Animal() {
+        this.id = 0;
+        this.alias = "";
+        this.raza = "";
+        this.foto = "";
+        this.numero = 0;
+        this.fechaNacimiento = new Date();
+        this.vacunas = new Array();
+        this.enfermedades = new Array();
+        this.ascendencia = new Array();
+        this.descendencia = new Array();
+        this.precioCompra = 0;
+        this.precioVenta = 0;
+    }
+    Animal.prototype.getId = function () {
+        return this.id;
+    };
+    Animal.prototype.setId = function (identificador) {
+        this.id = identificador;
+    };
+    Animal.prototype.getAlias = function () {
+        return this.alias;
+    };
+    Animal.prototype.setAlias = function (alias) {
+        this.alias = alias;
+    };
+    Animal.prototype.getRaza = function () {
+        return this.raza;
+    };
+    Animal.prototype.setRaza = function (raza) {
+        this.raza = raza;
+    };
+    Animal.prototype.getFoto = function () {
+        if (this.foto != null) {
+            return this.foto;
+        }
+        else {
+            return Constantes.FOTO_ANIMAL_DEFECTO;
+        }
+    };
+    Animal.prototype.setFoto = function (foto) {
+        if (foto != null && foto.trim() != "") {
+            this.foto = foto;
+        }
+        else {
+            this.foto = null;
+        }
+    };
+    Animal.prototype.getNumero = function () {
+        return this.numero;
+    };
+    Animal.prototype.setNumero = function (num) {
+        this.numero = num;
+    };
+    Animal.prototype.getFechaNacimiento = function () {
+        return this.fechaNacimiento;
+    };
+    Animal.prototype.setFechaNacimiento = function (fecNac) {
+        this.fechaNacimiento = fecNac;
+    };
+    Animal.prototype.getVacunas = function () {
+        return this.vacunas;
+    };
+    Animal.prototype.setVacunas = function (vacunas) {
+        this.vacunas = vacunas;
+    };
+    Animal.prototype.getEnfermedades = function () {
+        return this.enfermedades;
+    };
+    Animal.prototype.setEnfermedades = function (enf) {
+        this.enfermedades = enf;
+    };
+    Animal.prototype.getAscendencia = function () {
+        return this.ascendencia;
+    };
+    Animal.prototype.setAscendencia = function (ascen) {
+        this.ascendencia = ascen;
+    };
+    Animal.prototype.getDescendencia = function () {
+        return this.descendencia;
+    };
+    Animal.prototype.setDescendencia = function (descen) {
+        this.descendencia = descen;
+    };
+    Animal.prototype.getPrecioCompra = function () {
+        return this.precioCompra;
+    };
+    Animal.prototype.setPrecioCompra = function (precio) {
+        this.precioCompra = precio;
+    };
+    Animal.prototype.getPrecioVenta = function () {
+        return this.precioVenta;
+    };
+    Animal.prototype.setPrecioVenta = function (precio) {
+        this.precioVenta = precio;
+    };
+    return Animal;
+}());
+
+var __extends$264 = (undefined && undefined.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Hembra = (function (_super) {
+    __extends$264(Hembra, _super);
+    function Hembra(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento, ascen, descen, precioCompra, precioVenta) {
+        _super.call(this);
+        this.setId(id);
+        this.setAlias(alias);
+        this.setRaza(raza);
+        this.setFoto(foto);
+        this.setNumero(numero);
+        this.setFechaNacimiento(fechaNacimiento);
+        this.setVacunas(vacu);
+        this.setEnfermedades(enfer);
+        this.setFechaUltimoNacimiento(fechaUltimoNacimiento);
+        this.setAscendencia(ascen);
+        this.setDescendencia(descen);
+        this.setPrecioCompra(precioCompra);
+        this.setPrecioVenta(precioVenta);
+    }
+    Hembra.prototype.setFechaUltimoNacimiento = function (fecUlti) {
+        this.fechaUltimoNacimiento = fecUlti;
+    };
+    Hembra.prototype.getFechaUltimoNacimiento = function () {
+        return this.fechaUltimoNacimiento;
+    };
+    return Hembra;
+}(Animal));
+
+var __extends$265 = (undefined && undefined.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Macho = (function (_super) {
+    __extends$265(Macho, _super);
+    function Macho(id, alias, raza, foto, numero, fechaNacimiento, vacu, enfer, fechaUltimoNacimiento, ascen, descen, precioCompra, precioVenta) {
+        _super.call(this);
+        this.setId(id);
+        this.setAlias(alias);
+        this.setRaza(raza);
+        this.setFoto(foto);
+        this.setNumero(numero);
+        this.setFechaNacimiento(fechaNacimiento);
+        this.setVacunas(vacu);
+        this.setEnfermedades(enfer);
+        this.setAscendencia(ascen);
+        this.setDescendencia(descen);
+        this.setPrecioCompra(precioCompra);
+        this.setPrecioVenta(precioVenta);
+    }
+    return Macho;
+}(Animal));
+
+var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$7 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var Detalle = (function () {
+    function Detalle(navCtrl, params) {
+        this.navCtrl = navCtrl;
+        //let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),[],[],new Date());
+        //this.animal=vaca2;
+        var animalito = params.get("animal");
+        this.fechaNacimiento = animalito.getFechaNacimiento().toISOString();
+        this.animal = animalito;
+    }
+    Detalle.prototype.volver = function () {
+        this.navCtrl.pop();
+    };
+    Detalle.prototype.irDetalleDesdeDetalle = function (animalito) {
+        this.navCtrl.push(Detalle, { animal: animalito });
+    };
+    Detalle.prototype.devuelveColorBadge = function (tipoObjeto) {
+        return tipoObjeto instanceof Macho ? 'danger' : 'secondary';
+    };
+    Detalle = __decorate$114([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding class="page1">\n\n  <ion-card>\n\n\n\n    <img src="{{animal.getFoto()}}" class="tamanoreal"/>\n\n\n\n   <ion-card-content>\n\n      <h2 text-center class="card-title">\n\n        {{animal.getNumero()}}\n\n      </h2>\n\n      <p text-center>\n\n        {{animal.getAlias()}}\n\n      </p>\n\n      <ion-card>\n\n        <ion-grid>\n\n            <ion-row>\n\n              <ion-col>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label>\n\n                     <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>Raza \n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <input type="string" value="{{animal.getRaza()}}">\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Fecha Nacimiento\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                      <ion-item class="text-label">\n\n                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>\n\n                      </ion-item>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label>\n\n                     <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>Precio compra \n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <input type="string" value="{{animal.getPrecioCompra()}}">\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label>\n\n                     <ion-icon name=\'trending-up\' item-left class="color-iconos"></ion-icon>Precio venta \n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <input type="string" value="{{animal.getPrecioVenta()}}">\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Ascendencia\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let ganado of animal.getAscendencia()" >\n\n                      <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>\n\n                    </div>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'map\' item-left class="color-iconos"></ion-icon>Descendencia\n\n                     </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                      <div *ngFor="let ganado of animal.getDescendencia()" >\n\n                        <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>\n\n                      </div>\n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'color-wand\' item-left class="color-iconos"></ion-icon>Vacunas\n\n                    </label>  \n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let textoLabel of animal.getVacunas()" >\n\n                    <input type="string" value="{{textoLabel}}">\n\n                    </div>        \n\n                  </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                  <ion-col width-20>\n\n                    <label><ion-icon name=\'lock\' item-left class="color-iconos"></ion-icon>Enfermedades\n\n                    </label>\n\n                  </ion-col>\n\n                  <ion-col width-80>\n\n                    <div *ngFor="let textoLabel of animal.getEnfermedades()" >\n\n                    <input type="string" value="{{textoLabel}}">\n\n                    </div> \n\n                  </ion-col>\n\n                </ion-row>\n\n            </ion-col>\n\n          </ion-row>\n\n        </ion-grid>\n\n      </ion-card>\n\n    </ion-card-content>\n\n    <ion-row>\n\n     <ion-col offset-90>\n\n        <button ion-button color="dark" round right>Guardar</button>\n\n     </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\detalle\detalle.html"*/
+        }), 
+        __metadata$7('design:paramtypes', [NavController, NavParams])
+    ], Detalle);
+    return Detalle;
+}());
+
+var Explotacion = (function () {
+    function Explotacion() {
+        this.id = 0;
+        this.nombre = "";
+        this.emailUsu = "";
+        this.fechaAlta = new Date();
+        this.fechaUltimaEntrada = new Date();
+        this.dineroTotal = 0;
+        this.dineroAnual = 0;
+        this.arrayMachos = new Array();
+        this.arrayHembras = new Array();
+        this.arrayCompras = new Array();
+        this.arrayVentas = new Array();
+        this.arrayDocumentos = new Array();
+    }
+    Explotacion.prototype.getId = function () {
+        return this.id;
+    };
+    Explotacion.prototype.setId = function (identificador) {
+        this.id = identificador;
+    };
+    Explotacion.prototype.getNombre = function () {
+        return this.nombre;
+    };
+    Explotacion.prototype.setNombre = function (nombre) {
+        this.nombre = nombre;
+    };
+    Explotacion.prototype.getEmailUsu = function () {
+        return this.emailUsu;
+    };
+    Explotacion.prototype.setEmailUsu = function (email) {
+        this.emailUsu = email;
+    };
+    Explotacion.prototype.getFechaAlta = function () {
+        return this.fechaAlta;
+    };
+    Explotacion.prototype.setFechaAlta = function (fech) {
+        this.fechaAlta = fech;
+    };
+    Explotacion.prototype.getFechaUltimaEntrada = function () {
+        return this.fechaUltimaEntrada;
+    };
+    Explotacion.prototype.setFechaUltimaEntrada = function (fech) {
+        this.fechaUltimaEntrada = fech;
+    };
+    Explotacion.prototype.getDineroTotal = function () {
+        return this.dineroTotal;
+    };
+    Explotacion.prototype.setDineroTotal = function (precio) {
+        this.dineroTotal = precio;
+    };
+    Explotacion.prototype.getDineroAnual = function () {
+        return this.dineroAnual;
+    };
+    Explotacion.prototype.setDineroAnual = function (precio) {
+        this.dineroAnual = precio;
+    };
+    Explotacion.prototype.getArrayMachos = function () {
+        return this.arrayMachos;
+    };
+    Explotacion.prototype.setArrayMachos = function (arrayAnimal) {
+        this.arrayMachos = arrayAnimal;
+    };
+    Explotacion.prototype.getArrayHembras = function () {
+        return this.arrayHembras;
+    };
+    Explotacion.prototype.setArrayHembras = function (arrayAnimal) {
+        this.arrayHembras = arrayAnimal;
+    };
+    Explotacion.prototype.getArrayCompras = function () {
+        return this.arrayCompras;
+    };
+    Explotacion.prototype.setArrayCompras = function (arrayCompras) {
+        this.arrayCompras = arrayCompras;
+    };
+    Explotacion.prototype.getArrayVentas = function () {
+        return this.arrayVentas;
+    };
+    Explotacion.prototype.setArrayVentas = function (arrayVentas) {
+        this.arrayVentas = arrayVentas;
+    };
+    Explotacion.prototype.getArrayDocumentos = function () {
+        return this.arrayDocumentos;
+    };
+    Explotacion.prototype.setArrayDocumentos = function (arrayDocumentos) {
+        this.arrayDocumentos = arrayDocumentos;
+    };
+    return Explotacion;
+}());
+
+var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$8 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ServicioDatos = (function () {
+    function ServicioDatos(http /* This is #2 */) {
+        this.httpLocal = http;
+        this.explotacion = new Explotacion();
+    }
+    ServicioDatos.prototype.obtenerDatosExplotacion = function (email) {
+        var _this = this;
+        console.log("entra en obtenerDatosExpltotacion");
+        var params = new URLSearchParams();
+        params.set('usuario', email.toString());
+        this.httpLocal.get('../../assets/datos/explotacion.json', { search: params }).map(function (res) { return res.json(); }).subscribe(function (data) {
+            Object.assign(_this.explotacion, data);
+            console.log(_this.explotacion);
+        });
+    };
+    ServicioDatos.prototype.obtenerDatosGanado = function (idExplotacion) {
+        var _this = this;
+        console.log("entra en obtenerDatosGanado");
+        var params = new URLSearchParams();
+        params.set('idGanado', idExplotacion.toString());
+        this.httpLocal.get('../../assets/datos/explotacion.json', { search: params }).map(function (res) { return res.json(); }).subscribe(function (data) {
+            Object.assign(_this.explotacion, data);
+            console.log(_this.explotacion);
+        });
+    };
+    ServicioDatos.prototype.getExplotacion = function () {
+        return this.explotacion;
+    };
+    ServicioDatos = __decorate$115([
+        Injectable(), 
+        __metadata$8('design:paramtypes', [Http])
+    ], ServicioDatos);
+    return ServicioDatos;
+}());
+
+var __decorate$113 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$6 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ListaGanado = (function () {
+    function ListaGanado(navCtrl, params, servicio) {
+        this.navCtrl = navCtrl;
+        this.servicio = servicio;
+        //Este valor dependera de lo que seas tu, asi se te mostrara el primero
+        this.tipoMostrado = "hembras";
+        if (params != null && params.get("animales") != null) {
+            this.arrayHembras = new Array();
+            this.arrayMachos = new Array();
+            var animalito = params.get("animales");
+            for (var _i = 0, animalito_1 = animalito; _i < animalito_1.length; _i++) {
+                var ani = animalito_1[_i];
+                if (ani instanceof Macho) {
+                    this.arrayMachos.push(ani);
+                }
+                else {
+                    this.arrayHembras.push(ani);
+                }
+            }
+        }
+        else {
+            var toroPadre1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), [], [], 0, 0);
+            var vacaMadre2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), [], [], 0, 0);
+            var arrayAscen = [toroPadre1, vacaMadre2];
+            var arrayDescen = [toroPadre1, toroPadre1];
+            var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), arrayAscen, arrayDescen, 0, 0);
+            var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date(), arrayAscen, arrayDescen, 0, 0);
+            var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date(), arrayAscen, arrayDescen, 0, 0);
+            var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), arrayAscen, arrayDescen, 0, 0);
+            this.arrayHembras = [vaca1, vaca2];
+            this.arrayMachos = [toro1, toro2];
+        }
+    }
+    ListaGanado.prototype.detalle = function (animalito) {
+        this.navCtrl.push(Detalle, { animal: animalito });
+    };
+    ListaGanado = __decorate$113([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  	  <ion-row center>\n\n	  	  <ion-col width-20 offset-10>\n\n	  	  	<p>{{servicio.getExplotacion().getNombre()}}</p>\n\n	  	  	<p>{{servicio.getExplotacion().getEmailUsu()}}</p>\n\n	  	  </ion-col>\n\n	  	  <ion-col width-20 offset-10>\n\n	  	  	<p>Machos: {{servicio.getExplotacion().getArrayMachos().length}}</p>\n\n	  	  	<p>Hembras: {{servicio.getExplotacion().getArrayHembras().length}}</p>\n\n	  	  </ion-col>\n\n	  	  <ion-col width-20 offset-10>\n\n	  	  	<p>Total: {{servicio.getExplotacion().getDineroTotal()}}€</p>\n\n	  	  	<p>Anual: {{servicio.getExplotacion().getDineroAnual()}}€</p>\n\n	  	  </ion-col>\n\n	  	   <ion-col>\n\n		      <button ion-button menuToggle right>\n\n		          <ion-icon name="ios-menu-outline"></ion-icon>\n\n		      </button>\n\n	      </ion-col>\n\n      </ion-row>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="hembras">\n\n	      Hembras\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="machos">\n\n	      Machos\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'hembras\'">\n\n	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} {{animal.getFechaUltimoNacimiento().toLocaleDateString()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'machos\'">\n\n	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">\n\n	      <ion-thumbnail item-left>\n\n	        <img src="{{animal.getFoto()}}">\n\n	      </ion-thumbnail>\n\n	      	<h2>{{animal.getNumero()}}</h2>\n\n			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoGanado\listado.html"*/
+        }), 
+        __metadata$6('design:paramtypes', [NavController, NavParams, ServicioDatos])
+    ], ListaGanado);
+    return ListaGanado;
+}());
+
+var Operacion = (function () {
+    function Operacion() {
+        this.id = 0;
+        this.agrupacion = "";
+        this.animales = new Array();
+        this.precio = 0;
+        this.fecha = new Date();
+    }
+    Operacion.prototype.getId = function () {
+        return this.id;
+    };
+    Operacion.prototype.setId = function (identificador) {
+        this.id = identificador;
+    };
+    Operacion.prototype.getAgrupacion = function () {
+        return this.agrupacion;
+    };
+    Operacion.prototype.setAgrupacion = function (alias) {
+        this.agrupacion = alias;
+    };
+    Operacion.prototype.getPrecio = function () {
+        return this.precio;
+    };
+    Operacion.prototype.setPrecio = function (precio) {
+        this.precio = precio;
+    };
+    Operacion.prototype.getFecha = function () {
+        return this.fecha;
+    };
+    Operacion.prototype.setFecha = function (fech) {
+        this.fecha = fech;
+    };
+    Operacion.prototype.getAnimales = function () {
+        return this.animales;
+    };
+    Operacion.prototype.setAnimales = function (arrayAnimal) {
+        this.animales = arrayAnimal;
+    };
+    return Operacion;
+}());
+
+var __extends$266 = (undefined && undefined.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Venta = (function (_super) {
+    __extends$266(Venta, _super);
+    function Venta(id, agru, animales, pCompra, fecha) {
+        _super.call(this);
+        this.setId(id);
+        this.setAgrupacion(agru);
+        this.setAnimales(animales);
+        this.setPrecio(pCompra);
+        this.setFecha(fecha);
+    }
+    return Venta;
+}(Operacion));
+
+var __extends$267 = (undefined && undefined.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Compra = (function (_super) {
+    __extends$267(Compra, _super);
+    function Compra(id, agru, animales, pCompra, fecha) {
+        _super.call(this);
+        this.setId(id);
+        this.setAgrupacion(agru);
+        this.setAnimales(animales);
+        this.setPrecio(pCompra);
+        this.setFecha(fecha);
+    }
+    return Compra;
+}(Operacion));
+
+var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ListaVentas = (function () {
+    function ListaVentas(navCtrl) {
+        this.navCtrl = navCtrl;
+        //Este valor dependera de lo que seas tu, asi se te mostrara el primero
+        this.tipoMostrado = "ventas";
+        var toroPadre1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), [], [], 0, 0);
+        var vacaMadre2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), [], [], 0, 0);
+        var arrayAscen = [toroPadre1, vacaMadre2];
+        var arrayDescen = [toroPadre1, toroPadre1];
+        var toro1 = new Macho(33, "pilon", "blonda", null, 5675, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), arrayAscen, arrayDescen, 0, 0);
+        var toro2 = new Macho(34, "pilonazo", "blonda", null, 5676, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date(), arrayAscen, arrayDescen, 0, 0);
+        var vaca1 = new Hembra(35, "pili", "blonda", null, 5677, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date(), arrayAscen, arrayDescen, 0, 0);
+        var vaca2 = new Hembra(36, "mili", "blonda", null, 5678, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), arrayAscen, arrayDescen, 0, 0);
+        var toro3 = new Macho(37, "pilon2", "blonda2", null, 5679, new Date(), ["Ag5", "A4E"], ["cirrosis", "quiste"], new Date(), null, null, 0, 0);
+        var toro4 = new Macho(38, "pilonazo2", "blonda2", null, 5680, new Date(), ["sere", "as3", "9oi"], ["cirrosis2", "quiste2"], new Date(), null, null, 0, 0);
+        var vaca3 = new Hembra(39, "pili2", "blonda2", null, 5681, new Date(), ["Iu2", "34e", "23f"], ["cirrosis3", "quiste3"], new Date(), null, null, 0, 0);
+        var vaca4 = new Hembra(40, "mili2", "blonda2", null, 5682, new Date(), ["3r3", "23f", "bm3"], ["cirrosis4", "quiste4"], new Date(), null, null, 0, 0);
+        var arrayAnimalesCompra = [toro1, vaca1];
+        var arrayAnimalesVenta = [toro2, vaca2];
+        var arrayAnimalesCompra1 = [toro3, vaca3];
+        var arrayAnimalesVenta1 = [toro4, toro3, toro3, vaca4];
+        var venta1 = new Venta(1, "venta noviembre", arrayAnimalesVenta, 500, new Date());
+        var venta2 = new Venta(2, "venta noviembre", arrayAnimalesVenta1, 600, new Date());
+        var venta3 = new Venta(3, "venta noviembre", arrayAnimalesCompra1, 700, new Date());
+        var compra1 = new Compra(1, "compra enero", arrayAnimalesCompra, 515, new Date());
+        var compra2 = new Compra(2, "venta febrero", arrayAnimalesVenta1, 6340, new Date());
+        var compra3 = new Compra(3, "venta marzo", arrayAnimalesCompra1, 740, new Date());
+        this.arrayVentas = [venta1, venta2, venta3];
+        this.arrayCompras = [compra1, compra2, compra3];
+    }
+    ListaVentas.prototype.verListadoAnimales = function (animalitos) {
+        this.navCtrl.push(ListaGanado, { animales: animalitos });
+    };
+    ListaVentas = __decorate$116([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoVentas\listado.html"*/'<ion-header>\n\n  <ion-navbar> \n\n  	  <ion-row center>\n\n	  	  <ion-col width-25>\n\n	  	  	<h5>Explotacion minera</h5>\n\n	  	  	<h5>luisalbertosereno@gmail.com</h5>\n\n	  	  </ion-col>\n\n	  	  <ion-col width-25>\n\n	  	  	<p>Machos: 250</p>\n\n	  	  	<p>Hembras: 300</p>\n\n	  	  </ion-col>\n\n	  	  <ion-col width-25>\n\n	  	  	<p>Total: 13000 €</p>\n\n	  	  	<p>Anual: 500 €</p>\n\n	  	  </ion-col>\n\n	  	   <ion-col width-25 offset-20>\n\n		      <button ion-button menuToggle right>\n\n		          <ion-icon name="ios-menu-outline"></ion-icon>\n\n		      </button>\n\n	      </ion-col>\n\n      </ion-row>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="page3">\n\n\n\n	<div padding>\n\n	  <ion-segment [(ngModel)]="tipoMostrado">\n\n	    <ion-segment-button value="ventas">\n\n	      Ventas\n\n	    </ion-segment-button>\n\n	    <ion-segment-button value="compras">\n\n	      Compras\n\n	    </ion-segment-button>\n\n	  </ion-segment>\n\n	</div>\n\n	<div [ngSwitch]="tipoMostrado">\n\n	  <ion-list *ngSwitchCase="\'ventas\'">\n\n	    <ion-item *ngFor="let venta of arrayVentas" (click)="verListadoAnimales(venta.getAnimales())">\n\n	      	<h1>{{venta.getAgrupacion()}}</h1>\n\n	      	\n\n	      	<ion-row>\n\n	      		<ion-col width-33>\n\n		      		<label>\n\n		      			<b>Precio:</b> {{venta.getPrecio()}}\n\n		      		</label>\n\n	      		</ion-col>\n\n	      		<ion-col width-33>\n\n		      		<label>\n\n		      			<b>Fecha:</b> {{venta.getFecha().toLocaleDateString()}}\n\n		      		</label>\n\n	      		</ion-col>\n\n	      		<ion-col width-33>\n\n		      		<label>\n\n		      			<b>Animales:</b> {{venta.getAnimales().length}}\n\n		      		</label>\n\n	      		</ion-col>\n\n	      	</ion-row>\n\n	      	\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n\n\n	  <ion-list *ngSwitchCase="\'compras\'">\n\n	    <ion-item *ngFor="let compra of arrayCompras" (click)="verListadoAnimales(venta.getAnimales())">\n\n	      	<h1>{{compra.getAgrupacion()}}</h1>\n\n	      	<h2>{{compra.getPrecio()}}</h2>\n\n	    	<p>{{compra.getFecha().toLocaleDateString()}}</p>\n\n	    	<p>{{compra.getAnimales().length}}</p>\n\n	    </ion-item>\n\n	    \n\n	  </ion-list>\n\n	</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\listadoVentas\listado.html"*/
+        }), 
+        __metadata$9('design:paramtypes', [NavController])
+    ], ListaVentas);
+    return ListaVentas;
+}());
+
+var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$1 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var MyApp = (function () {
+    function MyApp(platform, menuCtrl, auth, servicio) {
+        this.menuCtrl = menuCtrl;
+        this.auth = auth;
+        this.servicio = servicio;
+        this.rootPage = null;
+        platform.ready().then(function () {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            StatusBar.styleDefault();
+            Splashscreen.hide();
+        });
+        console.log("El constructor de app.ts");
+        if (!this.auth.authenticated()) {
+            console.log("ENTRA AQUI PORQUE NO HAY AUTH");
+            //this.navCtrl.push(TabsPage);
+            this.rootPage = PerfilAutenticacion;
+        }
+        // set our app's pages
+        this.pages = [
+            { title: 'Ganado', component: ListaGanado },
+            { title: 'Documentos', component: ListaDocumentos },
+            { title: 'Ventas', component: ListaVentas },
+        ];
+    }
+    MyApp.prototype.ngOnInit = function () {
+        console.log("Se inicializala apliciacion con el ngOnInit");
+    };
+    MyApp.prototype.ionViewDidLoad = function () {
+        console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");
+        this.servicio.obtenerDatosExplotacion("luisalbertosereno@gmail.com");
+        this.rootPage = ListaGanado;
+    };
+    MyApp.prototype.openPage = function (page) {
+        this.nav.setRoot(page.component);
+        this.menuCtrl.close();
+    };
+    MyApp.prototype.logoutApp = function () {
+        //  this._auth.logout();
+        //this.platform.exitApp();
+        location.reload();
+    };
+    __decorate$1([
+        ViewChild(Nav), 
+        __metadata$1('design:type', Nav)
+    ], MyApp.prototype, "nav", void 0);
+    MyApp = __decorate$1([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\app\app.html"*/'<ion-menu side="left" [content]="content">\n\n\n\n  <ion-header>\n\n    <ion-toolbar color="secondary">\n\n      <ion-title>Menú</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="colorfondo">\n\n    <ion-list>\n\n      <button ion-item *ngFor="let p of pages"  (click)="openPage(p)">\n\n        {{p.title}}\n\n      </button>\n\n    </ion-list>\n\n    <!--<button block (click)="logoutApp()">Logout</button>-->\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\app\app.html"*/,
+            providers: [ServicioDatos]
+        }), 
+        __metadata$1('design:paramtypes', [Platform, MenuController, AuthService, ServicioDatos])
+    ], MyApp);
+    return MyApp;
+}());
+
+var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var AboutPage = (function () {
+    function AboutPage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    AboutPage = __decorate$117([
+        Component({
+            selector: 'page-about',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n	<ion-item>\n	  <ion-label>Date</ion-label>\n	  <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>\n	</ion-item>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\about\about.html"*/
+        }), 
+        __metadata$10('design:paramtypes', [NavController])
+    ], AboutPage);
+    return AboutPage;
+}());
+
+var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ContactPage = (function () {
+    function ContactPage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    ContactPage = __decorate$118([
+        Component({
+            selector: 'page-contact',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\contact\contact.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="ionic" item-left></ion-icon>\n      @ionicframework\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\contact\contact.html"*/
+        }), 
+        __metadata$11('design:paramtypes', [NavController])
+    ], ContactPage);
+    return ContactPage;
+}());
+
+var __decorate$119 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var HomePage = (function () {
+    function HomePage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    HomePage = __decorate$119([
+        Component({
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Ionic!</h2>\n  <p>\n    This starter project comes with simple tabs-based layout for apps\n    that are going to primarily use a Tabbed UI.\n  </p>\n  <p>\n    Take a look at the <code>src/pages/</code> directory to add or change tabs,\n    update any existing page or create new pages.\n  </p>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\home\home.html"*/
+        }), 
+        __metadata$12('design:paramtypes', [NavController])
+    ], HomePage);
+    return HomePage;
+}());
+
+var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$13 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var TabsPage = (function () {
+    function TabsPage() {
+        // this tells the tabs component which Pages
+        // should be each tab's root Page
+        this.tab1Root = HomePage;
+        this.tab2Root = AboutPage;
+        this.tab3Root = ContactPage;
+    }
+    TabsPage = __decorate$120([
+        Component({template:/*ion-inline-start:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\Luis Sereno\Documents\GitHub\Ganadero\src\pages\tabs\tabs.html"*/
+        }), 
+        __metadata$13('design:paramtypes', [])
+    ], TabsPage);
+    return TabsPage;
 }());
 
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -102577,9 +102803,10 @@ var AppModule = (function () {
                 ContactPage,
                 HomePage,
                 TabsPage,
-                ToolBarMenu,
+                //  ToolBarMenu,
                 PerfilAutenticacion,
                 ListaGanado,
+                ListaVentas,
                 Detalle,
                 ListaDocumentos
             ],
@@ -102593,7 +102820,8 @@ var AppModule = (function () {
                 ContactPage,
                 HomePage,
                 TabsPage,
-                ToolBarMenu,
+                ListaVentas,
+                //ToolBarMenu,
                 PerfilAutenticacion,
                 ListaGanado,
                 Detalle,

@@ -1,8 +1,24 @@
 <ion-header>
   <ion-navbar> 
-      <button ion-button menuToggle right>
-          <ion-icon name="ios-menu-outline"></ion-icon>
-      </button>
+  	  <ion-row center>
+	  	  <ion-col width-20 offset-10>
+	  	  	<p>{{servicio.getExplotacion().getNombre()}}</p>
+	  	  	<p>{{servicio.getExplotacion().getEmailUsu()}}</p>
+	  	  </ion-col>
+	  	  <ion-col width-20 offset-10>
+	  	  	<p>Machos: {{servicio.getExplotacion().getArrayMachos().length}}</p>
+	  	  	<p>Hembras: {{servicio.getExplotacion().getArrayHembras().length}}</p>
+	  	  </ion-col>
+	  	  <ion-col width-20 offset-10>
+	  	  	<p>Total: {{servicio.getExplotacion().getDineroTotal()}}€</p>
+	  	  	<p>Anual: {{servicio.getExplotacion().getDineroAnual()}}€</p>
+	  	  </ion-col>
+	  	   <ion-col>
+		      <button ion-button menuToggle right>
+		          <ion-icon name="ios-menu-outline"></ion-icon>
+		      </button>
+	      </ion-col>
+      </ion-row>
   </ion-navbar>
 </ion-header>
 

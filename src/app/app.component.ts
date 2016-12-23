@@ -8,11 +8,12 @@ import {ListaDocumentos} from '../pages/listadoDocumentos/listado';
 import {ListaGanado} from '../pages/listadoGanado/listado';
 import {ListaVentas} from '../pages/listadoVentas/listado';
 import {AuthService} from '../servicios/auth/auth';
+import {ServicioDatos} from '../servicios/serviciodatos';
 import { MenuController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [  ]
+  providers: [ ServicioDatos ]
 })
 export class MyApp {
 
@@ -23,7 +24,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
 
-  constructor(platform: Platform,public menuCtrl: MenuController,public auth: AuthService) {
+  constructor(platform: Platform,public menuCtrl: MenuController,public auth: AuthService,public servicio: ServicioDatos) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -54,6 +55,7 @@ export class MyApp {
 
     ionViewDidLoad(){
       console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");
+      this.servicio.obtenerDatosExplotacion("luisalbertosereno@gmail.com");
       this.rootPage=ListaGanado;
     }
 

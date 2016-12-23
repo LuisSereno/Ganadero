@@ -4,6 +4,7 @@ import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Detalle} from '../detalle/detalle'
 import { NavController,NavParams } from 'ionic-angular';
+import {ServicioDatos} from '../../servicios/serviciodatos';
 
 @Component({
   templateUrl: 'listado.html'
@@ -17,7 +18,7 @@ export class ListaGanado {
 
 	arrayMachos: Array<Animal>;
 
-  	constructor(public navCtrl: NavController,  params: NavParams) {
+  	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos) {
 
   		if (params!=null && params.get("animales")!=null){
   			this.arrayHembras= new Array<Animal>();
