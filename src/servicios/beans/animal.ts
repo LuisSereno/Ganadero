@@ -1,5 +1,3 @@
-import {Constantes} from '../constantes';
-
 export abstract class Animal {
 
 	private id: number;
@@ -66,11 +64,7 @@ export abstract class Animal {
 	}
 
 	public getFoto()  : string{
-		if (this.foto!=null){
-			return this.foto;			
-		}else{
-			return Constantes.FOTO_ANIMAL_DEFECTO;
-		}
+		return this.foto;	
 	}
 
 	public setFoto(foto:string){
@@ -145,6 +139,8 @@ export abstract class Animal {
 		this.precioVenta = precio;
 	}
 
+    public abstract toJSON();
+    
 /*	public abstract ataquePrimario();
 
 	public abstract ataqueSecundario();

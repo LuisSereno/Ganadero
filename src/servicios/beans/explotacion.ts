@@ -1,4 +1,3 @@
-import {Constantes} from '../constantes';
 import {Macho} from './macho';
 import {Hembra} from './hembra';
 import {Compra} from './compra';

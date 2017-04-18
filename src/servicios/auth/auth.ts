@@ -1,6 +1,4 @@
 import { Storage } from '@ionic/storage';
-import {Http} from '@angular/http';
-import {SQLite} from "ionic-native";
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
 import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs/Rx';

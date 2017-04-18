@@ -12,8 +12,7 @@ import {ServicioDatos} from '../servicios/serviciodatos';
 import { MenuController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'app.html',
-  providers: [ ServicioDatos ]
+  templateUrl: 'app.html'
 })
 export class MyApp {
 
@@ -47,11 +46,6 @@ export class MyApp {
       { title: 'Ventas', component: ListaVentas },
     ];
   }
-
-   ngOnInit() {
-     console.log("Se inicializala apliciacion con el ngOnInit");
-
-   }
 
     ionViewDidLoad(){
       console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");

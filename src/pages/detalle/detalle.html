@@ -1,8 +1,4 @@
-<ion-header>
-  <ion-navbar> 
-  </ion-navbar>
-</ion-header>
-
+<cabecera-ganadero></cabecera-ganadero>
 <ion-content padding class="page1">
   <ion-card>
 
@@ -10,10 +6,10 @@
 
    <ion-card-content>
       <h2 text-center class="card-title">
-        {{animal.getNumero()}}
+        <b>{{animal.getNumero()}}</b>
       </h2>
       <p text-center>
-        {{animal.getAlias()}}
+       <i>{{animal.getAlias()}}</i>
       </p>
       <ion-card>
         <ion-grid>
@@ -37,6 +33,17 @@
                   <ion-col width-80>
                       <ion-item class="text-label">
                         <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="isInstanceOfHembra(animal)">
+                  <ion-col width-20>
+                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
+                     </label>
+                  </ion-col>
+                  <ion-col width-80>
+                      <ion-item class="text-label">
+                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
                       </ion-item>
                   </ion-col>
                 </ion-row>
@@ -66,7 +73,7 @@
                      </label>
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let ganado of animal.getAscendencia()" >
+                    <div *ngFor="let ganado of arrayAscendencia" >
                       <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
                     </div>
                   </ion-col>
@@ -77,7 +84,7 @@
                      </label>
                   </ion-col>
                   <ion-col width-80>
-                      <div *ngFor="let ganado of animal.getDescendencia()" >
+                      <div *ngFor="let ganado of arrayDescendencia" >
                         <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
                       </div>
                   </ion-col>
@@ -88,8 +95,8 @@
                     </label>  
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let textoLabel of animal.getVacunas()" >
-                    <input type="string" value="{{textoLabel}}">
+                    <div *ngFor="let textoLabel of animal.getVacunas(); let n=index" >
+                    <input type="string" [(ngModel)]="animal.getVacunas()[n]" value="{{textoLabel}}">
                     </div>        
                   </ion-col>
                 </ion-row>
@@ -99,8 +106,8 @@
                     </label>
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let textoLabel of animal.getEnfermedades()" >
-                    <input type="string" value="{{textoLabel}}">
+                    <div *ngFor="let textoLabel of animal.getEnfermedades(); let n=index" >
+                    <input type="string"  [(ngModel)]="animal.getEnfermedades()[n]" value="{{textoLabel}}">
                     </div> 
                   </ion-col>
                 </ion-row>
@@ -110,8 +117,11 @@
       </ion-card>
     </ion-card-content>
     <ion-row>
-     <ion-col offset-90>
-        <button ion-button color="dark" round right>Guardar</button>
+      <ion-col width-10>
+        <button ion-button color="dark" (click)="volver()" round right>Volver</button>
+     </ion-col>
+     <ion-col width-10 offset-80>
+        <button ion-button color="dark" (click)="modificaDatosAnimal()" round right>Guardar</button>
      </ion-col>
     </ion-row>
   </ion-card>

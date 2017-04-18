@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Documento} from '../../servicios/beans/documento'
 import {Constantes} from '../../servicios/constantes';
 import { NavController } from 'ionic-angular';
-//import { Transfer } from 'ionic-native';
+import {ServicioDatos} from '../../servicios/serviciodatos';
 
 // Cordova
 //declare var cordova: any;
@@ -17,7 +17,7 @@ export class ListaDocumentos {
 
 	//fileTransfer = new Transfer();
 
-  	constructor(public navCtrl: NavController) {
+  	constructor(public navCtrl: NavController,public servicio: ServicioDatos) {
 
 		let doc1:Documento = new Documento();
 		doc1.setId(1);
@@ -54,7 +54,8 @@ export class ListaDocumentos {
 
 
 	protected descargar(doc:Documento) {
-	  let url = 'assets/documentos/descarga.pdf';
+		console.log("esta esta mierda aqui");
+	 // let url = 'assets/documentos/descarga.pdf';
 /*	  this.fileTransfer.download(url, cordova.file.dataDirectory + 'file.pdf').then((entry) => {
 	    console.log('download complete: ' + entry.toURL());
 	  }, (error) => {

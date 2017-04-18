@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/0fdba28d3871b1e649567b1f41c2d053a358bdbd/auth0/auth0.d.ts",
-    "raw": "registry:dt/auth0#0.0.0+20160817004602",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/0fdba28d3871b1e649567b1f41c2d053a358bdbd/auth0/auth0.d.ts"
-  }
-}

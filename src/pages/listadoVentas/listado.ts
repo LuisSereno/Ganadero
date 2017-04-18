@@ -22,16 +22,16 @@ export class ListaVentas {
 
   	constructor(public navCtrl: NavController) {
 
-		let toroPadre1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),["Ag5","A4E"],["cirrosis","quiste"],new Date(),[],[],0,0);
+		let toroPadre1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),["Ag5","A4E"],["cirrosis","quiste"],[],[],0,0);
 		let vacaMadre2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),["3r3","23f","bm3"],["cirrosis4","quiste4"],new Date(),[],[],0,0);
   		let arrayAscen:Array<Animal>=[toroPadre1,vacaMadre2];
   		let arrayDescen:Array<Animal>=[toroPadre1,toroPadre1];
-		let toro1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),["Ag5","A4E"],["cirrosis","quiste"],new Date(),arrayAscen,arrayDescen,0,0);
-		let toro2:Animal = new Macho(34,"pilonazo","blonda",null,5676,new Date(),["sere","as3","9oi"],["cirrosis2","quiste2"],new Date(),arrayAscen,arrayDescen,0,0);
+		let toro1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),["Ag5","A4E"],["cirrosis","quiste"],arrayAscen,arrayDescen,0,0);
+		let toro2:Animal = new Macho(34,"pilonazo","blonda",null,5676,new Date(),["sere","as3","9oi"],["cirrosis2","quiste2"],arrayAscen,arrayDescen,0,0);
 		let vaca1:Animal = new Hembra(35,"pili","blonda",null,5677,new Date(),["Iu2","34e","23f"],["cirrosis3","quiste3"],new Date(),arrayAscen,arrayDescen,0,0);
 		let vaca2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),["3r3","23f","bm3"],["cirrosis4","quiste4"],new Date(),arrayAscen,arrayDescen,0,0);
-		let toro3:Animal = new Macho(37,"pilon2","blonda2",null,5679,new Date(),["Ag5","A4E"],["cirrosis","quiste"],new Date(),null,null,0,0);
-		let toro4:Animal = new Macho(38,"pilonazo2","blonda2",null,5680,new Date(),["sere","as3","9oi"],["cirrosis2","quiste2"],new Date(),null,null,0,0);
+		let toro3:Animal = new Macho(37,"pilon2","blonda2",null,5679,new Date(),["Ag5","A4E"],["cirrosis","quiste"],null,null,0,0);
+		let toro4:Animal = new Macho(38,"pilonazo2","blonda2",null,5680,new Date(),["sere","as3","9oi"],["cirrosis2","quiste2"],null,null,0,0);
 		let vaca3:Animal = new Hembra(39,"pili2","blonda2",null,5681,new Date(),["Iu2","34e","23f"],["cirrosis3","quiste3"],new Date(),null,null,0,0);
 		let vaca4:Animal = new Hembra(40,"mili2","blonda2",null,5682,new Date(),["3r3","23f","bm3"],["cirrosis4","quiste4"],new Date(),null,null,0,0);
 

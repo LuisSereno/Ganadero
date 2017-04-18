@@ -1,7 +1,0 @@
-{
-  "globalDependencies": {
-    "auth0": "registry:dt/auth0#0.0.0+20160817004602",
-    "auth0-js": "registry:dt/auth0-js#0.0.0+20160830143606",
-    "auth0.lock": "registry:dt/auth0.lock#0.0.0+20160919061738"
-  }
-}

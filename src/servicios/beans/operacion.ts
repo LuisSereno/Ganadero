@@ -1,4 +1,3 @@
-import {Constantes} from '../constantes';
 import {Animal} from './animal';
 
 export class Operacion {
