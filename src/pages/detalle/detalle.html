@@ -95,9 +95,7 @@
                     </label>  
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let textoLabel of animal.getVacunas(); let n=index" >
-                    <input type="string" [(ngModel)]="animal.getVacunas()[n]" value="{{textoLabel}}">
-                    </div>        
+                    <my-list-vacunasenfermedades [model]="animal.getVacunas()" ></my-list-vacunasenfermedades>  
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -106,9 +104,7 @@
                     </label>
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let textoLabel of animal.getEnfermedades(); let n=index" >
-                    <input type="string"  [(ngModel)]="animal.getEnfermedades()[n]" value="{{textoLabel}}">
-                    </div> 
+                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" ></my-list-vacunasenfermedades>
                   </ion-col>
                 </ion-row>
             </ion-col>

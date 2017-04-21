@@ -1,1 +1,2 @@
-modal.ts
+export class Nuevo {
+}

@@ -5,6 +5,7 @@ import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
+import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
 
 @Component({
 	templateUrl: 'detalle.html'

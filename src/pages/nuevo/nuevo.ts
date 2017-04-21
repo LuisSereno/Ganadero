@@ -6,7 +6,9 @@ import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import { ModalController } from 'ionic-angular';
-import { ModalPage } from '../modal/modal';
+import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
+import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
+//import { ModalPage } from '../modal/modal';
 
 @Component({
 	templateUrl: 'nuevo.html'
@@ -85,9 +87,28 @@ export class Nuevo {
 		return objeto instanceof Hembra;
 	}
 
-  presentModal() {
-    let modal = this.modalCtrl.create(ModalPage);
-    modal.present();
-  }
-
+/*	  presentModal() {
+	    let modal = this.modalCtrl.create(ModalPage);
+	    modal.present();
+	  }
+*/
+	  anadirElementoEnfermedad(elemento:HTMLInputElement){
+	  	if (elemento.value!=""){
+		  	if (this.animal.getEnfermedades()==null){
+		  		this.animal.setEnfermedades(new Array<string>());
+		  	}
+		  	this.animal.getEnfermedades().push(elemento.value);
+		  	elemento.value=null;
+	  	}
+	  }
+	  
+	  anadirElementoVacunas(elemento:HTMLInputElement){
+	  	if (elemento.value!=""){
+		  	if (this.animal.getVacunas()==null){
+		  		this.animal.setVacunas(new Array<string>());
+		  	}
+		  	this.animal.getVacunas().push(elemento.value);
+		  	elemento.value=null;
+	  	}
+	  }
 }
