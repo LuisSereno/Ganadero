@@ -7,6 +7,8 @@ import { ListaDocumentos } from '../pages/listadoDocumentos/listado';
 import { ListaVentas } from '../pages/listadoVentas/listado';
 import { Cabecera } from '../pages/cabecera/cabecera';
 import { Detalle } from '../pages/detalle/detalle';
+import {ListVacEnf} from '../pages/listadoVacunasEnfermedades/listaVacunasEnfermedades';
+import {AscDesc} from '../pages/listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
 import { Storage } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../servicios/auth/auth';
@@ -33,7 +35,9 @@ export function getAuthHttp(http) {
     Detalle,
     ListaDocumentos,
     Cabecera,
-    Nuevo
+    Nuevo,
+    ListVacEnf,
+    AscDesc
   ],
   imports: [
     IonicModule.forRoot(MyApp)

@@ -1,4 +1,2 @@
-export class Modal {
-
-
+export class Nuevo {
 }

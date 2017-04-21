@@ -102,6 +102,7 @@
                     </label>
                   </ion-col>
                   <ion-col width-80>
+                    <my-list-opcionesAscDesc [model]="animal.getAscendencia()" [tipo]="false"></my-list-opcionesAscDesc>
                     <div *ngFor="let ganado of arrayAscendencia" >
                       <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
                     </div>
@@ -114,6 +115,7 @@
                       </label>
                   </ion-col>
                   <ion-col width-80>
+                    <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [tipo]="true"></my-list-opcionesAscDesc>
                       <div *ngFor="let ganado of arrayDescendencia" >
                         <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
                       </div>
@@ -121,28 +123,20 @@
                 </ion-row>
                 <ion-row>
                   <ion-col width-20>
-                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Vacunas
-                        <ion-icon name="add-circle"></ion-icon>
-                      </label>
-
+                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Vacunas</label>
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let textoLabel of animal.getVacunas(); let n=index" >
-                    <input type="string" [(ngModel)]="animal.getVacunas()[n]" value="{{textoLabel}}">
-                    </div>        
+                    <input type="string" #elementoVacuna><ion-icon name="add-circle" (click)="anadirElementoVacunas(elementoVacuna);"></ion-icon>
+                    <my-list-vacunasenfermedades [model]="animal.getVacunas()" ></my-list-vacunasenfermedades>   
                   </ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col width-20>
-                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Enfermedades
-                      <ion-icon name="add-circle"></ion-icon>
-                      </label>
-                        
+                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Enfermedades</label>
                   </ion-col>
                   <ion-col width-80>
-                    <div *ngFor="let textoLabel of animal.getEnfermedades(); let n=index" >
-                    <input type="string"  [(ngModel)]="animal.getEnfermedades()[n]" value="{{textoLabel}}">
-                    </div> 
+                    <input type="string" #elementoEnfermedad><ion-icon name="add-circle" (click)="anadirElementoEnfermedad(elementoEnfermedad);"></ion-icon>
+                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" ></my-list-vacunasenfermedades>
                   </ion-col>
                 </ion-row>
             </ion-col>
