@@ -1,1 +1,4 @@
-modal.ts
+export class Modal {
+
+
+}

@@ -6,7 +6,10 @@ import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import { ModalController } from 'ionic-angular';
-import { ModalPage } from '../modal/modal';
+//import { ModalPage } from '../modal/modal';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Diagnostic } from 'ionic-native';
+import { CameraPreview, CameraPreviewRect } from 'ionic-native';
 
 @Component({
 	templateUrl: 'nuevo.html'
@@ -30,6 +33,8 @@ export class Nuevo {
 		this.arrayAscendencia=new Array<Animal>();
 		this.fechaNacimiento="";
 		this.fechaUltimoNacimiento="";
+
+		this.checkPermissions();
 	}
 
 	ngOnInit() {
@@ -85,9 +90,75 @@ export class Nuevo {
 		return objeto instanceof Hembra;
 	}
 
-  presentModal() {
-    let modal = this.modalCtrl.create(ModalPage);
-    modal.present();
-  }
+  /*	presentModal() {
+    	let modal = this.modalCtrl.create(ModalPage);
+    	modal.present();
+  	}
+*/
+  	protected checkPermissions() {
+    	Diagnostic.isCameraAuthorized().then((authorized) => {
+		    if(authorized)
+		        this.initializePreview();
+		    else {
+		        Diagnostic.requestCameraAuthorization().then((status) => {
+		            if(status == Diagnostic.permissionStatus.GRANTED)
+		                this.initializePreview();
+		            else {
+		                // Permissions not granted
+		                // Therefore, create and present toast
+		                this.toastCtrl.create(
+		                    {
+		                        message: "Cannot access camera", 
+		                        position: "bottom",
+		                        duration: 5000
+		                    }
+		                ).present();
+		            }
+		        });
+		    }
+		});
+	}
+
+	protected initializePreview() {
+	    // Make the width and height of the preview equal 
+	    // to the width and height of the app's window
+	    let previewRect: CameraPreviewRect = {
+	      x: 0,
+	      y: 0,
+	      width: window.innerWidth,
+	      height: window.innerHeight
+	    };
+	 
+
+		 // Start preview
+		CameraPreview.startCamera(
+		    previewRect, 
+		    'rear', 
+		    false, 
+		    false, 
+		    true,
+		    1
+		);
+
+		CameraPreview.setOnPictureTakenHandler().subscribe((result) => {
+			alert("MIS COJONES");
+		    //this.moveFileToExternalStorage(result[0]); // Move picture only
+		});
+	    // More code goes here
+	}
+
+	takePicture() {
+	    CameraPreview.takePicture({maxWidth: 320, maxHeight: 320});
+	}
+
+	changeEffect() {
+	    // Create an array with 5 effects
+	    let effects: any = ['none', 'negative','mono', 'aqua', 'sepia'];
+	 
+	    let randomEffect: string = effects[Math.floor(
+	                                Math.random() * effects.length)];
+	    CameraPreview.setColorEffect(randomEffect);
+	}
+
 
 }
