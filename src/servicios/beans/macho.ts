@@ -45,13 +45,13 @@ export class Macho extends Animal{
         for (let anim of this.getDescendencia()){
             arrayIds.push(anim.getId());
         }
-        json["descendencia"]=arrayIds;
+        //json["descendencia"]=arrayIds;
 
         arrayIds=new Array<number>();
         for (let anim of this.getAscendencia()){
             arrayIds.push(anim.getId());
         }       
-        json["ascendencia"]=arrayIds;
+        //json["ascendencia"]=arrayIds;
 
         json["sexo"]=Constantes.MACHO;
         

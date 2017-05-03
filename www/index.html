@@ -10,27 +10,36 @@
   <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
-  
-  <!-- cordova.js required for cordova apps -->
-  <script src="cordova.js"></script>
 
-  <script src="http://cdn.auth0.com/js/lock/10.2/lock.min.js"></script>
-  <script src="https://cdn.auth0.com/w2/auth0-7.2.min.js"></script>
-  <!-- un-comment this code to enable service worker
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('service worker installed'))
-        .catch(err => console.log('Error', err));
-    }
-  </script>-->
   <link href="build/main.css" rel="stylesheet">
+
+
+  <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * https://sereno.eu.auth0.com.auth0.com is required to make calls to the authentication api
+    * https://cdn.auth0.com/ is needed to load scripts from Auth0
+    * Create your own at http://cspisawesome.com
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com https://sereno.eu.auth0.com.auth0.com; style-src 'self' 'unsafe-inline' https://cdn.auth0.com; media-src *; img-src https:; font-src https://cdn.auth0.com;" />
+-->
 
 </head>
 <body>
 
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
+
+  
+  <!-- cordova.js required for cordova apps -->
+  <script src="cordova.js"></script>
+
+  <script src="assets/lib/lock.min.js"></script>
+  
+  <script src="assets/lib/auth0-7.2.min.js"></script>
 
   <script src="assets/lib/ocrad.js"></script>
 

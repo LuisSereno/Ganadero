@@ -18,13 +18,13 @@ export class AuthService {
  // auth0 = new Auth0({clientID: '4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ', domain: 'sereno.eu.auth0.com' });
   auth0: any;
   lock: any;
-  storage: Storage = new Storage();
+  //storage: Storage = new Storage();
   refreshSubscription: any;
   user: Object;
   zoneImpl: NgZone;
   idToken: string;
   
-  constructor(private authHttp: AuthHttp, zone: NgZone) {
+  constructor(private authHttp: AuthHttp, zone: NgZone, public storage: Storage) {
     this.zoneImpl = zone;
 /*    this.auth0 = new Auth0({
       domain: 'myDomain',

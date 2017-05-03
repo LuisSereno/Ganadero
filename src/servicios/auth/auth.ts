@@ -2,6 +2,7 @@ import { Storage } from '@ionic/storage';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
 import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
+import {Constantes} from '../constantes';
 
 // Avoid name not found warnings
 declare var Auth0: any;
@@ -10,21 +11,24 @@ declare var Auth0Lock: any;
 @Injectable()
 export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
-  auth0 = new Auth0({clientID: '4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ', domain: 'sereno.eu.auth0.com'});
-  lock = new Auth0Lock('4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ', 'sereno.eu.auth0.com', {
+  auth0 = new Auth0({clientID: Constantes.AUTH0_CLIENT_ID, domain: Constantes.AUTH0_DOMAIN});
+  lock = new Auth0Lock(Constantes.AUTH0_CLIENT_ID, Constantes.AUTH0_DOMAIN, {
     auth: {
       redirect: false,
       params: {
-        scope: 'openid offline_access',
-      }
+        scope: 'openid profile offline_access',
+        device: 'my-device'
+      },
+      sso: false
     }
   });
-  local: Storage = new Storage();
+  local: Storage;
   refreshSubscription: any;
   user: Object;
   zoneImpl: NgZone;
   
-  constructor(private authHttp: AuthHttp, zone: NgZone) {
+  constructor(private authHttp: AuthHttp, zone: NgZone, public storage: Storage) {
+    this.local=storage;
     this.zoneImpl = zone;
     // Check if there is a profile saved in local storage
     this.local.get('profile').then(profile => {
