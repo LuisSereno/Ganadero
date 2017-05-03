@@ -2,8 +2,8 @@
         <ion-grid>
             <ion-row>
               <ion-col>
-              <img #scannedImg [src]="srcImage" />
-                <img src="{{animal.getFoto()}}" class="tamanoreal"/>
+                <img #scannedImg [src]="srcImage" />
+                <img [src]="animal.foto" class="tamanoreal"/>
                 <ion-row>
                   <ion-col col-sm-4>
                     <label>
@@ -11,10 +11,10 @@
                     </label>
                   </ion-col>
                   <ion-col col-sm-4>
-                    <button  ion-button  small >Cargar Foto</button>
+                    <button  ion-button small (click)="takePicture(true,true)">Galeria</button>
                   </ion-col>
                   <ion-col col-sm-4>
-                    <button ion-button  small >Realizar Foto</button>
+                    <button ion-button small (click)="takePicture(true,false)">Foto</button>
                   </ion-col>
                 </ion-row>
 

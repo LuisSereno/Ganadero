@@ -50,11 +50,15 @@ export class Nuevo {
 				private camera: Camera,public loadingCtrl: LoadingController) {
 
 		this.options= {
-	        destinationType: this.camera.DestinationType.FILE_URI,
+			sourceType: this.camera.PictureSourceType.CAMERA  ,
+	        destinationType: this.camera.DestinationType.DATA_URL,
 	        encodingType: this.camera.EncodingType.PNG,
 	        quality: 100,
 	        targetWidth: 200,
-	        targetHeight: 300
+	        targetHeight: 300,
+	        allowEdit:true,
+	        correctOrientation:true,
+	        saveToPhotoAlbum:true
 		}
 
 		this.animal=params.get("animal");
@@ -208,7 +212,7 @@ export class Nuevo {
 
     }
 
-    takePicture() {
+    takePicture(imagenAnimal:boolean) {
     	console.log("Entra en takePicture");
 
     	this.camera.getPicture(this.options).then((imageData) => {
@@ -216,22 +220,28 @@ export class Nuevo {
 		 // If it's base64:
 		 //	let base64Image = 'data:image/jpeg;base64,' + imageData;
 		 //	this.srcImage =base64Image;
+		 	if (imagenAnimal){
+				let base64Image = 'data:image/png;base64,' + imageData;
+		 		this.animal.setFoto(base64Image);
 
-			 let loader = this.loadingCtrl.create({
-				content: 'Please wait...'
-			});
-			loader.present();
-			Tesseract.recognize(imageData)  
-		    .progress((progress) => {
-		        console.log('progress', progress);
-		    })
-		    .then((tesseractResult) => {
-		    	loader.dismissAll();
-		        console.log("finaliza todo");
-		        console.log(tesseractResult);
-		        this.recognizedText = tesseractResult.text;
-		        alert(this.recognizedText);
-		    });
+		 	}else{
+			 	let loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				loader.present();
+				Tesseract.recognize(imageData)  
+			    .progress((progress) => {
+			        console.log('progress', progress);
+			    })
+			    .then((tesseractResult) => {
+			    	loader.dismissAll();
+			        console.log("finaliza todo");
+			        console.log(tesseractResult);
+			        this.recognizedText = tesseractResult.text;
+			        alert(this.recognizedText);
+			    });
+		 	}
+
 
 
 		}, (err) => {
