@@ -9,14 +9,14 @@ import { ModalController, LoadingController } from 'ionic-angular';
 import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
 import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
 //import { ModalPage } from '../modal/modal';
-import { Diagnostic } from '@ionic-native/diagnostic';
-import { CameraPreview, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+//import { Diagnostic } from '@ionic-native/diagnostic';
+//import { CameraPreview, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
+//import { Camera, CameraOptions } from '@ionic-native/camera';
 import Tesseract from 'tesseract.js';  
 
 @Component({
 	templateUrl: 'nuevo.html',
-	providers: [CameraPreview,Diagnostic]
+//	providers: [CameraPreview,Diagnostic]
 })
 export class Nuevo {
 	
@@ -34,7 +34,7 @@ export class Nuevo {
 
 	picture:any;
 
-	options: CameraOptions;
+	//options: CameraOptions;
   
   	OCRAD: any;
 
@@ -45,11 +45,11 @@ export class Nuevo {
   	private recognizedText: string;  
 
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
-				private toastCtrl: ToastController,public modalCtrl: ModalController,
+				private toastCtrl: ToastController,public modalCtrl: ModalController/*,
 				private cameraPreview: CameraPreview,private diagnostic: Diagnostic,
-				private camera: Camera,public loadingCtrl: LoadingController) {
+				private camera: Camera,public loadingCtrl: LoadingController*/) {
 
-		this.options= {
+	/*	this.options= {
 			sourceType: this.camera.PictureSourceType.CAMERA  ,
 	        destinationType: this.camera.DestinationType.DATA_URL,
 	        encodingType: this.camera.EncodingType.PNG,
@@ -60,13 +60,13 @@ export class Nuevo {
 	        correctOrientation:true,
 	        saveToPhotoAlbum:true
 		}
-
+*/
 		this.animal=params.get("animal");
 		this.arrayDescendencia=new Array<Animal>();
 		this.arrayAscendencia=new Array<Animal>();
 		this.fechaNacimiento="";
 		this.fechaUltimoNacimiento="";
-		this.checkPermissions();
+		//this.checkPermissions();
 	}
 
 	ngOnInit() {
@@ -152,7 +152,7 @@ export class Nuevo {
 	  	}
 	  }
 
-      protected checkPermissions() {
+/*      protected checkPermissions() {
         this.diagnostic.isCameraAuthorized().then((authorized) => {
             if(authorized)
                 this.initializePreview();
@@ -192,24 +192,6 @@ export class Nuevo {
 		  alpha: 1
 		};
 
-
-     
-
-		// start camera
-	/*	this.cameraPreview.startCamera(cameraPreviewOpts).then(
-		  (res) => {
-		    console.log(res)
-		  },
-		  (err) => {
-		    console.log(err)
-		  });
-*/
-		// Set the handler to run every time we take a picture
-	/*	this.cameraPreview.setOnPictureTakenHandler().subscribe((result) => {
-		  console.log(result);
-		  // do something with the result
-		});*/
-
     }
 
     takePicture(imagenAnimal:boolean) {
@@ -248,17 +230,8 @@ export class Nuevo {
 		 // Handle error
 		 	console.error(err);
 		});
-
-		// take a picture
-	/*	this.cameraPreview.takePicture(this.pictureOpts).then((imageData) => {
-		  this.picture = 'data:image/jpeg;base64,' + imageData;
-		}, (err) => {
-		  console.log(err);
-		  this.picture = 'assets/img/test.jpg';
-		});
-*/
     }
-
+*/
     changeEffect() {
     	console.log("Estamos aqui2");
     	this.analyze();
@@ -287,18 +260,10 @@ export class Nuevo {
 
    analyze() {
    		console.log("Entra en analyze y no funciona nada");
-		let loader = this.loadingCtrl.create({
+/*		let loader = this.loadingCtrl.create({
 			content: 'Please wait...'
 		});
-		
-		/*(<any>window).OCRAD(document.getElementById('image'), text => {
-			loader.dismissAll();
-			alert(text);
-			console.log(text);
-		}, (err) => {
-		 	loader.dismissAll();
-		 	console.error(err);
-		});*/
+	
 
 		Tesseract.recognize(this.scannedImg.nativeElement.src)  
 	    .progress((progress) => {
@@ -311,7 +276,7 @@ export class Nuevo {
 	        this.recognizedText = tesseractResult.text;
 	        alert(this.recognizedText);
 	    });
-
+*/
   }
 
 }

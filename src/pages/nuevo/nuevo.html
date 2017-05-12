@@ -100,9 +100,6 @@
                   </ion-col>
                   <ion-col col-sm-7>
                     <my-list-opcionesAscDesc [model]="animal.getAscendencia()" [tipo]="false"></my-list-opcionesAscDesc>
-                    <div *ngFor="let ganado of arrayAscendencia" >
-                      <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
-                    </div>
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -113,9 +110,6 @@
                   </ion-col>
                   <ion-col col-sm-7>
                     <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [tipo]="true"></my-list-opcionesAscDesc>
-                      <div *ngFor="let ganado of arrayDescendencia" >
-                        <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
-                      </div>
                   </ion-col>
                 </ion-row>
                 <ion-row>

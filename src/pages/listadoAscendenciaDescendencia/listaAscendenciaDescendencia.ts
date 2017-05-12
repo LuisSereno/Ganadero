@@ -44,6 +44,8 @@ export class AscDesc {
   comprobarDentroArray(animal:Animal):boolean{
     if (this.model){
       let ani:Animal =  this.model.find(x => x.getId() == animal.getId());
+      console.log("luisin");
+      console.log(ani);
       if (ani){
         return true;
       }else{

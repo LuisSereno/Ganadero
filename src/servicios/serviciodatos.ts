@@ -21,7 +21,7 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
 	  params.set('usuario', email.toString());
-  	this.httpLocal.get('src/assets/datos/explotacion.json', { search: params }).map(res => res.json()).subscribe(data => {
+  	this.httpLocal.get('assets/datos/explotacion.json', { search: params }).map(res => res.json()).subscribe(data => {
        Object.assign(this.explotacion,data) ;
        console.log(this.explotacion);
     });
@@ -31,7 +31,7 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idGanado', idExplotacion.toString());
-    return this.httpLocal.get('src/assets/datos/ganado.json', { search: params }).map(res => res.json());
+    return this.httpLocal.get('assets/datos/ganado.json', { search: params }).map(res => res.json());
     
   }
 

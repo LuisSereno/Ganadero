@@ -43,7 +43,7 @@ export class Detalle {
 			}
 			
 			this.arrayAscendencia=this.servicio.getBusquedaAscDesc(this.animal.getAscendencia());
-			this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.getDescendencia());			
+			this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.getDescendencia());		
 		}
 
 	}
