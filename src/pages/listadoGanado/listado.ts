@@ -39,7 +39,7 @@ export class ListaGanado {
 				let hembrita:Hembra=Hembra.fromJSON(hem);
 				this.arrayHembras.push(hembrita);
 			}
-
+			this.transformIdAnimal();
 			this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
 			this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
 		},err => {
@@ -47,6 +47,102 @@ export class ListaGanado {
 		});
 	}
 
+	private transformIdAnimal(){
+		var animalCompleto=null;
+		for (let hem of this.arrayHembras){
+			let arrayVacio:Array<Animal>=new Array<Animal>();
+			if (hem.getAscendencia()!=null){
+				for (let dat of hem.getAscendencia()){
+					animalCompleto = this.arrayHembras.find(hemb =>
+					         +hemb.getId() === +dat
+					         );
+					if (animalCompleto){
+						dat=animalCompleto;
+					}else{
+						animalCompleto = this.arrayMachos.find(hemb =>
+						         +hemb.getId() === +dat
+						         );		
+						if (animalCompleto){
+							dat=animalCompleto;	
+						}else{
+							dat=null;
+						}			
+					}
+
+					arrayVacio.push(dat);
+
+				}
+				hem.setAscendencia(arrayVacio)
+			}
+			if (hem.getDescendencia()!=null){
+				for (let dat of hem.getDescendencia()){
+					animalCompleto = this.arrayHembras.find(hemb =>
+					         +hemb.getId() === +dat
+					         );
+					if (animalCompleto){
+						dat=animalCompleto;
+					}else{
+						animalCompleto = this.arrayMachos.find(hemb =>
+						         +hemb.getId() === +dat
+						         );		
+						if (animalCompleto){
+							dat=animalCompleto;	
+						}else{
+							dat=null;
+						}			
+					}
+					arrayVacio.push(dat);
+				}
+				hem.setDescendencia(arrayVacio)
+			}
+		}
+		for (let mach of this.arrayMachos){
+			let arrayVacio:Array<Animal>=new Array<Animal>();
+			if (mach.getAscendencia()!=null){
+				for (let dat of mach.getAscendencia()){
+					animalCompleto = this.arrayHembras.find(hemb =>
+					         +hemb.getId() === +dat
+					         );
+					if (animalCompleto){
+						dat=animalCompleto;
+					}else{
+						animalCompleto = this.arrayMachos.find(hemb =>
+						         +hemb.getId() === +dat
+						         );		
+						if (animalCompleto){
+							dat=animalCompleto;	
+						}else{
+							dat=null;
+						}			
+					}	
+					arrayVacio.push(dat);
+				}
+				mach.setAscendencia(arrayVacio)
+			}
+			if (mach.getDescendencia()!=null){
+				for (let dat of mach.getDescendencia()){
+					animalCompleto = this.arrayHembras.find(hemb =>
+					         +hemb.getId() === +dat
+					         );
+					if (animalCompleto){
+						dat=animalCompleto;
+					}else{
+						animalCompleto = this.arrayMachos.find(hemb =>
+						         +hemb.getId() === +dat
+						         );		
+						if (animalCompleto){
+							dat=animalCompleto;	
+						}else{
+							dat=null;
+						}			
+					}	
+					arrayVacio.push(dat);	
+				}
+				mach.setDescendencia(arrayVacio)
+			}
+		}			
+	}
+	
 	protected detalle(animalito:Animal){
 		this.navCtrl.push(Detalle,{animal:animalito});
 	}

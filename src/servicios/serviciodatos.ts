@@ -4,6 +4,8 @@ import {Explotacion} from './beans/explotacion';
 import {Animal} from './beans/animal';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
+import 'rxjs/add/operator/map'
+
 
 @Injectable()
 export class ServicioDatos {
@@ -30,10 +32,19 @@ export class ServicioDatos {
   public obtenerDatosGanado(idExplotacion:number){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
-    params.set('idGanado', idExplotacion.toString());
+    params.set('idExplotacion', idExplotacion.toString());
     return this.httpLocal.get('assets/datos/ganado.json', { search: params }).map(res => res.json());
     
   }
+
+  public obtenerDocumentos(idExplotacion:number){  
+    console.log("entra en obtenerDatosGanado");
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('idExplotacion', idExplotacion.toString());
+    return this.httpLocal.get('assets/datos/documentos.json', { search: params }).map(res => res.json());
+    
+  }
+
 
   public getExplotacion(){
     return this.explotacion;
@@ -46,16 +57,22 @@ export class ServicioDatos {
       var arrayHem:Array<Hembra>=this.explotacion.getArrayHembras();
       var arrayMach:Array<Macho>=this.explotacion.getArrayMachos();
       
-      for (let id of arrayAnimales){
-        let arrayAux:Array<Animal>=new Array<Animal>();
-        arrayAux = arrayHem.filter(hemb =>
-         +hemb.getId() === +id
+      for (let anim of arrayAnimales){
+        let arrayAux:Animal;
+        arrayAux = arrayHem.find(hemb =>
+         +hemb.getId() === +anim.getId()
          );
-        arrayResultado.concat(arrayResultado);
-        arrayAux = arrayMach.filter(mach =>
-         +mach.getId() ===  +id
-         );
-        arrayResultado=arrayResultado.concat(arrayAux);
+        if (!arrayAux){  
+          arrayAux = arrayMach.find(mach =>
+           +mach.getId() ===  +anim.getId()
+           );
+          if (arrayAux){  
+            arrayResultado.push(arrayAux);
+          }
+        }else{
+           arrayResultado.push(arrayAux);
+        }
+
       }
     }
     
@@ -73,9 +90,17 @@ export class ServicioDatos {
     try{
       this.httpLocal.post(url, {animal: animal.toJSON(),idExplotacion:this.explotacion.getId()}).map(res => res.json());
       if(animal instanceof Hembra){
-        this.explotacion.getArrayHembras().push(animal);
+        if (guardado){
+          this.explotacion.getArrayHembras().push(animal);
+        }else{
+           console.log("Es una modificacion");
+        }
       }else{
-        this.explotacion.getArrayMachos().push(animal);
+        if (guardado){
+           this.explotacion.getArrayMachos().push(animal);
+        }else{
+           console.log("Es una modificacion"); 
+        }
       }
       guardadoCorrecto=true;
     }catch(ex){

@@ -20,7 +20,7 @@
                     </label>
                   </ion-col>
                   <ion-col col-sm-7>
-                    <input type="string" value="{{animal.getRaza()}}">
+                    <input type="string" [(ngModel)]="animal.raza" value="{{animal.getRaza()}}">
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -52,7 +52,7 @@
                     </label>
                   </ion-col>
                   <ion-col col-sm-7>
-                    <input type="string" value="{{animal.getPrecioCompra()}}">
+                    <input type="string" [(ngModel)]="animal.precioCompra" value="{{animal.getPrecioCompra()}}">
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -62,7 +62,7 @@
                     </label>
                   </ion-col>
                   <ion-col col-sm-7>
-                    <input type="string" value="{{animal.getPrecioVenta()}}">
+                    <input type="string" [(ngModel)]="animal.precioVenta" value="{{animal.getPrecioVenta()}}">
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -71,7 +71,8 @@
                      </label>
                   </ion-col>
                   <ion-col col-sm-7>
-                    <!--<my-list-opcionesAscDesc [model]="arrayAscendencia" [tipo]="false"></my-list-opcionesAscDesc>-->
+                    <my-list-opcionesAscDesc  [model]="arrayAscendencia" [tipo]="false" 
+                    (arraySalida)="modificaArrayAscendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -80,7 +81,8 @@
                      </label>
                   </ion-col>
                   <ion-col col-sm-7>
-                      <my-list-opcionesAscDesc [model]="arrayDescendencia" [tipo]="true"></my-list-opcionesAscDesc>
+                      <my-list-opcionesAscDesc [model]="arrayDescendencia" [tipo]="true" 
+                      (arraySalida)="modificaArrayDescendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -89,6 +91,10 @@
                     </label>  
                   </ion-col>
                   <ion-col col-sm-4>
+                    <ion-item-divider> 
+                      <input type="string" #elementoVacuna>
+                      <ion-icon name="add-circle" (click)="anadirElementoVacunas(elementoVacuna);"></ion-icon>
+                     </ion-item-divider> 
                     <my-list-vacunasenfermedades [model]="animal.getVacunas()" ></my-list-vacunasenfermedades>  
                   </ion-col>
                 </ion-row>
@@ -98,6 +104,10 @@
                     </label>
                   </ion-col>
                   <ion-col col-sm-4>
+                    <ion-item-divider>
+                      <input type="string" #elementoEnfermedad>
+                      <ion-icon name="add-circle" (click)="anadirElementoEnfermedad(elementoEnfermedad);"></ion-icon>
+                    </ion-item-divider> 
                     <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" ></my-list-vacunasenfermedades>
                   </ion-col>
                 </ion-row>
