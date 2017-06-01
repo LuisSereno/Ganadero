@@ -7,6 +7,8 @@ import {Venta} from '../../servicios/beans/venta'
 import {Compra} from '../../servicios/beans/compra'
 import {ListaGanado} from '../listadoGanado/listado'
 import { NavController } from 'ionic-angular';
+import {ServicioDatos} from '../../servicios/serviciodatos';
+import {Constantes} from '../../servicios/constantes';
 
 @Component({
   templateUrl: 'listado.html'
@@ -20,7 +22,55 @@ export class ListaVentas {
 
 	arrayCompras: Array<Compra>;
 
-  	constructor(public navCtrl: NavController) {
+  	constructor(public navCtrl: NavController,public servicio: ServicioDatos) {
+
+		this.arrayVentas=new Array<Venta>();
+  		this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().getId(),true).subscribe(data => {
+				console.log("guapito de cara");
+				console.log(data);
+				let arrayMachos:Array<Macho>;
+				let arrayHembras:Array<Hembra>;
+				let machito:Macho;
+				let hembrita:Hembra;
+				for (let mach of data.datos){
+
+					let arrayMachos=new Array<Macho>();
+					let arrayHembras=new Array<Hembra>();
+					for(let array of mach.animales){
+						if (mach.sexo==Constantes.HEMBRA){
+							machito=Macho.fromJSON(mach);
+							arrayMachos.push(machito);
+						}else if (mach.sexo==Constantes.MACHO){
+							hembrita=Hembra.fromJSON(mach);
+							arrayHembras.push(hembrita);
+						}
+					}
+
+				}
+			},err => {
+			    console.log("Errr al obtener los datos de la venta del ganado!");
+			});
+
+	/*	this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().getId(),false).subscribe(data => {
+			console.log("guapito de cara");
+			console.log(data);
+			for (let mach of data.arrayMachos){
+				let machito:Macho=Macho.fromJSON(mach);
+				this.arrayMachos.push(machito);
+			}
+			for (let hem of data.arrayHembras){
+				let hembrita:Hembra=Hembra.fromJSON(hem);
+				this.arrayHembras.push(hembrita);
+			}
+			this.transformIdAnimal();
+			this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
+			this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
+		},err => {
+			console.log("Errr al obtener los datos de la compra del ganado!");
+		});
+
+
+
 
 		let toroPadre1:Animal = new Macho(33,"pilon","blonda",null,5675,new Date(),["Ag5","A4E"],["cirrosis","quiste"],[],[],0,0);
 		let vacaMadre2:Animal = new Hembra(36,"mili","blonda",null,5678,new Date(),["3r3","23f","bm3"],["cirrosis4","quiste4"],new Date(),[],[],0,0);
@@ -51,11 +101,11 @@ export class ListaVentas {
 
 
 		this.arrayVentas=[venta1,venta2,venta3];
-		this.arrayCompras=[compra1,compra2,compra3];
+		this.arrayCompras=[compra1,compra2,compra3];*/
 	}
 
 	protected verListadoAnimales(animalitos:Array<Animal>){
-		this.navCtrl.push(ListaGanado,{animales:animalitos});
+		this.navCtrl.push(ListaGanado,{animales:animalitos,venta:true});
 	}
 
 	protected anadirDatosVentas(){

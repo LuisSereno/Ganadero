@@ -1,0 +1,124 @@
+{"datos":[ {
+	"id": 1,
+	"agrupacion": "Venta Enero",
+	"animales": [{
+		"id": "5",
+		"alias": "Vaca33",
+		"raza": "blonde33",
+		"foto": "/aaaa.jpg",
+		"numero": "03301",
+		"sexo": "hembra",
+		"precio":789
+	}, {
+		"id": "6",
+		"alias": "Toro53",
+		"raza": "blonde53",
+		"foto": "/aaaa.jpg",
+		"numero": "04002",
+		"sexo": "macho",
+		"precio":999
+	}],
+	"precio": 505,
+	"fecha":"2017-05-19T00:01:00.0000",
+	},
+	{
+	"id": 2,
+	"agrupacion": "Venta Febrero",
+	"animales": [{
+		"id": "1",
+		"alias": "Vaca56",
+		"raza": "blonde56",
+		"foto": "/aaaa.jpg",
+		"numero": "00004",
+		"sexo": "hembra",
+		"precio":400
+	}, {
+		"id": "2",
+		"alias": "Vaca57",
+		"raza": "blonde57",
+		"foto": "/aaaa.jpg",
+		"numero": "02002",
+		"sexo": "hembra",
+		"precio":100
+	}],
+	"precio": 600,
+	"fecha":"2017-05-19T00:01:00.0000",
+	},
+	{
+	"id": 3,
+	"agrupacion": "Venta Marzo",
+	"animales": [{
+		"id": 1,
+		"agrupacion": "Compra Enero",
+		"animales": [{
+		"id": "1",
+		"alias": "Toro1",
+		"raza": "blonde",
+		"foto": "/aaaa.jpg",
+		"numero": "00001",
+		"sexo": "macho",
+		"precio":100
+	}],
+	"precio": 300,
+	"fecha":"2017-05-19T00:01:00.0000",
+	},
+	{
+	"id": 4,
+	"agrupacion": "Venta Abril",
+	"animales": [{
+		"id": "1",
+		"alias": "Toro1",
+		"raza": "blonde",
+		"foto": "/aaaa.jpg",
+		"numero": "00001",
+		"sexo": "macho",
+		"precio":454
+		}, {
+			"id": "2",
+			"alias": "Toro43",
+			"raza": "blonde43",
+			"foto": "/aaaa.jpg",
+			"numero": "00002",
+			"sexo": "macho",
+			"precio":666
+		}],
+	"precio": 202,
+	"fecha":"2017-05-19T00:01:00.0000",
+	},
+	{
+	"id": 5,
+	"agrupacion": "Venta Mayo",
+	"animales": [{
+		"id": 1,
+		"agrupacion": "Compra Enero",
+		"animales": [{
+		"id": "1",
+		"alias": "Toro1",
+		"raza": "blonde",
+		"foto": "/aaaa.jpg",
+		"numero": "00001",
+		"sexo": "macho",
+		"precio":100
+	}],
+	"precio": 1000,
+	"fecha":"2017-05-19T00:01:00.0000",
+	},
+	{
+	"id": 6,
+	"agrupacion": "Venta Junio",
+	"animales": [{
+		"id": 1,
+		"agrupacion": "Compra Enero",
+		"animales": [{
+		"id": "1",
+		"alias": "Toro1",
+		"raza": "blonde",
+		"foto": "/aaaa.jpg",
+		"numero": "00001",
+		"sexo": "macho",
+		"precio":100
+	}],
+	"precio": 1500,
+	"fecha":"2017-05-19T00:01:00.0000",
+	},
+]}

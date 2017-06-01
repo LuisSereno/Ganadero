@@ -5,13 +5,15 @@ import { NavController } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FilePath } from '@ionic-native/file-path';
 
 // Cordova
 declare var cordova: any;
 
 @Component({
   templateUrl: 'listado.html',
-  providers: [Transfer, File]
+  providers: [Transfer, File,FileChooser,FilePath]
 })
 export class ListaDocumentos {
 
@@ -20,8 +22,10 @@ export class ListaDocumentos {
 
 	fileTransfer: TransferObject = this.transfer.create();
 
+	nativepath: any;
+
   	constructor(public navCtrl: NavController,public servicio: ServicioDatos,
-  				private transfer: Transfer, private file: File) {
+  				private transfer: Transfer, private file: File,private fileChooser: FileChooser,private filePath: FilePath) {
 
 		this.arrayDocumentos=new Array<Documento>();
 	}
@@ -48,14 +52,6 @@ export class ListaDocumentos {
 
 	protected descargar(doc:Documento) {
 
-/*	  this.fileTransfer.download(doc.getUrl(), cordova.file.externalRootDirectory + doc.getNombre() + "." + doc.getTipo()).then((entry) => {
-	    console.log('download complete: ' + entry.toURL());
-	  }, (error) => {
-	    // handle error
-	    console.log('No se puede descargar el fichero');
-	    console.log(error);
-	  }); 
-*/
 	  this.fileTransfer.download(doc.getUrl(), this.file.dataDirectory + doc.getNombre() + "." + doc.getTipo()).then((entry) => {
 	    console.log('download complete: ' + entry.toURL());
 	  }, (error) => {
@@ -64,5 +60,35 @@ export class ListaDocumentos {
 	  });
 
 	}
+	
+	protected seleccionarDocumento(){
+	   this.fileChooser.open().then((url) => {
+	   		console.log("resuelve la direccion0");
+	   		console.log(url);
+	  		this.filePath.resolveNativePath(url).then(filePath => {
+	  			console.log("resuelve la direccion1");
+	  			console.log(filePath);
+			    this.nativepath = filePath;
+			    this.readimage();
+		  	}).catch(err => console.log(err));
+		})
+	}  
+
+	private readimage() {
+	    this.file.resolveLocalFilesystemUrl(this.nativepath).then(res => {
+			console.log("resuelve la direccion2");
+	    	console.log(res);
+	    	if (res.isFile){
+				this.fileTransfer.upload(res.fullPath, this.file.dataDirectory + res.name).then((data) => {
+					console.log('upload complete: ');
+					console.log(data);
+				}, (error) => {
+					console.log('No se puede cargar el fichero');
+					console.log(error);
+				});
+	    	}
+
+	    })
+	  }
 
 }

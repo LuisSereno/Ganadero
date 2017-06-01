@@ -20,31 +20,48 @@ export class ListaGanado {
 
 	arrayMachos: Array<Macho>;
 
-  	constructor(public navCtrl: NavController,public servicio: ServicioDatos) {
-		this.arrayHembras= new Array<Hembra>();
+	venta:boolean;
+
+  	constructor(public navCtrl: NavController,params: NavParams,public servicio: ServicioDatos) {
+  		this.arrayHembras= new Array<Hembra>();
 		this.arrayMachos= new Array<Macho>();
+		this.venta=params.get("venta");
+		if (this.venta){
+			let animalesTotales:Array<Animal>=params.get("animales");
+			for (let anim of animalesTotales){
+				if (anim instanceof Macho){
+					this.arrayMachos.push(anim);
+				}else if (anim instanceof Hembra){
+					this.arrayHembras.push(anim);
+				}
+			}
+		}else{
+			this.venta=false;
+		}
 	}
 
    ngOnInit() {
     	console.log("Se inicializala apliciacion con el ngOnInit");
 
-		this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
-			console.log("guapito de cara");
-			console.log(data);
-			for (let mach of data.arrayMachos){
-				let machito:Macho=Macho.fromJSON(mach);
-				this.arrayMachos.push(machito);
-			}
-			for (let hem of data.arrayHembras){
-				let hembrita:Hembra=Hembra.fromJSON(hem);
-				this.arrayHembras.push(hembrita);
-			}
-			this.transformIdAnimal();
-			this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
-			this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
-		},err => {
-		    console.log("Errr al obtener los datos del ganado!");
-		});
+    	if (!this.venta){
+			this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
+				console.log("guapito de cara");
+				console.log(data);
+				for (let mach of data.arrayMachos){
+					let machito:Macho=Macho.fromJSON(mach);
+					this.arrayMachos.push(machito);
+				}
+				for (let hem of data.arrayHembras){
+					let hembrita:Hembra=Hembra.fromJSON(hem);
+					this.arrayHembras.push(hembrita);
+				}
+				this.transformIdAnimal();
+				this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
+				this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
+			},err => {
+			    console.log("Errr al obtener los datos del ganado!");
+			});
+    	}
 	}
 
 	private transformIdAnimal(){
@@ -144,7 +161,9 @@ export class ListaGanado {
 	}
 	
 	protected detalle(animalito:Animal){
-		this.navCtrl.push(Detalle,{animal:animalito});
+		if (!this.venta){
+			this.navCtrl.push(Detalle,{animal:animalito});
+		}
 	}
 
 	protected nuevo(sexo:number){

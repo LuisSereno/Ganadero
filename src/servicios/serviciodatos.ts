@@ -45,6 +45,19 @@ export class ServicioDatos {
     
   }
 
+  public obtenerDatosOperaciones(idExplotacion:number,venta:boolean){  
+    console.log("entra en obtenerDatosGanado");
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('idExplotacion', idExplotacion.toString());
+    let url="";
+    if (venta){
+      url='assets/datos/venta.json';
+    }else{
+      url='assets/datos/compra.json';
+    }
+    return this.httpLocal.get(url, { search: params }).map(res => res.json());
+    
+  }
 
   public getExplotacion(){
     return this.explotacion;
