@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ionicframework.ganaderonuevo752295;
+package com.serenapp.ganadero;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

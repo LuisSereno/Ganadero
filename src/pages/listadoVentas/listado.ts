@@ -57,4 +57,12 @@ export class ListaVentas {
 	protected verListadoAnimales(animalitos:Array<Animal>){
 		this.navCtrl.push(ListaGanado,{animales:animalitos});
 	}
+
+	protected anadirDatosVentas(){
+		alert("Aniade una venta");	
+	}
+
+	protected anadirDatosCompras(){
+		alert("Aniade una compra");	
+	}
 }

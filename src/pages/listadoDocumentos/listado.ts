@@ -3,65 +3,66 @@ import {Documento} from '../../servicios/beans/documento'
 import {Constantes} from '../../servicios/constantes';
 import { NavController } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
 
 // Cordova
-//declare var cordova: any;
+declare var cordova: any;
 
 @Component({
-  templateUrl: 'listado.html'
+  templateUrl: 'listado.html',
+  providers: [Transfer, File]
 })
 export class ListaDocumentos {
 
 	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
 	arrayDocumentos: Array<Documento>;
 
-	//fileTransfer = new Transfer();
+	fileTransfer: TransferObject = this.transfer.create();
 
-  	constructor(public navCtrl: NavController,public servicio: ServicioDatos) {
+  	constructor(public navCtrl: NavController,public servicio: ServicioDatos,
+  				private transfer: Transfer, private file: File) {
 
-		let doc1:Documento = new Documento();
-		doc1.setId(1);
-		doc1.setNombre("luis.word");
-		doc1.setUrl("/hola/holitaMou");
-		doc1.setTipo(Constantes.TIPODOCUMENTOWORD);
-		doc1.setFechaAlta(new Date());
-		let doc2:Documento = new Documento();
-		doc2.setId(1);
-		doc2.setNombre("maria.excel");
-		doc2.setUrl("/hola/holitaMou/excel");
-		doc2.setTipo(Constantes.TIPODOCUMENTOEXCEL);
-		doc2.setFechaAlta(new Date());
-		let doc3:Documento = new Documento();
-		doc3.setId(1);
-		doc3.setNombre("alberto.gimp");
-		doc3.setUrl("/hola/holitaMou/envida");
-		doc3.setTipo(Constantes.TIPODOCUMENTOIMAGEN);
-		doc3.setFechaAlta(new Date());
-		let doc4:Documento = new Documento();
-		doc4.setId(1);
-		doc4.setNombre("nochebuena.pdf");
-		doc4.setUrl("/hola/holitaMou/nuevamejoramiga");
-		doc4.setTipo(Constantes.TIPODOCUMENTOPDF);
-		doc4.setFechaAlta(new Date());
+		this.arrayDocumentos=new Array<Documento>();
+	}
 
-		this.arrayDocumentos=[doc1,doc2,doc3,doc4];
+	ngOnInit(){
+		this.servicio.obtenerDocumentos(this.servicio.getExplotacion().getId()).subscribe(data => {
+			console.log("guapito de cara");
+			console.log(data);
+			for (let docu of data.documentos){
+				let doci:Documento=Documento.fromJSON(docu);
+				this.arrayDocumentos.push(doci);
+			}
+
+		},err => {
+		    console.log("Errr al obtener los datos de los Documentos!");
+		});
 	}
 
 	protected visualizar(doc:Documento){
-		window.open('assets/documentos/descarga.pdf', '_system', 'location=yes');
+		window.open(doc.getUrl(), '_system', 'location=yes');
 	}
 
 
 
 	protected descargar(doc:Documento) {
-		console.log("esta esta mierda aqui");
-	 // let url = 'assets/documentos/descarga.pdf';
-/*	  this.fileTransfer.download(url, cordova.file.dataDirectory + 'file.pdf').then((entry) => {
+
+/*	  this.fileTransfer.download(doc.getUrl(), cordova.file.externalRootDirectory + doc.getNombre() + "." + doc.getTipo()).then((entry) => {
 	    console.log('download complete: ' + entry.toURL());
 	  }, (error) => {
 	    // handle error
-	    console.log('errorazo');
-	  }); */
+	    console.log('No se puede descargar el fichero');
+	    console.log(error);
+	  }); 
+*/
+	  this.fileTransfer.download(doc.getUrl(), this.file.dataDirectory + doc.getNombre() + "." + doc.getTipo()).then((entry) => {
+	    console.log('download complete: ' + entry.toURL());
+	  }, (error) => {
+	    console.log('No se puede descargar el fichero');
+	    console.log(error);
+	  });
+
 	}
 
 }

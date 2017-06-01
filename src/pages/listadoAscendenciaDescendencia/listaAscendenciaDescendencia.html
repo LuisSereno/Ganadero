@@ -1,15 +1,15 @@
 <ion-item>
   <ion-label>Macho</ion-label>
-  <ion-select [(ngModel)]="macho" multiple="{{tipo}}" (ionChange)="onChange()">
-	<ion-option *ngFor="let machito of servicio.explotacion.getArrayMachos()" [value] = "machito"
-	 [selected]="comprobarDentroArray(machito)">{{machito.getAlias()}}</ion-option>
-
-  </ion-select>
+  <ion-select [(ngModel)]="macho" multiple="{{tipo}}" (ngModelChange)="onChange(true)">
+	<ion-option *ngFor="let machito of servicio.explotacion.getArrayMachos()" [value] = "machito.getId()"
+	 >{{machito.getAlias()}}</ion-option>
+  </ion-select> 
 </ion-item>
+
 <ion-item>
   <ion-label>Hembra</ion-label>
-  <ion-select [(ngModel)]="hembra" multiple="{{tipo}}" (ionChange)="onChange()">
-	<ion-option *ngFor="let hembrita of servicio.explotacion.getArrayHembras()" [value] = "hembrita" 
-	[selected]="comprobarDentroArray(hembrita)">{{hembrita.getAlias()}}</ion-option>
+  <ion-select [(ngModel)]="hembra" multiple="{{tipo}}" (ngModelChange)="onChange(false)">
+	<ion-option *ngFor="let hembrita of servicio.explotacion.getArrayHembras()" [value] = "hembrita.getId()" 
+	>{{hembrita.getAlias()}}</ion-option>
   </ion-select>
 </ion-item>

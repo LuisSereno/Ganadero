@@ -22,5 +22,7 @@ public static AUTH0_CLIENT_ID = "4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ";
 
 public static AUTH0_DOMAIN = "sereno.eu.auth0.com";
 
+public static AUTH0_PACKAGEIDENTIFIER = "com.serenapp.ganadero";
+
 }
 

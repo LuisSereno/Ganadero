@@ -14,6 +14,9 @@
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'ventas'">
 	    <ion-item *ngFor="let venta of arrayVentas" (click)="verListadoAnimales(venta.getAnimales())">
+	     <ion-thumbnail item-left>
+	        <img src="assets/icon/up-price.png">
+	      </ion-thumbnail>
 	      	<h1>{{venta.getAgrupacion()}}</h1>
 	      	
 	      	<ion-row>
@@ -35,17 +38,42 @@
 	      	</ion-row>
 	      	
 	    </ion-item>
-	    
+    	<ion-fab right bottom>
+		    <button ion-fab color="dark" (click)="anadirDatosVentas()">
+		        <ion-icon name="add"></ion-icon>
+		    </button>
+		</ion-fab>
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'compras'">
 	    <ion-item *ngFor="let compra of arrayCompras" (click)="verListadoAnimales(venta.getAnimales())">
-	      	<h1>{{compra.getAgrupacion()}}</h1>
-	      	<h2>{{compra.getPrecio()}}</h2>
-	    	<p>{{compra.getFecha().toLocaleDateString()}}</p>
-	    	<p>{{compra.getAnimales().length}}</p>
+	     <ion-thumbnail item-left>
+	        <img src="assets/icon/down-price.png">
+	      </ion-thumbnail>
+	      <h1>{{compra.getAgrupacion()}}</h1>
+	      	<ion-row>
+	      		<ion-col width-33>
+		      		<label>
+		      			<b>Precio:</b> {{compra.getPrecio()}}
+		      		</label>
+	      		</ion-col>
+	      		<ion-col width-33>
+		      		<label>
+		      			<b>Fecha:</b> {{compra.getFecha().toLocaleDateString()}}
+		      		</label>
+	      		</ion-col>
+	      		<ion-col width-33>
+		      		<label>
+		      			<b>Animales:</b> {{compra.getAnimales().length}}
+		      		</label>
+	      		</ion-col>
+	      	</ion-row>
 	    </ion-item>
-	    
+	    <ion-fab right bottom>
+		    <button ion-fab color="dark" (click)="anadirDatosCompras()">
+		        <ion-icon name="add"></ion-icon>
+		    </button>
+		</ion-fab>
 	  </ion-list>
 	</div>
 	

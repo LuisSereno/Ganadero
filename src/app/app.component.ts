@@ -10,6 +10,8 @@ import {ListaVentas} from '../pages/listadoVentas/listado';
 import {AuthService} from '../servicios/auth/auth';
 import {ServicioDatos} from '../servicios/serviciodatos';
 import { MenuController } from 'ionic-angular';
+// Import Auth0Cordova
+import Auth0Cordova from '@auth0/cordova';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +25,8 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
 
-  constructor(platform: Platform,public menuCtrl: MenuController,public auth: AuthService,public servicio: ServicioDatos) {
+  //constructor(private platform: Platform,public menuCtrl: MenuController,public auth: AuthService,public servicio: ServicioDatos) {
+    constructor(private platform: Platform,public menuCtrl: MenuController,public servicio: ServicioDatos) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -33,12 +36,11 @@ export class MyApp {
 
      console.log("El constructor de app.ts");
 
-      if(!this.auth.authenticated()) {
-        console.log("ENTRA AQUI PORQUE NO HAY AUTH")
-        //this.navCtrl.push(TabsPage);
-        this.rootPage=PerfilAutenticacion;
-      }
-      
+      // Add this function
+      (<any>window).handleOpenURL = (url) => {
+        Auth0Cordova.onRedirectUri(url);
+      };
+
     // set our app's pages
     this.pages = [
       { title: 'Ganado', component: ListaGanado },
@@ -47,11 +49,22 @@ export class MyApp {
     ];
   }
 
-    ionViewDidLoad(){
+    ngOnInit(){
       console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");
-      this.servicio.obtenerDatosExplotacion("luisalbertosereno@gmail.com");
+     
+      //  if(!this.auth.isAuthenticated()) {
+      //     this.rootPage = PerfilAutenticacion;
+      //  }else{
+      //     this.cargarListadoGanadoInicio(this.auth.user.email);
+      //  }
+      this.cargarListadoGanadoInicio("luisalbertosereno@gmail.com");
+    }
+
+    private cargarListadoGanadoInicio(email:string){
+      this.servicio.obtenerDatosExplotacion(email);
       this.rootPage=ListaGanado;
     }
+
 
     openPage(page) { 
       this.nav.setRoot(page.component);
@@ -59,10 +72,11 @@ export class MyApp {
     }
 
    logoutApp(){
-   //  this._auth.logout();
+     //this.auth.logout();
      //this.platform.exitApp();
      location.reload();
    }
+
 
 
 

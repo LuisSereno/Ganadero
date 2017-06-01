@@ -88,6 +88,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "cordova-plugin-safariviewcontroller/ganadero-SafariViewController-java17.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -250,6 +251,7 @@ dependencies {
     debugCompile(project(path: "CordovaLib", configuration: "debug"))
     releaseCompile(project(path: "CordovaLib", configuration: "release"))
     compile "com.android.support:support-v4:24.1.1+"
+    compile "com.android.support:customtabs:23.2.0"
     compile "com.android.support:support-v4:+"
     compile "com.android.support:appcompat-v7:+"
     // SUB-PROJECT DEPENDENCIES END

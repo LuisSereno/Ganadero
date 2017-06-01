@@ -9,8 +9,8 @@
 	      <img *ngSwitchCase="'word'" src="assets/icon/word.png">
 	      <img *ngSwitchCase="'excel'" src="assets/icon/excel.png">
 	    </ion-thumbnail>
-	    <h2>My Neighbor Totoro</h2>
-	    <p>Hayao Miyazaki • 1988</p>
+	    <h2>{{docu.getNombre()}}</h2>
+	    <p>{{docu.getFechaAlta()}} - {{docu.getUsuarioAlta()}}</p>
 	    <button clear item-right (click)="visualizar(docu)" >View</button>
 	    <button clear item-right (click)="descargar(docu)" >Download</button>
 	  </ion-item>
