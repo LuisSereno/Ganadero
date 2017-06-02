@@ -24,5 +24,11 @@ public static AUTH0_DOMAIN = "sereno.eu.auth0.com";
 
 public static AUTH0_PACKAGEIDENTIFIER = "com.serenapp.ganadero";
 
+public static COMPRA = 1; 
+
+public static VENTA = 2; 
+
+public static INDEFINIDO = 0; 
+
 }
 

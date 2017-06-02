@@ -20,13 +20,13 @@ export class ListaGanado {
 
 	arrayMachos: Array<Macho>;
 
-	venta:boolean;
+	venta:number;
 
   	constructor(public navCtrl: NavController,params: NavParams,public servicio: ServicioDatos) {
   		this.arrayHembras= new Array<Hembra>();
 		this.arrayMachos= new Array<Macho>();
 		this.venta=params.get("venta");
-		if (this.venta){
+		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
 			let animalesTotales:Array<Animal>=params.get("animales");
 			for (let anim of animalesTotales){
 				if (anim instanceof Macho){
@@ -36,14 +36,14 @@ export class ListaGanado {
 				}
 			}
 		}else{
-			this.venta=false;
+			this.venta=Constantes.INDEFINIDO;
 		}
 	}
 
    ngOnInit() {
     	console.log("Se inicializala apliciacion con el ngOnInit");
 
-    	if (!this.venta){
+    	if (this.venta==Constantes.INDEFINIDO){
 			this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
 				console.log("guapito de cara");
 				console.log(data);
@@ -161,7 +161,7 @@ export class ListaGanado {
 	}
 	
 	protected detalle(animalito:Animal){
-		if (!this.venta){
+		if (this.venta==Constantes.INDEFINIDO){
 			this.navCtrl.push(Detalle,{animal:animalito});
 		}
 	}

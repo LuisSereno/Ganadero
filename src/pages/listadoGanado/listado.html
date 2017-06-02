@@ -14,34 +14,41 @@
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'hembras'">
 	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">
+	      <ion-checkbox [(ngModel)]="manuel" *ngIf="venta==2"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
-	      	<h2>{{animal.getNumero()}}</h2>
+	      <ion-label>	
+	        <h2>{{animal.getNumero()}}</h2>
 	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} 
 	    		{{animal.getFechaUltimoNacimiento() ? animal.getFechaUltimoNacimiento().toLocaleDateString() : ''}} 
-	    		<span showWhen="this.venta"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
+	    		<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
 	    	</p>
+	      </ion-label>
 	    </ion-item>
 	    
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'machos'">
 	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">
+	    {{animal.getNumero()}}
+	      <ion-checkbox *ngIf="venta==2"> hola</ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
+	      <ion-label>
 	      	<h2>{{animal.getNumero()}}</h2>
 			<p>{{animal.getAlias()}} {{animal.getRaza()}} 
-				<span showWhen="this.venta"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
+				<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
 			</p>
+		  </ion-label>
 	    </ion-item>
 	    
 	  </ion-list>
 	</div>
 
 
-  	<ion-fab bottom right hideWhen="this.venta">
+  	<ion-fab bottom right *ngIf="venta!=2 && venta!=1">
 	    <button color="dark" ion-fab="" class="fab fab-ios fab-ios-danger">
 	    	<ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close">
 	    	</ion-icon><span class="button-inner">

@@ -7,7 +7,7 @@
 		"raza": "blonde33",
 		"foto": "/aaaa.jpg",
 		"numero": "03301",
-		"sexo": "hembra",
+		"sexo": 0,
 		"precio":789
 	}, {
 		"id": "6",
@@ -15,11 +15,11 @@
 		"raza": "blonde53",
 		"foto": "/aaaa.jpg",
 		"numero": "04002",
-		"sexo": "macho",
+		"sexo": 1,
 		"precio":999
 	}],
 	"precio": 505,
-	"fecha":"2017-05-19T00:01:00.0000",
+	"fecha":"2017-05-19T00:01:00.0000"
 	},
 	{
 	"id": 2,
@@ -30,7 +30,7 @@
 		"raza": "blonde56",
 		"foto": "/aaaa.jpg",
 		"numero": "00004",
-		"sexo": "hembra",
+		"sexo": 0,
 		"precio":400
 	}, {
 		"id": "2",
@@ -38,29 +38,26 @@
 		"raza": "blonde57",
 		"foto": "/aaaa.jpg",
 		"numero": "02002",
-		"sexo": "hembra",
+		"sexo": 0,
 		"precio":100
 	}],
 	"precio": 600,
-	"fecha":"2017-05-19T00:01:00.0000",
+	"fecha":"2017-05-19T00:01:00.0000"
 	},
 	{
 	"id": 3,
 	"agrupacion": "Venta Marzo",
 	"animales": [{
-		"id": 1,
-		"agrupacion": "Compra Enero",
-		"animales": [{
 		"id": "1",
 		"alias": "Toro1",
 		"raza": "blonde",
 		"foto": "/aaaa.jpg",
 		"numero": "00001",
-		"sexo": "macho",
+		"sexo": 1,
 		"precio":100
 	}],
 	"precio": 300,
-	"fecha":"2017-05-19T00:01:00.0000",
+	"fecha":"2017-05-19T00:01:00.0000"
 	},
 	{
 	"id": 4,
@@ -71,7 +68,7 @@
 		"raza": "blonde",
 		"foto": "/aaaa.jpg",
 		"numero": "00001",
-		"sexo": "macho",
+		"sexo": 1,
 		"precio":454
 		}, {
 			"id": "2",
@@ -79,46 +76,40 @@
 			"raza": "blonde43",
 			"foto": "/aaaa.jpg",
 			"numero": "00002",
-			"sexo": "macho",
+			"sexo": 1,
 			"precio":666
 		}],
 	"precio": 202,
-	"fecha":"2017-05-19T00:01:00.0000",
+	"fecha":"2017-05-19T00:01:00.0000"
 	},
 	{
 	"id": 5,
 	"agrupacion": "Venta Mayo",
-	"animales": [{
-		"id": 1,
-		"agrupacion": "Compra Enero",
-		"animales": [{
+	"animales":  [{
 		"id": "1",
 		"alias": "Toro1",
 		"raza": "blonde",
 		"foto": "/aaaa.jpg",
 		"numero": "00001",
-		"sexo": "macho",
+		"sexo": 1,
 		"precio":100
 	}],
 	"precio": 1000,
-	"fecha":"2017-05-19T00:01:00.0000",
+	"fecha":"2017-05-19T00:01:00.0000"
 	},
 	{
 	"id": 6,
 	"agrupacion": "Venta Junio",
-	"animales": [{
-		"id": 1,
-		"agrupacion": "Compra Enero",
-		"animales": [{
+	"animales":  [{
 		"id": "1",
 		"alias": "Toro1",
 		"raza": "blonde",
 		"foto": "/aaaa.jpg",
 		"numero": "00001",
-		"sexo": "macho",
+		"sexo": 1,
 		"precio":100
 	}],
 	"precio": 1500,
-	"fecha":"2017-05-19T00:01:00.0000",
-	},
+	"fecha":"2017-05-19T00:01:00.0000"
+	}
 ]}
