@@ -28,6 +28,10 @@ public static COMPRA = 1;
 
 public static VENTA = 2; 
 
+public static VENTA_VENDER = 3; 
+
+public static COMPRA_COMPRA = 4; 
+
 public static INDEFINIDO = 0; 
 
 }

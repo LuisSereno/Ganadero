@@ -14,7 +14,7 @@
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'hembras'">
 	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">
-	      <ion-checkbox [(ngModel)]="manuel" *ngIf="venta==2"></ion-checkbox>
+	      <ion-checkbox [(ngModel)]="manuel" *ngIf="venta==3"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
@@ -32,7 +32,7 @@
 	  <ion-list *ngSwitchCase="'machos'">
 	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">
 	    {{animal.getNumero()}}
-	      <ion-checkbox *ngIf="venta==2"> hola</ion-checkbox>
+	      <ion-checkbox *ngIf="venta==3"> hola</ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
@@ -48,7 +48,7 @@
 	</div>
 
 
-  	<ion-fab bottom right *ngIf="venta!=2 && venta!=1">
+  	<ion-fab bottom right *ngIf="venta!=2 && venta!=1 && venta!=3">
 	    <button color="dark" ion-fab="" class="fab fab-ios fab-ios-danger">
 	    	<ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close">
 	    	</ion-icon><span class="button-inner">

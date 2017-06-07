@@ -28,13 +28,18 @@ export class ListaGanado {
 		this.venta=params.get("venta");
 		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
 			let animalesTotales:Array<Animal>=params.get("animales");
-			for (let anim of animalesTotales){
-				if (anim instanceof Macho){
-					this.arrayMachos.push(anim);
-				}else if (anim instanceof Hembra){
-					this.arrayHembras.push(anim);
+			if (animalesTotales){
+				for (let anim of animalesTotales){
+					if (anim instanceof Macho){
+						this.arrayMachos.push(anim);
+					}else if (anim instanceof Hembra){
+						this.arrayHembras.push(anim);
+					}
 				}
 			}
+		}else if (this.venta==Constantes.VENTA_VENDER){
+			this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
+			this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
 		}else{
 			this.venta=Constantes.INDEFINIDO;
 		}
@@ -45,8 +50,6 @@ export class ListaGanado {
 
     	if (this.venta==Constantes.INDEFINIDO){
 			this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
-				console.log("guapito de cara");
-				console.log(data);
 				for (let mach of data.arrayMachos){
 					let machito:Macho=Macho.fromJSON(mach);
 					this.arrayMachos.push(machito);

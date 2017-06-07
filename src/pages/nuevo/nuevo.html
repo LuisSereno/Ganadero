@@ -3,13 +3,13 @@
             <ion-row>
               <ion-col>
                 <img #scannedImg [src]="srcImage" />
-                <ion-row>
+                <ion-row >
                   <ion-col col-sm-4>
                     <label>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Cargar Imagen 
                     </label>
                   </ion-col>
-                  <ion-col col-sm-4>
+                  <ion-col *ngIf="compra!=4" col-sm-4>
                     <button  ion-button small (click)="takePicture(true,true)">Galeria</button>
                   </ion-col>
                   <ion-col col-sm-4>
@@ -49,7 +49,7 @@
                     <input type="string" [(ngModel)]="animal.raza">
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-4>
                     <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
                      </label>
@@ -60,7 +60,7 @@
                       </ion-item>
                   </ion-col>
                 </ion-row>
-                <ion-row *ngIf="isInstanceOfHembra(animal)">
+                <ion-row *ngIf="compra!=4 && isInstanceOfHembra(animal)">
                 <ion-col col-sm-4>
                     <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
                      </label>
@@ -81,7 +81,7 @@
                     <input type="number" [(ngModel)]="animal.precioCompra">
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-4>
                     <label>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta 
@@ -91,7 +91,7 @@
                     <input type="number" [(ngModel)]="animal.precioVenta">
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-4>
                     <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Ascendencia
                       <ion-icon name="add-circle"></ion-icon>
@@ -101,7 +101,7 @@
                     <my-list-opcionesAscDesc [model]="animal.getAscendencia()" [tipo]="false"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-4>
                       <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Descendencia
                         <ion-icon name="add-circle"></ion-icon>
@@ -111,7 +111,7 @@
                     <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [tipo]="true"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-4>
                       <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Vacunas</label>
                   </ion-col>
@@ -123,7 +123,7 @@
                     <my-list-vacunasenfermedades [model]="animal.getVacunas()" ></my-list-vacunasenfermedades>   
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-4>
                       <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Enfermedades</label>
                   </ion-col>
@@ -139,7 +139,7 @@
           </ion-row>
         </ion-grid>
     
-    <ion-row>
+    <ion-row *ngIf="compra!=4">
       <ion-col col-sm-4>
         <button ion-button color="dark" (click)="volver()" round right>Volver</button>
      </ion-col>
@@ -148,17 +148,38 @@
      </ion-col>
     </ion-row>
 
-<ion-fab right top>
-    <button ion-fab color="secondary" (click)="changeEffect()">
-        <ion-icon name="md-color-wand"></ion-icon>
-    </button>
-</ion-fab>
+<div *ngIf="compra!=4">
+  <ion-fab right top>
+      <button ion-fab color="secondary" (click)="changeEffect()">
+          <ion-icon name="md-color-wand"></ion-icon>
+      </button>
+  </ion-fab>
 
-<ion-fab right bottom>
-    <button ion-fab color="primary" (click)="takePicture()">
-        <ion-icon name="md-camera"></ion-icon>
-    </button>
-</ion-fab>
+  <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="takePicture()">
+          <ion-icon name="md-camera"></ion-icon>
+      </button>
+  </ion-fab>
+</div>
 
+<div *ngIf="compra==4">
+  <ion-fab right top>
+      <button ion-fab (click)="guardaDatosAnimal()">
+          <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+  </ion-fab>
+
+  <ion-fab left bottom>
+      <button ion-fab color="primary" (click)="volver()">
+          <ion-icon name="close"></ion-icon>
+      </button>
+  </ion-fab>
+
+  <ion-fab right bottom>
+      <button ion-fab color="secondary" (click)="guardarCompraAnimales()">
+          <ion-icon name="checkmark"></ion-icon>
+      </button>
+  </ion-fab>
+</div>
 
 </ion-content>
