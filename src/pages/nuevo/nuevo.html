@@ -4,135 +4,109 @@
               <ion-col>
                 <img #scannedImg [src]="srcImage" />
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label>
+                  <ion-col col-sm-8>
+                  <ion-item  class="text-label">
+                    <ion-label>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Cargar Imagen 
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-4>
-                    <button  ion-button small (click)="takePicture(true,true)">Galeria</button>
-                  </ion-col>
-                  <ion-col col-sm-4>
-                    <button ion-button small (click)="takePicture(true,false)">Foto</button>
+                    </ion-label>
+                    <button ion-button item-right small (click)="takePicture(true,true)">Galeria</button>
+                    <button ion-button item-right small (click)="takePicture(true,false)">Foto</button>
+                   </ion-item>
                   </ion-col>
                 </ion-row>
 
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label>
+                  <ion-col col-sm-8>
+                  <ion-item  class="text-label">
+                    <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Número 
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <input type="string"  [(ngModel)]="animal.numero">
+                    </ion-label>
+                      <ion-input type="number"  [(ngModel)]="animal.numero"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
 
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label>
+                <ion-col col-sm-8>
+                  <ion-item  class="text-label">
+                    <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Alias 
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <input type="string" [(ngModel)]="animal.alias">
+                    </ion-label>
+                      <ion-input type="string" [(ngModel)]="animal.alias"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
 
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label>
+                  <ion-col col-sm-8>
+                  <ion-item  class="text-label">
+                    <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Raza 
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <input type="string" [(ngModel)]="animal.raza">
+                    </ion-label>
+                    <ion-input type="string" [(ngModel)]="animal.raza"></ion-input>
+                     </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
-                     </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                      <ion-item class="text-label">
+                  <ion-col col-sm-8>
+                    <ion-item class="text-label">
+                      <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
+                      </ion-label>
+                    
                         <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>
                       </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row *ngIf="isInstanceOfHembra(animal)">
-                <ion-col col-sm-4>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
-                     </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                      <ion-item class="text-label">
+                <ion-col col-sm-8>
+                  <ion-item class="text-label">
+                    <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
+                     </ion-label>
                         <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
                       </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label>
+                  <ion-col col-sm-8>
+                    <ion-item class="text-label">
+                    <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra 
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <input type="number" [(ngModel)]="animal.precioCompra">
+                    </ion-label>
+                    
+                     <ion-input type="number" [(ngModel)]="animal.precioCompra"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-4>
-                    <label>
+                  <ion-col col-sm-8>
+                  <ion-item class="text-label">
+                    <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta 
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <input type="number" [(ngModel)]="animal.precioVenta">
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col col-sm-4>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Ascendencia
-                      <ion-icon name="add-circle"></ion-icon>
-                    </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <my-list-opcionesAscDesc [model]="animal.getAscendencia()" [tipo]="false"></my-list-opcionesAscDesc>
+                    </ion-label>
+                      <ion-input type="number" [(ngModel)]="animal.precioVenta"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-4>
-                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Descendencia
-                        <ion-icon name="add-circle"></ion-icon>
-                      </label>
-                  </ion-col>
-                  <ion-col col-sm-7>
-                    <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [tipo]="true"></my-list-opcionesAscDesc>
+                  <ion-col col-sm-8>
+                    <my-list-vacunasenfermedades [model]="animal.getVacunas()"  [texto]="'Vacunas'" (arraySalida)="anadirElementoVacunas($event)"></my-list-vacunasenfermedades>   
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-4>
-                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Vacunas</label>
-                  </ion-col>
-                  <ion-col col-sm-4>
-                     <ion-item-divider> 
-                      <input type="string" #elementoVacuna>
-                      <ion-icon name="add-circle" (click)="anadirElementoVacunas(elementoVacuna);"></ion-icon>
-                     </ion-item-divider> 
-                    <my-list-vacunasenfermedades [model]="animal.getVacunas()" ></my-list-vacunasenfermedades>   
+                  <ion-col col-sm-8>
+                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" [texto]="'Enfermedades'" (arraySalida)="anadirElementoEnfermedad($event)"></my-list-vacunasenfermedades>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-4>
-                      <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Enfermedades</label>
+                  <ion-col col-sm-8>
+                    <my-list-opcionesAscDesc [model]="animal.getAscendencia()" [texto]="'Ascendencia'" [tipo]="false" 
+                    (arraySalida)="anadirArrayAscendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
-                  <ion-col col-sm-4>
-                    <ion-item-divider>
-                      <input type="string" #elementoEnfermedad>
-                      <ion-icon name="add-circle" (click)="anadirElementoEnfermedad(elementoEnfermedad);"></ion-icon>
-                    </ion-item-divider> 
-                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" ></my-list-vacunasenfermedades>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-sm-8>
+                    <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [texto]="'Descendencia'" [tipo]="true" 
+                    (arraySalida)="anadirArrayDescendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
             </ion-col>

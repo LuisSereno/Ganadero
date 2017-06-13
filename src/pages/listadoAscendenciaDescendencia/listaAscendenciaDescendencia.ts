@@ -14,6 +14,8 @@ export class AscDesc {
 
   @Input('tipo') tipo: boolean;
 
+  @Input() texto: string;
+
   macho:Array<number>;
 
   hembra:Array<number>;

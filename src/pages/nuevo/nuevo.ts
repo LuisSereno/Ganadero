@@ -132,25 +132,21 @@ export class Nuevo {
 	    modal.present();
 	  }
 */
-	  anadirElementoEnfermedad(elemento:HTMLInputElement){
-	  	if (elemento.value!=""){
-		  	if (this.animal.getEnfermedades()==null){
-		  		this.animal.setEnfermedades(new Array<string>());
-		  	}
-		  	this.animal.getEnfermedades().push(elemento.value);
-		  	elemento.value=null;
-	  	}
+	  anadirElementoEnfermedad(elemento:Array<string>){
+		this.animal.setEnfermedades(elemento);
 	  }
 	  
-	  anadirElementoVacunas(elemento:HTMLInputElement){
-	  	if (elemento.value!=""){
-		  	if (this.animal.getVacunas()==null){
-		  		this.animal.setVacunas(new Array<string>());
-		  	}
-		  	this.animal.getVacunas().push(elemento.value);
-		  	elemento.value=null;
-	  	}
+	  anadirElementoVacunas(elemento:Array<string>){
+	  	this.animal.setVacunas(elemento);
 	  }
+
+	private modificaArrayDescendencia(datos:Array<Animal>) {
+	 	this.arrayDescendencia=datos;   
+	}
+
+	private modificaArrayAscendencia(datos:Array<Animal>) {
+	 	this.arrayAscendencia=datos;   
+	}
 
 /*      protected checkPermissions() {
         this.diagnostic.isCameraAuthorized().then((authorized) => {
