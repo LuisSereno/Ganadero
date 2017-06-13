@@ -6,6 +6,7 @@ import {Macho} from '../../servicios/beans/macho'
 import {Venta} from '../../servicios/beans/venta'
 import {Compra} from '../../servicios/beans/compra'
 import {ListaGanado} from '../listadoGanado/listado'
+import {Nuevo} from '../nuevo/nuevo'
 import { NavController } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import {Constantes} from '../../servicios/constantes';
@@ -87,10 +88,10 @@ export class ListaVentas {
 	}
 
 	protected anadirDatosVentas(){
-		alert("Aniade una venta");	
+		this.navCtrl.push(ListaGanado,{venta:Constantes.VENTA_VENDER});	
 	}
 
 	protected anadirDatosCompras(){
-		alert("Aniade una compra");	
+		this.navCtrl.push(Nuevo,{animal:null,compra:Constantes.COMPRA_COMPRA});	
 	}
 }

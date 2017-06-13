@@ -5,6 +5,7 @@ import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
+import {ServicioCompraVenta} from '../../servicios/servicioCompraVenta';
 import { ModalController, LoadingController } from 'ionic-angular';
 import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
 import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
@@ -13,6 +14,7 @@ import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescend
 //import { CameraPreview, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import Tesseract from 'tesseract.js';  
+import {Constantes} from '../../servicios/constantes';
 
 @Component({
 	templateUrl: 'nuevo.html',
@@ -40,6 +42,10 @@ export class Nuevo {
 
   	srcImage: string;
 
+  	compra:number;
+
+  	compraVenta:ServicioCompraVenta;
+
   	@ViewChild('scannedImg') private scannedImg: ElementRef;
 
   	private recognizedText: string;  
@@ -61,7 +67,14 @@ export class Nuevo {
 	        saveToPhotoAlbum:true
 		}
 */
-		this.animal=params.get("animal");
+		this.compra=params.get("compra");
+		if (this.compra!=Constantes.COMPRA_COMPRA){
+			this.compra=Constantes.INDEFINIDO;
+			this.animal=params.get("animal");
+		}else{
+			this.compraVenta=new ServicioCompraVenta(true);
+			this.animal=new Macho(0,"","","",0,null,null,null,null,null,0,0);
+		}
 		this.arrayDescendencia=new Array<Animal>();
 		this.arrayAscendencia=new Array<Animal>();
 		this.fechaNacimiento="";
@@ -97,13 +110,24 @@ export class Nuevo {
 		}
 
         console.log("Animal!!!" + this.animal);
-		let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
-		if (correcto){
-			this.presentToast("Guardado correcto");
-		}else{
-			this.presentToast("Error al guardar");
-		}
+        if (!this.compra){
+			let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
+			if (correcto){
+				this.presentToast("Guardado correcto");
+			}else{
+				this.presentToast("Error al guardar");
+			}
+        }else{
+        	this.compraVenta.anadirAnimal(this.animal);
+        	this.animal=new Macho(0,"","","",0,null,null,null,null,null,0,0);
+        }
+
 	}
+
+	protected guardarCompraAnimales(){
+		this.compraVenta.crearOperacion("un volero");
+	}
+
 
 
 	presentToast(mensaje:string) {
