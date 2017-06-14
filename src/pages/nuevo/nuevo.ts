@@ -164,11 +164,11 @@ export class Nuevo {
 	  	this.animal.setVacunas(elemento);
 	  }
 
-	private modificaArrayDescendencia(datos:Array<Animal>) {
+	private anadirArrayDescendencia(datos:Array<Animal>) {
 	 	this.arrayDescendencia=datos;   
 	}
 
-	private modificaArrayAscendencia(datos:Array<Animal>) {
+	private anadirArrayAscendencia(datos:Array<Animal>) {
 	 	this.arrayAscendencia=datos;   
 	}
 

@@ -20,6 +20,10 @@ export class ListaGanado {
 
 	arrayMachos: Array<Macho>;
 
+	checkedItemsHembras:boolean[];
+
+	checkedItemsMachos:boolean[];
+
 	venta:number;
 
   	constructor(public navCtrl: NavController,params: NavParams,public servicio: ServicioDatos) {
@@ -40,6 +44,8 @@ export class ListaGanado {
 		}else if (this.venta==Constantes.VENTA_VENDER){
 			this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
 			this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
+			this.checkedItemsHembras= new Array(this.arrayHembras.length);
+			this.checkedItemsMachos= new Array(this.arrayMachos.length);
 		}else{
 			this.venta=Constantes.INDEFINIDO;
 		}
