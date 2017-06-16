@@ -3,6 +3,7 @@ import {Animal} from '../../servicios/beans/animal'
 import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Detalle} from '../detalle/detalle'
+import {ListadoAnimalesVendidos} from '../listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos'
 import {Nuevo} from '../nuevo/nuevo'
 import { NavController,NavParams } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
@@ -183,5 +184,28 @@ export class ListaGanado {
 			animalito=new Hembra(null,null,null,null,null,null,null,null,null,null,null,null,null);
 		}
 		this.navCtrl.push(Nuevo,{animal:animalito});
+	}
+
+
+	protected enviarResultadoAVentas(){
+
+		var arrayAnimales: Array<Animal>;
+		var arrayIds:Array<number>;
+
+		arrayIds=this.checkedItemsHembras.findIndex(x => x == true);
+		if (arrayIds.length>0){
+			for (let value of arrayIds){
+				arrayAnimales.push(this.arrayHembras[value]);
+			}
+		}
+
+		arrayIds=this.checkedItemsMachos.findIndex(x => x == true);
+		if (arrayIds.length>0){
+			for (let value of arrayIds){
+				arrayAnimales.push(this.arrayMachos[value]):
+			}
+		}
+
+		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:arrayAnimales});
 	}
 }
