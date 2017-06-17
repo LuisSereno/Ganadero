@@ -3,6 +3,7 @@ import {Animal} from '../../servicios/beans/animal'
 import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Detalle} from '../detalle/detalle'
+import {ListadoAnimalesVendidos} from '../listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos'
 import {Nuevo} from '../nuevo/nuevo'
 import { NavController,NavParams } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
@@ -19,6 +20,10 @@ export class ListaGanado {
 	arrayHembras: Array<Hembra>;
 
 	arrayMachos: Array<Macho>;
+
+	checkedItemsHembras:boolean[];
+
+	checkedItemsMachos:boolean[];
 
 	venta:number;
 
@@ -40,6 +45,8 @@ export class ListaGanado {
 		}else if (this.venta==Constantes.VENTA_VENDER){
 			this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
 			this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
+			this.checkedItemsHembras= new Array(this.arrayHembras.length);
+			this.checkedItemsMachos= new Array(this.arrayMachos.length);
 		}else{
 			this.venta=Constantes.INDEFINIDO;
 		}
@@ -177,5 +184,28 @@ export class ListaGanado {
 			animalito=new Hembra(null,null,null,null,null,null,null,null,null,null,null,null,null);
 		}
 		this.navCtrl.push(Nuevo,{animal:animalito});
+	}
+
+
+	protected enviarResultadoAVentas(){
+
+		var arrayAnimales: Array<Animal>;
+		var arrayIds:Array<number>;
+
+		arrayIds=this.checkedItemsHembras.findIndex(x => x == true);
+		if (arrayIds.length>0){
+			for (let value of arrayIds){
+				arrayAnimales.push(this.arrayHembras[value]);
+			}
+		}
+
+		arrayIds=this.checkedItemsMachos.findIndex(x => x == true);
+		if (arrayIds.length>0){
+			for (let value of arrayIds){
+				arrayAnimales.push(this.arrayMachos[value]):
+			}
+		}
+
+		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:arrayAnimales});
 	}
 }

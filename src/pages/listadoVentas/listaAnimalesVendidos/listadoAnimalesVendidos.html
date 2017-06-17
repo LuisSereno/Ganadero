@@ -1,0 +1,57 @@
+
+<ion-content>
+
+        <ion-grid>
+            <ion-row>
+            	<ion-item>
+                    <ion-label floating>
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre 
+                    </ion-label>
+                      <ion-input type="string" [(ngModel)]="venta.agrupacion"></ion-input>
+            	</ion-item>
+         	</ion-row>
+             <ion-row>
+                <ion-item class="text-label">
+                  <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
+                  </ion-label>
+                
+                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="venta.fecha"> </ion-datetime>
+                  </ion-item>
+         	</ion-row>
+            <ion-row>
+                  <ion-item  class="text-label" disabled>
+                    <ion-label floating>
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio 
+                    </ion-label>
+                      <ion-input type="number"  [(ngModel)]="venta.precio"></ion-input>
+                  </ion-item>
+         	</ion-row>
+
+        </ion-grid>
+	  <ion-list >
+	    <ion-item *ngFor="let animal of arrayAnimales;let i=index" >
+	    
+			<ion-label fixed>
+             	<ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>{{animal.getNumero()}} 
+            </ion-label>
+              <ion-input type="number"  [(ngModel)]="animal.precioVenta"></ion-input>
+		  </ion-label>
+	    </ion-item>
+	    
+	  </ion-list>
+
+	<div>
+	  <ion-fab left bottom>
+	      <button ion-fab color="primary" (click)="volver()">
+	          <ion-icon name="close"></ion-icon>
+	      </button>
+	  </ion-fab>
+
+	  <ion-fab right bottom>
+	      <button ion-fab color="secondary" (click)="alert('Aqui va el vendido')">
+	          <ion-icon name="checkmark"></ion-icon>
+	      </button>
+	  </ion-fab>
+	</div>
+
+</ion-content>

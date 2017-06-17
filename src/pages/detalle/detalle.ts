@@ -89,6 +89,16 @@ export class Detalle {
 	 	this.arrayAscendencia=datos;   
 	}
 
+
+	private modificaElementoEnfermedad(elemento:Array<string>){
+		this.animal.setEnfermedades(elemento);
+	  }
+	  
+	private modificaElementoVacunas(elemento:Array<string>){
+	  	this.animal.setVacunas(elemento);
+	  }
+
+
 	presentToast(mensaje:string) {
 	  let toast = this.toastCtrl.create({
 	    message: mensaje,
@@ -111,7 +121,7 @@ export class Detalle {
 	}
 
 
-	anadirElementoEnfermedad(elemento:HTMLInputElement){
+/*	anadirElementoEnfermedad(elemento:HTMLInputElement){
 		if (elemento.value!=""){
 		  	if (this.animal.getEnfermedades()==null){
 		  		this.animal.setEnfermedades(new Array<string>());
@@ -129,6 +139,6 @@ export class Detalle {
 		  	this.animal.getVacunas().push(elemento.value);
 		  	elemento.value=null;
 		}
-	}
+	}*/
 	
 }

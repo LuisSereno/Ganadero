@@ -3,20 +3,17 @@ import { Component,EventEmitter, Input,Output  } from '@angular/core';
 @Component({
   selector: 'my-list-vacunasenfermedades',
   template:`
-         <ion-item-divider> 
-           <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>{{texto}}</ion-label>
-          <ion-input type="string" #elementoVacuna></ion-input>
-
-           <button ion-button clear (click)='anadirElementoArray(elementoVacuna)'>
-              <ion-icon name="add-circle"></ion-icon>
-          </button>
-
-         </ion-item-divider> 
-
+      <ion-item>
+        <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>{{texto}}</ion-label>
+        <ion-input type="string" #elementoVacuna></ion-input>
+        <button ion-button clear item-right (click)='anadirElementoArray(elementoVacuna)'>
+            <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-item>
         <div *ngFor="let textoLabel of model; let n=index" >
          <ion-item>
         	  <ion-input type="string" value="{{textoLabel}}" disabled></ion-input>
-            <button ion-button clear item-right clear (click)="eliminarElementoArray(textoLabel)">
+            <button ion-button clear item-right (click)="eliminarElementoArray(textoLabel)">
         	    <ion-icon name="remove-circle" ></ion-icon>
             </button>
          </ion-item>

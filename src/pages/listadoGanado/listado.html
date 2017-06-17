@@ -13,8 +13,8 @@
 	</div>
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'hembras'">
-	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">
-	      <ion-checkbox [(ngModel)]="manuel" *ngIf="venta==3"></ion-checkbox>
+	    <ion-item *ngFor="let animal of arrayHembras;let i=index" (click)="detalle(animal)">
+	      <ion-checkbox *ngIf="venta==3" [(ngModel)]="checkedItemsHembras[i]"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
@@ -30,9 +30,9 @@
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'machos'">
-	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">
+	    <ion-item *ngFor="let animal of arrayMachos;let i=index" (click)="detalle(animal)">
 	    {{animal.getNumero()}}
-	      <ion-checkbox *ngIf="venta==3"> hola</ion-checkbox>
+	      <ion-checkbox *ngIf="venta==3" [(ngModel)]="checkedItemsMachos[i]"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
@@ -60,6 +60,21 @@
 	    <button ion-fab (click)="nuevo(1)"><img src="assets/img/toro.png"></button>
 	  </ion-fab-list>
 	</ion-fab>
+
+	<div *ngIf="venta==3">
+	  <ion-fab left bottom>
+	      <button ion-fab color="primary" (click)="volver()">
+	          <ion-icon name="close"></ion-icon>
+	      </button>
+	  </ion-fab>
+
+	  <ion-fab right bottom>
+	      <button ion-fab color="secondary" (click)="enviarResultadoAVentas()">
+	          <ion-icon name="checkmark"></ion-icon>
+	      </button>
+	  </ion-fab>
+	</div>
+
 
 
 </ion-content>
