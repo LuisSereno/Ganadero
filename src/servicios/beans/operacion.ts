@@ -45,7 +45,9 @@ export class Operacion {
 	}
 
 	public getFecha(): Date {
+		
 		return this.fecha;
+		
 	}
 
 	public setFecha(fech: Date) {

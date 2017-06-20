@@ -13,7 +13,7 @@
 	</div>
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'ventas'">
-	    <ion-item *ngFor="let venta of arrayVentas" (click)="verListadoAnimales(venta.getAnimales(),2)">
+	    <ion-item *ngFor="let venta of servicio.getExplotacion().getArrayVentas()" (click)="verListadoAnimales(venta.getAnimales(),2)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/up-price.png">
 	      </ion-thumbnail>
@@ -46,7 +46,7 @@
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'compras'">
-	    <ion-item *ngFor="let compra of arrayCompras" (click)="verListadoAnimales(compra.getAnimales(),1)">
+	    <ion-item *ngFor="let compra of servicio.getExplotacion().getArrayCompras()" (click)="verListadoAnimales(compra.getAnimales(),1)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/down-price.png">
 	      </ion-thumbnail>

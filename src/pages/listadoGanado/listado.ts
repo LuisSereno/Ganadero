@@ -188,24 +188,13 @@ export class ListaGanado {
 
 
 	protected enviarResultadoAVentas(){
-
-		var arrayAnimales: Array<Animal>;
-		var arrayIds:Array<number>;
-
-		arrayIds=this.checkedItemsHembras.findIndex(x => x == true);
-		if (arrayIds.length>0){
-			for (let value of arrayIds){
-				arrayAnimales.push(this.arrayHembras[value]);
-			}
+		var arrayAnimales: Array<Animal>=new Array<Animal>();
+		for (let value in this.checkedItemsHembras){
+			arrayAnimales.push(this.arrayHembras[value]);
 		}
-
-		arrayIds=this.checkedItemsMachos.findIndex(x => x == true);
-		if (arrayIds.length>0){
-			for (let value of arrayIds){
-				arrayAnimales.push(this.arrayMachos[value]):
-			}
+		for (let value in this.checkedItemsMachos){
+			arrayAnimales.push(this.arrayMachos[value]);
 		}
-
 		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:arrayAnimales});
 	}
 }

@@ -72,7 +72,7 @@ export class Nuevo {
 			this.compra=Constantes.INDEFINIDO;
 			this.animal=params.get("animal");
 		}else{
-			this.compraVenta=new ServicioCompraVenta(true);
+			this.compraVenta=new ServicioCompraVenta(true,servicio);
 			this.animal=new Macho(0,"","","",0,null,null,null,null,null,0,0);
 		}
 		this.arrayDescendencia=new Array<Animal>();

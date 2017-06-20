@@ -12,6 +12,7 @@ import { PerfilAutenticacion } from '../pages/profile/profile';
 import { ListaGanado } from '../pages/listadoGanado/listado';
 import { ListaDocumentos } from '../pages/listadoDocumentos/listado';
 import { ListaVentas } from '../pages/listadoVentas/listado';
+import { ListadoAnimalesVendidos } from '../pages/listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos';
 import { Cabecera } from '../pages/cabecera/cabecera';
 import { Detalle } from '../pages/detalle/detalle';
 import {ListVacEnf} from '../pages/listadoVacunasEnfermedades/listaVacunasEnfermedades';
@@ -46,7 +47,8 @@ export function getAuthHttp(http, storage) {
     Cabecera,
     Nuevo,
     ListVacEnf,
-    AscDesc
+    AscDesc,
+    ListadoAnimalesVendidos
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ export function getAuthHttp(http, storage) {
     ListaGanado,
     Detalle,
     ListaDocumentos,
-    Nuevo
+    Nuevo,
+    ListadoAnimalesVendidos
   ],
   providers: [
 

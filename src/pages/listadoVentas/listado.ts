@@ -24,10 +24,12 @@ export class ListaVentas {
 	arrayCompras: Array<Compra>;
 
   	constructor(public navCtrl: NavController,public servicio: ServicioDatos) {
+  		this.arrayVentas=new Array<Venta>();
+		this.arrayCompras=new Array<Compra>();
+	}
 
-		this.arrayVentas=new Array<Venta>();
-		this.arrayCompras=new Array<Venta>();
-  		this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().getId(),true).subscribe(data => {
+	ionViewDidLoad() {
+		 this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().getId(),true).subscribe(data => {
 				console.log("guapito de cara");
 				console.log(data);
 				let arrayTotal:Array<Animal>=new Array<Animal>();
@@ -48,6 +50,7 @@ export class ListaVentas {
 					venta=Venta.fromJSON(mach);
 					venta.setAnimales(arrayTotal);
 					this.arrayVentas.push(venta);
+					this.servicio.getExplotacion().setArrayVentas(this.arrayVentas);
 				}
 			},err => {
 			    console.log("Errr al obtener los datos de la venta del ganado!" + err);
@@ -74,15 +77,30 @@ export class ListaVentas {
 					compra=Compra.fromJSON(mach);
 					compra.setAnimales(arrayTotal);
 					this.arrayCompras.push(compra);
+					this.servicio.getExplotacion().setArrayCompras(this.arrayCompras);
 				}
 			},err => {
 			    console.log("Errr al obtener los datos de la compra del ganado!" + err);
 			});
 
-
-
 	}
 
+/*	 ionViewWillEnter() {
+	 	if (this.arrayVentas.length==0){
+			this.arrayVentas=this.servicio.getExplotacion().getArrayVentas();
+	 	}
+
+	 	if (this.arrayCompras.length==0){
+			this.arrayCompras=this.servicio.getExplotacion().getArrayCompras();
+	 	}
+	 }
+
+	 ionViewDidLeave(){
+	 	alert("vacio movidas memoria");
+	 	this.arrayVentas=new Array<Venta>();
+		this.arrayCompras=new Array<Compra>();
+	 }
+*/
 	protected verListadoAnimales(animalitos:Array<Animal>,tipoOperacion:number){
 		this.navCtrl.push(ListaGanado,{animales:animalitos,venta:tipoOperacion});
 	}
