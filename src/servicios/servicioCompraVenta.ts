@@ -5,6 +5,7 @@ import {ServicioDatos} from './serviciodatos'
 import {Animal} from './beans/animal';
 import {Compra} from './beans/compra';
 import {Venta} from './beans/venta';
+import {Operacion} from './beans/operacion';
 import 'rxjs/add/operator/map'
 
 export class ServicioCompraVenta {
@@ -32,37 +33,42 @@ export class ServicioCompraVenta {
 		}
 	}
 
-	public crearOperacion(agrupacion:string){
-		let url="";
-		let dato
-		if (this.compra){
-			let dato=new Compra(null,agrupacion,this.arrayAnimales,this.totalDinero,new Date());
-			url="/ruta/fantastica/compra";
-		}else{
-			let dato=new Venta(null,agrupacion,this.arrayAnimales,this.totalDinero,new Date());
-			url="/ruta/fantastica/venta";
-		}
-	}
 
-	public crearVenta(venta:Venta){
-		let url="/ruta/fantastica/venta";
+	public crearOperacion(operacion:Operacion){
+		let url="";
 		var guardadoCorrecto:boolean=false;
 		try{
-	      //this.httpLocal.post(url, {venta: venta.toJSON(),idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json());
 
-	      if (this.servDatos.getExplotacion().getArrayVentas()){
-	        this.servDatos.getExplotacion().getArrayVentas().push(venta);
-	      }else{
-	      	let arrayVentas:Array<Venta>=new Array<Venta>();
-	      	arrayVentas.push(venta);
-	      	this.servDatos.getExplotacion().setArrayVentas(arrayVentas);
-	      }
-	      guardadoCorrecto=true;
+			if (operacion instanceof Venta){
+				url="/ruta/fantastica/venta"
+				if (this.servDatos.getExplotacion().getArrayVentas()){
+					this.servDatos.getExplotacion().getArrayVentas().push(operacion);
+				}else{
+					let arrayVentas:Array<Venta>=new Array<Venta>();
+					arrayVentas.push(operacion);
+					this.servDatos.getExplotacion().setArrayVentas(arrayVentas);
+				}
+
+			}else if (operacion instanceof Compra){
+				url="/ruta/fantastica/compra"
+				if (this.servDatos.getExplotacion().getArrayCompras()){
+					this.servDatos.getExplotacion().getArrayCompras().push(operacion);
+				}else{
+					let arrayCompras:Array<Compra>=new Array<Compra>();
+					arrayCompras.push(operacion);
+					this.servDatos.getExplotacion().setArrayCompras(arrayCompras);
+				}
+			}else{
+				throw "No es una operacion";
+			}
+			//this.httpLocal.post(url, {venta: venta.toJSON(),idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json());
+			guardadoCorrecto=true;
 	    }catch(ex){
 	      console.log(ex);
 	    }
 
 	    return guardadoCorrecto;
+
 	}
 
 

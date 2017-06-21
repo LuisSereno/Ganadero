@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Animal} from '../../servicios/beans/animal'
 import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
+import {Venta} from '../../servicios/beans/venta'
 import {Detalle} from '../detalle/detalle'
 import {ListadoAnimalesVendidos} from '../listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos'
 import {Nuevo} from '../nuevo/nuevo'
@@ -195,6 +196,6 @@ export class ListaGanado {
 		for (let value in this.checkedItemsMachos){
 			arrayAnimales.push(this.arrayMachos[value]);
 		}
-		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:arrayAnimales});
+		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)});
 	}
 }

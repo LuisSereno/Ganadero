@@ -5,6 +5,8 @@ import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
+import {Compra} from '../../servicios/beans/compra'
+import {ListadoAnimalesVendidos} from '../listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos'
 import {ServicioCompraVenta} from '../../servicios/servicioCompraVenta';
 import { ModalController, LoadingController } from 'ionic-angular';
 import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
@@ -46,6 +48,8 @@ export class Nuevo {
 
   	compraVenta:ServicioCompraVenta;
 
+  	arrayAnimales:Array<Animal>;
+
   	@ViewChild('scannedImg') private scannedImg: ElementRef;
 
   	private recognizedText: string;  
@@ -73,7 +77,8 @@ export class Nuevo {
 			this.animal=params.get("animal");
 		}else{
 			this.compraVenta=new ServicioCompraVenta(true,servicio);
-			this.animal=new Macho(0,"","","",0,null,null,null,null,null,0,0);
+			this.animal=new Macho(null,null,null,null,0,null,null,null,null,null,null,null);
+			this.arrayAnimales=new Array<Animal>();
 		}
 		this.arrayDescendencia=new Array<Animal>();
 		this.arrayAscendencia=new Array<Animal>();
@@ -118,17 +123,11 @@ export class Nuevo {
 				this.presentToast("Error al guardar");
 			}
         }else{
-        	this.compraVenta.anadirAnimal(this.animal);
-        	this.animal=new Macho(0,"","","",0,null,null,null,null,null,0,0);
+        	this.arrayAnimales.push(this.animal);
+        	this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
         }
 
 	}
-
-	protected guardarCompraAnimales(){
-		this.compraVenta.crearOperacion("un volero");
-	}
-
-
 
 	presentToast(mensaje:string) {
 	  let toast = this.toastCtrl.create({
@@ -171,6 +170,16 @@ export class Nuevo {
 	private anadirArrayAscendencia(datos:Array<Animal>) {
 	 	this.arrayAscendencia=datos;   
 	}
+
+
+
+	protected enviarResultadoACompras(){
+		this.arrayAnimales.push(this.animal);
+		this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:this.arrayAnimales,operacion:new Compra(null,null,null,null,null)});
+	}
+
+
 
 /*      protected checkPermissions() {
         this.diagnostic.isCameraAuthorized().then((authorized) => {

@@ -7,7 +7,7 @@
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre 
                     </ion-label>
-                      <ion-input type="string" [(ngModel)]="venta.agrupacion"></ion-input>
+                      <ion-input type="string" [(ngModel)]="operacion.agrupacion"></ion-input>
             	</ion-item>
          	</ion-row>
              <ion-row>
@@ -15,7 +15,7 @@
                   <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
                   </ion-label>
                 
-                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="venta.fecha"> </ion-datetime>
+                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="operacion.fecha"> </ion-datetime>
                   </ion-item>
          	</ion-row>
             <ion-row>
@@ -23,14 +23,14 @@
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio 
                     </ion-label>
-                      <ion-input type="number"  [(ngModel)]="venta.precio" disabled></ion-input>
+                      <ion-input type="number"  [(ngModel)]="operacion.precio" disabled></ion-input>
                   </ion-item>
          	</ion-row>
 
         </ion-grid>
        
 
-	  <ion-list >
+	  <ion-list *ngIf="compra!=4 && isInstanceOfVenta(operacion)">
 	   <ion-item>
 	       <ion-label>
 	       		Precio por animal:
@@ -56,7 +56,7 @@
 	  </ion-fab>
 
 	  <ion-fab right bottom>
-	      <button ion-fab color="secondary" [disabled]="!comprobarCampos()" (click)="enviarVenta()">
+	      <button ion-fab color="secondary" [disabled]="!comprobarCampos()" (click)="enviarOperacion()">
 	          <ion-icon name="checkmark"></ion-icon>
 	      </button>
 	  </ion-fab>

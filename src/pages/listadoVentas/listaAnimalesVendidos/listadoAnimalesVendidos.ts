@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Animal} from '../../../servicios/beans/animal'
 import {Venta} from '../../../servicios/beans/venta'
+import {Compra} from '../../../servicios/beans/compra'
+import {Operacion} from '../../../servicios/beans/operacion'
 import { NavController,NavParams,ToastController } from 'ionic-angular';
 import {ServicioCompraVenta} from '../../../servicios/servicioCompraVenta';
 import {Constantes} from '../../../servicios/constantes';
@@ -12,19 +14,16 @@ import {ServicioDatos} from '../../../servicios/serviciodatos';
 })
 export class ListadoAnimalesVendidos {
 
-	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
-	tipoMostrado: string = "hembras";
-
 	arrayAnimales: Array<Animal>;
 
-	venta:Venta;
+	operacion:Operacion;
 
 	public servicio: ServicioCompraVenta;
 
   	constructor(public navCtrl: NavController,params: NavParams,public servicioDatos: ServicioDatos,private toastCtrl: ToastController) {
 
   		this.arrayAnimales=params.get("animalesSeleccionados");	
-  		this.venta=new Venta(null,null,null,null,null);
+  		this.operacion=params.get("operacion");			
   		this.sumarCantidad();
   		this.servicio=new ServicioCompraVenta(false,servicioDatos);
 	}		
@@ -34,15 +33,15 @@ export class ListadoAnimalesVendidos {
 		this.navCtrl.pop();
 	}
 
-	protected enviarVenta(){
-		this.venta.setAnimales(this.arrayAnimales);
+	protected enviarOperacion(){
+		this.operacion.setAnimales(this.arrayAnimales);
 
-		if (!(this.venta.getFecha() instanceof Date)){
-			this.venta.setFecha(new Date(this.venta.getFecha()));
+		if (!(this.operacion.getFecha() instanceof Date)){
+			this.operacion.setFecha(new Date(this.operacion.getFecha()));
 		}
 
 
-		let correcto:boolean=this.servicio.crearVenta(this.venta);
+		let correcto:boolean=this.servicio.crearOperacion(this.operacion);
 	
 		if (correcto){
 			this.presentToast("Guardado correcto");
@@ -53,29 +52,42 @@ export class ListadoAnimalesVendidos {
 
 	}	
 
+	isInstanceOfVenta(objeto:Operacion):boolean{
+		return objeto instanceof Venta;
+	}
 
 	protected sumarCantidad(){
 		var suma:number=0;
-		for (let anim of this.arrayAnimales){
-			let valor:number=anim.getPrecioVenta();
-			if (valor){
-				suma= suma + valor;
+		if (this.operacion instanceof Venta){
+			for (let anim of this.arrayAnimales){
+				let valor:number=anim.getPrecioVenta();
+				if (valor){
+					suma= suma + valor;
+				}
+			}
+		}else if (this.operacion instanceof Compra){
+			for (let anim of this.arrayAnimales){
+				let valor:number=anim.getPrecioCompra();
+				if (valor){
+					suma= suma + valor;
+				}
 			}
 		}
-		this.venta.setPrecio(suma);
+		
+		this.operacion.setPrecio(suma);
 	}
 
 
 	protected comprobarCampos(){
-		if (!this.venta.getAgrupacion()){
+		if (!this.operacion.getAgrupacion()){
 			return false;
 		}
 
-		if (!this.venta.getFecha()){
+		if (!this.operacion.getFecha()){
 			return false;
 		}
 
-		if(this.venta.getPrecio()){
+		if(this.operacion.getPrecio() && this.operacion instanceof Venta){
 			if (this.arrayAnimales){
 				for (let anim of this.arrayAnimales){
 					let valor:number=anim.getPrecioVenta();
