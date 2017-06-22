@@ -23,7 +23,8 @@ import { AuthService } from '../servicios/auth/auth';
 import { ServicioDatos } from '../servicios/serviciodatos';
 import { Http } from '@angular/http';
 import {Nuevo} from '../pages/nuevo/nuevo'
-
+import {DetalleExplotacion} from '../pages/ajustes/explotacion/nueva/nueva';
+import {ListaExplotaciones} from '../pages/ajustes/explotacion/listado/listado';
 
 
 //let storage: Storage = new Storage();
@@ -48,7 +49,9 @@ export function getAuthHttp(http, storage) {
     Nuevo,
     ListVacEnf,
     AscDesc,
-    ListadoAnimalesVendidos
+    ListadoAnimalesVendidos,
+    ListaExplotaciones,
+    DetalleExplotacion
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,9 @@ export function getAuthHttp(http, storage) {
     Detalle,
     ListaDocumentos,
     Nuevo,
-    ListadoAnimalesVendidos
+    ListadoAnimalesVendidos,    
+    ListaExplotaciones,
+    DetalleExplotacion
   ],
   providers: [
 

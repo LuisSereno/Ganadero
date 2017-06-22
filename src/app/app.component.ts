@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { Platform, Nav, NavController, Modal } from 'ionic-angular';
+import { Platform, Nav, Modal } from 'ionic-angular';
 //import { StatusBar, Splashscreen } from 'ionic-native';
 //import {ToolBarMenu} from '../pages/toolbarMenu/toolbarMenu';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -7,8 +7,11 @@ import { PerfilAutenticacion } from '../pages/profile/profile';
 import {ListaDocumentos} from '../pages/listadoDocumentos/listado';
 import {ListaGanado} from '../pages/listadoGanado/listado';
 import {ListaVentas} from '../pages/listadoVentas/listado';
+import {DetalleExplotacion} from '../pages/ajustes/explotacion/nueva/nueva';
+import {ListaExplotaciones} from '../pages/ajustes/explotacion/listado/listado';
 import {AuthService} from '../servicios/auth/auth';
 import {ServicioDatos} from '../servicios/serviciodatos';
+import {Explotacion} from '../servicios/beans/explotacion';
 import { MenuController } from 'ionic-angular';
 // Import Auth0Cordova
 import Auth0Cordova from '@auth0/cordova';
@@ -57,12 +60,30 @@ export class MyApp {
       //  }else{
       //     this.cargarListadoGanadoInicio(this.auth.user.email);
       //  }
+      
       this.cargarListadoGanadoInicio("luisalbertosereno@gmail.com");
     }
 
     private cargarListadoGanadoInicio(email:string){
-      this.servicio.obtenerDatosExplotacion(email);
-      this.rootPage=ListaGanado;
+      var arrayExplotaciones:Array<Explotacion>=new Array<Explotacion>();
+      this.servicio.obtenerDatosExplotacion(email).subscribe(data => {
+
+        for (let explo of data["explotaciones"]){
+          let explotacionAux=new Explotacion();
+          Object.assign(explotacionAux,explo) ;
+          arrayExplotaciones.push(explotacionAux)
+        }
+
+        if(arrayExplotaciones.length==0){
+          this.rootPage=DetalleExplotacion;
+        }else if (arrayExplotaciones.length>1){
+          this.nav.push(ListaExplotaciones,{explotaciones:arrayExplotaciones});
+        }else{
+           this.servicio.setExplotacion(arrayExplotaciones.pop());
+           this.rootPage=ListaGanado;
+        }
+     });
+
     }
 
 

@@ -23,10 +23,7 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
 	  params.set('usuario', email.toString());
-  	this.httpLocal.get('assets/datos/explotacion.json', { search: params }).map(res => res.json()).subscribe(data => {
-       Object.assign(this.explotacion,data) ;
-       console.log(this.explotacion);
-    });
+  	return this.httpLocal.get('assets/datos/explotacion.json', { search: params }).map(res => res.json());
   }
 
   public obtenerDatosGanado(idExplotacion:number){  
@@ -61,6 +58,10 @@ export class ServicioDatos {
 
   public getExplotacion(){
     return this.explotacion;
+  }
+
+  public setExplotacion(explo:Explotacion){
+    return this.explotacion=explo;
   }
 
   public getBusquedaAscDesc(arrayAnimales:Array<Animal>):Array<Animal>{
