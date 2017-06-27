@@ -10,14 +10,14 @@ export class Operacion {
 
 	private precio: number;
 
-	private fecha: Date;
+	private fechaOperacion: Date;
 
 	constructor() {
 		this.id = 0;
 		this.agrupacion="";
 		this.animales=new Array<Animal>();
 		this.precio=0;
-		this.fecha=new Date();
+		this.fechaOperacion=new Date();
 	}
 
 	public getId(): number {
@@ -44,14 +44,14 @@ export class Operacion {
 		this.precio = precio;
 	}
 
-	public getFecha(): Date {
+	public getFechaOperacion(): Date {
 		
-		return this.fecha;
+		return this.fechaOperacion;
 		
 	}
 
-	public setFecha(fech: Date) {
-		this.fecha = fech;
+	public setFechaOperacion(fech: Date) {
+		this.fechaOperacion = fech;
 	}
 
 	public getAnimales():Array<Animal>{

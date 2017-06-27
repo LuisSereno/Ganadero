@@ -142,4 +142,61 @@ export class Explotacion {
 		this.arrayDocumentos = arrayDocumentos;
 	}
 
+
+	/**
+       ESTA PARTE ES OBLIGADA PARA USAR LOS JSON Y ENVIARLE LAS ENTIDADES
+	   http://choly.ca/post/typescript-json/
+    **/
+    // toJSON is automatically used by JSON.stringify
+    toJSON():{} {
+        // copy all fields from `this` to an empty object and return in
+        var json=Object.assign({}, this);
+ 
+        return json;
+    }
+
+    // fromJSON is used to convert an serialized version
+    // of the User to an instance of the class
+    static fromJSON(json: Explotacion|string): Explotacion {
+        if (typeof json === 'string') {
+            // if it's a string, parse it first
+            return JSON.parse(json, Explotacion.reviver);
+        } else {
+            // create an instance of the User class
+            let mach = Object.create(Explotacion.prototype);
+
+/**            let jsonNuevo = {
+                idCliente: json["_idCliente"],
+                nombreCliente: json["_nombreCliente"],
+                url: json["_url"],
+                dominio: json["_dominio"],
+                fecha: json["_fecha"],
+                licMov: json["_licMov"],
+                licWeb: json["_licWeb"],
+                clienteActivo: json["_clienteActivo"],
+                maps: json["_maps"]
+            }**/
+            // copy all the fields from the json object
+            return Object.assign(mach, json,{
+                // convert fields that need converting. ESto es para formatear datos que sean imprescindibles, como fechas y demas
+                fechaAlta: (json["fechaAlta"]==null || json["fechaAlta"].toString()=="") ? null : new Date(json["fechaAlta"]),
+            	id: (json["identificador"]),
+            	arrayMachos: new Array<Macho>(),
+            	arrayHembras: new Array<Hembra>(),
+            	arrayVentas: new Array<Venta>(),
+            	arrayCompras: new Array<Compra>(),
+            	arrayDocumentos: new Array<Documento>()
+
+            	});
+        }
+    }
+
+    // reviver can be passed as the second parameter to JSON.parse
+    // to automatically call User.fromJSON on the resulting value.
+    // Ejemplo de uso let user = JSON.parse(data, User.reviver);
+    static reviver(key: string, value: any): any {
+        return key === "" ? Explotacion.fromJSON(value) : value;
+    }
+
+
 }

@@ -36,21 +36,24 @@ export class ListaVentas {
 				let machito:Macho;
 				let hembrita:Hembra;
 				let venta:Venta;
-				for (let mach of data.datos){
-					for(let array of mach.animales){
-						if (array.sexo==Constantes.HEMBRA){
-							machito=Macho.fromJSON(array);
-							arrayTotal.push(machito);
-						}else if (array.sexo==Constantes.MACHO){
-							hembrita=Hembra.fromJSON(array);
-							arrayTotal.push(hembrita);
+				if (data.compraVentas){
+					for (let mach of data.compraVentas){
+						if (mach.animales){
+							for(let array of mach.animales){
+								if (array.sexo==Constantes.HEMBRA){
+									machito=Macho.fromJSON(array);
+									arrayTotal.push(machito);
+								}else if (array.sexo==Constantes.MACHO){
+									hembrita=Hembra.fromJSON(array);
+									arrayTotal.push(hembrita);
+								}
+							}
 						}
+						venta=Venta.fromJSON(mach);
+						venta.setAnimales(arrayTotal);
+						this.arrayVentas.push(venta);
+						this.servicio.getExplotacion().setArrayVentas(this.arrayVentas);
 					}
-
-					venta=Venta.fromJSON(mach);
-					venta.setAnimales(arrayTotal);
-					this.arrayVentas.push(venta);
-					this.servicio.getExplotacion().setArrayVentas(this.arrayVentas);
 				}
 			},err => {
 			    console.log("Errr al obtener los datos de la venta del ganado!" + err);
@@ -63,22 +66,27 @@ export class ListaVentas {
 				let machito:Macho;
 				let hembrita:Hembra;
 				let compra:Compra;
-				for (let mach of data.datos){
-					for(let array of mach.animales){
-						if (array.sexo==Constantes.HEMBRA){
-							machito=Macho.fromJSON(array);
-							arrayTotal.push(machito);
-						}else if (array.sexo==Constantes.MACHO){
-							hembrita=Hembra.fromJSON(array);
-							arrayTotal.push(hembrita);
+				if (data.compraVentas){
+					for (let mach of data.compraVentas){
+						if (mach.animales){
+							for(let array of mach.animales){
+								if (array.sexo==Constantes.HEMBRA){
+									machito=Macho.fromJSON(array);
+									arrayTotal.push(machito);
+								}else if (array.sexo==Constantes.MACHO){
+									hembrita=Hembra.fromJSON(array);
+									arrayTotal.push(hembrita);
+								}
+							}
 						}
+						compra=Compra.fromJSON(mach);
+						compra.setAnimales(arrayTotal);
+						this.arrayCompras.push(compra);
+						this.servicio.getExplotacion().setArrayCompras(this.arrayCompras);
 					}
 
-					compra=Compra.fromJSON(mach);
-					compra.setAnimales(arrayTotal);
-					this.arrayCompras.push(compra);
-					this.servicio.getExplotacion().setArrayCompras(this.arrayCompras);
 				}
+
 			},err => {
 			    console.log("Errr al obtener los datos de la compra del ganado!" + err);
 			});

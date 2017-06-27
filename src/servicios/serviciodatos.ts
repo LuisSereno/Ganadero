@@ -22,15 +22,15 @@ export class ServicioDatos {
   public obtenerDatosExplotacion(email:String){
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
-	  params.set('usuario', email.toString());
-  	return this.httpLocal.get('assets/datos/explotacion.json', { search: params }).map(res => res.json());
+	  params.set('email', email.toString());
+  	return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/ususarios/obtener', { search: params }).map(res => res.json());
   }
 
   public obtenerDatosGanado(idExplotacion:number){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get('assets/datos/ganado.json', { search: params }).map(res => res.json());
+    return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/animales/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -38,21 +38,20 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get('assets/datos/documentos.json', { search: params }).map(res => res.json());
+    return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/documentos/obtener', { search: params }).map(res => res.json());
     
   }
 
   public obtenerDatosOperaciones(idExplotacion:number,venta:boolean){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
-    params.set('idExplotacion', idExplotacion.toString());
-    let url="";
+    let tipo:number=0;
     if (venta){
-      url='assets/datos/venta.json';
-    }else{
-      url='assets/datos/compra.json';
+      tipo=1;
     }
-    return this.httpLocal.get(url, { search: params }).map(res => res.json());
+    params.set('idExplotacion', idExplotacion.toString());
+    params.set('tipo',tipo.toString());
+    return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/compraVenta/obtener', { search: params }).map(res => res.json());
     
   }
 

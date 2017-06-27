@@ -68,9 +68,9 @@ export class MyApp {
       var arrayExplotaciones:Array<Explotacion>=new Array<Explotacion>();
       this.servicio.obtenerDatosExplotacion(email).subscribe(data => {
 
-        for (let explo of data["explotaciones"]){
-          let explotacionAux=new Explotacion();
-          Object.assign(explotacionAux,explo) ;
+        for (let explo of data.explotaciones){
+          let explotacionAux:Explotacion=Explotacion.fromJSON(explo);
+          explotacionAux.setEmailUsu(data["email"])
           arrayExplotaciones.push(explotacionAux)
         }
 

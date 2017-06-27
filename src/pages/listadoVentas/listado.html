@@ -27,7 +27,7 @@
 	      		</ion-col>
 	      		<ion-col width-33>
 		      		<label>
-		      			<b>Fecha:</b> {{venta.getFecha().toLocaleDateString()}}
+		      			<b>Fecha:</b> {{venta.getFechaOperacion() ? venta.getFechaOperacion().toLocaleDateString() : ''}}
 		      		</label>
 	      		</ion-col>
 	      		<ion-col width-33>
@@ -59,7 +59,7 @@
 	      		</ion-col>
 	      		<ion-col width-33>
 		      		<label>
-		      			<b>Fecha:</b> {{compra.getFecha().toLocaleDateString()}}
+		      			<b>Fecha:</b> {{compra.getFechaOperacion() ? compra.getFechaOperacion().toLocaleDateString() : ''}}
 		      		</label>
 	      		</ion-col>
 	      		<ion-col width-33>

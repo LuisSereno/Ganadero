@@ -36,8 +36,8 @@ export class ListadoAnimalesVendidos {
 	protected enviarOperacion(){
 		this.operacion.setAnimales(this.arrayAnimales);
 
-		if (!(this.operacion.getFecha() instanceof Date)){
-			this.operacion.setFecha(new Date(this.operacion.getFecha()));
+		if (!(this.operacion.getFechaOperacion() instanceof Date)){
+			this.operacion.setFechaOperacion(new Date(this.operacion.getFechaOperacion()));
 		}
 
 
@@ -83,7 +83,7 @@ export class ListadoAnimalesVendidos {
 			return false;
 		}
 
-		if (!this.operacion.getFecha()){
+		if (!this.operacion.getFechaOperacion()){
 			return false;
 		}
 

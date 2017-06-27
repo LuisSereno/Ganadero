@@ -48,7 +48,7 @@ export class Compra extends Operacion{
             // copy all the fields from the json object
             return Object.assign(mach, json,{
                 // convert fields that need converting. ESto es para formatear datos que sean imprescindibles, como fechas y demas
-                fecha: (json["fecha"]==null || json["fecha"].toString()=="") ? null : new Date(json["fecha"])});
+                fechaOperacion: (json["fechaOperacion"]==null || json["fechaOperacion"].toString()=="") ? null : new Date(json["fechaOperacion"])});
         }
     }
 

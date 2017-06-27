@@ -58,13 +58,17 @@ export class ListaGanado {
 
     	if (this.venta==Constantes.INDEFINIDO){
 			this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
-				for (let mach of data.arrayMachos){
-					let machito:Macho=Macho.fromJSON(mach);
-					this.arrayMachos.push(machito);
+				if (data.arrayMachos!=undefined){
+					for (let mach of data.arrayMachos){
+						let machito:Macho=Macho.fromJSON(mach);
+						this.arrayMachos.push(machito);
+					}					
 				}
-				for (let hem of data.arrayHembras){
-					let hembrita:Hembra=Hembra.fromJSON(hem);
-					this.arrayHembras.push(hembrita);
+				if (data.arrayHembras!=undefined){
+					for (let hem of data.arrayHembras){
+						let hembrita:Hembra=Hembra.fromJSON(hem);
+						this.arrayHembras.push(hembrita);
+					}
 				}
 				this.transformIdAnimal();
 				this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
