@@ -4,7 +4,7 @@
 	<div padding>
 	  <ion-segment [(ngModel)]="tipoMostrado">
 	    <ion-segment-button value="hembras">
-	      Hembras
+	      HembrasNew
 	    </ion-segment-button>
 	    <ion-segment-button value="machos">
 	      Machos
@@ -18,15 +18,15 @@
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
-	      <ion-label>	
+	      <ion-label>
 	        <h2>{{animal.getNumero()}}</h2>
-	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} 
-	    		{{animal.getFechaUltimoNacimiento() ? animal.getFechaUltimoNacimiento().toLocaleDateString() : ''}} 
+	    	<p>{{animal.getAlias()}} {{animal.getRaza()}}
+	    		{{animal.getFechaUltimoNacimiento() ? animal.getFechaUltimoNacimiento().toLocaleDateString() : ''}}
 	    		<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
 	    	</p>
 	      </ion-label>
 	    </ion-item>
-	    
+
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'machos'">
@@ -38,12 +38,12 @@
 	      </ion-thumbnail>
 	      <ion-label>
 	      	<h2>{{animal.getNumero()}}</h2>
-			<p>{{animal.getAlias()}} {{animal.getRaza()}} 
+			<p>{{animal.getAlias()}} {{animal.getRaza()}}
 				<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
 			</p>
 		  </ion-label>
 	    </ion-item>
-	    
+
 	  </ion-list>
 	</div>
 
