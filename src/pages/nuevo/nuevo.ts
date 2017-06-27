@@ -5,18 +5,22 @@ import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
+import {Compra} from '../../servicios/beans/compra'
+import {ListadoAnimalesVendidos} from '../listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos'
+import {ServicioCompraVenta} from '../../servicios/servicioCompraVenta';
 import { ModalController, LoadingController } from 'ionic-angular';
 import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
 import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
 //import { ModalPage } from '../modal/modal';
-import { Diagnostic } from '@ionic-native/diagnostic';
-import { CameraPreview, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+//import { Diagnostic } from '@ionic-native/diagnostic';
+//import { CameraPreview, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
+//import { Camera, CameraOptions } from '@ionic-native/camera';
 import Tesseract from 'tesseract.js';  
+import {Constantes} from '../../servicios/constantes';
 
 @Component({
 	templateUrl: 'nuevo.html',
-	providers: [CameraPreview,Diagnostic]
+//	providers: [CameraPreview,Diagnostic]
 })
 export class Nuevo {
 	
@@ -34,22 +38,28 @@ export class Nuevo {
 
 	picture:any;
 
-	options: CameraOptions;
+	//options: CameraOptions;
   
   	OCRAD: any;
 
   	srcImage: string;
+
+  	compra:number;
+
+  	compraVenta:ServicioCompraVenta;
+
+  	arrayAnimales:Array<Animal>;
 
   	@ViewChild('scannedImg') private scannedImg: ElementRef;
 
   	private recognizedText: string;  
 
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
-				private toastCtrl: ToastController,public modalCtrl: ModalController,
+				private toastCtrl: ToastController,public modalCtrl: ModalController/*,
 				private cameraPreview: CameraPreview,private diagnostic: Diagnostic,
-				private camera: Camera,public loadingCtrl: LoadingController) {
+				private camera: Camera,public loadingCtrl: LoadingController*/) {
 
-		this.options= {
+	/*	this.options= {
 			sourceType: this.camera.PictureSourceType.CAMERA  ,
 	        destinationType: this.camera.DestinationType.DATA_URL,
 	        encodingType: this.camera.EncodingType.PNG,
@@ -60,13 +70,21 @@ export class Nuevo {
 	        correctOrientation:true,
 	        saveToPhotoAlbum:true
 		}
-
-		this.animal=params.get("animal");
+*/
+		this.compra=params.get("compra");
+		if (this.compra!=Constantes.COMPRA_COMPRA){
+			this.compra=Constantes.INDEFINIDO;
+			this.animal=params.get("animal");
+		}else{
+			this.compraVenta=new ServicioCompraVenta(true,servicio);
+			this.animal=new Macho(null,null,null,null,0,null,null,null,null,null,null,null);
+			this.arrayAnimales=new Array<Animal>();
+		}
 		this.arrayDescendencia=new Array<Animal>();
 		this.arrayAscendencia=new Array<Animal>();
 		this.fechaNacimiento="";
 		this.fechaUltimoNacimiento="";
-		this.checkPermissions();
+		//this.checkPermissions();
 	}
 
 	ngOnInit() {
@@ -97,14 +115,19 @@ export class Nuevo {
 		}
 
         console.log("Animal!!!" + this.animal);
-		let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
-		if (correcto){
-			this.presentToast("Guardado correcto");
-		}else{
-			this.presentToast("Error al guardar");
-		}
-	}
+        if (!this.compra){
+			let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
+			if (correcto){
+				this.presentToast("Guardado correcto");
+			}else{
+				this.presentToast("Error al guardar");
+			}
+        }else{
+        	this.arrayAnimales.push(this.animal);
+        	this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+        }
 
+	}
 
 	presentToast(mensaje:string) {
 	  let toast = this.toastCtrl.create({
@@ -132,27 +155,33 @@ export class Nuevo {
 	    modal.present();
 	  }
 */
-	  anadirElementoEnfermedad(elemento:HTMLInputElement){
-	  	if (elemento.value!=""){
-		  	if (this.animal.getEnfermedades()==null){
-		  		this.animal.setEnfermedades(new Array<string>());
-		  	}
-		  	this.animal.getEnfermedades().push(elemento.value);
-		  	elemento.value=null;
-	  	}
+	  anadirElementoEnfermedad(elemento:Array<string>){
+		this.animal.setEnfermedades(elemento);
 	  }
 	  
-	  anadirElementoVacunas(elemento:HTMLInputElement){
-	  	if (elemento.value!=""){
-		  	if (this.animal.getVacunas()==null){
-		  		this.animal.setVacunas(new Array<string>());
-		  	}
-		  	this.animal.getVacunas().push(elemento.value);
-		  	elemento.value=null;
-	  	}
+	  anadirElementoVacunas(elemento:Array<string>){
+	  	this.animal.setVacunas(elemento);
 	  }
 
-      protected checkPermissions() {
+	private anadirArrayDescendencia(datos:Array<Animal>) {
+	 	this.arrayDescendencia=datos;   
+	}
+
+	private anadirArrayAscendencia(datos:Array<Animal>) {
+	 	this.arrayAscendencia=datos;   
+	}
+
+
+
+	protected enviarResultadoACompras(){
+		this.arrayAnimales.push(this.animal);
+		this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:this.arrayAnimales,operacion:new Compra(null,null,null,null,null)});
+	}
+
+
+
+/*      protected checkPermissions() {
         this.diagnostic.isCameraAuthorized().then((authorized) => {
             if(authorized)
                 this.initializePreview();
@@ -192,24 +221,6 @@ export class Nuevo {
 		  alpha: 1
 		};
 
-
-     
-
-		// start camera
-	/*	this.cameraPreview.startCamera(cameraPreviewOpts).then(
-		  (res) => {
-		    console.log(res)
-		  },
-		  (err) => {
-		    console.log(err)
-		  });
-*/
-		// Set the handler to run every time we take a picture
-	/*	this.cameraPreview.setOnPictureTakenHandler().subscribe((result) => {
-		  console.log(result);
-		  // do something with the result
-		});*/
-
     }
 
     takePicture(imagenAnimal:boolean) {
@@ -248,17 +259,8 @@ export class Nuevo {
 		 // Handle error
 		 	console.error(err);
 		});
-
-		// take a picture
-	/*	this.cameraPreview.takePicture(this.pictureOpts).then((imageData) => {
-		  this.picture = 'data:image/jpeg;base64,' + imageData;
-		}, (err) => {
-		  console.log(err);
-		  this.picture = 'assets/img/test.jpg';
-		});
-*/
     }
-
+*/
     changeEffect() {
     	console.log("Estamos aqui2");
     	this.analyze();
@@ -287,18 +289,10 @@ export class Nuevo {
 
    analyze() {
    		console.log("Entra en analyze y no funciona nada");
-		let loader = this.loadingCtrl.create({
+/*		let loader = this.loadingCtrl.create({
 			content: 'Please wait...'
 		});
-		
-		/*(<any>window).OCRAD(document.getElementById('image'), text => {
-			loader.dismissAll();
-			alert(text);
-			console.log(text);
-		}, (err) => {
-		 	loader.dismissAll();
-		 	console.error(err);
-		});*/
+	
 
 		Tesseract.recognize(this.scannedImg.nativeElement.src)  
 	    .progress((progress) => {
@@ -311,7 +305,7 @@ export class Nuevo {
 	        this.recognizedText = tesseractResult.text;
 	        alert(this.recognizedText);
 	    });
-
+*/
   }
 
 }

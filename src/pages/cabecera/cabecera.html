@@ -1,16 +1,16 @@
   <ion-navbar> 
   	  <ion-row center>
-	  	  <ion-col col-md-1  offset-md-0 col-md-3 offset-md-1>
-	  	  	<p>{{servicio.getExplotacion().getNombre()}}</p>
-	  	  	<p>{{servicio.getExplotacion().getEmailUsu()}}</p>
+	  	  <ion-col hideWhen="portrait" col-md-1  offset-md-0 col-md-3 offset-md-1>
+	  	  	<p class="ellipsis">{{servicio.getExplotacion().getNombre()}}</p>
+	  	  	<p class="ellipsis">{{servicio.getExplotacion().getEmailUsu()}}</p>
 	  	  </ion-col>
 	  	  <ion-col col-md-1  offset-md-0 col-md-3 offset-md-1>
-	  	  	<p>Machos: {{servicio.getExplotacion().getArrayMachos().length}}</p>
-	  	  	<p>Hembras: {{servicio.getExplotacion().getArrayHembras().length}}</p>
+	  	  	<p><b>Machos:</b> {{servicio.getExplotacion().getArrayMachos().length}}</p>
+	  	  	<p><b>Hembras:</b> {{servicio.getExplotacion().getArrayHembras().length}}</p>
 	  	  </ion-col>
 	  	  <ion-col col-md-1 col-md-3>
-	  	  	<p>Total: {{servicio.getExplotacion().getDineroTotal()}}€</p>
-	  	  	<p>Anual: {{servicio.getExplotacion().getDineroAnual()}}€</p>
+	  	  	<p><b>Total:</b> {{servicio.getExplotacion().getDineroTotal()}}€</p>
+	  	  	<p><b>Anual:</b> {{servicio.getExplotacion().getDineroAnual()}}€</p>
 	  	  </ion-col>
 	  	   <ion-col>
 		      <button ion-button menuToggle right>

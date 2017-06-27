@@ -49,3 +49,4 @@ plugins
 
 # Output of 'npm pack'
 *.tgz
+www/

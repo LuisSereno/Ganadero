@@ -1,5 +1,4 @@
-<cabecera-ganadero></cabecera-ganadero>
-<ion-content padding class="page1">
+<ion-content>
   <ion-card>
 
     <img src="{{animal.getFoto()}}" class="tamanoreal"/>
@@ -11,112 +10,88 @@
       <p text-center>
        <i>{{animal.getAlias()}}</i>
       </p>
-      <ion-card>
         <ion-grid>
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-col width-20>
-                    <label>
+                  <ion-col col-sm-8>
+                  <ion-item  class="text-label">
+                    <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Raza 
-                    </label>
-                  </ion-col>
-                  <ion-col width-80>
-                    <input type="string" value="{{animal.getRaza()}}">
+                    </ion-label>
+                    <ion-input type="string" [(ngModel)]="animal.raza" value="{{animal.getRaza()}}"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col width-20>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
-                     </label>
-                  </ion-col>
-                  <ion-col width-80>
-                      <ion-item class="text-label">
+                  <ion-col col-sm-8>
+                    <ion-item class="text-label">
+                      <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
+                       </ion-label>
                         <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>
                       </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row *ngIf="isInstanceOfHembra(animal)">
-                  <ion-col width-20>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
-                     </label>
-                  </ion-col>
-                  <ion-col width-80>
-                      <ion-item class="text-label">
-                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
-                      </ion-item>
+                  <ion-col col-sm-8>
+                    <ion-item class="text-label">
+                       <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
+                       </ion-label>
+                       <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaUltimoNacimiento"></ion-datetime>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col width-20>
-                    <label>
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra 
-                    </label>
-                  </ion-col>
-                  <ion-col width-80>
-                    <input type="string" value="{{animal.getPrecioCompra()}}">
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col width-20>
-                    <label>
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta 
-                    </label>
-                  </ion-col>
-                  <ion-col width-80>
-                    <input type="string" value="{{animal.getPrecioVenta()}}">
+                  <ion-col col-sm-8>
+                    <ion-item class="text-label">
+                      <ion-label floating>
+                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra 
+                      </ion-label>
+                      <ion-input type="string" [(ngModel)]="animal.precioCompra" value="{{animal.getPrecioCompra()}}"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col width-20>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Ascendencia
-                     </label>
-                  </ion-col>
-                  <ion-col width-80>
-                    <div *ngFor="let ganado of arrayAscendencia" >
-                      <ion-badge item-right [color]="devuelveColorBadge(ganado)" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
-                    </div>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col width-20>
-                    <label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Descendencia
-                     </label>
-                  </ion-col>
-                  <ion-col width-80>
-                      <div *ngFor="let ganado of arrayDescendencia" >
-                        <ion-badge item-right color="secondary" (click)="irDetalleDesdeDetalle(ganado)">{{ganado.getAlias()}}</ion-badge>
-                      </div>
+                  <ion-col col-sm-8>
+                    <ion-item class="text-label">
+                      <ion-label floating>
+                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta 
+                      </ion-label>
+                      <ion-input type="string" [(ngModel)]="animal.precioVenta" value="{{animal.getPrecioVenta()}}"></ion-input>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col width-20>
-                    <label><ion-icon name='color-wand' item-left class="color-iconos"></ion-icon>Vacunas
-                    </label>  
-                  </ion-col>
-                  <ion-col width-80>
-                    <my-list-vacunasenfermedades [model]="animal.getVacunas()" ></my-list-vacunasenfermedades>  
+                  <ion-col col-sm-8>
+                    <my-list-opcionesAscDesc [model]="animal.getAscendencia()" [texto]="'Ascendencia'" [tipo]="false" 
+                    (arraySalida)="modificaArrayAscendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col width-20>
-                    <label><ion-icon name='lock' item-left class="color-iconos"></ion-icon>Enfermedades
-                    </label>
+                  <ion-col col-sm-8>
+                    <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [texto]="'Descendencia'" [tipo]="true" 
+                    (arraySalida)="modificaArrayDescendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
-                  <ion-col width-80>
-                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" ></my-list-vacunasenfermedades>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-sm-8>
+                    <my-list-vacunasenfermedades [model]="animal.getVacunas()"  [texto]="'Vacunas'" (arraySalida)="modificaElementoVacunas($event)"></my-list-vacunasenfermedades>   
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-sm-8>
+                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" [texto]="'Enfermedades'" (arraySalida)="modificaElementoEnfermedad($event)"></my-list-vacunasenfermedades>
                   </ion-col>
                 </ion-row>
             </ion-col>
           </ion-row>
         </ion-grid>
-      </ion-card>
     </ion-card-content>
     <ion-row>
-      <ion-col width-10>
+      <ion-col col-sm-4>
         <button ion-button color="dark" (click)="volver()" round right>Volver</button>
      </ion-col>
-     <ion-col width-10 offset-80>
+     <ion-col col-sm-4 offset-md-2>
         <button ion-button color="dark" (click)="modificaDatosAnimal()" round right>Guardar</button>
      </ion-col>
     </ion-row>

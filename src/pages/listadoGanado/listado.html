@@ -13,39 +13,42 @@
 	</div>
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'hembras'">
-	    <ion-item *ngFor="let animal of arrayHembras" (click)="detalle(animal)">
+	    <ion-item *ngFor="let animal of arrayHembras;let i=index" (click)="detalle(animal)">
+	      <ion-checkbox *ngIf="venta==3" [(ngModel)]="checkedItemsHembras[i]"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
-	      	<h2>{{animal.getNumero()}}</h2>
+	      <ion-label>	
+	        <h2>{{animal.getNumero()}}</h2>
 	    	<p>{{animal.getAlias()}} {{animal.getRaza()}} 
-	    		{{animal.getFechaUltimoNacimiento() ? animal.getFechaUltimoNacimiento().toLocaleDateString() : ''}}</p>
+	    		{{animal.getFechaUltimoNacimiento() ? animal.getFechaUltimoNacimiento().toLocaleDateString() : ''}} 
+	    		<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
+	    	</p>
+	      </ion-label>
 	    </ion-item>
 	    
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'machos'">
-	    <ion-item *ngFor="let animal of arrayMachos" (click)="detalle(animal)">
+	    <ion-item *ngFor="let animal of arrayMachos;let i=index" (click)="detalle(animal)">
+	    {{animal.getNumero()}}
+	      <ion-checkbox *ngIf="venta==3" [(ngModel)]="checkedItemsMachos[i]"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img src="{{animal.getFoto()}}">
 	      </ion-thumbnail>
+	      <ion-label>
 	      	<h2>{{animal.getNumero()}}</h2>
-			<p>{{animal.getAlias()}} {{animal.getRaza()}}</p>
+			<p>{{animal.getAlias()}} {{animal.getRaza()}} 
+				<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.getPrecioCompra()}} € - <b>Venta:</b> {{animal.getPrecioVenta()}} €</span>
+			</p>
+		  </ion-label>
 	    </ion-item>
 	    
 	  </ion-list>
 	</div>
 
-   <ion-fab bottom="" right="" (click)="detalle(null)">
-	    <button color="dark" ion-fab="" class="fab fab-ios fab-ios-danger">
-	    	<ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close">
-	    	</ion-icon><span class="button-inner">
-	    	<ion-icon name="add" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
-	    	</ion-icon></span><div class="button-effect"></div>
-	    </button>
-  </ion-fab>
 
-  <ion-fab bottom right >
+  	<ion-fab bottom right *ngIf="venta!=2 && venta!=1 && venta!=3">
 	    <button color="dark" ion-fab="" class="fab fab-ios fab-ios-danger">
 	    	<ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close">
 	    	</ion-icon><span class="button-inner">
@@ -57,6 +60,21 @@
 	    <button ion-fab (click)="nuevo(1)"><img src="assets/img/toro.png"></button>
 	  </ion-fab-list>
 	</ion-fab>
+
+	<div *ngIf="venta==3">
+	  <ion-fab left bottom>
+	      <button ion-fab color="primary" (click)="volver()">
+	          <ion-icon name="close"></ion-icon>
+	      </button>
+	  </ion-fab>
+
+	  <ion-fab right bottom>
+	      <button ion-fab color="secondary" (click)="enviarResultadoAVentas()">
+	          <ion-icon name="checkmark"></ion-icon>
+	      </button>
+	  </ion-fab>
+	</div>
+
 
 
 </ion-content>

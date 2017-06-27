@@ -22,5 +22,17 @@ public static AUTH0_CLIENT_ID = "4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ";
 
 public static AUTH0_DOMAIN = "sereno.eu.auth0.com";
 
+public static AUTH0_PACKAGEIDENTIFIER = "com.serenapp.ganadero";
+
+public static COMPRA = 1; 
+
+public static VENTA = 2; 
+
+public static VENTA_VENDER = 3; 
+
+public static COMPRA_COMPRA = 4; 
+
+public static INDEFINIDO = 0; 
+
 }
 

@@ -124,19 +124,19 @@ export abstract class Animal {
 	}
 
 	public getPrecioCompra() : number{
-		return this.precioCompra;
+		return Number(this.precioCompra);
 	}
 
 	public setPrecioCompra(precio:number){
-		this.precioCompra = precio;
+		this.precioCompra = Number(precio);
 	}
 
 	public getPrecioVenta() : number{
-		return this.precioVenta;
+		return Number(this.precioVenta);
 	}
 
 	public setPrecioVenta(precio:number){
-		this.precioVenta = precio;
+		this.precioVenta = Number(precio);
 	}
 
     public abstract toJSON();

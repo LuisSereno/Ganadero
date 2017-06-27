@@ -22,6 +22,8 @@ export class Detalle {
 
 	arrayAscendencia:Array<Animal>;
 
+	prueba:Array<Animal>;
+
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
 				private toastCtrl: ToastController) {
 		this.animal=params.get("animal");
@@ -43,7 +45,7 @@ export class Detalle {
 			}
 			
 			this.arrayAscendencia=this.servicio.getBusquedaAscDesc(this.animal.getAscendencia());
-			this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.getDescendencia());			
+			this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.getDescendencia());		
 		}
 
 	}
@@ -61,15 +63,16 @@ export class Detalle {
 	}
 
 	protected modificaDatosAnimal(){
-
+		console.log("MODIFICA DATOS ANIMAL");
+		console.log(this.arrayDescendencia);
+		console.log(this.arrayAscendencia);
 		this.animal.setDescendencia(this.arrayDescendencia);
 		this.animal.setAscendencia(this.arrayAscendencia);
-		this.animal.setFechaNacimiento(new Date(String(this.fechaNacimiento)));
-		if(this.animal instanceof Hembra){
-			this.animal.setFechaUltimoNacimiento(new Date(String(this.fechaUltimoNacimiento)));
-		}
 
-        console.log("Animal!!!" + this.animal);
+		this.animal.setFechaNacimiento(this.fechaNacimiento ? new Date(String(this.fechaNacimiento)) :null);
+		if(this.animal instanceof Hembra){
+			this.animal.setFechaUltimoNacimiento(this.fechaUltimoNacimiento ? new Date(String(this.fechaUltimoNacimiento)) : null);
+		}
 		let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
 		if (correcto){
 			this.presentToast("Guardado correcto");
@@ -77,6 +80,23 @@ export class Detalle {
 			this.presentToast("Error al guardar");
 		}
 	}
+
+	private modificaArrayDescendencia(datos:Array<Animal>) {
+	 	this.arrayDescendencia=datos;   
+	}
+
+	private modificaArrayAscendencia(datos:Array<Animal>) {
+	 	this.arrayAscendencia=datos;   
+	}
+
+
+	private modificaElementoEnfermedad(elemento:Array<string>){
+		this.animal.setEnfermedades(elemento);
+	  }
+	  
+	private modificaElementoVacunas(elemento:Array<string>){
+	  	this.animal.setVacunas(elemento);
+	  }
 
 
 	presentToast(mensaje:string) {
@@ -99,5 +119,26 @@ export class Detalle {
 	isInstanceOfHembra(objeto:Animal):boolean{
 		return objeto instanceof Hembra;
 	}
+
+
+/*	anadirElementoEnfermedad(elemento:HTMLInputElement){
+		if (elemento.value!=""){
+		  	if (this.animal.getEnfermedades()==null){
+		  		this.animal.setEnfermedades(new Array<string>());
+		  	}
+		  	this.animal.getEnfermedades().push(elemento.value);
+		  	elemento.value=null;
+		}
+	}
+
+	anadirElementoVacunas(elemento:HTMLInputElement){
+		if (elemento.value!=""){
+		  	if (this.animal.getVacunas()==null){
+		  		this.animal.setVacunas(new Array<string>());
+		  	}
+		  	this.animal.getVacunas().push(elemento.value);
+		  	elemento.value=null;
+		}
+	}*/
 	
 }

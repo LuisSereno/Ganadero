@@ -11,7 +11,9 @@
         {{p.title}}
       </button>
     </ion-list>
-    <!--<button block (click)="logoutApp()">Logout</button>-->
   </ion-content>
+  <ion-footer>
+    <button ion-item (click)="logoutApp()">Logout</button>
+  </ion-footer>
 </ion-menu>
 <ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>

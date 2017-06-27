@@ -1,14 +1,16 @@
 {
-	"id": 1,
-	"nombre": "explotacion vacunoNuevo",
-	"emailUsu": "luisalbertosereno@hotmail.com",
-	"fechaAlta": "",
-	"fechaUltimaEntrada": "",
-	"dineroTotal": 300,
-	"dineroAnual": 200,
-	"arrayMachos": [],
-	"arrayHembras": [],
-	"arrayCompras": [],
-	"arrayVentas": [],
-	"arrayDocumentos": []
+	"explotaciones":[{
+		"id": 1,
+		"nombre": "explotacion vacunoNuevo",
+		"emailUsu": "luisalbertosereno@hotmail.com",
+		"fechaAlta": "",
+		"fechaUltimaEntrada": "",
+		"dineroTotal": 300,
+		"dineroAnual": 200,
+		"arrayMachos": [],
+		"arrayHembras": [],
+		"arrayCompras": [],
+		"arrayVentas": [],
+		"arrayDocumentos": []
+	}]
 }

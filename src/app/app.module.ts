@@ -12,6 +12,7 @@ import { PerfilAutenticacion } from '../pages/profile/profile';
 import { ListaGanado } from '../pages/listadoGanado/listado';
 import { ListaDocumentos } from '../pages/listadoDocumentos/listado';
 import { ListaVentas } from '../pages/listadoVentas/listado';
+import { ListadoAnimalesVendidos } from '../pages/listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos';
 import { Cabecera } from '../pages/cabecera/cabecera';
 import { Detalle } from '../pages/detalle/detalle';
 import {ListVacEnf} from '../pages/listadoVacunasEnfermedades/listaVacunasEnfermedades';
@@ -22,7 +23,8 @@ import { AuthService } from '../servicios/auth/auth';
 import { ServicioDatos } from '../servicios/serviciodatos';
 import { Http } from '@angular/http';
 import {Nuevo} from '../pages/nuevo/nuevo'
-
+import {DetalleExplotacion} from '../pages/ajustes/explotacion/nueva/nueva';
+import {ListaExplotaciones} from '../pages/ajustes/explotacion/listado/listado';
 
 
 //let storage: Storage = new Storage();
@@ -46,7 +48,10 @@ export function getAuthHttp(http, storage) {
     Cabecera,
     Nuevo,
     ListVacEnf,
-    AscDesc
+    AscDesc,
+    ListadoAnimalesVendidos,
+    ListaExplotaciones,
+    DetalleExplotacion
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,10 @@ export function getAuthHttp(http, storage) {
     ListaGanado,
     Detalle,
     ListaDocumentos,
-    Nuevo
+    Nuevo,
+    ListadoAnimalesVendidos,    
+    ListaExplotaciones,
+    DetalleExplotacion
   ],
   providers: [
 

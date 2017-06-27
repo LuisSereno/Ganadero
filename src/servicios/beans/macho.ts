@@ -82,7 +82,9 @@ export class Macho extends Animal{
             // copy all the fields from the json object
             return Object.assign(mach, json,{
                 // convert fields that need converting. ESto es para formatear datos que sean imprescindibles, como fechas y demas
-                fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"])            });
+                fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"])            
+
+            });
         }
     }
 
