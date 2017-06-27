@@ -9,7 +9,7 @@ export class Venta extends Operacion{
 		this.setAgrupacion(agru);
 		this.setAnimales(animales);
 		this.setPrecio(pCompra);
-		this.setFecha(fecha);
+		this.setFechaOperacion(fecha);
 	}
 
 	/**
@@ -20,7 +20,7 @@ export class Venta extends Operacion{
     toJSON():{} {
         // copy all fields from `this` to an empty object and return in
         var json=Object.assign({}, this);
- 
+
         return json;
     }
 
