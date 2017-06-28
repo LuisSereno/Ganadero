@@ -14,7 +14,7 @@ import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescend
 //import { ModalPage } from '../modal/modal';
 //import { Diagnostic } from '@ionic-native/diagnostic';
 //import { CameraPreview, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-//import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import Tesseract from 'tesseract.js';  
 import {Constantes} from '../../servicios/constantes';
 
@@ -38,7 +38,7 @@ export class Nuevo {
 
 	picture:any;
 
-	//options: CameraOptions;
+	options: CameraOptions;
   
   	OCRAD: any;
 
@@ -55,9 +55,8 @@ export class Nuevo {
   	private recognizedText: string;  
 
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
-				private toastCtrl: ToastController,public modalCtrl: ModalController/*,
-				private cameraPreview: CameraPreview,private diagnostic: Diagnostic,
-				private camera: Camera,public loadingCtrl: LoadingController*/) {
+				private toastCtrl: ToastController,public modalCtrl: ModalController,
+				private camera: Camera,public loadingCtrl: LoadingController) {
 
 	/*	this.options= {
 			sourceType: this.camera.PictureSourceType.CAMERA  ,
@@ -181,10 +180,10 @@ export class Nuevo {
 
 
 
-/*      protected checkPermissions() {
+ /*     protected checkPermissions() {
         this.diagnostic.isCameraAuthorized().then((authorized) => {
             if(authorized)
-                this.initializePreview();
+                //this.initializePreview();
             else {
                 this.diagnostic.requestCameraAuthorization().then((status) => {
                     if(status == this.diagnostic.permissionStatus.GRANTED){
@@ -205,8 +204,8 @@ export class Nuevo {
             }
         });
     }
-
-    protected initializePreview() {
+*/
+   /* protected initializePreview() {
     	console.log("Entra en initializePreview");
 		// camera options (Size and location). In the following example, the preview uses the rear camera and display the preview in the back of the webview
 		const cameraPreviewOpts: CameraPreviewOptions = {
@@ -221,7 +220,7 @@ export class Nuevo {
 		  alpha: 1
 		};
 
-    }
+    }*/
 
     takePicture(imagenAnimal:boolean) {
     	console.log("Entra en takePicture");
@@ -260,7 +259,7 @@ export class Nuevo {
 		 	console.error(err);
 		});
     }
-*/
+
     changeEffect() {
     	console.log("Estamos aqui2");
     	this.analyze();

@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
 import {Documento} from '../../servicios/beans/documento'
 import {Constantes} from '../../servicios/constantes';
-import { NavController } from 'ionic-angular';
+import { NavController,Platform } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
-
 // Cordova
 declare var cordova: any;
 
@@ -24,7 +23,7 @@ export class ListaDocumentos {
 
 	nativepath: any;
 
-  	constructor(public navCtrl: NavController,public servicio: ServicioDatos,
+  	constructor(public navCtrl: NavController,public servicio: ServicioDatos,public plt: Platform,
   				private transfer: Transfer, private file: File,private fileChooser: FileChooser,private filePath: FilePath) {
 
 		this.arrayDocumentos=new Array<Documento>();
@@ -62,16 +61,21 @@ export class ListaDocumentos {
 	}
 	
 	protected seleccionarDocumento(){
-	   this.fileChooser.open().then((url) => {
-	   		console.log("resuelve la direccion0");
-	   		console.log(url);
-	  		this.filePath.resolveNativePath(url).then(filePath => {
-	  			console.log("resuelve la direccion1");
-	  			console.log(filePath);
-			    this.nativepath = filePath;
-			    this.readimage();
-		  	}).catch(err => console.log(err));
-		})
+		 if (this.plt.is('core')) {
+		 	alert("Es un navegador");
+		 }else{
+		 	alert("No es un navegador");
+/*		   this.fileChooser.open().then((url) => {
+		   		console.log("resuelve la direccion0");
+		   		console.log(url);
+		  		this.filePath.resolveNativePath(url).then(filePath => {
+		  			console.log("resuelve la direccion1");
+		  			console.log(filePath);
+				    this.nativepath = filePath;
+				    this.readimage();
+			  	}).catch(err => console.log(err));
+			});*/
+		 }
 	}  
 
 	private readimage() {
