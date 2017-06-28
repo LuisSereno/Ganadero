@@ -1,4 +1,6 @@
 <ion-content>
+
+          
         <ion-grid>
             <ion-row>
               <ion-col>
@@ -115,12 +117,15 @@
         </ion-grid>
     
     <ion-row *ngIf="compra!=4">
-      <ion-col col-sm-4>
-        <button ion-button color="dark" (click)="volver()" round right>Volver</button>
-     </ion-col>
-     <ion-col col-sm-4 offset-md-2>
-        <button ion-button color="dark" (click)="guardaDatosAnimal()" round right>Guardar</button>
-     </ion-col>
+      <ion-fab left top>
+          <button ion-fab color="dark" (click)="volver()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-fab>
+
+       <ion-col col-sm-12>
+          <button ion-button color="dark" (click)="guardaDatosAnimal()" full round>Guardar</button>
+       </ion-col>
     </ion-row>
 
 <div *ngIf="compra!=4">

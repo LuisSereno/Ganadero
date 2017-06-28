@@ -28,32 +28,42 @@ export class ListaGanado {
 
 	venta:number;
 
-  	constructor(public navCtrl: NavController,params: NavParams,public servicio: ServicioDatos) {
+  	constructor(public navCtrl: NavController,protected params: NavParams,public servicio: ServicioDatos) {
   		this.arrayHembras= new Array<Hembra>();
 		this.arrayMachos= new Array<Macho>();
 		this.venta=params.get("venta");
-		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
-			let animalesTotales:Array<Animal>=params.get("animales");
-			if (animalesTotales){
-				for (let anim of animalesTotales){
-					if (anim instanceof Macho){
-						this.arrayMachos.push(anim);
-					}else if (anim instanceof Hembra){
-						this.arrayHembras.push(anim);
-					}
-				}
-			}
-		}else if (this.venta==Constantes.VENTA_VENDER){
-			this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
-			this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
-			this.checkedItemsHembras= new Array(this.arrayHembras.length);
-			this.checkedItemsMachos= new Array(this.arrayMachos.length);
-		}else{
+		if (this.venta!=Constantes.COMPRA && this.venta!=Constantes.VENTA && this.venta!=Constantes.VENTA_VENDER){
 			this.venta=Constantes.INDEFINIDO;
 		}
 	}
 
-   ngOnInit() {
+	ionViewWillEnter (){
+
+		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
+				let animalesTotales:Array<Animal>=this.params.get("animales");
+				if (animalesTotales){
+					for (let anim of animalesTotales){
+						if (anim instanceof Macho){
+							this.arrayMachos.push(anim);
+						}else if (anim instanceof Hembra){
+							this.arrayHembras.push(anim);
+						}
+					}
+				}
+			}else if (this.venta==Constantes.VENTA_VENDER){
+				this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
+				this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
+				this.checkedItemsHembras= new Array(this.arrayHembras.length);
+				this.checkedItemsMachos= new Array(this.arrayMachos.length);
+			}else{
+				this.venta=Constantes.INDEFINIDO;
+				this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
+				this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
+			}
+
+	}
+
+   ionViewDidLoad() {
     	console.log("Se inicializala apliciacion con el ngOnInit");
 
     	if (this.venta==Constantes.INDEFINIDO){
@@ -77,6 +87,7 @@ export class ListaGanado {
 			    console.log("Errr al obtener los datos del ganado!");
 			});
     	}
+
 	}
 
 	private transformIdAnimal(){

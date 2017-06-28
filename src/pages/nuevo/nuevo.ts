@@ -116,7 +116,7 @@ export class Nuevo {
 
         console.log("Animal!!!" + this.animal);
         if (!this.compra){
-			let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
+			let correcto=this.servicio.guardaModificaAnimal(true,this.animal);
 			if (correcto){
 				this.presentToast("Guardado correcto");
 			}else{
