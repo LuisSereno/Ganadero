@@ -87,13 +87,19 @@
           </ion-row>
         </ion-grid>
     </ion-card-content>
-    <ion-row>
-      <ion-col col-sm-4>
-        <button ion-button color="dark" (click)="volver()" round right>Volver</button>
-     </ion-col>
-     <ion-col col-sm-4 offset-md-2>
-        <button ion-button color="dark" (click)="modificaDatosAnimal()" round right>Guardar</button>
-     </ion-col>
+
+      <ion-row>
+      <ion-fab left top>
+          <button ion-fab color="dark" (click)="volver()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-fab>
+
+       <ion-col col-sm-12>
+          <button ion-button color="dark" (click)="modificaDatosAnimal()" full>Guardar</button>
+       </ion-col>
     </ion-row>
+
+
   </ion-card>
 </ion-content>

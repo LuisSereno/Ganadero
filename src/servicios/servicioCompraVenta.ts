@@ -7,6 +7,9 @@ import {Compra} from './beans/compra';
 import {Venta} from './beans/venta';
 import {Operacion} from './beans/operacion';
 import 'rxjs/add/operator/map'
+import {FuncionesGenerales} from './funcionesGenerales';
+import {Hembra} from './beans/hembra';
+import {Macho} from './beans/macho';
 
 export class ServicioCompraVenta {
 
@@ -49,6 +52,14 @@ export class ServicioCompraVenta {
 					this.servDatos.getExplotacion().setArrayVentas(arrayVentas);
 				}
 
+				if (operacion.getAnimales()){
+					for (let anim of operacion.getAnimales()){
+						let resultado:boolean=FuncionesGenerales.buscaBorraArray(this.servDatos.getExplotacion().getArrayHembras(),anim);
+						if (!resultado){
+							FuncionesGenerales.buscaBorraArray(this.servDatos.getExplotacion().getArrayMachos(),anim);
+						}
+					}
+				}
 			}else if (operacion instanceof Compra){
 				url="/ruta/fantastica/compra"
 				if (this.servDatos.getExplotacion().getArrayCompras()){
@@ -58,6 +69,17 @@ export class ServicioCompraVenta {
 					arrayCompras.push(operacion);
 					this.servDatos.getExplotacion().setArrayCompras(arrayCompras);
 				}
+
+				if (operacion.getAnimales()){
+					for (let anim of operacion.getAnimales()){
+ 						if (anim instanceof Macho){
+ 							this.servDatos.getExplotacion().getArrayMachos().push(anim);
+ 						}else if (anim instanceof Hembra){
+							this.servDatos.getExplotacion().getArrayHembras().push(anim);
+ 						}
+					}
+				}
+
 			}else{
 				throw "No es una operacion";
 			}

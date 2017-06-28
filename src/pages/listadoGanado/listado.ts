@@ -29,12 +29,7 @@ export class ListaGanado {
 	venta:number;
 
   	constructor(public navCtrl: NavController,protected params: NavParams,public servicio: ServicioDatos) {
-  		this.arrayHembras= new Array<Hembra>();
-		this.arrayMachos= new Array<Macho>();
-		this.venta=params.get("venta");
-		if (this.venta!=Constantes.COMPRA && this.venta!=Constantes.VENTA && this.venta!=Constantes.VENTA_VENDER){
-			this.venta=Constantes.INDEFINIDO;
-		}
+
 	}
 
 	ionViewWillEnter (){
@@ -59,34 +54,25 @@ export class ListaGanado {
 				this.venta=Constantes.INDEFINIDO;
 				this.arrayMachos=this.servicio.getExplotacion().getArrayMachos();
 				this.arrayHembras=this.servicio.getExplotacion().getArrayHembras();
+
+				if (this.arrayMachos.length==0 && this.arrayHembras.length==0){
+					this.llamadaServicio();
+				}
+
+
 			}
 
 	}
 
    ionViewDidLoad() {
-    	console.log("Se inicializala apliciacion con el ngOnInit");
+    	console.log("Se inicializala la pagina ionViewDidLoad cuando cambias en el menu");
 
-    	if (this.venta==Constantes.INDEFINIDO){
-			this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
-				if (data.arrayMachos!=undefined){
-					for (let mach of data.arrayMachos){
-						let machito:Macho=Macho.fromJSON(mach);
-						this.arrayMachos.push(machito);
-					}					
-				}
-				if (data.arrayHembras!=undefined){
-					for (let hem of data.arrayHembras){
-						let hembrita:Hembra=Hembra.fromJSON(hem);
-						this.arrayHembras.push(hembrita);
-					}
-				}
-				this.transformIdAnimal();
-				this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
-				this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
-			},err => {
-			    console.log("Errr al obtener los datos del ganado!");
-			});
-    	}
+    	this.arrayHembras= new Array<Hembra>();
+		this.arrayMachos= new Array<Macho>();
+		this.venta=this.params.get("venta");
+		if (this.venta!=Constantes.COMPRA && this.venta!=Constantes.VENTA && this.venta!=Constantes.VENTA_VENDER){
+			this.venta=Constantes.INDEFINIDO;
+		}
 
 	}
 
@@ -212,5 +198,31 @@ export class ListaGanado {
 			arrayAnimales.push(this.arrayMachos[value]);
 		}
 		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)});
+	}
+
+	private llamadaServicio(){
+		this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().getId()).subscribe(data => {
+			this.arrayHembras= new Array<Hembra>();
+			this.arrayMachos= new Array<Macho>();
+
+			if (data.arrayMachos!=undefined){
+				for (let mach of data.arrayMachos){
+					let machito:Macho=Macho.fromJSON(mach);
+					this.arrayMachos.push(machito);
+				}					
+			}
+			if (data.arrayHembras!=undefined){
+				for (let hem of data.arrayHembras){
+					let hembrita:Hembra=Hembra.fromJSON(hem);
+					this.arrayHembras.push(hembrita);
+				}
+			}
+			this.transformIdAnimal();
+			this.servicio.getExplotacion().setArrayHembras(this.arrayHembras);
+			this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
+		},err => {
+		    console.log("Errr al obtener los datos del ganado!");
+		});
+
 	}
 }

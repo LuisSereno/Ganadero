@@ -33,7 +33,7 @@ export class Detalle {
 		this.fechaUltimoNacimiento="";
 	}
 
-	ngOnInit() {
+	ionViewDidLoad() {
 		if (this.animal){
 			let fechaFormateada=this.animal.getFechaNacimiento();
 			this.fechaNacimiento= fechaFormateada ? fechaFormateada.toISOString() : '';
