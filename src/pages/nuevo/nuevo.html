@@ -4,15 +4,15 @@
         <ion-grid>
             <ion-row>
               <ion-col>
-                <img #scannedImg [src]="srcImage" />
+                <img #scannedImg [src]="animal.foto" />
                 <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-8>
                   <ion-item  class="text-label">
                     <ion-label>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Cargar Imagen 
                     </ion-label>
-                    <button ion-button item-right small (click)="takePicture(true,true)">Galeria</button>
-                    <button ion-button item-right small (click)="takePicture(true,false)">Foto</button>
+                    <button ion-button item-right small >Galeria</button>
+                    <button ion-button item-right small (click)="takePicture(true)">Foto</button>
                    </ion-item>
                   </ion-col>
                 </ion-row>
@@ -136,7 +136,7 @@
   </ion-fab>
 
   <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="takePicture()">
+      <button ion-fab color="primary" (click)="takePicture(false)">
           <ion-icon name="md-camera"></ion-icon>
       </button>
   </ion-fab>

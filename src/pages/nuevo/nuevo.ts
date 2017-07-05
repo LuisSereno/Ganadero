@@ -42,7 +42,7 @@ export class Nuevo {
   
   	OCRAD: any;
 
-  	srcImage: string;
+  	//srcImage: string;
 
   	compra:number;
 
