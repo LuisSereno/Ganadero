@@ -1,6 +1,9 @@
 
 <ion-content>
 <cabecera-ganadero></cabecera-ganadero>
+
+    <input #uploadBtn type="file" class="upload" style="display:none;" (change)="insertarDatosFile()"/>
+
 	<ion-list>
 	  <ion-item *ngFor="let docu of arrayDocumentos">
 	    <ion-thumbnail item-left [ngSwitch]="docu.getTipo()">

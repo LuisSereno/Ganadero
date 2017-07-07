@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,ViewChild,ElementRef} from '@angular/core';
 import {Documento} from '../../servicios/beans/documento'
 import {Constantes} from '../../servicios/constantes';
 import { NavController,Platform } from 'ionic-angular';
@@ -22,6 +22,10 @@ export class ListaDocumentos {
 	fileTransfer: TransferObject = this.transfer.create();
 
 	nativepath: any;
+
+	@ViewChild('uploadBtn') private botonSubir: ElementRef;
+
+	@ViewChild('uploadFile') private uploadFile: ElementRef;
 
   	constructor(public navCtrl: NavController,public servicio: ServicioDatos,public plt: Platform,
   				private transfer: Transfer, private file: File,private fileChooser: FileChooser,private filePath: FilePath) {
@@ -61,11 +65,11 @@ export class ListaDocumentos {
 	}
 	
 	protected seleccionarDocumento(){
+		let url="";
 		 if (this.plt.is('core')) {
-		 	alert("Es un navegador");
+			this.botonSubir.nativeElement.click();
 		 }else{
-		 	alert("No es un navegador");
-/*		   this.fileChooser.open().then((url) => {
+		   this.fileChooser.open().then((url) => {
 		   		console.log("resuelve la direccion0");
 		   		console.log(url);
 		  		this.filePath.resolveNativePath(url).then(filePath => {
@@ -74,9 +78,14 @@ export class ListaDocumentos {
 				    this.nativepath = filePath;
 				    this.readimage();
 			  	}).catch(err => console.log(err));
-			});*/
+			});
 		 }
 	}  
+
+	protected insertarDatosFile(){
+			let valorTextoSubida=this.botonSubir.nativeElement.value;
+		 	alert(valorTextoSubida);
+	}
 
 	private readimage() {
 	    this.file.resolveLocalFilesystemUrl(this.nativepath).then(res => {
