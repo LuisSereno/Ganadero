@@ -74,11 +74,12 @@ export class Detalle {
 			this.animal.setFechaUltimoNacimiento(this.fechaUltimoNacimiento ? new Date(String(this.fechaUltimoNacimiento)) : null);
 		}
 		let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
-		if (correcto){
-			this.presentToast("Guardado correcto");
-		}else{
-			this.presentToast("Error al guardar");
-		}
+
+		correcto.subscribe(data => {
+			this.presentToast("Modificación correcta");
+		},err => {
+		    this.presentToast("Error al modificar");
+		});
 	}
 
 	private modificaArrayDescendencia(datos:Array<Animal>) {

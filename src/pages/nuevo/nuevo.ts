@@ -116,11 +116,12 @@ export class Nuevo {
         console.log("Animal!!!" + this.animal);
         if (!this.compra){
 			let correcto=this.servicio.guardaModificaAnimal(true,this.animal);
-			if (correcto){
+			correcto.subscribe(data => {
+				this.vaciarFormulario();
 				this.presentToast("Guardado correcto");
-			}else{
-				this.presentToast("Error al guardar");
-			}
+			},err => {
+			    this.presentToast("Error al guardar");
+			});
         }else{
         	this.arrayAnimales.push(this.animal);
         	this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
@@ -130,7 +131,7 @@ export class Nuevo {
 
 	presentToast(mensaje:string) {
 	  let toast = this.toastCtrl.create({
-	    message: mensaje,
+	      message: mensaje,
 	      duration: 15000,
 	      showCloseButton: true,
 	      closeButtonText: 'Cerrar',
@@ -174,8 +175,12 @@ export class Nuevo {
 
 	protected enviarResultadoACompras(){
 		this.arrayAnimales.push(this.animal);
-		this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+		this.vaciarFormulario();
 		this.navCtrl.push(ListadoAnimalesVendidos,{animalesSeleccionados:this.arrayAnimales,operacion:new Compra(null,null,null,null,null)});
+	}
+
+	protected vaciarFormulario(){
+		this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
 	}
 
 

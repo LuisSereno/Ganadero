@@ -23,14 +23,14 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
 	  params.set('email', email.toString());
-  	return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/ususarios/obtener', { search: params }).map(res => res.json());
+  	return this.httpLocal.get('/ganadero/ususarios/obtener', { search: params }).map(res => res.json());
   }
 
   public obtenerDatosGanado(idExplotacion:number){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/animales/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get('/ganadero/animales/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -38,7 +38,7 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/documentos/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get('/ganadero/documentos/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -51,7 +51,7 @@ export class ServicioDatos {
     }
     params.set('idExplotacion', idExplotacion.toString());
     params.set('tipo',tipo.toString());
-    return this.httpLocal.get('https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/gandero/compraVenta/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get('/ganadero/compraVenta/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -92,16 +92,15 @@ export class ServicioDatos {
     return arrayResultado;
   }
   
-  public guardaModificaAnimal(guardado:boolean,animal:Animal):boolean{
+  public guardaModificaAnimal(guardado:boolean,animal:Animal){
     var guardadoCorrecto:boolean=false;
     var url:string="";
     if (guardado){
-      url="src/assets/datos/ganado.json";
+      url="/ganadero/animal/anadir";
     }else{
       url="src/assets/datos/ganado.json";
     }
-    try{
-      this.httpLocal.post(url, {animal: animal.toJSON(),idExplotacion:this.explotacion.getId()}).map(res => res.json());
+    try{     
       if(animal instanceof Hembra){
         if (guardado){
           this.explotacion.getArrayHembras().push(animal);
@@ -115,11 +114,10 @@ export class ServicioDatos {
            console.log("Es una modificacion"); 
         }
       }
-      guardadoCorrecto=true;
+      return this.httpLocal.post(url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json());
     }catch(ex){
       console.log(ex);
     }
-    return guardadoCorrecto;
   }
 
 }

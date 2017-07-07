@@ -47,7 +47,7 @@ export class Explotacion {
 	}
 
 	public getId(): number {
-		return this.id;
+		return +this.id;
 	}
 
 	public setId(identificador: number) {
