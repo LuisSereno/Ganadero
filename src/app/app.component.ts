@@ -7,6 +7,7 @@ import { PerfilAutenticacion } from '../pages/profile/profile';
 import {ListaDocumentos} from '../pages/listadoDocumentos/listado';
 import {ListaGanado} from '../pages/listadoGanado/listado';
 import {ListaVentas} from '../pages/listadoVentas/listado';
+import { Informes } from '../pages/informes/informes';
 import {DetalleExplotacion} from '../pages/ajustes/explotacion/nueva/nueva';
 import {ListaExplotaciones} from '../pages/ajustes/explotacion/listado/listado';
 import {AuthService} from '../servicios/auth/auth';
@@ -49,18 +50,19 @@ export class MyApp {
       { title: 'Ganado', component: ListaGanado },
       { title: 'Documentos', component: ListaDocumentos },
       { title: 'Ventas', component: ListaVentas },
+      { title: 'Informes', component: Informes },
     ];
   }
 
     ngOnInit(){
       console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");
-     
+
       //  if(!this.auth.isAuthenticated()) {
       //     this.rootPage = PerfilAutenticacion;
       //  }else{
       //     this.cargarListadoGanadoInicio(this.auth.user.email);
       //  }
-      
+
       this.cargarListadoGanadoInicio("luisalbertosereno@gmail.com");
     }
 
@@ -87,7 +89,7 @@ export class MyApp {
     }
 
 
-    openPage(page) { 
+    openPage(page) {
       this.nav.setRoot(page.component);
       this.menuCtrl.close();
     }

@@ -12,6 +12,7 @@ import { PerfilAutenticacion } from '../pages/profile/profile';
 import { ListaGanado } from '../pages/listadoGanado/listado';
 import { ListaDocumentos } from '../pages/listadoDocumentos/listado';
 import { ListaVentas } from '../pages/listadoVentas/listado';
+import { Informes } from '../pages/informes/informes';
 import { ListadoAnimalesVendidos } from '../pages/listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos';
 import { Cabecera } from '../pages/cabecera/cabecera';
 import { Detalle } from '../pages/detalle/detalle';
@@ -59,7 +60,8 @@ class CameraMock extends Camera {
     AscDesc,
     ListadoAnimalesVendidos,
     ListaExplotaciones,
-    DetalleExplotacion
+    DetalleExplotacion,
+    Informes
   ],
   imports: [
     BrowserModule,
@@ -76,16 +78,17 @@ class CameraMock extends Camera {
     Detalle,
     ListaDocumentos,
     Nuevo,
-    ListadoAnimalesVendidos,    
+    ListadoAnimalesVendidos,
     ListaExplotaciones,
-    DetalleExplotacion
+    DetalleExplotacion,
+    Informes
   ],
   providers: [
 
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    
+
     ServicioDatos,
     Camera,
     //{ provide: Camera, useClass: CameraMock },
@@ -94,7 +97,7 @@ class CameraMock extends Camera {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http,Storage]
-    }    
+    }
   ]
 })
 export class AppModule {}
