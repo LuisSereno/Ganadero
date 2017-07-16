@@ -94,7 +94,9 @@ export class Hembra extends Animal{
                 // convert fields that need converting. ESto es para formatear datos que sean imprescindibles, como fechas y demas
                 id:json["identificador"],
                 fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]),
-                fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"])
+                fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"]),
+                metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])
+
             });
         }
     }

@@ -34,5 +34,31 @@ public static COMPRA_COMPRA = 4;
 
 public static INDEFINIDO = 0; 
 
+public static FICHEROADMINITOPNG = "png";
+
+public static FICHEROADMINITOJPG = "jpg"; 
+
+public static FICHEROADMINITOJPEG = "jpeg"; 
+
+public static FICHEROADMINITOTIF = "tif"; 
+
+public static FICHEROADMINITOTIFF = "tiff";
+
+public static FICHEROADMINITOPDF = "pdf"; 
+
+public static FICHEROADMINITODOCX = "docx"; 
+
+public static FICHEROADMINITODOC = "doc"; 
+
+public static FICHEROADMINITORTF = "rtf";
+
+public static FICHEROADMINITOTXT = "txt"; 
+
+public static FICHEROADMINITOXLSX = "xlsx"; 
+
+public static FICHEROADMINITOXLS = "xls"; 
+
+public static FICHEROADMINITOXML = "xml"; 
+
 }
 

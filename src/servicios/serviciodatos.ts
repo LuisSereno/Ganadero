@@ -4,6 +4,7 @@ import {Explotacion} from './beans/explotacion';
 import {Animal} from './beans/animal';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
+import {Documento} from './beans/documento';
 import 'rxjs/add/operator/map'
 
 
@@ -114,10 +115,37 @@ export class ServicioDatos {
            console.log("Es una modificacion"); 
         }
       }
-      return this.httpLocal.post(url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json());
+      this.httpLocal.post(url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
+        console.log("todo correcto");
+      },err => {
+          console.error("Errr al obtener los datos del ganado!");
+          console.error(err);
+      });
+      guardadoCorrecto=true;
     }catch(ex){
       console.log(ex);
+      guardadoCorrecto=false;
     }
+    return guardadoCorrecto;
+  }
+
+public guardaDocumento(docu:Documento){
+    var guardadoCorrecto:boolean=false;
+    var url:string="/ganadero/documento/anadir";
+    try{     
+      this.explotacion.getArrayDocumentos().push(docu);
+      this.httpLocal.post(url, {documentos: [docu.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
+        console.log("todo correcto");
+      },err => {
+          console.error("Errr al obtener los datos del documento!");
+          console.error(err);
+      });
+      guardadoCorrecto=true;
+    }catch(ex){
+      console.log(ex);
+      guardadoCorrecto=false;
+    }
+    return guardadoCorrecto;
   }
 
 }

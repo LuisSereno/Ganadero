@@ -68,18 +68,19 @@ export class Detalle {
 		console.log(this.arrayAscendencia);
 		this.animal.setDescendencia(this.arrayDescendencia);
 		this.animal.setAscendencia(this.arrayAscendencia);
-
+		this.animal.setMetaDatoFechaMod(new Date());
+		this.animal.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
 		this.animal.setFechaNacimiento(this.fechaNacimiento ? new Date(String(this.fechaNacimiento)) :null);
 		if(this.animal instanceof Hembra){
 			this.animal.setFechaUltimoNacimiento(this.fechaUltimoNacimiento ? new Date(String(this.fechaUltimoNacimiento)) : null);
 		}
 		let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
 
-		correcto.subscribe(data => {
+		if(correcto){
 			this.presentToast("Modificación correcta");
-		},err => {
+		}else{
 		    this.presentToast("Error al modificar");
-		});
+		};
 	}
 
 	private modificaArrayDescendencia(datos:Array<Animal>) {

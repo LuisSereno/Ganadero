@@ -13,7 +13,7 @@
 	      <img *ngSwitchCase="'excel'" src="assets/icon/excel.png">
 	    </ion-thumbnail>
 	    <h2>{{docu.getNombre()}}</h2>
-	    <p>{{docu.getFechaAlta()}} - {{docu.getUsuarioAlta()}}</p>
+	    <p>{{docu.getMetaDatoFechaMod() ? docu.getMetaDatoFechaMod().toLocaleDateString() : ''}} - {{docu.getMetaDatoEmail()}}</p>
 	    <button clear item-right (click)="visualizar(docu)" >View</button>
 	    <button clear item-right (click)="descargar(docu)" >Download</button>
 	  </ion-item>

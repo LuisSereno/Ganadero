@@ -1,4 +1,6 @@
-export class Documento {
+import {Metadatos} from './metadatos';
+
+export class Documento extends Metadatos{
 
 	private id: number;
 
@@ -8,18 +10,19 @@ export class Documento {
 
 	private tipo: string;
 
-	private fechaAlta: Date;
+/*	private fechaAlta: Date;
 
 	private usuarioAlta: string;
-
+*/
 
 	constructor() {
+		super();
 		this.id = 0;
 		this.nombre="";
 		this.url="";
 		this.tipo="";
-		this.fechaAlta=new Date();
-		this.usuarioAlta="";
+//		this.fechaAlta=new Date();
+//		this.usuarioAlta="";
 	}
 
 	public getId(): number {
@@ -54,7 +57,7 @@ export class Documento {
 		this.tipo = tip;
 	}
 
-	public getFechaAlta(): Date {
+/*	public getFechaAlta(): Date {
 		return this.fechaAlta;
 	}
 
@@ -70,7 +73,7 @@ export class Documento {
 		return this.usuarioAlta;
 	}
 
-
+*/
 
  /**
        ESTA PARTE ES OBLIGADA PARA USAR LOS JSON Y ENVIARLE LAS ENTIDADES
@@ -107,7 +110,7 @@ export class Documento {
             // copy all the fields from the json object
             return Object.assign(docu, json,{
                 // convert fields that need converting. ESto es para formatear datos que sean imprescindibles, como fechas y demas
-                fechaNacimiento: (json["fechaAlta"]==null || json["fechaAlta"].toString()=="") ? null : new Date(json["fechaAlta"])
+                metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])
             });
         }
     }
