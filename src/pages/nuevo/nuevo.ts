@@ -112,19 +112,20 @@ export class Nuevo {
 		if(this.animal instanceof Hembra){
 			this.animal.setFechaUltimoNacimiento(new Date(String(this.fechaUltimoNacimiento)));
 		}
-
+		this.animal.setMetaDatoFechaMod(new Date());
+		this.animal.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
         console.log("Animal!!!" + this.animal);
         if (!this.compra){
 			let correcto=this.servicio.guardaModificaAnimal(true,this.animal);
-			correcto.subscribe(data => {
+			if (correcto){
 				this.vaciarFormulario();
 				this.presentToast("Guardado correcto");
-			},err => {
+			}else{
 			    this.presentToast("Error al guardar");
-			});
+			};
         }else{
         	this.arrayAnimales.push(this.animal);
-        	this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+        	this.vaciarFormulario();
         }
 
 	}
@@ -180,7 +181,11 @@ export class Nuevo {
 	}
 
 	protected vaciarFormulario(){
-		this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+		if(this.animal instanceof Hembra){
+			this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null,null);
+		}else if (this.animal instanceof Macho){
+			this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
+		}
 	}
 
 

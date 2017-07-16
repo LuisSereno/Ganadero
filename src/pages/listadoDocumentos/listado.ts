@@ -33,18 +33,17 @@ export class ListaDocumentos {
 		this.arrayDocumentos=new Array<Documento>();
 	}
 
-	ngOnInit(){
-		this.servicio.obtenerDocumentos(this.servicio.getExplotacion().getId()).subscribe(data => {
-			console.log("guapito de cara");
-			console.log(data);
-			for (let docu of data.documentos){
-				let doci:Documento=Documento.fromJSON(docu);
-				this.arrayDocumentos.push(doci);
-			}
+   ionViewDidLoad() {
+    	console.log("Se inicializala la pagina ionViewDidLoad cuando cambias en el menu");
+		this.arrayDocumentos=new Array<Documento>();
+	}
 
-		},err => {
-		    console.log("Errr al obtener los datos de los Documentos!");
-		});
+	ionViewWillEnter (){
+		if (this.servicio.getExplotacion().getArrayDocumentos().length==0){
+			this.llamadaServicio();
+		}else{
+			this.arrayDocumentos=this.servicio.getExplotacion().getArrayDocumentos();
+		}
 	}
 
 	protected visualizar(doc:Documento){
@@ -85,7 +84,70 @@ export class ListaDocumentos {
 	protected insertarDatosFile(){
 			let valorTextoSubida=this.botonSubir.nativeElement.value;
 		 	alert(valorTextoSubida);
+		 	if (valorTextoSubida) {
+			    var startIndex = (valorTextoSubida.indexOf('\\') >= 0 ? valorTextoSubida.lastIndexOf('\\') : valorTextoSubida.lastIndexOf('/'));
+			    var filename = valorTextoSubida.substring(startIndex);
+			    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+			        filename = filename.substring(1);
+			    }
+			   
+			    if (filename){
+				   	let tipoSeleccionado=filename.split(".");
+		   		 	if (tipoSeleccionado[1]){
+		   		 		try{
+							var tipoFich=this.comparaTipoFichero(tipoSeleccionado[1].toLowerCase());
+							var docu=new Documento();
+				   		 	docu.setNombre(filename);
+				   		 	docu.setTipo(tipoFich);
+				   		 	docu.setUrl("/guanchuncito");
+				   		 	docu.setMetaDatoFechaMod(new Date());
+				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
+					 		this.guardarDocumento(docu);
+		   		 		}catch(e){
+		   		 			alert("El tipo seleccionado no existe");
+		   		 		}
+		   		 		
+
+		   		 	}else{
+		   		 		alert("El fichero no tiene formato");
+		   		 	}
+			    }else{
+			    	alert("El fichero esta corrupto");
+			    }
+
+			}
 	}
+
+	private comparaTipoFichero(tipo:string){
+		if (tipo==Constantes.FICHEROADMINITOJPG){
+			return Constantes.TIPODOCUMENTOIMAGEN;
+		}else if (tipo==Constantes.FICHEROADMINITOPNG){
+			return Constantes.TIPODOCUMENTOIMAGEN;
+		}else if (tipo==Constantes.FICHEROADMINITOJPEG){
+			return Constantes.TIPODOCUMENTOIMAGEN;
+		}else if (tipo==Constantes.FICHEROADMINITOTIF){
+			return Constantes.TIPODOCUMENTOIMAGEN;
+		}else if (tipo==Constantes.FICHEROADMINITOTIFF){
+			return Constantes.TIPODOCUMENTOIMAGEN;
+		}else if (tipo==Constantes.FICHEROADMINITOPDF){
+			return Constantes.TIPODOCUMENTOPDF;
+		}else if (tipo==Constantes.FICHEROADMINITODOCX){
+			return Constantes.TIPODOCUMENTOWORD;
+		}else if (tipo==Constantes.FICHEROADMINITODOC){
+			return Constantes.TIPODOCUMENTOWORD;
+		}else if (tipo==Constantes.FICHEROADMINITORTF){
+			return Constantes.TIPODOCUMENTOWORD;
+		}else if (tipo==Constantes.FICHEROADMINITOTXT){
+			return Constantes.TIPODOCUMENTOWORD;
+		}else if (tipo==Constantes.FICHEROADMINITOXLSX){
+			return Constantes.TIPODOCUMENTOEXCEL;
+		}else if (tipo==Constantes.FICHEROADMINITOXLS){
+			return Constantes.TIPODOCUMENTOEXCEL;
+		}else if (tipo==Constantes.FICHEROADMINITOXML){
+			return Constantes.TIPODOCUMENTOEXCEL;
+		}
+	}
+ 
 
 	private readimage() {
 	    this.file.resolveLocalFilesystemUrl(this.nativepath).then(res => {
@@ -103,5 +165,29 @@ export class ListaDocumentos {
 
 	    })
 	  }
+
+
+	private guardarDocumento(doc:Documento){
+		let correcto=this.servicio.guardaDocumento(doc);
+
+		if(correcto){
+			alert("Guardado Correcto");
+		}else{
+		    alert("Error al modificar");
+		};
+	}
+
+
+	private llamadaServicio(){
+		this.servicio.obtenerDocumentos(this.servicio.getExplotacion().getId()).subscribe(data => {
+			for (let docu of data.documentos){
+				let doci:Documento=Documento.fromJSON(docu);
+				this.arrayDocumentos.push(doci);
+			}
+			this.servicio.getExplotacion().setArrayDocumentos(this.arrayDocumentos);
+		},err => {
+		    console.log("Errr al obtener los datos de los Documentos!");
+		});
+	}
 
 }

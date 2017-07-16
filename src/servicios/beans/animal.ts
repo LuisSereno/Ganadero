@@ -1,4 +1,6 @@
-export abstract class Animal {
+import {Metadatos} from './metadatos';
+
+export abstract class Animal extends Metadatos{
 
 	private id: number;
 
@@ -25,6 +27,7 @@ export abstract class Animal {
 	private precioVenta: number;
 
 	constructor() {
+		super();
 		this.id = 0;
 		this.alias="";
 		this.raza="";
