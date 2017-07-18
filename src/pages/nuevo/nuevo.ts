@@ -182,7 +182,7 @@ export class Nuevo {
 
 	protected vaciarFormulario(){
 		if(this.animal instanceof Hembra){
-			this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null,null);
+			this.animal=new Hembra(null,null,null,null,null,null,null,null,null,null,null,null,null);
 		}else if (this.animal instanceof Macho){
 			this.animal=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
 		}
