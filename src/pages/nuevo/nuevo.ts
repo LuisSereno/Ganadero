@@ -46,8 +46,6 @@ export class Nuevo {
 
   	compra:number;
 
-  	compraVenta:ServicioCompraVenta;
-
   	arrayAnimales:Array<Animal>;
 
   	@ViewChild('scannedImg') private scannedImg: ElementRef;
@@ -56,7 +54,8 @@ export class Nuevo {
 
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
 				private toastCtrl: ToastController,public modalCtrl: ModalController,
-				private camera: Camera,public loadingCtrl: LoadingController) {
+				private camera: Camera,public loadingCtrl: LoadingController,
+				protected compraVenta:ServicioCompraVenta) {
 
 	/*	this.options= {
 			sourceType: this.camera.PictureSourceType.CAMERA  ,
@@ -75,7 +74,7 @@ export class Nuevo {
 			this.compra=Constantes.INDEFINIDO;
 			this.animal=params.get("animal");
 		}else{
-			this.compraVenta=new ServicioCompraVenta(true,servicio);
+			this.compraVenta.esCompra(false);
 			this.animal=new Macho(null,null,null,null,0,null,null,null,null,null,null,null);
 			this.arrayAnimales=new Array<Animal>();
 		}

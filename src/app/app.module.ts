@@ -22,6 +22,7 @@ import { IonicStorageModule,Storage } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../servicios/auth/auth';
 import { ServicioDatos } from '../servicios/serviciodatos';
+import { ServicioCompraVenta } from '../servicios/servicioCompraVenta';
 import { Http } from '@angular/http';
 import {Nuevo} from '../pages/nuevo/nuevo'
 import {DetalleExplotacion} from '../pages/ajustes/explotacion/nueva/nueva';
@@ -90,6 +91,7 @@ class CameraMock extends Camera {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 
     ServicioDatos,
+    ServicioCompraVenta,
     Camera,
     //{ provide: Camera, useClass: CameraMock },
     AuthService,

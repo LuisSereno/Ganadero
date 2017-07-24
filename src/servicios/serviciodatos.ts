@@ -5,6 +5,10 @@ import {Animal} from './beans/animal';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
 import {Documento} from './beans/documento';
+import {Operacion} from './beans/operacion';
+import {Venta} from './beans/venta';
+import {Compra} from './beans/compra';
+import {Constantes} from './constantes';
 import 'rxjs/add/operator/map'
 
 
@@ -46,9 +50,9 @@ export class ServicioDatos {
   public obtenerDatosOperaciones(idExplotacion:number,venta:boolean){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
-    let tipo:number=0;
+    let tipo:number=Constantes.COMPRA;
     if (venta){
-      tipo=1;
+      tipo==Constantes.VENTA;
     }
     params.set('idExplotacion', idExplotacion.toString());
     params.set('tipo',tipo.toString());
@@ -99,7 +103,7 @@ export class ServicioDatos {
     if (guardado){
       url="/ganadero/animal/anadir";
     }else{
-      url="src/assets/datos/ganado.json";
+      url="/ganadero/animal/modificar";
     }
     try{     
       if(animal instanceof Hembra){

@@ -1,5 +1,6 @@
 import {Operacion} from './operacion';
 import {Animal} from './animal';
+import {Constantes} from '../constantes';
 
 export class Venta extends Operacion{
 
@@ -20,7 +21,7 @@ export class Venta extends Operacion{
     toJSON():{} {
         // copy all fields from `this` to an empty object and return in
         var json=Object.assign({}, this);
-
+        json["tipo"]=Constantes.VENTA;
         return json;
     }
 

@@ -40,17 +40,21 @@ export class Macho extends Animal{
     toJSON():{} {
         // copy all fields from `this` to an empty object and return in
         var json=Object.assign({}, this);
-
         var arrayIds:Array<number>=new Array<number>();
-        for (let anim of this.getDescendencia()){
-            arrayIds.push(anim.getId());
+        
+        if (this.getDescendencia()){
+            for (let anim of this.getDescendencia()){
+                arrayIds.push(anim.getId());
+            }            
         }
         //json["descendencia"]=arrayIds;
-
+        
         arrayIds=new Array<number>();
-        for (let anim of this.getAscendencia()){
-            arrayIds.push(anim.getId());
-        }       
+        if (this.getAscendencia()){
+            for (let anim of this.getAscendencia()){
+                arrayIds.push(anim.getId());
+            }   
+        }    
         //json["ascendencia"]=arrayIds;
 
         json["sexo"]=Constantes.MACHO;

@@ -18,14 +18,13 @@ export class ListadoAnimalesVendidos {
 
 	operacion:Operacion;
 
-	public servicio: ServicioCompraVenta;
-
-  	constructor(public navCtrl: NavController,params: NavParams,public servicioDatos: ServicioDatos,private toastCtrl: ToastController) {
+  	constructor(public navCtrl: NavController,params: NavParams,public servicioDatos: ServicioDatos,
+  				protected servicio: ServicioCompraVenta,private toastCtrl: ToastController) {
 
   		this.arrayAnimales=params.get("animalesSeleccionados");	
   		this.operacion=params.get("operacion");			
   		this.sumarCantidad();
-  		this.servicio=new ServicioCompraVenta(false,servicioDatos);
+  		this.servicio.esCompra(false);
 	}		
 
 
