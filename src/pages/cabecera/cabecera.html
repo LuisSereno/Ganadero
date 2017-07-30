@@ -2,7 +2,7 @@
   	  <ion-row center>
 	  	  <ion-col hideWhen="portrait" col-md-1  offset-md-0 col-md-3 offset-md-1>
 	  	  	<p class="ellipsis">{{servicio.getExplotacion().getNombre()}}</p>
-	  	  	<p class="ellipsis">{{servicio.getExplotacion().getEmailUsu()}}</p>
+	  	  	<p class="ellipsis">{{servicio.getExplotacion().getUsuario().getNombre()}}</p>
 	  	  </ion-col>
 	  	  <ion-col col-md-1  offset-md-0 col-md-3 offset-md-1>
 	  	  	<p><b>Machos:</b> {{servicio.getExplotacion().getArrayMachos().length}}</p>

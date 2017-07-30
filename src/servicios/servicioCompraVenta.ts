@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map'
 import {FuncionesGenerales} from './funcionesGenerales';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
+import {Constantes} from './constantes';
 
 @Injectable()
 export class ServicioCompraVenta {
@@ -43,7 +44,7 @@ export class ServicioCompraVenta {
 
 
 	public crearOperacion(operacion:Operacion){
-		let url="ganadero/compraventa/anadir";
+		let url="/ganadero/compraventa/anadir";
 		var guardadoCorrecto:boolean=false;
 		try{
 
@@ -91,7 +92,7 @@ export class ServicioCompraVenta {
 			}
 			console.log("Que le pasa a esta mierda");
 			console.log(operacion.toJSON());
-			this.httpLocal.post(url, {compraVentas: [operacion.toJSON()],idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json()).subscribe(data => {
+			this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {compraVentas: [operacion.toJSON()],idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json()).subscribe(data => {
 		        console.log("todo correcto");
 		      },err => {
 		          console.error("Errr al obtener los datos de la venta!");

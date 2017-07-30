@@ -2,9 +2,9 @@
 
 export class Constantes{
 
-public static FOTO_ANIMAL_DEFECTO:string ="src/assets/img/vaca.png";
+public static FOTO_ANIMAL_DEFECTO:string ="../assets/img/vaca.png";
 
-public static FOTO_ANIMAL_MACHO_DEFECTO:string ="src/assets/img/toro.png";
+public static FOTO_ANIMAL_MACHO_DEFECTO:string ="../assets/img/toro.png";
 
 public static TIPODOCUMENTOIMAGEN = "img";
 
@@ -23,6 +23,9 @@ public static AUTH0_CLIENT_ID = "4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ";
 public static AUTH0_DOMAIN = "sereno.eu.auth0.com";
 
 public static AUTH0_PACKAGEIDENTIFIER = "com.serenapp.ganadero";
+
+public static URL_WEBSERVICES="https://ganadero-146707.appspot.com/_ah/api/ganadero/v1"
+//public static URL_WEBSERVICES=""
 
 public static COMPRA = 1; 
 

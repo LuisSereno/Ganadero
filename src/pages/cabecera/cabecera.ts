@@ -8,6 +8,9 @@ import {ServicioDatos} from '../../servicios/serviciodatos';
 export class Cabecera {
 
   	constructor(private servicio:ServicioDatos) {
+  		console.log("estamos aqui");
+  		console.log(this.servicio.getExplotacion());
+		console.log(this.servicio.getExplotacion().getUsuario().getNombre())
 	}
 
 }

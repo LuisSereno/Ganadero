@@ -29,8 +29,6 @@ export class ListaDocumentos {
 
   	constructor(public navCtrl: NavController,public servicio: ServicioDatos,public plt: Platform,
   				private transfer: Transfer, private file: File,private fileChooser: FileChooser,private filePath: FilePath) {
-
-		this.arrayDocumentos=new Array<Documento>();
 	}
 
    ionViewDidLoad() {
@@ -101,7 +99,7 @@ export class ListaDocumentos {
 				   		 	docu.setTipo(tipoFich);
 				   		 	docu.setUrl("/guanchuncito");
 				   		 	docu.setMetaDatoFechaMod(new Date());
-				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
+				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
 					 		this.guardarDocumento(docu);
 		   		 		}catch(e){
 		   		 			alert("El tipo seleccionado no existe");

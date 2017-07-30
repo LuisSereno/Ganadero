@@ -3,8 +3,11 @@ import {NavController,NavParams,ToastController,Platform} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {ServicioDatos} from '../../../../servicios/serviciodatos';
 import {Explotacion} from '../../../../servicios/beans/explotacion';
+import {Usuario} from '../../../../servicios/beans/usuario';
 import {AuthService} from '../../../../servicios/auth/auth';
 import {Constantes} from '../../servicios/constantes';
+import {ListaGanado} from '../../../listadoGanado/listado';
+import { PerfilAutenticacion } from '../../../profile/profile';
 
 @Component({
 	templateUrl: 'nueva.html',
@@ -16,13 +19,10 @@ export class DetalleExplotacion {
 
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
 				private toastCtrl: ToastController,public auth: AuthService,public plt: Platform) {
-		this.explotacion=params.get("explotacion");
 	}
 
 	ngOnInit() {
-		if (this.explotacion){
-			this.explotacion=new Explotacion();
-		}
+		this.explotacion=new Explotacion();
 	}
 
 	protected salir(){
@@ -31,8 +31,20 @@ export class DetalleExplotacion {
 	}
 
 	protected guardaDatosExplotacion(){
-
-
+		this.explotacion.setUsuario(this.servicio.getUsuario());
+		this.servicio.guardaExplotacion(this.explotacion).then(data => {
+             if (data){
+              this.servicio.setExplotacion(data);
+              console.log("Hay clave de guardado");
+              this.navCtrl.setRoot(ListaGanado);
+             }else{
+               console.log("No hay clave de guardado");
+               this.navCtrl.setRoot(PerfilAutenticacion);
+             }
+          },err => {
+              console.log("Errr al guardar los datos del Usuario!");
+              this.navCtrl.setRoot(PerfilAutenticacion);
+          });
 	}
 
 	presentToast(mensaje:string) {

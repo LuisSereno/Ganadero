@@ -112,7 +112,7 @@ export class Nuevo {
 			this.animal.setFechaUltimoNacimiento(new Date(String(this.fechaUltimoNacimiento)));
 		}
 		this.animal.setMetaDatoFechaMod(new Date());
-		this.animal.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
+		this.animal.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
         console.log("Animal!!!" + this.animal);
         if (!this.compra){
 			let correcto=this.servicio.guardaModificaAnimal(true,this.animal);

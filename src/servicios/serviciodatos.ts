@@ -8,6 +8,7 @@ import {Documento} from './beans/documento';
 import {Operacion} from './beans/operacion';
 import {Venta} from './beans/venta';
 import {Compra} from './beans/compra';
+import {Usuario} from './beans/usuario';
 import {Constantes} from './constantes';
 import 'rxjs/add/operator/map'
 
@@ -19,23 +20,41 @@ export class ServicioDatos {
 
   protected explotacion:Explotacion;
 
+  protected usuario:Usuario;
+
   constructor(http: Http /* This is #2 */ ) {
     this.httpLocal = http;
     this.explotacion=new Explotacion();
+    this.usuario=new Usuario();
   }
 
+  public getExplotacion(){
+    return this.explotacion;
+  }
+
+  public setExplotacion(explo:Explotacion){
+    return this.explotacion=explo;
+  }
+
+   public getUsuario(){
+    return this.usuario;
+  }
+
+  public setUsuario(usu:Usuario){
+    return this.usuario=usu;
+  }
   public obtenerDatosExplotacion(email:String){
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
 	  params.set('email', email.toString());
-  	return this.httpLocal.get('/ganadero/ususarios/obtener', { search: params }).map(res => res.json());
+  	return this.httpLocal.get(Constantes.URL_WEBSERVICES + '/ganadero/ususarios/obtener', { search: params }).map(res => res.json());
   }
 
   public obtenerDatosGanado(idExplotacion:number){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get('/ganadero/animales/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/animales/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -43,7 +62,7 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get('/ganadero/documentos/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/documentos/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -56,16 +75,8 @@ export class ServicioDatos {
     }
     params.set('idExplotacion', idExplotacion.toString());
     params.set('tipo',tipo.toString());
-    return this.httpLocal.get('/ganadero/compraVenta/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/compraVenta/obtener', { search: params }).map(res => res.json());
     
-  }
-
-  public getExplotacion(){
-    return this.explotacion;
-  }
-
-  public setExplotacion(explo:Explotacion){
-    return this.explotacion=explo;
   }
 
   public getBusquedaAscDesc(arrayAnimales:Array<Animal>):Array<Animal>{
@@ -119,7 +130,7 @@ export class ServicioDatos {
            console.log("Es una modificacion"); 
         }
       }
-      this.httpLocal.post(url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
+      this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
         console.log("todo correcto");
       },err => {
           console.error("Errr al obtener los datos del ganado!");
@@ -138,7 +149,7 @@ public guardaDocumento(docu:Documento){
     var url:string="/ganadero/documento/anadir";
     try{     
       this.explotacion.getArrayDocumentos().push(docu);
-      this.httpLocal.post(url, {documentos: [docu.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
+      this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {documentos: [docu.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
         console.log("todo correcto");
       },err => {
           console.error("Errr al obtener los datos del documento!");
@@ -150,6 +161,56 @@ public guardaDocumento(docu:Documento){
       guardadoCorrecto=false;
     }
     return guardadoCorrecto;
+  }
+
+
+public guardaUsuario(nombre:string,email:string):Promise<Usuario>{
+    var url:string="/ganadero/usuario/anadir";
+    try{ 
+      var usu:Usuario=new Usuario ();
+      usu.setEmail(email);
+      usu.setNombre(nombre);
+     return new Promise<Usuario>((resolve, reject) => {    
+        this.httpLocal.post(Constantes.URL_WEBSERVICES +url, usu.toJSON()).map(res => res.json()).subscribe(data => {
+          console.log("todo correcto");
+          usu.setId(data.content);
+          resolve(usu);
+        },err => {
+            console.error("Errr al obtener los datos del documento!");
+            console.error(err);
+            reject(err);
+        });
+    });
+    }catch(ex){
+      console.log(ex);
+
+    }
+
+  }
+
+
+public guardaExplotacion(explo:Explotacion):Promise<Explotacion>{
+    var url:string="/ganadero/explotacion/anadir";
+    try{ 
+      console.log("JSON DE LA EXPLOTACION");
+      explo.setMetaDatoEmail(this.getUsuario().getEmail());
+      console.log(explo.toJSON());
+     return new Promise<Explotacion>((resolve, reject) => {    
+        this.httpLocal.post(Constantes.URL_WEBSERVICES +url, explo.toJSON()).map(res => res.json()).subscribe(data => {
+          console.log("todo correcto");
+          explo.setId(data.content);
+          resolve(explo);
+        },err => {
+            console.error("Errr al obtener los datos del documento!");
+            console.error(err);
+            reject(err);
+        });
+    });
+    }catch(ex){
+      console.log(ex);
+
+    }
+
   }
 
 }

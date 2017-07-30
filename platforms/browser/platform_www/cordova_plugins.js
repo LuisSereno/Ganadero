@@ -9,14 +9,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.megster.cordova.FileChooser/www/fileChooser.js",
-        "id": "com.megster.cordova.FileChooser.FileChooser",
-        "pluginId": "com.megster.cordova.FileChooser",
-        "clobbers": [
-            "fileChooser"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
         "id": "cordova-plugin-camera.Camera",
         "pluginId": "cordova-plugin-camera",
@@ -240,6 +232,45 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
+        "id": "cordova-plugin-file-transfer.FileTransferError",
+        "pluginId": "cordova-plugin-file-transfer",
+        "clobbers": [
+            "window.FileTransferError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
+        "id": "cordova-plugin-file-transfer.FileTransfer",
+        "pluginId": "cordova-plugin-file-transfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/browser/FileTransfer.js",
+        "id": "cordova-plugin-file-transfer.BrowserFileTransfer",
+        "pluginId": "cordova-plugin-file-transfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/src/browser/InAppBrowserProxy.js",
+        "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "runs": true
+    },
+    {
         "file": "plugins/cordova-plugin-safariviewcontroller/www/SafariViewController.js",
         "id": "cordova-plugin-safariviewcontroller.SafariViewController",
         "pluginId": "cordova-plugin-safariviewcontroller",
@@ -297,19 +328,19 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "com.mbppower.camerapreview": "0.0.8",
-    "com.megster.cordova.FileChooser": "0.0.0",
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-camera": "2.4.0",
     "cordova-plugin-console": "1.0.5",
     "cordova-plugin-customurlscheme": "4.2.0",
     "cordova-plugin-device": "1.1.4",
     "cordova-plugin-file": "4.3.2",
-    "cordova-plugin-filepath": "1.0.2",
+    "cordova-plugin-file-transfer": "1.6.3",
+    "cordova-plugin-inappbrowser": "1.7.0",
     "cordova-plugin-safariviewcontroller": "1.4.7",
     "cordova-plugin-splashscreen": "4.0.1",
     "cordova-plugin-statusbar": "2.2.1",
     "cordova-plugin-whitelist": "1.3.1",
-    "cordova-sqlite-storage": "2.0.4",
+    "cordova-sqlite-storage": "2.0.3",
     "cordova.plugins.diagnostic": "3.5.0",
     "ionic-plugin-keyboard": "2.2.1"
 }

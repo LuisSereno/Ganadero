@@ -3,18 +3,18 @@ import {Hembra} from './hembra';
 import {Compra} from './compra';
 import {Venta} from './venta';
 import {Documento} from './documento';
+import {Usuario} from './usuario';
+import {Metadatos} from './metadatos'
 
-export class Explotacion {
+export class Explotacion extends Metadatos{
 
 	private id: number;
 
 	private nombre: string;
 
-	private emailUsu: string;
+	private usuario: Usuario;
 
 	private fechaAlta: Date;
-
-	private fechaUltimaEntrada: Date;
 
 	private dineroTotal: number;
 
@@ -31,11 +31,11 @@ export class Explotacion {
 	private arrayDocumentos: Array<Documento>;
 
 	constructor() {
+		super();
 		this.id = 0;
 		this.nombre="";
-		this.emailUsu="";
+		this.usuario=null;
 		this.fechaAlta=new Date();
-		this.fechaUltimaEntrada=new Date();
 		this.dineroTotal=0;
 		this.dineroAnual=0;
 		this.arrayMachos=new Array<Macho>();
@@ -62,12 +62,12 @@ export class Explotacion {
 		this.nombre = nombre;
 	}
 
-	public getEmailUsu(): string {
-		return this.emailUsu;
+	public getUsuario(): Usuario {
+		return this.usuario;
 	}
 
-	public setEmailUsu(email:string){
-		this.emailUsu = email;
+	public setUsuario(usu:Usuario){
+		this.usuario = usu;
 	}
 
 	public getFechaAlta(): Date {
@@ -76,14 +76,6 @@ export class Explotacion {
 
 	public setFechaAlta(fech: Date) {
 		this.fechaAlta = fech;
-	}
-
-	public getFechaUltimaEntrada(): Date {
-		return this.fechaUltimaEntrada;
-	}
-
-	public setFechaUltimaEntrada(fech: Date) {
-		this.fechaUltimaEntrada = fech;
 	}
 
 	public getDineroTotal(): number {
@@ -150,7 +142,9 @@ export class Explotacion {
     // toJSON is automatically used by JSON.stringify
     toJSON():{} {
         // copy all fields from `this` to an empty object and return in
-        var json=Object.assign({}, this);
+        var json=Object.assign({}, this,{
+        	identificador: (this.getId()),
+        });
  
         return json;
     }
