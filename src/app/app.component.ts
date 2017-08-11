@@ -63,7 +63,7 @@ export class MyApp {
        }else{
            this.cargarListadoGanadoInicio(this.auth.user.email);
        }
-               //     
+            
       //this.cargarListadoGanadoInicio("luisalbertosereno@gmail.com");
     }
 

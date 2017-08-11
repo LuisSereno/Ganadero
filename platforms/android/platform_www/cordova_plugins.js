@@ -302,6 +302,22 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "id": "cordova-plugin-filechooser.FileChooser",
+        "file": "plugins/cordova-plugin-filechooser/www/fileChooser.js",
+        "pluginId": "cordova-plugin-filechooser",
+        "clobbers": [
+            "fileChooser"
+        ]
+    },
+    {
+        "id": "cordova-plugin-filepath.FilePath",
+        "file": "plugins/cordova-plugin-filepath/www/FilePath.js",
+        "pluginId": "cordova-plugin-filepath",
+        "clobbers": [
+            "window.FilePath"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -310,7 +326,6 @@ module.exports.metadata =
     "com.mbppower.camerapreview": "0.0.8",
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-camera": "2.4.0",
-    "cordova-plugin-console": "1.0.5",
     "cordova-plugin-customurlscheme": "4.2.0",
     "cordova-plugin-device": "1.1.4",
     "cordova-plugin-file": "4.3.2",
@@ -322,7 +337,10 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.1",
     "cordova-sqlite-storage": "2.0.3",
     "cordova.plugins.diagnostic": "3.5.0",
-    "ionic-plugin-keyboard": "2.2.1"
+    "ionic-plugin-keyboard": "2.2.1",
+    "cordova-plugin-console": "1.0.5",
+    "cordova-plugin-filechooser": "1.0.1",
+    "cordova-plugin-filepath": "1.0.2"
 };
 // BOTTOM OF METADATA
 });

@@ -1,16 +1,22 @@
 
 <ion-content>
-	<ion-list>
-	  <ion-item *ngFor="let expl of arrayExplotaciones" (click)="seleccionarExplotacion(expl)">
+	<ion-row center>
+		<ion-col col-md-11 offset-md-1>
+			<h1>Explotaciones</h1>
+			<p>Selecciona tu explotación</p>
+		</ion-col>
+	</ion-row>
+	<ion-card *ngFor="let expl of arrayExplotaciones" (click)="seleccionarExplotacion(expl)">
+	  <ion-item >
 	   	<ion-thumbnail item-left>
 	        <img src="/aqui/foto/tipo/explotacion">
 	     </ion-thumbnail>
-	  	<ion-label fixed>
+	  	<ion-label>
         	<h1>{{expl.getNombre()}}</h1>
         	<p>{{expl.getDineroAnual()}} - {{expl.getDineroTotal()}}</p>
         </ion-label>
 	  </ion-item>
-	</ion-list>
+	</ion-card>
 	 <ion-fab bottom right >
 	    <button color="dark" ion-fab="" class="fab fab-ios fab-ios-danger" (click)="crearExplotacion()">
 	    	<ion-icon class="fab-close-icon icon icon-ios ion-ios-close" name="close" role="img" aria-label="close">

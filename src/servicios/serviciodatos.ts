@@ -4,7 +4,6 @@ import {Explotacion} from './beans/explotacion';
 import {Animal} from './beans/animal';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
-import {Documento} from './beans/documento';
 import {Operacion} from './beans/operacion';
 import {Venta} from './beans/venta';
 import {Compra} from './beans/compra';
@@ -47,6 +46,7 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
 	  params.set('email', email.toString());
+    params.set('key', Constantes.KEY_ID_STORAGE);
   	return this.httpLocal.get(Constantes.URL_WEBSERVICES + '/ganadero/ususarios/obtener', { search: params }).map(res => res.json());
   }
 
@@ -54,15 +54,8 @@ export class ServicioDatos {
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
+    params.set('key', Constantes.KEY_ID_STORAGE);
     return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/animales/obtener', { search: params }).map(res => res.json());
-    
-  }
-
-  public obtenerDocumentos(idExplotacion:number){  
-    console.log("entra en obtenerDatosGanado");
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('idExplotacion', idExplotacion.toString());
-    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/documentos/obtener', { search: params }).map(res => res.json());
     
   }
 
@@ -75,6 +68,7 @@ export class ServicioDatos {
     }
     params.set('idExplotacion', idExplotacion.toString());
     params.set('tipo',tipo.toString());
+    params.set('key', Constantes.KEY_ID_STORAGE);
     return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/compraVenta/obtener', { search: params }).map(res => res.json());
     
   }
@@ -134,25 +128,6 @@ export class ServicioDatos {
         console.log("todo correcto");
       },err => {
           console.error("Errr al obtener los datos del ganado!");
-          console.error(err);
-      });
-      guardadoCorrecto=true;
-    }catch(ex){
-      console.log(ex);
-      guardadoCorrecto=false;
-    }
-    return guardadoCorrecto;
-  }
-
-public guardaDocumento(docu:Documento){
-    var guardadoCorrecto:boolean=false;
-    var url:string="/ganadero/documento/anadir";
-    try{     
-      this.explotacion.getArrayDocumentos().push(docu);
-      this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {documentos: [docu.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
-        console.log("todo correcto");
-      },err => {
-          console.error("Errr al obtener los datos del documento!");
           console.error(err);
       });
       guardadoCorrecto=true;

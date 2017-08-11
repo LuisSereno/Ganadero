@@ -90,9 +90,14 @@ export class ServicioCompraVenta {
 			}else{
 				throw "No es una operacion";
 			}
-			console.log("Que le pasa a esta mierda");
 			console.log(operacion.toJSON());
 			this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {compraVentas: [operacion.toJSON()],idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json()).subscribe(data => {
+		        operacion.setId(data.content);
+		        if (operacion instanceof Compra){
+		        	for (let indice in data.contentSecundario){
+		        		operacion.getAnimales()[indice].setId(data.contentSecundario[indice]);
+		        	}
+		         }
 		        console.log("todo correcto");
 		      },err => {
 		          console.error("Errr al obtener los datos de la venta!");

@@ -31,6 +31,7 @@ export class AuthService {
   constructor(public zone: NgZone) {
     this.user = this.getStorageVariable('profile');
     this.idToken = this.getStorageVariable('id_token');
+    this.accessToken = this.getStorageVariable('access_token');
   }
 
   private getStorageVariable(name) {

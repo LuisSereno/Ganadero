@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.serenapp.ganadero" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Ganadero</name>
-  <description>An awesome Ionc/Cordova app.</description>
+  <description>Administración de explotaciones ganaderas</description>
   <author email="luisalbertosereno@gmail.com" href="http://ionicframework.com/">Serenapp</author>
   <content src="index.html"/>
   <access origin="*"/>
