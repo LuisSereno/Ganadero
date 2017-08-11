@@ -2,6 +2,9 @@
 import {NavController,NavParams,ToastController,Platform} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {Explotacion} from '../../../../servicios/beans/explotacion';
+import {ServicioDatos} from '../../../../servicios/serviciodatos';
+import {ListaGanado} from '../../../listadoGanado/listado';
+import {DetalleExplotacion} from '../nueva/nueva';
 // Cordova
 declare var cordova: any;
 
@@ -13,20 +16,22 @@ export class ListaExplotaciones {
 	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
 	arrayExplotaciones: Array<Explotacion>;
 
-  	constructor(public navCtrl: NavController,  params: NavParams) {
-
-		this.arrayExplotaciones=params.get("explotaciones");
+  	constructor(protected navCtrl: NavController,protected  params: NavParams,public servicio: ServicioDatos) {
+		
 	}
 
-	ngOnInit(){
-
+	ionViewDidLoad(){
+		this.arrayExplotaciones=this.params.get("explotaciones");
 	}
 
 	
-	protected seleccionarDocumento(explo:Explotacion){
-
+	protected seleccionarExplotacion(explo:Explotacion){
+		this.servicio.setExplotacion(explo);
+		this.navCtrl.setRoot(ListaGanado);
 	}  
 
-
+	protected crearExplotacion(){
+ 		this.navCtrl.setRoot(DetalleExplotacion);
+	}
 
 }

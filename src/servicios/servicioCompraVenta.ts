@@ -10,7 +10,9 @@ import 'rxjs/add/operator/map'
 import {FuncionesGenerales} from './funcionesGenerales';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
+import {Constantes} from './constantes';
 
+@Injectable()
 export class ServicioCompraVenta {
 
 	compra:boolean;
@@ -19,12 +21,16 @@ export class ServicioCompraVenta {
 
 	totalDinero:number;
 
-	private httpLocal:Http;
+    private httpLocal:Http;
 
-	constructor(compra:boolean,private servDatos:ServicioDatos){
-		this.compra=compra;
+	constructor(private servDatos:ServicioDatos,http: Http){
 		this.totalDinero=0;
 		this.arrayAnimales=new Array<Animal>();
+		this.httpLocal=http;
+	}
+
+	esCompra(compra:boolean){
+		this.compra=compra;
 	}
 
 	public anadirAnimal(anim:Animal){
@@ -38,12 +44,12 @@ export class ServicioCompraVenta {
 
 
 	public crearOperacion(operacion:Operacion){
-		let url="";
+		let url="/ganadero/compraventa/anadir";
 		var guardadoCorrecto:boolean=false;
 		try{
 
 			if (operacion instanceof Venta){
-				url="/ruta/fantastica/venta"
+				
 				if (this.servDatos.getExplotacion().getArrayVentas()){
 					this.servDatos.getExplotacion().getArrayVentas().push(operacion);
 				}else{
@@ -58,10 +64,11 @@ export class ServicioCompraVenta {
 						if (!resultado){
 							FuncionesGenerales.buscaBorraArray(this.servDatos.getExplotacion().getArrayMachos(),anim);
 						}
+						anim.setAscendencia(null);
+						anim.setDescendencia(null);
 					}
 				}
 			}else if (operacion instanceof Compra){
-				url="/ruta/fantastica/compra"
 				if (this.servDatos.getExplotacion().getArrayCompras()){
 					this.servDatos.getExplotacion().getArrayCompras().push(operacion);
 				}else{
@@ -83,7 +90,19 @@ export class ServicioCompraVenta {
 			}else{
 				throw "No es una operacion";
 			}
-			//this.httpLocal.post(url, {venta: venta.toJSON(),idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json());
+			console.log(operacion.toJSON());
+			this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {compraVentas: [operacion.toJSON()],idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json()).subscribe(data => {
+		        operacion.setId(data.content);
+		        if (operacion instanceof Compra){
+		        	for (let indice in data.contentSecundario){
+		        		operacion.getAnimales()[indice].setId(data.contentSecundario[indice]);
+		        	}
+		         }
+		        console.log("todo correcto");
+		      },err => {
+		          console.error("Errr al obtener los datos de la venta!");
+		          console.error(err);
+		      });			
 			guardadoCorrecto=true;
 	    }catch(ex){
 	      console.log(ex);

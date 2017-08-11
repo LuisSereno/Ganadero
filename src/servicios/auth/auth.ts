@@ -31,13 +31,21 @@ export class AuthService {
   constructor(public zone: NgZone) {
     this.user = this.getStorageVariable('profile');
     this.idToken = this.getStorageVariable('id_token');
+    this.accessToken = this.getStorageVariable('access_token');
   }
 
   private getStorageVariable(name) {
     console.log("LUIS SERENO EL LOCO");
     console.log(name);
     console.log(window.localStorage.getItem(name));
-    return JSON.parse(window.localStorage.getItem(name));
+    var datosRespuesta="";
+    try{
+      datosRespuesta= JSON.parse(window.localStorage.getItem(name));
+    }catch(err){
+      console.warn(err);
+      datosRespuesta= window.localStorage.getItem(name);
+    }
+    return datosRespuesta;
   }
 
   private setStorageVariable(name, data) {

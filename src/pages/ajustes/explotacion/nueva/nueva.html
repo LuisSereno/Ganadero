@@ -3,16 +3,16 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                <ion-col col-sm-8>
+                <ion-col col-sm-12>
                   <ion-item  class="text-label">
-                    <ion-label fixed>
+                    <ion-label>
                       Introduzca los datos de su explotación
                     </ion-label>
                     </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                <ion-col col-sm-8>
+                <ion-col col-sm-12>
                   <ion-item  class="text-label">
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre de su explotación 
@@ -22,35 +22,31 @@
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col col-sm-8>
-                  <ion-item  class="text-label">
-                    <ion-label floating>
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Dinero acumulado total en compra/venta 
-                    </ion-label>
-                    <ion-input type="string" [(ngModel)]="explotacion.dineroTotal"></ion-input>
-                     </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col col-sm-8>
+                 <ion-col col-sm-12>
                     <ion-item class="text-label">
                     <ion-label floating>
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Dinero acumulado este año en compra/venta 
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Beneficio anual compras/ventas 
                     </ion-label>
                      <ion-input type="number" [(ngModel)]="explotacion.dineroAnual"></ion-input>
                     </ion-item>
                   </ion-col>
                 </ion-row>
+                <ion-row>
+                 <ion-col col-sm-12>
+                  <ion-item  class="text-label">
+                    <ion-label floating>
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Beneficio total compras/ventas 
+                    </ion-label>
+                    <ion-input type="number" [(ngModel)]="explotacion.dineroTotal"></ion-input>
+                     </ion-item>
+                  </ion-col>
+                </ion-row>
             </ion-col>
           </ion-row>
         </ion-grid>
-    
     <ion-row>
-      <ion-col col-sm-4>
-        <button ion-button color="dark" (click)="salir()" round right>Salir</button>
-     </ion-col>
-     <ion-col col-sm-4 offset-md-2>
-        <button ion-button color="dark" (click)="guardaDatosExplotacion()" round right>Guardar</button>
+      <ion-col col-sm-12>
+        <button ion-button color="dark" (click)="guardaDatosExplotacion()" full>Guardar</button>
      </ion-col>
     </ion-row>
 </ion-content>

@@ -52,15 +52,21 @@ export class Hembra extends Animal{
         var json=Object.assign({}, this);
 
         var arrayIds:Array<number>=new Array<number>();
-        for (let anim of this.getDescendencia()){
-            arrayIds.push(anim.getId());
+        
+        if (this.getDescendencia()){
+            for (let anim of this.getDescendencia()){
+                arrayIds.push(anim.getId());
+            }
         }
         json["descendenciaIds"]=arrayIds;
 
         arrayIds=new Array<number>();
-        for (let anim of this.getAscendencia()){
-            arrayIds.push(anim.getId());
-        }       
+        
+        if (this.getAscendencia()){
+            for (let anim of this.getAscendencia()){
+                arrayIds.push(anim.getId());
+            }  
+        }     
         json["ascendenciaIds"]=arrayIds;
 
         json["sexo"]=Constantes.HEMBRA;

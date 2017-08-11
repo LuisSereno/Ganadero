@@ -3,16 +3,18 @@ import {Documento} from '../../servicios/beans/documento'
 import {Constantes} from '../../servicios/constantes';
 import { NavController,Platform } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
+import {ServicioFicheros} from '../../servicios/servicioFicheros';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
+import {AuthService} from '../../servicios/auth/auth';
 // Cordova
 declare var cordova: any;
 
 @Component({
   templateUrl: 'listado.html',
-  providers: [Transfer, File,FileChooser,FilePath]
+  providers: [Transfer, File,FileChooser,FilePath,ServicioFicheros]
 })
 export class ListaDocumentos {
 
@@ -27,10 +29,12 @@ export class ListaDocumentos {
 
 	@ViewChild('uploadFile') private uploadFile: ElementRef;
 
-  	constructor(public navCtrl: NavController,public servicio: ServicioDatos,public plt: Platform,
-  				private transfer: Transfer, private file: File,private fileChooser: FileChooser,private filePath: FilePath) {
 
-		this.arrayDocumentos=new Array<Documento>();
+
+  	constructor(public navCtrl: NavController,public servicio: ServicioDatos,public plt: Platform,
+  				private transfer: Transfer, private file: File,private fileChooser: FileChooser,
+  				private filePath: FilePath,public servicioFich: ServicioFicheros,
+  				public auth: AuthService) {
 	}
 
    ionViewDidLoad() {
@@ -46,23 +50,18 @@ export class ListaDocumentos {
 		}
 	}
 
-	protected visualizar(doc:Documento){
-		window.open(doc.getUrl(), '_system', 'location=yes');
+	protected descargar(doc:Documento){
+		this.servicioFich.setDocumento(doc);
+		this.servicioFich.obtenerURLBajada(this.servicio.getUsuario().getEmail()).then(data => {
+			window.open(data, '_system', 'location=yes');
+		},(error)=>{
+			console.log('No se puede visualizar el fichero');
+			console.log(error);
+			alert('No se puede visualizar el fichero');
+		});
+		
 	}
 
-
-
-	protected descargar(doc:Documento) {
-
-	  this.fileTransfer.download(doc.getUrl(), this.file.dataDirectory + doc.getNombre() + "." + doc.getTipo()).then((entry) => {
-	    console.log('download complete: ' + entry.toURL());
-	  }, (error) => {
-	    console.log('No se puede descargar el fichero');
-	    console.log(error);
-	  });
-
-	}
-	
 	protected seleccionarDocumento(){
 		let url="";
 		 if (this.plt.is('core')) {
@@ -75,7 +74,7 @@ export class ListaDocumentos {
 		  			console.log("resuelve la direccion1");
 		  			console.log(filePath);
 				    this.nativepath = filePath;
-				    this.readimage();
+				    this.subirDocumento();
 			  	}).catch(err => console.log(err));
 			});
 		 }
@@ -99,9 +98,8 @@ export class ListaDocumentos {
 							var docu=new Documento();
 				   		 	docu.setNombre(filename);
 				   		 	docu.setTipo(tipoFich);
-				   		 	docu.setUrl("/guanchuncito");
 				   		 	docu.setMetaDatoFechaMod(new Date());
-				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
+				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
 					 		this.guardarDocumento(docu);
 		   		 		}catch(e){
 		   		 			alert("El tipo seleccionado no existe");
@@ -119,48 +117,66 @@ export class ListaDocumentos {
 	}
 
 	private comparaTipoFichero(tipo:string){
-		if (tipo==Constantes.FICHEROADMINITOJPG){
-			return Constantes.TIPODOCUMENTOIMAGEN;
-		}else if (tipo==Constantes.FICHEROADMINITOPNG){
-			return Constantes.TIPODOCUMENTOIMAGEN;
-		}else if (tipo==Constantes.FICHEROADMINITOJPEG){
-			return Constantes.TIPODOCUMENTOIMAGEN;
-		}else if (tipo==Constantes.FICHEROADMINITOTIF){
-			return Constantes.TIPODOCUMENTOIMAGEN;
-		}else if (tipo==Constantes.FICHEROADMINITOTIFF){
-			return Constantes.TIPODOCUMENTOIMAGEN;
-		}else if (tipo==Constantes.FICHEROADMINITOPDF){
-			return Constantes.TIPODOCUMENTOPDF;
-		}else if (tipo==Constantes.FICHEROADMINITODOCX){
-			return Constantes.TIPODOCUMENTOWORD;
-		}else if (tipo==Constantes.FICHEROADMINITODOC){
-			return Constantes.TIPODOCUMENTOWORD;
-		}else if (tipo==Constantes.FICHEROADMINITORTF){
-			return Constantes.TIPODOCUMENTOWORD;
-		}else if (tipo==Constantes.FICHEROADMINITOTXT){
-			return Constantes.TIPODOCUMENTOWORD;
-		}else if (tipo==Constantes.FICHEROADMINITOXLSX){
-			return Constantes.TIPODOCUMENTOEXCEL;
-		}else if (tipo==Constantes.FICHEROADMINITOXLS){
-			return Constantes.TIPODOCUMENTOEXCEL;
-		}else if (tipo==Constantes.FICHEROADMINITOXML){
-			return Constantes.TIPODOCUMENTOEXCEL;
+		for (let valor of Constantes.ARRAY_TIPOS_DOCUMENTOS_ADMITIDOS){
+			if (valor.tipo==tipo){
+				return valor.contentType;
+			}
 		}
 	}
  
 
-	private readimage() {
+	private subirDocumento() {
 	    this.file.resolveLocalFilesystemUrl(this.nativepath).then(res => {
 			console.log("resuelve la direccion2");
 	    	console.log(res);
 	    	if (res.isFile){
-				this.fileTransfer.upload(res.fullPath, this.file.dataDirectory + res.name).then((data) => {
-					console.log('upload complete: ');
-					console.log(data);
-				}, (error) => {
-					console.log('No se puede cargar el fichero');
-					console.log(error);
-				});
+	    			let tipoSeleccionado=res.name.split(".");
+		   		 	if (tipoSeleccionado[1]){
+		   		 		try{
+							var tipoFich=this.comparaTipoFichero(tipoSeleccionado[1].toLowerCase());
+							var docu=new Documento();
+				   		 	docu.setNombre(res.name);
+				   		 	docu.setTipo(tipoFich);
+				   		 	docu.setUrlMovil(this.nativepath);
+				   		 	docu.setMetaDatoFechaMod(new Date());
+				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
+				   		 	this.servicioFich.setDocumento(docu);
+				   		 	let valorCabeceras={};
+				   		 	ServicioFicheros.createAuthorizationHeader(valorCabeceras);
+					 		this.servicioFich.guardaDocumento(this.servicio.getExplotacion()).then(dataDoc => {						  
+							 let options: FileUploadOptions = {
+							     headers: {'Content-Type': docu.getTipo()}
+							     		   //'Authorization': 'Bearer ' + this.auth.accessToken
+							  }
+							  console.log("El header es")
+							  console.log(options);							
+							  this.fileTransfer.upload(res.nativeURL, this.servicioFich.obtenerURLSubida(this.servicio.getUsuario().getEmail()),options).then((data) => {
+
+								alert("El fichero se ha subido correctamente");
+								this.servicio.getExplotacion().getArrayDocumentos().push(dataDoc);
+							}, (error) => {
+								console.log('No se puede guardar el fichero');
+								console.log(error);
+								if (error.http_status==401){
+									alert("El fichero ya existe");
+								}else{
+									alert("No se ha podido almacenar el documento");
+								}								
+							});
+							},err => {
+							  console.log("Errr al guardar el documento!");
+							  alert("No se ha podido guardar el documento");
+							});
+		   		 		}catch(e){
+		   		 			alert("El tipo seleccionado no existe");
+		   		 		}
+		   		 		
+
+		   		 	}else{
+		   		 		alert("El fichero no tiene formato");
+		   		 	}
+
+				
 	    	}
 
 	    })
@@ -168,7 +184,8 @@ export class ListaDocumentos {
 
 
 	private guardarDocumento(doc:Documento){
-		let correcto=this.servicio.guardaDocumento(doc);
+		this.servicioFich.setDocumento(doc);
+		let correcto=this.servicioFich.guardaDocumento(this.servicio.getExplotacion());
 
 		if(correcto){
 			alert("Guardado Correcto");
@@ -179,15 +196,25 @@ export class ListaDocumentos {
 
 
 	private llamadaServicio(){
-		this.servicio.obtenerDocumentos(this.servicio.getExplotacion().getId()).subscribe(data => {
+		this.servicioFich.listarDocumentos(this.servicio.getExplotacion().getId()).subscribe(data => {
+			var aux=new Array<Documento>();
 			for (let docu of data.documentos){
 				let doci:Documento=Documento.fromJSON(docu);
-				this.arrayDocumentos.push(doci);
+				aux.push(doci);
 			}
-			this.servicio.getExplotacion().setArrayDocumentos(this.arrayDocumentos);
+			this.servicio.getExplotacion().setArrayDocumentos(aux);
+			this.arrayDocumentos=this.servicio.getExplotacion().getArrayDocumentos();
 		},err => {
+			console.error(err);
 		    console.log("Errr al obtener los datos de los Documentos!");
 		});
 	}
 
+	public obtenerTipoFicheroHtml(tipoDocumento:string){
+		for (let valor of Constantes.ARRAY_TIPOS_DOCUMENTOS_ADMITIDOS){
+			if (valor.contentType==tipoDocumento){
+				return valor.imagen;
+			}
+		}		
+	}
 }

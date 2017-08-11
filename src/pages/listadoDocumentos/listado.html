@@ -6,7 +6,7 @@
 
 	<ion-list>
 	  <ion-item *ngFor="let docu of arrayDocumentos">
-	    <ion-thumbnail item-left [ngSwitch]="docu.getTipo()">
+	    <ion-thumbnail item-left [ngSwitch]="obtenerTipoFicheroHtml(docu.getTipo())">
 	      <img *ngSwitchCase="'img'" src="assets/icon/img.jpg">
 	      <img *ngSwitchCase="'pdf'" src="assets/icon/pdf.jpg">
 	      <img *ngSwitchCase="'word'" src="assets/icon/word.png">
@@ -14,8 +14,7 @@
 	    </ion-thumbnail>
 	    <h2>{{docu.getNombre()}}</h2>
 	    <p>{{docu.getMetaDatoFechaMod() ? docu.getMetaDatoFechaMod().toLocaleDateString() : ''}} - {{docu.getMetaDatoEmail()}}</p>
-	    <button clear item-right (click)="visualizar(docu)" >View</button>
-	    <button clear item-right (click)="descargar(docu)" >Download</button>
+	    <button clear item-right (click)="descargar(docu)" >Descargar</button>
 	  </ion-item>
 	</ion-list>
 

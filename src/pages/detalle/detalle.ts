@@ -69,7 +69,7 @@ export class Detalle {
 		this.animal.setDescendencia(this.arrayDescendencia);
 		this.animal.setAscendencia(this.arrayAscendencia);
 		this.animal.setMetaDatoFechaMod(new Date());
-		this.animal.setMetaDatoEmail(this.servicio.getExplotacion().getEmailUsu());
+		this.animal.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
 		this.animal.setFechaNacimiento(this.fechaNacimiento ? new Date(String(this.fechaNacimiento)) :null);
 		if(this.animal instanceof Hembra){
 			this.animal.setFechaUltimoNacimiento(this.fechaUltimoNacimiento ? new Date(String(this.fechaUltimoNacimiento)) : null);

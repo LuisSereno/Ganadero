@@ -6,7 +6,7 @@ export class Documento extends Metadatos{
 
 	private nombre: string;
 
-	private url: string;
+	private urlMovil: string;
 
 	private tipo: string;
 
@@ -19,7 +19,6 @@ export class Documento extends Metadatos{
 		super();
 		this.id = 0;
 		this.nombre="";
-		this.url="";
 		this.tipo="";
 //		this.fechaAlta=new Date();
 //		this.usuarioAlta="";
@@ -41,12 +40,12 @@ export class Documento extends Metadatos{
 		this.nombre = nom;
 	}
 
-	public getUrl(): string {
-		return this.url;
+	public getUrlMovil(): string {
+		return this.urlMovil;
 	}
 
-	public setUrl(url: string) {
-		this.url = url;
+	public setUrlMovil(url: string) {
+		this.urlMovil = url;
 	}
 
 	public getTipo(): string {

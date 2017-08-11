@@ -27534,3 +27534,20 @@ ion-app, ion-content {
 .toast-warning > div {
   background-color: #ffc107 !important;
 }
+
+.tamanoreal {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.toast-success > div {
+  background-color: #8bc34a !important;
+}
+
+.toast-error > div {
+  background-color: #f44336 !important;
+}
+
+.toast-warning > div {
+  background-color: #ffc107 !important;
+}
