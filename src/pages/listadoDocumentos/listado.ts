@@ -4,24 +4,26 @@ import {Constantes} from '../../servicios/constantes';
 import { NavController,Platform } from 'ionic-angular';
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import {ServicioFicheros} from '../../servicios/servicioFicheros';
-import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import {AuthService} from '../../servicios/auth/auth';
+import {ToastService} from '../../servicios/mensajeToast';
+
 // Cordova
 declare var cordova: any;
 
 @Component({
   templateUrl: 'listado.html',
-  providers: [Transfer, File,FileChooser,FilePath,ServicioFicheros]
+  providers: [FileTransfer, File,FileChooser,FilePath,ServicioFicheros]
 })
 export class ListaDocumentos {
 
 	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
 	arrayDocumentos: Array<Documento>;
 
-	fileTransfer: TransferObject = this.transfer.create();
+	fileTransfer: FileTransferObject = this.transfer.create();
 
 	nativepath: any;
 
@@ -29,12 +31,10 @@ export class ListaDocumentos {
 
 	@ViewChild('uploadFile') private uploadFile: ElementRef;
 
-
-
   	constructor(public navCtrl: NavController,public servicio: ServicioDatos,public plt: Platform,
-  				private transfer: Transfer, private file: File,private fileChooser: FileChooser,
+  				private transfer: FileTransfer, private file: File,private fileChooser: FileChooser,
   				private filePath: FilePath,public servicioFich: ServicioFicheros,
-  				public auth: AuthService) {
+  				public auth: AuthService,private toastCtrl: ToastService) {
 	}
 
    ionViewDidLoad() {
@@ -57,7 +57,7 @@ export class ListaDocumentos {
 		},(error)=>{
 			console.log('No se puede visualizar el fichero');
 			console.log(error);
-			alert('No se puede visualizar el fichero');
+			this.toastCtrl.push('No se puede visualizar el fichero',"ERROR");
 		});
 		
 	}
@@ -102,15 +102,16 @@ export class ListaDocumentos {
 				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
 					 		this.guardarDocumento(docu);
 		   		 		}catch(e){
-		   		 			alert("El tipo seleccionado no existe");
+		   		 			this.toastCtrl.push("El tipo seleccionado no existe","WARNING");
 		   		 		}
 		   		 		
 
 		   		 	}else{
-		   		 		alert("El fichero no tiene formato");
+		   		 		alert();
+		   		 		this.toastCtrl.push("El fichero no tiene formato","WARNING");
 		   		 	}
 			    }else{
-			    	alert("El fichero esta corrupto");
+			    	this.toastCtrl.push("El fichero esta corrupto","ERROR");
 			    }
 
 			}
@@ -141,8 +142,6 @@ export class ListaDocumentos {
 				   		 	docu.setMetaDatoFechaMod(new Date());
 				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
 				   		 	this.servicioFich.setDocumento(docu);
-				   		 	let valorCabeceras={};
-				   		 	ServicioFicheros.createAuthorizationHeader(valorCabeceras);
 					 		this.servicioFich.guardaDocumento(this.servicio.getExplotacion()).then(dataDoc => {						  
 							 let options: FileUploadOptions = {
 							     headers: {'Content-Type': docu.getTipo()}
@@ -152,28 +151,29 @@ export class ListaDocumentos {
 							  console.log(options);							
 							  this.fileTransfer.upload(res.nativeURL, this.servicioFich.obtenerURLSubida(this.servicio.getUsuario().getEmail()),options).then((data) => {
 
-								alert("El fichero se ha subido correctamente");
+								this.toastCtrl.push("El fichero se ha subido correctamente","CORRECTO");
 								this.servicio.getExplotacion().getArrayDocumentos().push(dataDoc);
 							}, (error) => {
 								console.log('No se puede guardar el fichero');
 								console.log(error);
 								if (error.http_status==401){
-									alert("El fichero ya existe");
+									this.toastCtrl.push("El fichero ya existe","WARNING");
 								}else{
-									alert("No se ha podido almacenar el documento");
+									this.toastCtrl.push("No se ha podido almacenar el documento","ERROR");
 								}								
 							});
 							},err => {
 							  console.log("Errr al guardar el documento!");
-							  alert("No se ha podido guardar el documento");
+							  this.toastCtrl.push("No se ha podido guardar el documento","ERROR");
 							});
 		   		 		}catch(e){
-		   		 			alert("El tipo seleccionado no existe");
+		   		 			this.toastCtrl.push("El tipo seleccionado no existe","WARNING");
 		   		 		}
 		   		 		
 
 		   		 	}else{
-		   		 		alert("El fichero no tiene formato");
+		   		 		alert();
+		   		 		this.toastCtrl.push("El fichero no tiene formato","WARNING");
 		   		 	}
 
 				
@@ -188,9 +188,9 @@ export class ListaDocumentos {
 		let correcto=this.servicioFich.guardaDocumento(this.servicio.getExplotacion());
 
 		if(correcto){
-			alert("Guardado Correcto");
+			this.toastCtrl.push("Guardado Correcto","CORRECTO");
 		}else{
-		    alert("Error al modificar");
+		    this.toastCtrl.push("No se ha podido guardar el documento","ERROR");
 		};
 	}
 

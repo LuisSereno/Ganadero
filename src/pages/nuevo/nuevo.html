@@ -1,6 +1,6 @@
 <ion-content>
 
-          
+      <form [formGroup]="formularioAnimal">
         <ion-grid>
             <ion-row>
               <ion-col>
@@ -11,12 +11,20 @@
                     <ion-label>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Cargar Imagen 
                     </ion-label>
-                    <button ion-button item-right small >Galeria</button>
-                    <button ion-button item-right small (click)="takePicture(true)">Foto</button>
+                    <button ion-button item-right small (click)="takePicture(2)">Galeria</button>
+                    <button ion-button item-right small (click)="takePicture(0)">Foto</button>
                    </ion-item>
                   </ion-col>
                 </ion-row>
 
+                <ion-row *ngIf="compra==4">
+                  <ion-col col-sm-4>
+                      <button [class.btn-redondo]="!isHembra" [class.btn-redondo-activo]="isHembra" (click)="seleccionarSexo(0)"><img src="assets/img/vaca.png"></button>
+                  </ion-col>
+                  <ion-col col-sm-4>
+                     <button [class.btn-redondo]="isHembra" [class.btn-redondo-activo]="!isHembra" (click)="seleccionarSexo(1)"><img src="assets/img/toro.png"></button>
+                  </ion-col>
+                </ion-row>
 
                 <ion-row>
                   <ion-col col-sm-8>
@@ -24,7 +32,10 @@
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Número 
                     </ion-label>
-                      <ion-input type="number"  [(ngModel)]="animal.numero"></ion-input>
+                      <ion-input type="number" formControlName="numero" [(ngModel)]="animal.numero"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="!formularioAnimal.controls.numero.valid  && (formularioAnimal.controls.numero.dirty || submitAttempt)">
+                        <p>Introduce un numero correcto.</p>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -35,7 +46,10 @@
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Alias 
                     </ion-label>
-                      <ion-input type="string" [(ngModel)]="animal.alias"></ion-input>
+                      <ion-input type="string" formControlName="alias" [(ngModel)]="animal.alias"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="!formularioAnimal.controls.alias.valid  && (formularioAnimal.controls.alias.dirty || submitAttempt)">
+                        <p>Introduce un alias correcto.</p>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -46,8 +60,11 @@
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Raza 
                     </ion-label>
-                    <ion-input type="string" [(ngModel)]="animal.raza"></ion-input>
+                    <ion-input type="string" formControlName="raza" [(ngModel)]="animal.raza"></ion-input>
                      </ion-item>
+                    <ion-item *ngIf="!formularioAnimal.controls.raza.valid  && (formularioAnimal.controls.raza.dirty || submitAttempt)">
+                        <p>Introduce una raza correcto</p>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row *ngIf="compra!=4">
@@ -56,8 +73,11 @@
                       <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
                       </ion-label>
                     
-                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"> </ion-datetime>
+                        <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento"> </ion-datetime>
                       </ion-item>
+                    <ion-item *ngIf="!formularioAnimal.controls.fechaNacimiento.valid  && (formularioAnimal.controls.fechaNacimiento.dirty || submitAttempt)">
+                        <p>Introduce una fecha correcta</p>
+                    </ion-item>
                   </ion-col>
                 </ion-row>
                 <ion-row *ngIf="compra!=4 && isInstanceOfHembra(animal)">
@@ -65,7 +85,7 @@
                   <ion-item class="text-label">
                     <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
                      </ion-label>
-                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
+                        <ion-datetime displayFormat="YYYY-MM-DD" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
                       </ion-item>
                   </ion-col>
                 </ion-row>
@@ -76,7 +96,7 @@
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra 
                     </ion-label>
                     
-                     <ion-input type="number" [(ngModel)]="animal.precioCompra"></ion-input>
+                     <ion-input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="animal.precioCompra"></ion-input>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -86,11 +106,11 @@
                     <ion-label floating>
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta 
                     </ion-label>
-                      <ion-input type="number" [(ngModel)]="animal.precioVenta"></ion-input>
+                      <ion-input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="animal.precioVenta"></ion-input>
                     </ion-item>
                   </ion-col>
                 </ion-row>
-                <ion-row *ngIf="compra!=4">
+<!--                <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-8>
                     <my-list-vacunasenfermedades [model]="animal.getVacunas()"  [texto]="'Vacunas'" (arraySalida)="anadirElementoVacunas($event)"></my-list-vacunasenfermedades>   
                   </ion-col>
@@ -111,11 +131,11 @@
                     <my-list-opcionesAscDesc [model]="animal.getDescendencia()" [texto]="'Descendencia'" [tipo]="true" 
                     (arraySalida)="anadirArrayDescendencia($event)"></my-list-opcionesAscDesc>
                   </ion-col>
-                </ion-row>
+                </ion-row> -->
             </ion-col>
           </ion-row>
         </ion-grid>
-    
+    </form>
     <ion-row *ngIf="compra!=4">
       <ion-fab left top>
           <button ion-fab color="dark" (click)="volver()">
@@ -128,7 +148,7 @@
        </ion-col>
     </ion-row>
 
-<div *ngIf="compra!=4">
+<!-- <div *ngIf="compra!=4">
   <ion-fab right top>
       <button ion-fab color="secondary" (click)="changeEffect()">
           <ion-icon name="md-color-wand"></ion-icon>
@@ -136,11 +156,11 @@
   </ion-fab>
 
   <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="takePicture(false)">
+      <button ion-fab color="primary" (click)="takePicture(1)">
           <ion-icon name="md-camera"></ion-icon>
       </button>
   </ion-fab>
-</div>
+</div> -->
 
 <div *ngIf="compra==4">
   <ion-fab right top>

@@ -33,7 +33,7 @@ export class ServicioFicheros {
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
     params.set('key', Constantes.KEY_ID_STORAGE);
-    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/documentos/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/documentos', { search: params }).map(res => res.json());
   }
 
   public guardaDocumento(explotacion:Explotacion):Promise<Documento>{
@@ -82,15 +82,21 @@ export class ServicioFicheros {
   }
 
 
-  public static createAuthorizationHeader(headers: Headers|{} ) {
+  public static createAuthorizationHeader(headers: Headers|{}, accessToken:string ) {
+    
     if (headers instanceof Headers){
-      headers.append('Authorization', 'Bearer ' + Constantes.KEY_ID_STORAGE);
-      headers.append('Content-Type', 'image/jpg');
+      headers.append('x-api-key',  Constantes.KEY_ID_STORAGE);
+      //headers.append('User-Agent',  'Auth0');
+      headers.append('Content-Type',  'application/json');
+      //headers.append('Content-Type', 'image/jpg');
     }else{
-      headers['Authorization']= 'Bearer ' + Constantes.KEY_ID_STORAGE;
-      headers['Content-Type']= 'image/jpg';
+      headers['x-api-key']=  Constantes.KEY_ID_STORAGE;
+      //headers['User-Agent']=  'Auth0';
+      headers['Content-Type']=  'application/json';
+      //headers['Content-Type']= 'image/jpg';
     }
-
+    console.log("quieto aqui melon")
+    console.log(headers)
   }
 
 }

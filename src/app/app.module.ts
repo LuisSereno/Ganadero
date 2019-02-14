@@ -18,25 +18,62 @@ import { Cabecera } from '../pages/cabecera/cabecera';
 import { Detalle } from '../pages/detalle/detalle';
 import {ListVacEnf} from '../pages/listadoVacunasEnfermedades/listaVacunasEnfermedades';
 import {AscDesc} from '../pages/listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
-import { IonicStorageModule,Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../servicios/auth/auth';
 import { ServicioDatos } from '../servicios/serviciodatos';
 import { ServicioCompraVenta } from '../servicios/servicioCompraVenta';
-import { Http } from '@angular/http';
+import { Http,RequestOptions } from '@angular/http';
 import {Nuevo} from '../pages/nuevo/nuevo'
 import {DetalleExplotacion} from '../pages/ajustes/explotacion/nueva/nueva';
 import {ListaExplotaciones} from '../pages/ajustes/explotacion/listado/listado';
+import {ToastService} from '../servicios/mensajeToast';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDPV6h4cMGGyGO5nTLM8JRIzeHhUJlo_w8",
+    authDomain: "ganadero-146707.firebaseapp.com",
+    databaseURL: "https://ganadero-146707.firebaseio.com",
+    projectId: "ganadero-146707",
+    storageBucket: "ganadero-146707.appspot.com",
+    messagingSenderId: "583744183360"
+};
 
 //let storage: Storage = new Storage();
-
+/*
 export function getAuthHttp(http, storage) {
   return new AuthHttp(new AuthConfig({
     globalHeaders: [{'Accept': 'application/json'}],
     tokenGetter: (() => storage.get('id_token'))
   }), http);
 }
+*/
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'id_token',
+    tokenGetter: (() => {console.log("QUE HOSTIAS PASA AQUI")
+                        var idToken=localStorage.getItem('access_token');
+                        if (idToken){
+                          idToken=idToken.replace(/^"(.*)"$/, '$1')
+                        }
+                        console.log(idToken);
+                        return idToken;
+                      }),
+    globalHeaders: [{'Content-Type':'application/json'}],
+  }), http, options);
+}
+
+/*export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'id_token',
+    tokenGetter: (() => localStorage.getItem('id_token')),
+  }), http, options);
+}*/
 
 class CameraMock extends Camera {
   getPicture(options) {
@@ -68,7 +105,10 @@ class CameraMock extends Camera {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig,'ganadero-146707'),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -89,16 +129,16 @@ class CameraMock extends Camera {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-
     ServicioDatos,
     ServicioCompraVenta,
     Camera,
+    ToastService,
     //{ provide: Camera, useClass: CameraMock },
     AuthService,
     {
       provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http,Storage]
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
     }
   ]
 })

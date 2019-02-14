@@ -1,4 +1,16 @@
 @charset "UTF-8";
+.toast-success > div {
+  background-color: #8bc34a !important;
+}
+
+.toast-error > div {
+  background-color: #f44336 !important;
+}
+
+.toast-warning > div {
+  background-color: #ffc107 !important;
+}
+
 /*!
   Ionicons, v3.0.0-alpha.3
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -27540,14 +27552,17 @@ ion-app, ion-content {
   margin: 0 auto;
 }
 
-.toast-success > div {
-  background-color: #8bc34a !important;
+.btn-redondo {
+  display: block;
+  height: 120px;
+  width: 120px;
+  background: transparent;
 }
 
-.toast-error > div {
-  background-color: #f44336 !important;
-}
-
-.toast-warning > div {
-  background-color: #ffc107 !important;
+.btn-redondo-activo {
+  display: block;
+  height: 120px;
+  width: 120px;
+  border-radius: 35%;
+  background: rgba(0, 0, 0, 0.5);
 }

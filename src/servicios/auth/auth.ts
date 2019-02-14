@@ -1,13 +1,26 @@
 // src/services/auth.service.ts
 
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+//import { Observable, Subscription } from 'rxjs';
 
 import Auth0Cordova from '@auth0/cordova';
 import Auth0 from 'auth0-js';
 
 import {Constantes} from '../constantes';
 
+
+/*const auth0Config = {
+  // needed for auth0
+  clientID: Constantes.AUTH0_CLIENT_ID,
+
+  // needed for auth0cordova
+  clientId: Constantes.AUTH0_CLIENT_ID,
+  domain: Constantes.AUTH0_DOMAIN,
+  callbackURL: location.href,
+  packageIdentifier: Constantes.AUTH0_PACKAGEIDENTIFIER,
+  audience: 'https://sereno.eu.auth0.com/api/v2/',
+  scope: 'openid profile email offline_access'
+};*/
 
 const auth0Config = {
   // needed for auth0
@@ -17,8 +30,10 @@ const auth0Config = {
   clientId: Constantes.AUTH0_CLIENT_ID,
   domain: Constantes.AUTH0_DOMAIN,
   callbackURL: location.href,
-  packageIdentifier: Constantes.AUTH0_PACKAGEIDENTIFIER
+  packageIdentifier: Constantes.AUTH0_PACKAGEIDENTIFIER,
+  audience: 'https://sereno.eu.auth0.com/api/v2/',
 };
+
 
 
 @Injectable()
@@ -35,9 +50,6 @@ export class AuthService {
   }
 
   private getStorageVariable(name) {
-    console.log("LUIS SERENO EL LOCO");
-    console.log(name);
-    console.log(window.localStorage.getItem(name));
     var datosRespuesta="";
     try{
       datosRespuesta= JSON.parse(window.localStorage.getItem(name));
@@ -53,6 +65,8 @@ export class AuthService {
   }
 
   private setIdToken(token) {
+    console.log("LUIS SERENO EL LOCO2 TOKEN");
+    console.log(token);
     this.idToken = token;
     this.setStorageVariable('id_token', token);
   }
@@ -68,14 +82,15 @@ export class AuthService {
   }
 
   public login():Promise<boolean> {
-
+     console.log("LOGIN");
 
      return new Promise<boolean>((resolve, reject) => {
 
          const client = new Auth0Cordova(auth0Config);
 
         const options = {
-          scope: 'openid profile offline_access'
+          scope: 'openid profile email offline_access',
+          audience: "https://sereno.eu.auth0.com/api/v2/",
         };
 
         client.authorize(options, (err, authResult) => {
@@ -93,7 +108,8 @@ export class AuthService {
             if(err) {
               throw err;
             }
-
+            console.log("GUANPELOTILLA");
+            console.log(profile);
             profile.user_metadata = profile.user_metadata || {};
             this.setStorageVariable('profile', profile);
             this.zone.run(() => {

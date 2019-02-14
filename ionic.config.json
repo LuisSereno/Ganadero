@@ -1,11 +1,13 @@
 {
   "name": "GanaderoNuevo",
-  "app_id": "",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular",
   "proxies": [
-	    {
-	        "path": "/ganadero",
-	        "proxyUrl": "https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/ganadero"
-	    }
-	]
+    {
+      "path": "/ganadero",
+      "proxyUrl": "https://ganadero-146707.appspot.com/_ah/api/ganadero/v1/ganadero"
+    }
+  ]
 }

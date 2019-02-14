@@ -1,11 +1,11 @@
 
-import {NavController,NavParams,ToastController,Platform} from 'ionic-angular';
+import {NavController,NavParams,Platform} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {ServicioDatos} from '../../../../servicios/serviciodatos';
 import {Explotacion} from '../../../../servicios/beans/explotacion';
-import {Usuario} from '../../../../servicios/beans/usuario';
+//import {Usuario} from '../../../../servicios/beans/usuario';
 import {AuthService} from '../../../../servicios/auth/auth';
-import {Constantes} from '../../servicios/constantes';
+//import {Constantes} from '../../servicios/constantes';
 import {ListaGanado} from '../../../listadoGanado/listado';
 import { PerfilAutenticacion } from '../../../profile/profile';
 
@@ -18,7 +18,7 @@ export class DetalleExplotacion {
 
 
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
-				private toastCtrl: ToastController,public auth: AuthService,public plt: Platform) {
+				public auth: AuthService,public plt: Platform) {
 	}
 
 	ngOnInit() {
@@ -46,23 +46,5 @@ export class DetalleExplotacion {
               this.navCtrl.setRoot(PerfilAutenticacion);
           });
 	}
-
-	presentToast(mensaje:string) {
-	  let toast = this.toastCtrl.create({
-	    message: mensaje,
-	      duration: 15000,
-	      showCloseButton: true,
-	      closeButtonText: 'Cerrar',
-	      dismissOnPageChange: true,
-	      cssClass: "toast-success"
-	  });
-
-	  toast.onDidDismiss(() => {
-	    console.log('Dismissed toast');
-	  });
-
-	  toast.present();
-	}
-
 
 }

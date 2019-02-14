@@ -3,11 +3,11 @@ import {Animal} from '../../../servicios/beans/animal'
 import {Venta} from '../../../servicios/beans/venta'
 import {Compra} from '../../../servicios/beans/compra'
 import {Operacion} from '../../../servicios/beans/operacion'
-import { NavController,NavParams,ToastController } from 'ionic-angular';
+import { NavController,NavParams } from 'ionic-angular';
 import {ServicioCompraVenta} from '../../../servicios/servicioCompraVenta';
-import {Constantes} from '../../../servicios/constantes';
+//import {Constantes} from '../../../servicios/constantes';
 import {ServicioDatos} from '../../../servicios/serviciodatos';
-
+import {ToastService} from '../../../servicios/mensajeToast';
 
 @Component({
   templateUrl: 'listadoAnimalesVendidos.html'
@@ -19,7 +19,7 @@ export class ListadoAnimalesVendidos {
 	operacion:Operacion;
 
   	constructor(public navCtrl: NavController,params: NavParams,public servicioDatos: ServicioDatos,
-  				protected servicio: ServicioCompraVenta,private toastCtrl: ToastController) {
+  				protected servicio: ServicioCompraVenta,private toastCtrl: ToastService) {
 
   		this.arrayAnimales=params.get("animalesSeleccionados");	
   		this.operacion=params.get("operacion");			
@@ -43,10 +43,10 @@ export class ListadoAnimalesVendidos {
 		let correcto:boolean=this.servicio.crearOperacion(this.operacion);
 	
 		if (correcto){
-			this.presentToast("Guardado correcto");
+			this.toastCtrl.push("Guardado correcto","CORRECTO");
 			this.navCtrl.popToRoot();
 		}else{
-			this.presentToast("Error al guardar");
+			this.toastCtrl.push("Error al guardar","ERROR");
 		}
 
 	}	
@@ -100,21 +100,4 @@ export class ListadoAnimalesVendidos {
 		return true;
 	}
 
-
-	presentToast(mensaje:string) {
-	  let toast = this.toastCtrl.create({
-	    message: mensaje,
-	      duration: 15000,
-	      showCloseButton: true,
-	      closeButtonText: 'Cerrar',
-	      dismissOnPageChange: true,
-	      cssClass: "toast-success"
-	  });
-
-	  toast.onDidDismiss(() => {
-	    console.log('Dismissed toast');
-	  });
-
-	  toast.present();
-	}
 }

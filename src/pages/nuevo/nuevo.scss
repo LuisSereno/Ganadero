@@ -7,21 +7,17 @@
 	margin: 0 auto;
 }
 
-
-.toast-success {
-  > div{
-       background-color:#8bc34a!important;
-   }
+.btn-redondo {
+  display:block;
+  height: 120px;
+  width: 120px;
+  background:rgba(0,0,0,0);
 }
 
-.toast-error {
-  > div{
-       background-color:#f44336!important;
-   }
-}
-
-.toast-warning {
-  > div{
-       background-color:#ffc107!important;
-   }
+.btn-redondo-activo {
+  display:block;
+  height: 120px;
+  width: 120px;
+  border-radius: 35%;
+  background:rgba(0,0,0,0.5);
 }

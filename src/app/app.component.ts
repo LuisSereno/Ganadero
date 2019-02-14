@@ -1,8 +1,8 @@
 import { Component,ViewChild } from '@angular/core';
-import { Platform, Nav, Modal } from 'ionic-angular';
+import { Platform, Nav } from 'ionic-angular';
 //import { StatusBar, Splashscreen } from 'ionic-native';
 //import {ToolBarMenu} from '../pages/toolbarMenu/toolbarMenu';
-import { TabsPage } from '../pages/tabs/tabs';
+//import { TabsPage } from '../pages/tabs/tabs';
 import { PerfilAutenticacion } from '../pages/profile/profile';
 import {ListaDocumentos} from '../pages/listadoDocumentos/listado';
 import {ListaGanado} from '../pages/listadoGanado/listado';
@@ -58,18 +58,21 @@ export class MyApp {
     ngOnInit(){
       console.log("YA ESTA CARGADO EL AUTH ASI QUE AVANZA");
 
-        if(!this.auth.isAuthenticated()) {
+      /* if(!this.auth.isAuthenticated()) {
            this.rootPage = PerfilAutenticacion;
        }else{
+         console.log("PERO QUE MIERDA ES ESTA")
+         console.log(this.auth)
+         console.log(this.auth.user);
            this.cargarListadoGanadoInicio(this.auth.user.email);
-       }
+       } */
             
-      //this.cargarListadoGanadoInicio("luisalbertosereno@gmail.com");
+      this.cargarListadoGanadoInicio("luisalbertosereno@gmail.com");
     }
 
     private cargarListadoGanadoInicio(email:string){
       var arrayExplotaciones:Array<Explotacion>=new Array<Explotacion>();
-      this.servicio.obtenerDatosExplotacion(email).subscribe(data => {
+      this.servicio.obtenerDatosExplotacion(email,this.auth.idToken).subscribe(data => {
 
         var usu:Usuario=new Usuario ();
         usu.setId(data.identificador);
@@ -105,6 +108,10 @@ export class MyApp {
        }else{
          console.log('No se puede cargar el listado');
          console.log(error);
+         /**
+         /*esto solo es para continuar desarrollando
+         **/
+         this.rootPage=DetalleExplotacion;
        }
 
     });

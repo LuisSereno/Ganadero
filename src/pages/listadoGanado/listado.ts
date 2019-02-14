@@ -222,6 +222,7 @@ export class ListaGanado {
 			this.servicio.getExplotacion().setArrayMachos(this.arrayMachos);
 		},err => {
 		    console.log("Errr al obtener los datos del ganado!");
+		    console.log(err);
 		});
 
 	}

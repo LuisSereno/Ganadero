@@ -2,7 +2,7 @@ import { Component,EventEmitter, Input,Output   } from '@angular/core';
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import {Animal} from '../../servicios/beans/animal'
 import {Macho} from '../../servicios/beans/macho'
-import {Hembra} from '../../servicios/beans/hembra'
+//import {Hembra} from '../../servicios/beans/hembra'
 
 @Component({
   selector: 'my-list-opcionesAscDesc',
@@ -28,7 +28,9 @@ export class AscDesc {
     this.hembra=new Array<number>();
   }
 
-  ngOnInit(){
+  ngAfterContentInit(){
+    console.log("ENTRA EN EL ngAfterContentInit listaAscendenciaDescendencia ");
+    console.log(this.model);
     if (this.model){
       for (let anim of this.model){
         if (anim instanceof Macho){
@@ -41,6 +43,9 @@ export class AscDesc {
   }
 
   onChange(tipo:boolean){
+
+   console.log("ENTRA EN EL onChange listaAscendenciaDescendencia ");
+
    var arrayAux:Array<number>;
    //vaciamos el array de model para que no se solapen vacas y toros y no haya mas de la cuenta
    this.model=new Array<Animal>();

@@ -2,8 +2,8 @@
 import { NavController } from 'ionic-angular';
 import {Component} from '@angular/core';
 import {AuthService} from '../../servicios/auth/auth';
-import {ListaGanado} from '../listadoGanado/listado';
-import {ServicioDatos} from '../../servicios/serviciodatos';
+//import {ListaGanado} from '../listadoGanado/listado';
+//import {ServicioDatos} from '../../servicios/serviciodatos';
 import {MyApp} from '../../app/app.component';
 
 @Component({

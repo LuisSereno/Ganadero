@@ -13,6 +13,23 @@
 $text-color:        #000;
 $background-color:  #fff;
 
+.toast-success {
+  > div{
+       background-color:#8bc34a!important;
+   }
+}
+
+.toast-error {
+  > div{
+       background-color:#f44336!important;
+   }
+}
+
+.toast-warning {
+  > div{
+       background-color:#ffc107!important;
+   }
+}
 
 // Named Color Variables
 // --------------------------------------------------

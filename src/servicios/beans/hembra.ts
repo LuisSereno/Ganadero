@@ -30,7 +30,17 @@ export class Hembra extends Animal{
 	}
 
 	public getFechaUltimoNacimiento()  : Date{
-		return this.fechaUltimoNacimiento;
+        try{
+            var timestamp=Date.parse(this.fechaUltimoNacimiento.toLocaleDateString())
+            if (isNaN(timestamp)){
+                this.fechaUltimoNacimiento=null;
+            }
+        }catch(e){
+            console.error(e);
+        }finally{
+            return this.fechaUltimoNacimiento;
+        }
+
 	}
 
     public getFoto()  : string{
@@ -77,6 +87,8 @@ export class Hembra extends Animal{
     // fromJSON is used to convert an serialized version
     // of the User to an instance of the class
     static fromJSON(json: Hembra|string): Hembra {
+        console.log("FROMJSON HEMBRA");
+        console.log(json);
         if (typeof json === 'string') {
             // if it's a string, parse it first
             return JSON.parse(json, Hembra.reviver);
@@ -100,7 +112,7 @@ export class Hembra extends Animal{
                 // convert fields that need converting. ESto es para formatear datos que sean imprescindibles, como fechas y demas
                 id:json["identificador"],
                 fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]),
-                fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"]),
+                fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==undefined || json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"]),
                 metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])
 
             });

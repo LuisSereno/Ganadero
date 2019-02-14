@@ -47,7 +47,7 @@ export class Macho extends Animal{
                 arrayIds.push(anim.getId());
             }            
         }
-        //json["descendencia"]=arrayIds;
+        json["descendenciaIds"]=arrayIds;
         
         arrayIds=new Array<number>();
         if (this.getAscendencia()){
@@ -55,7 +55,7 @@ export class Macho extends Animal{
                 arrayIds.push(anim.getId());
             }   
         }    
-        //json["ascendencia"]=arrayIds;
+        json["ascendenciaIds"]=arrayIds;
 
         json["sexo"]=Constantes.MACHO;
         
@@ -65,6 +65,8 @@ export class Macho extends Animal{
     // fromJSON is used to convert an serialized version
     // of the User to an instance of the class
     static fromJSON(json: Macho|string): Macho {
+        console.log("FROMJSON MACHO");
+        console.log(json);
         if (typeof json === 'string') {
             // if it's a string, parse it first
             return JSON.parse(json, Macho.reviver);

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {URLSearchParams,Http} from '@angular/http';
-import {Explotacion} from './beans/explotacion';
+import {Http,Headers} from '@angular/http';
+//import {Explotacion} from './beans/explotacion';
 import {ServicioDatos} from './serviciodatos'
+//import {ServicioFicheros} from './servicioFicheros'
 import {Animal} from './beans/animal';
 import {Compra} from './beans/compra';
 import {Venta} from './beans/venta';
@@ -44,7 +45,7 @@ export class ServicioCompraVenta {
 
 
 	public crearOperacion(operacion:Operacion){
-		let url="/ganadero/compraventa/anadir";
+		let url="/ganadero/compraventa";
 		var guardadoCorrecto:boolean=false;
 		try{
 
@@ -91,7 +92,10 @@ export class ServicioCompraVenta {
 				throw "No es una operacion";
 			}
 			console.log(operacion.toJSON());
-			this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {compraVentas: [operacion.toJSON()],idExplotacion:this.servDatos.getExplotacion().getId()}).map(res => res.json()).subscribe(data => {
+			var headers=new Headers();
+			//ServicioFicheros.createAuthorizationHeader(headers);
+			this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {compraVentas: [operacion.toJSON()],idExplotacion:this.servDatos.getExplotacion().getId()},
+				{headers: headers}).map(res => res.json()).subscribe(data => {
 		        operacion.setId(data.content);
 		        if (operacion instanceof Compra){
 		        	for (let indice in data.contentSecundario){

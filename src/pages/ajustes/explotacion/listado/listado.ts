@@ -1,5 +1,5 @@
 
-import {NavController,NavParams,ToastController,Platform} from 'ionic-angular';
+import {NavController,NavParams} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {Explotacion} from '../../../../servicios/beans/explotacion';
 import {ServicioDatos} from '../../../../servicios/serviciodatos';

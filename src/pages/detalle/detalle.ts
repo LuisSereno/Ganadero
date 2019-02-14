@@ -1,14 +1,15 @@
-
-import {NavController,NavParams,ToastController} from 'ionic-angular';
+import {NavController,NavParams} from 'ionic-angular';
 import { Component } from '@angular/core';
 import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
 import {Animal} from '../../servicios/beans/animal'
 import {ServicioDatos} from '../../servicios/serviciodatos';
-import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
+//import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
+import {ToastService} from '../../servicios/mensajeToast';
+//import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia'
 
 @Component({
-	templateUrl: 'detalle.html'
+	templateUrl: 'detalle.html',
 })
 export class Detalle {
 	
@@ -22,10 +23,8 @@ export class Detalle {
 
 	arrayAscendencia:Array<Animal>;
 
-	prueba:Array<Animal>;
-
 	constructor(public navCtrl: NavController,  params: NavParams,public servicio: ServicioDatos,
-				private toastCtrl: ToastController) {
+				private toastCtrl: ToastService) {
 		this.animal=params.get("animal");
 		this.arrayDescendencia=new Array<Animal>();
 		this.arrayAscendencia=new Array<Animal>();
@@ -33,7 +32,8 @@ export class Detalle {
 		this.fechaUltimoNacimiento="";
 	}
 
-	ionViewDidLoad() {
+	ngAfterContentInit() {
+		console.log("ENTRA EN EL ionViewDidLoad");
 		if (this.animal){
 			let fechaFormateada=this.animal.getFechaNacimiento();
 			this.fechaNacimiento= fechaFormateada ? fechaFormateada.toISOString() : '';
@@ -44,8 +44,13 @@ export class Detalle {
 				this.fechaUltimoNacimiento="";
 			}
 			
-			this.arrayAscendencia=this.servicio.getBusquedaAscDesc(this.animal.getAscendencia());
-			this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.getDescendencia());		
+			this.arrayAscendencia=this.servicio.getBusquedaAscDesc(this.animal.getAscendencia()?this.animal.getAscendencia():this.animal.ascendenciaIds);
+			this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.getDescendencia()?this.animal.getDescendencia():this.animal.descendenciaIds);		
+			console.log("ANTES DE ASIGNAR ARRAYASCENDENCIA Y ARRAYDESCENDENCIA");
+			console.log(this.arrayAscendencia);
+			console.log(this.arrayDescendencia);
+			this.animal.setAscendencia(this.arrayAscendencia);
+			this.animal.setDescendencia(this.arrayDescendencia);
 		}
 
 	}
@@ -77,9 +82,9 @@ export class Detalle {
 		let correcto=this.servicio.guardaModificaAnimal(false,this.animal);
 
 		if(correcto){
-			this.presentToast("Modificación correcta");
+			this.toastCtrl.push("Modificación correcta","CORRECTO");
 		}else{
-		    this.presentToast("Error al modificar");
+		    this.toastCtrl.push("Error al modificar","ERROR");
 		};
 	}
 
@@ -100,23 +105,6 @@ export class Detalle {
 	  	this.animal.setVacunas(elemento);
 	  }
 
-
-	presentToast(mensaje:string) {
-	  let toast = this.toastCtrl.create({
-	    message: mensaje,
-	      duration: 15000,
-	      showCloseButton: true,
-	      closeButtonText: 'Cerrar',
-	      dismissOnPageChange: true,
-	      cssClass: "toast-success"
-	  });
-
-	  toast.onDidDismiss(() => {
-	    console.log('Dismissed toast');
-	  });
-
-	  toast.present();
-	}
 
 	isInstanceOfHembra(objeto:Animal):boolean{
 		return objeto instanceof Hembra;

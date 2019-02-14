@@ -22,6 +22,10 @@ export abstract class Animal extends Metadatos{
 
 	private descendencia: Array<Animal>;
 
+	public ascendenciaIds: Array<number>;
+
+	public descendenciaIds: Array<number>;
+
 	private precioCompra: number;
 
 	private precioVenta: number;

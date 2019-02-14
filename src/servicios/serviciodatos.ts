@@ -1,28 +1,29 @@
 import {Injectable} from '@angular/core';
-import {URLSearchParams,Http} from '@angular/http';
+//import {URLSearchParams} from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 import {Explotacion} from './beans/explotacion';
 import {Animal} from './beans/animal';
 import {Hembra} from './beans/hembra';
 import {Macho} from './beans/macho';
-import {Operacion} from './beans/operacion';
-import {Venta} from './beans/venta';
-import {Compra} from './beans/compra';
+//import {Operacion} from './beans/operacion';
+//import {Venta} from './beans/venta';
+//import {Compra} from './beans/compra';
 import {Usuario} from './beans/usuario';
 import {Constantes} from './constantes';
 import 'rxjs/add/operator/map'
-
+//import {ServicioFicheros} from './servicioFicheros'
 
 @Injectable()
 export class ServicioDatos {
 
-  private httpLocal:Http;
+  private httpLocal:AuthHttp;
 
   protected explotacion:Explotacion;
 
   protected usuario:Usuario;
 
-  constructor(http: Http /* This is #2 */ ) {
-    this.httpLocal = http;
+  constructor(public authHttp: AuthHttp ) {
+    this.httpLocal = authHttp;
     this.explotacion=new Explotacion();
     this.usuario=new Usuario();
   }
@@ -42,20 +43,18 @@ export class ServicioDatos {
   public setUsuario(usu:Usuario){
     return this.usuario=usu;
   }
-  public obtenerDatosExplotacion(email:String){
+  public obtenerDatosExplotacion(email:string,accessToken:string){
     console.log("entra en obtenerDatosExpltotacion");
   	let params: URLSearchParams = new URLSearchParams();
 	  params.set('email', email.toString());
-    params.set('key', Constantes.KEY_ID_STORAGE);
-  	return this.httpLocal.get(Constantes.URL_WEBSERVICES + '/ganadero/ususarios/obtener', { search: params }).map(res => res.json());
+  	return this.httpLocal.get(Constantes.URL_WEBSERVICES + '/ganadero/usuario', { search: params }).map(res => res.json());
   }
 
   public obtenerDatosGanado(idExplotacion:number){  
     console.log("entra en obtenerDatosGanado");
     let params: URLSearchParams = new URLSearchParams();
     params.set('idExplotacion', idExplotacion.toString());
-    params.set('key', Constantes.KEY_ID_STORAGE);
-    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/animales/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/animal', { search: params }).map(res => res.json());
     
   }
 
@@ -68,12 +67,11 @@ export class ServicioDatos {
     }
     params.set('idExplotacion', idExplotacion.toString());
     params.set('tipo',tipo.toString());
-    params.set('key', Constantes.KEY_ID_STORAGE);
-    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/compraVenta/obtener', { search: params }).map(res => res.json());
+    return this.httpLocal.get(Constantes.URL_WEBSERVICES +'/ganadero/compraVenta', { search: params }).map(res => res.json());
     
   }
 
-  public getBusquedaAscDesc(arrayAnimales:Array<Animal>):Array<Animal>{
+  public getBusquedaAscDesc(arrayAnimales:Array<Animal>|Array<number>):Array<Animal>{
     var arrayResultado:Array<Animal>=new Array<Animal>();
 
     if (arrayAnimales!=null && arrayAnimales.length>0){
@@ -83,11 +81,11 @@ export class ServicioDatos {
       for (let anim of arrayAnimales){
         let arrayAux:Animal;
         arrayAux = arrayHem.find(hemb =>
-         +hemb.getId() === +anim.getId()
+         +hemb.getId() === +(anim instanceof Animal?anim.getId():anim)
          );
         if (!arrayAux){  
           arrayAux = arrayMach.find(mach =>
-           +mach.getId() ===  +anim.getId()
+           +mach.getId() ===  +(anim instanceof Animal?anim.getId():anim)
            );
           if (arrayAux){  
             arrayResultado.push(arrayAux);
@@ -102,14 +100,9 @@ export class ServicioDatos {
     return arrayResultado;
   }
   
-  public guardaModificaAnimal(guardado:boolean,animal:Animal){
-    var guardadoCorrecto:boolean=false;
-    var url:string="";
-    if (guardado){
-      url="/ganadero/animal/anadir";
-    }else{
-      url="/ganadero/animal/modificar";
-    }
+  public guardaModificaAnimal(guardado:boolean,animal:Animal):Promise<Animal>{
+    var url:string="/ganadero/animal";
+
     try{     
       if(animal instanceof Hembra){
         if (guardado){
@@ -124,23 +117,39 @@ export class ServicioDatos {
            console.log("Es una modificacion"); 
         }
       }
-      this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
-        console.log("todo correcto");
-      },err => {
-          console.error("Errr al obtener los datos del ganado!");
-          console.error(err);
-      });
-      guardadoCorrecto=true;
+      if (guardado){
+        return new Promise<Animal>((resolve, reject) => {  
+          this.httpLocal.put(Constantes.URL_WEBSERVICES +url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
+            console.log("todo correcto");
+            animal.setId(data.content);
+            resolve(animal);
+          },err => {
+              console.error("Errr al obtener los datos del ganado!");
+              console.error(err);
+              reject(err);
+          });
+        });
+      }else{
+        return new Promise<Animal>((resolve, reject) => {
+          this.httpLocal.post(Constantes.URL_WEBSERVICES +url, {animales: [animal.toJSON()],idExplotacion:this.explotacion.getId()}).map(res => res.json()).subscribe(data => {
+            console.log("todo correcto");
+            resolve(animal);
+          },err => {
+              console.error("Errr al obtener los datos del ganado!");
+              console.error(err);
+              reject(err);
+          });
+        });
+      }
+     
     }catch(ex){
       console.log(ex);
-      guardadoCorrecto=false;
     }
-    return guardadoCorrecto;
   }
 
 
 public guardaUsuario(nombre:string,email:string):Promise<Usuario>{
-    var url:string="/ganadero/usuario/anadir";
+    var url:string="/ganadero/usuario";
     try{ 
       var usu:Usuario=new Usuario ();
       usu.setEmail(email);
@@ -165,7 +174,7 @@ public guardaUsuario(nombre:string,email:string):Promise<Usuario>{
 
 
 public guardaExplotacion(explo:Explotacion):Promise<Explotacion>{
-    var url:string="/ganadero/explotacion/anadir";
+    var url:string="/ganadero/explotacion";
     try{ 
       console.log("JSON DE LA EXPLOTACION");
       explo.setMetaDatoEmail(this.getUsuario().getEmail());

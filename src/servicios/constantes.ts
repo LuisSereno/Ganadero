@@ -20,7 +20,7 @@ public static URL_STORAGE_UPDATE="https://www.googleapis.com/upload/storage/v1"
 
 public static BUCKET_STORAGE="ganadero-146707.appspot.com"
 
-public static AUTH0_CLIENT_ID = "4icYtFzup1JCMR5LslLYEBsiXy3O3AKQ";
+public static AUTH0_CLIENT_ID = "pYEZiVRhnq7oYS6uhbLAQ57sep58v7sJ";
 
 public static AUTH0_DOMAIN = "sereno.eu.auth0.com";
 
