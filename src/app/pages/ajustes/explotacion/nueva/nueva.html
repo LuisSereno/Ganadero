@@ -1,0 +1,54 @@
+<cabecera-ganadero nombrePagina="Nueva explotacion"></cabecera-ganadero>
+
+<ion-content>
+        <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-row>
+                <ion-col col-sm-12>
+                  <ion-item  class="text-label">
+                    <ion-label class="text-center">
+                      <b>Introduzca los datos de su explotación</b>
+                    </ion-label>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                <ion-col col-sm-12>
+                  <ion-item  class="text-label">
+                    <ion-label position="floating">
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre de su explotación 
+                    </ion-label>
+                      <ion-input type="string" [(ngModel)]="explota.nombre"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                 <ion-col col-sm-12>
+                    <ion-item class="text-label">
+                    <ion-label position="floating">
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Beneficio anual compras/ventas 
+                    </ion-label>
+                     <ion-input type="number" [(ngModel)]="explota.dineroAnual"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                 <ion-col col-sm-12>
+                  <ion-item  class="text-label">
+                    <ion-label position="floating">
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Beneficio total compras/ventas 
+                    </ion-label>
+                    <ion-input type="number" [(ngModel)]="explota.dineroTotal"></ion-input>
+                     </ion-item>
+                  </ion-col>
+                </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    <ion-row>
+      <ion-col col-sm-12>
+        <ion-button color="dark" size="large" expand="block" (click)="guardaDatosExplotacion()" full>Guardar</ion-button>
+     </ion-col>
+    </ion-row>
+</ion-content>

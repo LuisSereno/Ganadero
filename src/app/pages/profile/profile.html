@@ -1,0 +1,32 @@
+ <!-- app/pages/profile/profile.html 
+<ion-navbar *navbar>
+  <ion-title>Profile</ion-title>
+</ion-navbar>
+
+<ion-content  style="height:100vh;" padding *ngIf="!auth.authenticated()">
+  
+  <button block (click)="auth.login()">Login</button>
+
+</ion-content>
+-->
+<cabecera-ganadero></cabecera-ganadero>
+
+<ion-content padding>
+
+  <!-- just a login button if not authenticated -->
+  <div *ngIf="!isLoggedIn">
+    <ion-button size="large" expand="block" (click)="logearse()">Login</ion-button>
+  </div>
+
+  <!-- a card with your picture and name, plus a logout button -->
+  <div *ngIf="isLoggedIn">
+    <ion-card>
+      <img [src]="auth.user.picture" />
+      <ion-card-content>
+        <ion-card-title>{{ auth.user.name }}</ion-card-title>
+      </ion-card-content>
+    </ion-card>
+    <ion-button size="large" expand="block" (click)="auth.logout()">Logout</ion-button>
+  </div>
+
+</ion-content>

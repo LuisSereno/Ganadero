@@ -1,0 +1,26 @@
+<cabecera-ganadero nombrePagina="Explotaciones"></cabecera-ganadero>
+<ion-content padding>
+	<ion-row center>
+		<ion-col col-md-11 offset-md-1>
+			<p>Selecciona tu explotación</p>
+		</ion-col>
+	</ion-row>
+	<ion-card *ngFor="let expl of arrayExplotaciones" (click)="seleccionarExplotacion(expl)">
+	  <ion-item >
+	   	<ion-thumbnail slot="start">
+	        <img src="/aqui/foto/tipo/explotacion">
+	     </ion-thumbnail>
+	  	<ion-label>
+        	<h1>{{expl.nombre}}</h1>
+        	<p>{{expl.dineroAnual}} - {{expl.dineroTotal}}</p>
+        </ion-label>
+	  </ion-item>
+	</ion-card>
+	 <ion-fab vertical="bottom" horizontal="start" >
+	    <ion-fab-button color="dark" ion-fab="" class="fab fab-ios fab-ios-danger" (click)="crearExplotacion()">
+	    	<ion-icon name="add" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
+	    	</ion-icon><div class="button-effect"></div>
+	    </ion-fab-button>
+	</ion-fab>
+
+</ion-content>

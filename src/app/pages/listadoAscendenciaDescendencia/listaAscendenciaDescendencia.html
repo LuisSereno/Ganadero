@@ -1,0 +1,20 @@
+ <ion-item> 
+   <ion-label><ion-icon name='map' item-left class="color-iconos"></ion-icon>{{texto}}</ion-label>
+ </ion-item> 
+
+
+<ion-item>
+  <ion-label>Macho</ion-label>
+  <ion-select [(ngModel)]="macho" multiple="{{tipo}}" (ngModelChange)="onChange(true)">
+	<ion-select-option *ngFor="let machito of servicio.explotacion.getArrayMachos()" [value] = "machito.getId()"
+	 >{{machito.getAlias()!=null &&  machito.getAlias()!=""?machito.getAlias():machito.getNumero()  }}</ion-select-option>
+  </ion-select> 
+</ion-item>
+
+<ion-item>
+  <ion-label>Hembra</ion-label>
+  <ion-select [(ngModel)]="hembra" multiple="{{tipo}}" (ngModelChange)="onChange(false)">
+	<ion-select-option *ngFor="let hembrita of servicio.explotacion.getArrayHembras()" [value] = "hembrita.getId()" 
+	>{{hembrita.getNumero()}}</ion-select-option>
+  </ion-select>
+</ion-item>
