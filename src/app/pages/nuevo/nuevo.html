@@ -4,25 +4,25 @@
         <ion-grid>
             <ion-row>
               <ion-col>
-                <img #scannedImg [src]="animal.foto" />
+                <ion-img #scannedImg [src]="getFotoAnimal()" class="tam_image_animal"></ion-img>
                 <ion-row *ngIf="compra!=4">
                   <ion-col col-sm-8>
                   <ion-item  class="text-label">
                     <ion-label>
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Cargar Imagen 
+                      <ion-icon name="cloud-upload-outline"></ion-icon> Cargar Imagen 
                     </ion-label>
-                    <button ion-button item-right small (click)="takePicture(2)">Galeria</button>
-                    <button ion-button item-right small (click)="takePicture(0)">Foto</button>
+                    <ion-button slot="start" size="small" (click)="takePicture(2)">Galeria</ion-button>
+                    <ion-button slot="start" size="small" (click)="takePicture(0)">Foto</ion-button>
                    </ion-item>
                   </ion-col>
                 </ion-row>
 
                 <ion-row *ngIf="compra==4">
                   <ion-col col-sm-4>
-                      <button [class.btn-redondo]="!isHembra" [class.btn-redondo-activo]="isHembra" (click)="seleccionarSexo(0)"><img src="assets/img/vaca.png"></button>
+                      <ion-button [class.btn-redondo]="!isHembra" [class.btn-redondo-activo]="isHembra" (click)="seleccionarSexo(0)"><img src="assets/img/vaca.png"></ion-button>
                   </ion-col>
                   <ion-col col-sm-4>
-                     <button [class.btn-redondo]="isHembra" [class.btn-redondo-activo]="!isHembra" (click)="seleccionarSexo(1)"><img src="assets/img/toro.png"></button>
+                     <ion-button [class.btn-redondo]="isHembra" [class.btn-redondo-activo]="!isHembra" (click)="seleccionarSexo(1)"><img src="assets/img/toro.png"></ion-button>
                   </ion-col>
                 </ion-row>
 
@@ -137,14 +137,17 @@
         </ion-grid>
     </form>
     <ion-row *ngIf="compra!=4">
-      <ion-fab left top>
-          <button ion-fab color="dark" (click)="volver()">
-              <ion-icon name="arrow-back"></ion-icon>
-          </button>
-      </ion-fab>
+      
+  	<ion-fab vertical="bottom" horizontal="start">
+      <ion-fab-button color="dark"  (click)="volver()">
+        <ion-icon name="arrow-back" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
+          </ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
 
        <ion-col col-sm-12>
-          <button ion-button color="dark" (click)="guardaDatosAnimal()" full>Guardar</button>
+          <ion-button size="large" color="success" expand="block" (click)="guardaDatosAnimal()">Guardar</ion-button>
        </ion-col>
     </ion-row>
 

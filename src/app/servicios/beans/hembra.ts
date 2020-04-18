@@ -69,7 +69,6 @@ export class Hembra extends Animal{
             }  
         }     
         json["ascendenciaIds"]=arrayIds;
-
         json["sexo"]=Constantes.HEMBRA;
 
         return json;

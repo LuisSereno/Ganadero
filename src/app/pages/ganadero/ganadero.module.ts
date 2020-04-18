@@ -1,3 +1,4 @@
+import { GanadoServicio } from './../../servicios/ganado.service';
 import { IEExplotacion } from './../../servicios/beans/interfaces/explotacion.interface';
 import { IEDocumento } from './../../servicios/beans/interfaces/documento.interface';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
@@ -36,6 +37,9 @@ import { IEUsuario } from 'src/app/servicios/beans/interfaces/usuario.interface'
 import { ConexionGenericaService } from 'src/app/servicios/conexionGenerica.service';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
+import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
+import { Toast } from '@ionic-native/toast/ngx';
+import { OperacionServicio } from 'src/app/servicios/operacion.service';
 
 @NgModule({
   imports: [
@@ -50,9 +54,13 @@ import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
     AngularFireDatabaseModule
   ],providers: [
     ServicioDatos,
+    Toast,
+    ToastService,
     AuthService,
     UsuarioServicio,
     ExplotacionServicio,
+    GanadoServicio,
+    OperacionServicio,
     SafariViewController,
     { provide: 'UsuarioConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<{}>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'OperacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEOperacion>(dep1)), deps: [AngularFireDatabase] },

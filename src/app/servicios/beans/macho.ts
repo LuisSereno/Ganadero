@@ -51,7 +51,6 @@ export class Macho extends Animal{
         json["ascendenciaIds"]=arrayIds;
 
         json["sexo"]=Constantes.MACHO;
-        
         return json;
     }
 

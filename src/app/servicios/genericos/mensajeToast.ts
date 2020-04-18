@@ -1,13 +1,13 @@
 // ToastService.ts
 import { Injectable } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Toast, ToastOptions } from '@ionic-native/toast/ngx';
 
 @Injectable()
 export class ToastService {
 
   private toasts: any[] = [];
 
-  constructor(private toastCtrl: ToastController) {
+  constructor(private toastCtrl: Toast) {
   }
 
   async push(msg:string,clase:string) {
@@ -15,25 +15,33 @@ export class ToastService {
     var cssClass="";
      switch (clase) {
        case "CORRECTO":
-         cssClass= "toast-success";
+         cssClass= "#8bc34a";
          break;
        case "WARNING":
-         cssClass= "toast-warning";
+         cssClass= "#ffc107";
          break;
        case "ERROR":
-         cssClass= "toast-error";
+         cssClass= "#f44336";
          break;      
        default:
-         cssClass= "toast-success";
+         cssClass= "#8bc34a";
          break;
      }
 
-    let toast = await this.toastCtrl.create({
+
+    let optionsToast:ToastOptions={
         message: msg,
         duration: 15000,
-        cssClass: cssClass
-    });
-
+        styling: {
+          backgroundColor: cssClass
+        }
+    };
+    this.toastCtrl.showWithOptions(optionsToast).subscribe(
+      toast => {
+        console.log(toast);
+      }
+    );
+/*
     toast.onDidDismiss().then((r) => {
         console.log("toast result:", r);
         this.toasts.shift()
@@ -47,6 +55,7 @@ export class ToastService {
     if (this.toasts.length === 1) {
       this.show()
     }
+    */
   }
 
   show() {

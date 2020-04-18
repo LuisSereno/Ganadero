@@ -1,3 +1,4 @@
+import { GanadoServicio } from './../../servicios/ganado.service';
 import { IEExplotacion } from './../../servicios/beans/interfaces/explotacion.interface';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { Component, Input } from '@angular/core';
@@ -34,7 +35,7 @@ export class ListaGanado {
 
 	venta:number;
 
-  	constructor(public navCtrl: Router,protected params: ActivatedRoute,public servicio: ServicioDatos) {
+  	constructor(public navCtrl: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio) {
 
 	}
 	ngOnInit(){
@@ -188,7 +189,7 @@ export class ListaGanado {
 	
 	protected detalle(animalito:Animal){
 		if (this.venta==Constantes.INDEFINIDO){
-			this.navCtrl.navigate(['animal-detalle',{animal:animalito}]);
+			this.navCtrl.navigate(['ganadero/animal-detalle',{animal:animalito}]);
 		}
 	}
 
@@ -199,7 +200,7 @@ export class ListaGanado {
 		}else{
 			animalito=new Hembra(null,null,null,null,null,null,null,null,null,null,null,null,null);
 		}
-		this.navCtrl.navigate(['animal-nuevo',{animal:animalito}]);
+		this.navCtrl.navigate(['ganadero/animal-nuevo'],{queryParams:{"animal":JSON.stringify(animalito)}}); 
 	}
 
 
@@ -211,10 +212,11 @@ export class ListaGanado {
 		for (let value in this.checkedItemsMachos){
 			arrayAnimales.push(this.arrayMachos[value]);
 		}
-		this.navCtrl.navigate(['listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
+		this.navCtrl.navigate(['ganadero/listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
 	}
 
 	private llamadaServicio(){
+		/*
 		this.servicio.obtenerDatosGanado(this.servicio.getExplotacion().id).subscribe((data:any) => {
 			this.arrayHembras= new Array<Hembra>();
 			this.arrayMachos= new Array<Macho>();
@@ -238,7 +240,7 @@ export class ListaGanado {
 		    console.log("Errr al obtener los datos del ganado!");
 		    console.log(err);
 		});
-
+*/
 	}
 	
 
