@@ -1,0 +1,22 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label>
+      <ion-icon name="{{tipo!=null &&  tipo?'chevron-down-circle-outline':'chevron-up-circle-outline'}}"></ion-icon>{{texto}}
+    </ion-label>
+  </ion-list-header>
+  <ion-select [(ngModel)]="animalesSelecionados" multiple="{{tipo}}" (ngModelChange)="onChange(true)" (click)="prepareImageSelector()"  [compareWith]="compareById">
+      <ion-select-option *ngFor="let animal of this.model"  value="{{animal.id}}">
+      {{animal!=null &&  animal.alias!=""?animal.alias:animal.numero}}
+      </ion-select-option>
+  </ion-select> 
+</ion-list>
+
+<!--
+<ion-item>
+  <ion-label>Hembra</ion-label>
+  <ion-select [(ngModel)]="hembra" multiple="{{tipo}}" (ngModelChange)="onChange(false)">
+	<ion-select-option *ngFor="let hembrita of this.hembra" [value] = "hembrita.id" 
+	>{{hembrita.numero}}</ion-select-option>
+  </ion-select>
+</ion-item>
+-->
