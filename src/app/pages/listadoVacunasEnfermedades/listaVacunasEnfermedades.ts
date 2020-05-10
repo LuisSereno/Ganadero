@@ -4,7 +4,7 @@ import { Component,EventEmitter, Input,Output  } from '@angular/core';
   selector: 'my-list-vacunasenfermedades',
   template:`
       <ion-item>
-        <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>{{texto}}</ion-label>
+        <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>{{texto}}</ion-label>
         <ion-input type="string" #elementoVacuna></ion-input>
         <button ion-button clear item-right (click)='anadirElementoArray(elementoVacuna)'>
             <ion-icon name="add-circle"></ion-icon>

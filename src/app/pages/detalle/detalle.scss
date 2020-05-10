@@ -1,5 +1,5 @@
-.page1 {
-
+.text-center{
+  text-align: center;
 }
 
 .tamanoreal{
@@ -7,21 +7,8 @@
 	margin: 0 auto;
 }
 
-
-.toast-success {
-  > div{
-       background-color:#8bc34a!important;
-   }
-}
-
-.toast-error {
-  > div{
-       background-color:#f44336!important;
-   }
-}
-
-.toast-warning {
-  > div{
-       background-color:#ffc107!important;
-   }
+.tam_image_animal{
+  width: 10vw;
+  margin: auto;
+  display: block;
 }

@@ -1,3 +1,5 @@
+import { ExplotacionServicio } from './../../servicios/explotacion.service';
+import { IEIdentification } from './../../servicios/beans/interfaces/identification.interface';
 import { GanadoServicio } from './../../servicios/ganado.service';
 import { IEExplotacion } from './../../servicios/beans/interfaces/explotacion.interface';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
@@ -21,13 +23,9 @@ export class ListaGanado {
 
 	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
 
-	explotacion:IEExplotacion;
+	explotacion:Explotacion;
 
 	tipoMostrado: string = "hembras";
-
-	arrayHembras: Array<IEAnimal>;
-
-	arrayMachos: Array<IEAnimal>;
 
 	checkedItemsHembras:boolean[];
 
@@ -35,15 +33,38 @@ export class ListaGanado {
 
 	venta:number;
 
-  	constructor(public navCtrl: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio) {
+	  constructor(public navCtrl: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio,
+		public explotacionServ: ExplotacionServicio) {
 
 	}
 	ngOnInit(){
-		this.explotacion=new Explotacion();
+		this.venta=Constantes.INDEFINIDO;
+		if(this.explotacionServ.explotacionSeleccionada){
+			this.explotacion=this.explotacionServ.encontrarExplotacion(this.explotacionServ.explotacionSeleccionada);
+		}else{
+			this.explotacion = new Explotacion();
+		}
 	}
 
 	ionViewWillEnter (){
-		this.explotacion=JSON.parse(this.params.snapshot.queryParams.explotacion);
+		this.explotacion=this.explotacionServ.encontrarExplotacion(this.explotacionServ.explotacionSeleccionada);
+		this.ganadoServicio.obtenerDatosGanadoIds(this.explotacion.arrayIdAnimales)
+		.then((data:IEAnimal[]) => {
+			this.explotacion.arrayMachos=new Array<IEAnimal>();
+			this.explotacion.arrayHembras=new Array<IEAnimal>();
+			for(let animal of data){
+				if(animal){
+					if (animal.sexo==Constantes.MACHO){
+						this.explotacion.arrayMachos.push(Macho.fromJSON(animal));
+					}else{
+						this.explotacion.arrayHembras.push(Hembra.fromJSON(animal));
+					}
+				}
+			}
+			this.ganadoServicio.ganado=data;
+		})
+		.catch(e=>console.error("Animales no encontrados",e));
+		
 		/*
 		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
 				let animalesTotales:Array<Animal>=JSON.parse(this.params.snapshot.paramMap.get("animales"));
@@ -91,19 +112,32 @@ export class ListaGanado {
 */
 	}
 
+	protected getFotoAnimal(anim:Animal) {
+		if (anim.foto) {
+			return anim.foto;
+		} else {
+			if (anim instanceof Macho) {
+				return "assets/img/toro.png";
+			} else {
+				return "assets/img/vaca.png";
+			}
+		}
+	}
+
+
 	private transformIdAnimal(){
 		var animalCompleto=null;
-		for (let hem of this.arrayHembras){
+		for (let hem of this.explotacion.arrayHembras){
 			let arrayVacio:Array<IEAnimal>=new Array<Animal>();
 			if (hem.ascendencia!=null){
 				for (let dat of hem.ascendencia){
-					animalCompleto = this.arrayHembras.find(hemb =>
+					animalCompleto = this.explotacion.arrayHembras.find(hemb =>
 					         +hemb.id === +dat
 					         );
 					if (animalCompleto){
 						dat=animalCompleto;
 					}else{
-						animalCompleto = this.arrayMachos.find(hemb =>
+						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
 						         );		
 						if (animalCompleto){
@@ -120,13 +154,13 @@ export class ListaGanado {
 			}
 			if (hem.descendencia!=null){
 				for (let dat of hem.descendencia){
-					animalCompleto = this.arrayHembras.find(hemb =>
+					animalCompleto = this.explotacion.arrayHembras.find(hemb =>
 					         +hemb.id === +dat
 					         );
 					if (animalCompleto){
 						dat=animalCompleto;
 					}else{
-						animalCompleto = this.arrayMachos.find(hemb =>
+						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
 						         );		
 						if (animalCompleto){
@@ -140,17 +174,17 @@ export class ListaGanado {
 				hem.descendencia = arrayVacio;
 			}
 		}
-		for (let mach of this.arrayMachos){
+		for (let mach of this.explotacion.arrayMachos){
 			let arrayVacio:Array<IEAnimal>=new Array<Animal>();
 			if (mach.ascendencia!=null){
 				for (let dat of mach.ascendencia){
-					animalCompleto = this.arrayHembras.find(hemb =>
+					animalCompleto = this.explotacion.arrayHembras.find(hemb =>
 					         +hemb.id === +dat
 					         );
 					if (animalCompleto){
 						dat=animalCompleto;
 					}else{
-						animalCompleto = this.arrayMachos.find(hemb =>
+						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
 						         );		
 						if (animalCompleto){
@@ -165,13 +199,13 @@ export class ListaGanado {
 			}
 			if (mach.descendencia!=null){
 				for (let dat of mach.descendencia){
-					animalCompleto = this.arrayHembras.find(hemb =>
+					animalCompleto = this.explotacion.arrayHembras.find(hemb =>
 					         +hemb.id === +dat
 					         );
 					if (animalCompleto){
 						dat=animalCompleto;
 					}else{
-						animalCompleto = this.arrayMachos.find(hemb =>
+						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
 						         );		
 						if (animalCompleto){
@@ -189,30 +223,56 @@ export class ListaGanado {
 	
 	protected detalle(animalito:Animal){
 		if (this.venta==Constantes.INDEFINIDO){
-			this.navCtrl.navigate(['ganadero/animal-detalle',{animal:animalito}]);
+			this.navCtrl.navigate(['ganadero/animal-detalle',animalito.id]);
 		}
 	}
 
 	protected nuevo(sexo:number){
-		var animalito:Animal;
+/*		var animalito:Animal;
 		if (sexo==Constantes.MACHO){
 			animalito=new Macho(null,null,null,null,null,null,null,null,null,null,null,null);
 		}else{
 			animalito=new Hembra(null,null,null,null,null,null,null,null,null,null,null,null,null);
 		}
-		this.navCtrl.navigate(['ganadero/animal-nuevo'],{queryParams:{"animal":JSON.stringify(animalito)}}); 
+
+		*/
+
+		this.navCtrl.navigate(['ganadero/animal-nuevo'],{queryParams:{"explotacionID":this.explotacion.id,
+																	  "animalID":null,
+																	  "sexo":sexo,}}); 
 	}
 
 
 	protected enviarResultadoAVentas(){
 		var arrayAnimales: Array<IEAnimal>=new Array<Animal>();
 		for (let value in this.checkedItemsHembras){
-			arrayAnimales.push(this.arrayHembras[value]);
+			arrayAnimales.push(this.explotacion.arrayHembras[value]);
 		}
 		for (let value in this.checkedItemsMachos){
-			arrayAnimales.push(this.arrayMachos[value]);
+			arrayAnimales.push(this.explotacion.arrayMachos[value]);
 		}
 		this.navCtrl.navigate(['ganadero/listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
+	}
+
+	protected anadeAnimal(anim:IEAnimal){
+		if (anim instanceof Macho) {
+			if (!this.explotacion.arrayMachos){
+				this.explotacion.arrayMachos= new Array<IEAnimal>();
+			}
+			this.explotacion.arrayMachos.push(anim);
+		} else {
+			if (!this.explotacion.arrayHembras){
+				this.explotacion.arrayHembras= new Array<IEAnimal>();
+			}	
+			this.explotacion.arrayHembras.push(anim);	
+		}
+		if (!this.explotacion.arrayIdAnimales) {
+			this.explotacion.arrayIdAnimales= new Array<IEIdentification>();
+		}
+		this.explotacion.arrayIdAnimales.push({ id: anim.id });
+		this.explotacionServ.actualizarExplotacion(this.explotacion).then((explo:IEExplotacion)=>{
+			console.log("El animal ha sido sincronizado con la explotacion");
+		}).catch(err=>console.error("El animal no ha sido sincronizado con la explotacion",err));
 	}
 
 	private llamadaServicio(){

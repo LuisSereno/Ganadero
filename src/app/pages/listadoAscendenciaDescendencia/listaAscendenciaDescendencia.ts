@@ -1,12 +1,15 @@
+import { IEIdentification } from './../../servicios/beans/interfaces/identification.interface';
+import { Constantes } from './../../servicios/genericos/constantes';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { Component,EventEmitter, Input,Output   } from '@angular/core';
-import {ServicioDatos} from '../../servicios/serviciodatos';
 import {Animal} from '../../servicios/beans/animal'
 import {Macho} from '../../servicios/beans/macho'
+import { GanadoServicio } from 'src/app/servicios/ganado.service';
 //import {Hembra} from '../../servicios/beans/hembra'
 
 @Component({
   selector: 'my-list-opcionesAscDesc',
+  styleUrls: ['./listaAscendenciaDescendencia.scss'],
   templateUrl: 'listaAscendenciaDescendencia.html'
 })
 
@@ -17,29 +20,19 @@ export class AscDesc {
 
   @Input() texto: string;
 
-  macho:Array<string>;
+  @Input() animalesSelecionados: Array<IEAnimal>;
 
-  hembra:Array<string>;
-
-  @Output() arraySalida = new EventEmitter<Array<IEAnimal>>();
-
-  constructor(public servicio: ServicioDatos) {
-    console.log("entra en el constructor de listaAscendenciaDescendencia");
-    this.macho=new Array<string>();
-    this.hembra=new Array<string>();
+  @Output() animalesSelecionadosChange = new EventEmitter<Array<IEAnimal>>();
+  
+  constructor(private servicio: GanadoServicio) {
+    
   }
 
   ngAfterContentInit(){
-    console.log("ENTRA EN EL ngAfterContentInit listaAscendenciaDescendencia ");
-    console.log(this.model);
     if (this.model){
-      for (let anim of this.model){
-        if (anim instanceof Macho){
-          this.macho.push(anim.id);
-        }else{
-          this.hembra.push(anim.id);
-        }
-      }
+      this.model = this.model.filter(function( element ) {
+        return element !== undefined;
+     });
     }
   }
 
@@ -50,7 +43,7 @@ export class AscDesc {
    var arrayAux:Array<string>;
    //vaciamos el array de model para que no se solapen vacas y toros y no haya mas de la cuenta
    this.model=new Array<Animal>();
-
+/*
     if (this.macho && !(this.macho instanceof Array)){
       arrayAux=new Array<string>();
       arrayAux.push(this.macho);
@@ -63,14 +56,14 @@ export class AscDesc {
     }
 
       for (let i of this.macho){
-        let ani=this.servicio.getExplotacion().arrayMachos.find(x => x.id == i);
+        let ani=this.servicio.ganado.find(x => x.id == i);
         if (ani){
           this.model.push(ani);
         }
       }
 
      for (let i of this.hembra){
-        let ani=this.servicio.getExplotacion().arrayHembras.find(x => x.id == i);
+        let ani=this.servicio.ganado.find(x => x.id == i);
         if (ani){
           this.model.push(ani);
         }
@@ -79,14 +72,13 @@ export class AscDesc {
     console.log(this.model);
 
      this.arraySalida.emit(this.model);
-  
+  */
+    this.animalesSelecionadosChange.emit(this.animalesSelecionados);
   }
 
   comprobarDentroArray(animal:Animal):boolean{
     if (this.model){
       let ani:IEAnimal =  this.model.find(x => x.id == animal.getId());
-      console.log("luisin");
-      console.log(ani);
       if (ani){
         return true;
       }else{
@@ -96,5 +88,54 @@ export class AscDesc {
       return false;
     }
 
+  }
+
+  protected getFotoAnimal(animal:Animal) {
+		if (animal.foto) {
+			return animal.foto;
+		} else {
+			if (animal instanceof Macho) {
+				return "assets/img/toro.png";
+			} else {
+				return "assets/img/vaca.png";
+			}
+		}
+  }
+
+  prepareImageSelector() {
+    setTimeout(() => {
+        let buttonElements = document.querySelectorAll('div.alert-radio-group button');
+        if (!buttonElements.length) {
+            this.prepareImageSelector();
+        } else {
+            for (let index = 0; index < buttonElements.length; index++) {
+                let buttonElement = buttonElements[index];
+                let optionLabelElement = buttonElement.querySelector('.alert-radio-label');
+                let image = optionLabelElement.innerHTML.trim();
+
+                let anim:IEAnimal= this.model.find(x => {
+                  if (x.alias == image){
+                    return x;
+                  }else if (x.numero.toString() == image){
+                    return x;
+                  }
+                });
+                if (anim.sexo==Constantes.MACHO){
+                  optionLabelElement.innerHTML='<img src="assets/img/toro.png" style="width: 2vw;">'+ image;
+                }else{
+                  optionLabelElement.innerHTML='<img src="assets/img/vaca.png" style="width: 2vw;">'+ image;
+                }
+            }
+        }
+    }, 100);
+}
+  
+  compareById(o1, o2) {
+    try{
+      return o1 === o2.id
+    }catch(e){
+      console.error("no se puede comparar",e)
+    }
+    return false;
   }
 }

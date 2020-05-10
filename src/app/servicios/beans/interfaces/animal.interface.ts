@@ -18,11 +18,11 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 
 	enfermedades ?: Array<string>;
 
-	ascendencia: Array<IEAnimal>;
+	ascendencia?: Array<IEAnimal>;
 
 	descendencia ?: Array<IEAnimal>;
 
-	ascendenciaIds: Array<string>;
+	ascendenciaIds ?: Array<string>;
 
 	descendenciaIds ?: Array<string>;
 
@@ -31,5 +31,7 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 	precioVenta ?: number;
 
 	fechaUltimoNacimiento ?: Date;
+
+	sexo: number;
 
 }

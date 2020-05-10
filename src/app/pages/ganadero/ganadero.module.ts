@@ -40,6 +40,8 @@ import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
 import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
 import { Toast } from '@ionic-native/toast/ngx';
 import { OperacionServicio } from 'src/app/servicios/operacion.service';
+import { ToastBrowserService } from 'src/app/servicios/genericos/mensajeToastBrowser';
+import { ToastNativeService } from 'src/app/servicios/genericos/mensajeToastNative';
 
 @NgModule({
   imports: [
@@ -56,6 +58,8 @@ import { OperacionServicio } from 'src/app/servicios/operacion.service';
     ServicioDatos,
     Toast,
     ToastService,
+    ToastBrowserService,
+    ToastNativeService,
     AuthService,
     UsuarioServicio,
     ExplotacionServicio,

@@ -32,29 +32,13 @@ export class Macho extends Animal{
     }
 
     toJSON():{} {
-        var json=Object.assign({}, this);
-        var arrayIds:Array<string>=new Array<string>();
-        
-        if (this.getDescendencia()){
-            for (let anim of this.getDescendencia()){
-                arrayIds.push(anim.id);
-            }            
-        }
-        json["descendenciaIds"]=arrayIds;
-        
-        arrayIds=new Array<string>();
-        if (this.getAscendencia()){
-            for (let anim of this.getAscendencia()){
-                arrayIds.push(anim.id);
-            }   
-        }    
-        json["ascendenciaIds"]=arrayIds;
+        const { ascendencia,descendencia, ...rest } = this;
+        const projectedObject = rest;
 
-        json["sexo"]=Constantes.MACHO;
-        return json;
+        return projectedObject;
     }
 
-    static fromJSON(json: Macho|string): Macho {
+    static fromJSON(json: IEAnimal|string): Macho {
         console.log("FROMJSON MACHO");
         console.log(json);
         if (typeof json === 'string') {
@@ -62,7 +46,7 @@ export class Macho extends Animal{
         } else {
             let mach = Object.create(Macho.prototype);
             return Object.assign(mach, json,{
-                id:json["identificador"],
+                id:json["id"],
                 fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]) ,        
                 metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])
 

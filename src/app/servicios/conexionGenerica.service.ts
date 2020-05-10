@@ -45,6 +45,7 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
   addObjectWithoutID(genericObject: K): Promise<K> {
     const _this = this; 
     return new Promise((resolve, reject) => {
+      console.log("llama firebase WITHOUT ID" ,genericObject);
       this.genericObjectsCollection.push(genericObject).then(function(newReference){
         console.log(newReference.key);
         genericObject.id=newReference.key;
@@ -60,6 +61,7 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
   addObjectWithID(genericObject: K, id:string):Promise<void>{
     const _this = this; 
     return new Promise((resolve, reject) => {
+      console.log("llama firebase WITH ID", id ,genericObject);
       this.genericObjectsCollection.set(id,genericObject).then(function(newReference){
         genericObject.id=id;
         _this.updateObject(genericObject);
@@ -72,6 +74,7 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
   }
 
   updateObject(genericObject: K): Promise<void> {
+    console.log("llama firebase update WITH ID", genericObject.id ,genericObject);
     return this.genericObjectsCollection.update(genericObject.id,genericObject);
   }
  

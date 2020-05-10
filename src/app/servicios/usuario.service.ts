@@ -44,7 +44,6 @@ export class UsuarioServicio  implements IEusuarioServicio{
     actualizarUsuario(usuario: IEUsuario): Promise<IEUsuario> {
         return new Promise((resolve, reject) => {
             this.conn.updateObject(usuario).then(function(docRef) {
-                console.log("Document update" , docRef);
                 resolve(usuario);
             })
             .catch(function(error) {

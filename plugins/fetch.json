@@ -75,5 +75,13 @@
       "ANDROID_HOST": "YOUR_DOMAIN",
       "ANDROID_PATHPREFIX": "/cordova/com.serenapp.ganadero/callback"
     }
+  },
+  "cordova-plugin-x-toast": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-x-toast@^2.7.2"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

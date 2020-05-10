@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { RoutingState } from './routing-state.service';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +15,17 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    routingState: RoutingState
   ) {
-    console.log("CONSTRUCTOR APPCOMPONENT");
+    routingState.loadRouting();
     this.initializeApp();
   }
 
   initializeApp() {
-    console.log("initializeApp APPCOMPONENT");
     this.platform.ready().then(() => {
-      console.log("initializeApp2 APPCOMPONENT");
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
   }
 }

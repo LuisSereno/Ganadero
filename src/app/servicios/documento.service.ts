@@ -22,7 +22,6 @@ export class DocumentoServicio implements IEDocumentoServicio {
   }
 
   listarDocumentos(idExplotacion: number) {
-    console.log("entra en obtenerDatosGanado");
     let params: HttpParams  = new HttpParams ();
     params.set('idExplotacion', idExplotacion.toString());
     params.set('key', Constantes.KEY_ID_STORAGE);
@@ -32,10 +31,8 @@ export class DocumentoServicio implements IEDocumentoServicio {
   guardaDocumento(explotacion: IEExplotacion): Promise<IEDocumento> {
     var url:string="/ganadero/documento/anadir";
     try{     
-      console.log(this.documento.toJSON());
       return new Promise<IEDocumento>((resolve, reject) => {  
         this.httpLocal.post(Constantes.URL_WEBSERVICES +url + Constantes.PARAMETROS_KEY_POST, {documentos: [this.documento.toJSON()],idExplotacion:explotacion.id}).subscribe((data:any) => {
-            console.log("todo correcto");
             this.documento.id=data.content;
             resolve(this.documento);
         },err => {
@@ -45,14 +42,13 @@ export class DocumentoServicio implements IEDocumentoServicio {
         });
     });
     }catch(ex){
-      console.log(ex);
+      console.error(ex);
     }
   }
 
   obtenerURLSubida(email: string): string {
     let fichero= this.documento.metadatoFechaMod.toISOString() + "_" + email + "_" + this.documento.nombre;
     let url= Constantes.URL_STORAGE_UPDATE + "/b/" + Constantes.BUCKET_STORAGE + "/o" + Constantes.PARAMETROS_KEY_POST  + "&uploadType=media&name=" + encodeURI(fichero);
-    console.log("URL LOCA SERENO: " + url);
     return url;
   }
   
@@ -63,7 +59,7 @@ export class DocumentoServicio implements IEDocumentoServicio {
       this.httpLocal.get(url).subscribe((data:any) => {
         resolve(data.mediaLink); 
       },err => {
-        console.log("Errr al obtener los datos de la venta del ganado!" + err);
+        console.error("Errr al obtener los datos de la venta del ganado!" + err);
         reject(err);
       });
     });

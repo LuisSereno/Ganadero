@@ -35,7 +35,7 @@ export class Hembra extends Animal{
                 this.fechaUltimoNacimiento=null;
             }
         }catch(e){
-            console.error(e);
+            console.warn(e);
         }finally{
             return this.fechaUltimoNacimiento;
         }
@@ -52,37 +52,20 @@ export class Hembra extends Animal{
 
 
     toJSON():{} {
-        var json=Object.assign({}, this);
-        var arrayIds:Array<string>=new Array<string>();
-        if (this.getDescendencia()){
-            for (let anim of this.getDescendencia()){
-                arrayIds.push(anim.id);
-            }
-        }
-        json["descendenciaIds"]=arrayIds;
-
-        arrayIds=new Array<string>();
-        
-        if (this.getAscendencia()){
-            for (let anim of this.getAscendencia()){
-                arrayIds.push(anim.id);
-            }  
-        }     
-        json["ascendenciaIds"]=arrayIds;
-        json["sexo"]=Constantes.HEMBRA;
-
-        return json;
+        const { ascendencia,descendencia, ...rest } = this;
+        const projectedObject = rest;
+        return projectedObject;
     }
 
     // fromJSON is used to convert an serialized version
     // of the User to an instance of the class
-    static fromJSON(json: Hembra|string): Hembra {
+    static fromJSON(json: IEAnimal|string): Hembra {
         if (typeof json === 'string') {
             return JSON.parse(json, Hembra.reviver);
         } else {
             let hemb = Object.create(Hembra.prototype);
             return Object.assign(hemb, json,{
-                id:json["identificador"],
+                id:json["id"],
                 fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]),
                 fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==undefined || json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"]),
                 metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])

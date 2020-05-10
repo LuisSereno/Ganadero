@@ -1,7 +1,12 @@
+import { Explotacion } from 'src/app/servicios/beans/explotacion';
+import { IEExplotacion } from 'src/app/servicios/beans/interfaces/explotacion.interface';
+import { IEIdentification } from './../../servicios/beans/interfaces/identification.interface';
+import { ExplotacionServicio } from './../../servicios/explotacion.service';
+import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { UsuarioServicio } from './../../servicios/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Hembra } from '../../servicios/beans/hembra'
 import { Macho } from '../../servicios/beans/macho'
 import { Animal } from '../../servicios/beans/animal'
@@ -24,6 +29,8 @@ import { OperacionServicio } from 'src/app/servicios/operacion.service';
 export class Nuevo {
 
 	animal: Animal;
+
+	explotacionId: string;
 
 	isHembra: boolean;
 
@@ -53,29 +60,26 @@ export class Nuevo {
 
 	public submitAttempt: boolean = false;
 
-
 	//@ViewChild('scannedImg') private scannedImg: ElementRef;
 
 	private recognizedText: string;
 
-	constructor(public navCtrl: Router, params: ActivatedRoute,
+	constructor(public navCtrl: Router, public params: ActivatedRoute,
 		private toastCtrl: ToastService, public modalCtrl: ModalController,
 				/*private camera: Camera ,*/ public loadingCtrl: LoadingController,
 		protected compraVenta: OperacionServicio, /*private diagnostic:Diagnostic,*/
 		private formBuilder: FormBuilder, public ganadoServicio: GanadoServicio,
-		private location: Location, private usuario: UsuarioServicio) {
+		private location: Location, private usuario: UsuarioServicio
+		, private explotacion: ExplotacionServicio) {
+	}
 
-		/*this.options= {
-			sourceType: this.camera.PictureSourceType.CAMERA  ,
-	        destinationType: this.camera.DestinationType.DATA_URL,
-	        encodingType: this.camera.EncodingType.PNG,
-	        quality: 100,
-	        targetWidth: 200,
-	        targetHeight: 300,
-	        allowEdit:true,
-	        correctOrientation:true,
-	        saveToPhotoAlbum:true
-		}*/
+	ngOnInit() {
+
+
+		this.arrayDescendencia = new Array<Animal>();
+		this.arrayAscendencia = new Array<Animal>();
+		this.fechaNacimiento = "";
+		this.fechaUltimoNacimiento = "";
 
 		this.formularioAnimal = this.formBuilder.group({
 			numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
@@ -84,12 +88,12 @@ export class Nuevo {
 			fechaNacimiento: ['value', Validators.compose([Validators.required])]
 		});
 
-		if (params.snapshot.queryParams.compra) {
-			this.compra = JSON.parse(params.snapshot.queryParams.compra);
+		if (this.params.snapshot.queryParams.compra) {
+			this.compra = JSON.parse(this.params.snapshot.queryParams.compra);
 			if (this.compra != Constantes.COMPRA_COMPRA) {
 				this.compra = Constantes.INDEFINIDO;
-				let valueParse = JSON.parse(params.snapshot.queryParams.animal);
-				this.animal= valueParse.sexo===Constantes.MACHO?Macho.fromJSON(valueParse):Hembra.fromJSON(valueParse);
+				let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
+				this.animal = valueParse.sexo === Constantes.MACHO ? Macho.fromJSON(valueParse) : Hembra.fromJSON(valueParse);
 			} else {
 				this.compraVenta.esCompra(false);
 				this.animal = new Macho(null, null, null, null, 0, null, null, null, null, null, null, null);
@@ -97,20 +101,29 @@ export class Nuevo {
 			}
 		} else {
 			this.compra = Constantes.INDEFINIDO;
-			let valueParse = JSON.parse(params.snapshot.queryParams.animal);
-			this.animal= valueParse.sexo===Constantes.MACHO?Macho.fromJSON(valueParse):Hembra.fromJSON(valueParse);
+			this.explotacionId = this.explotacion.explotacionSeleccionada.id;
+			if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
+				this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null);
+				this.animal.sexo= Constantes.MACHO;
+			} else {
+				this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);
+				this.animal.sexo= Constantes.HEMBRA;
+			}
+			if (this.params.snapshot.queryParams.animalID){
+				let ieAnimalito:IEAnimal=this.ganadoServicio.encontrarAnimal({id:this.params.snapshot.queryParams.animalID});
+				let animalito:Animal;
+				if (ieAnimalito.sexo == Constantes.MACHO) {
+					animalito = Macho.fromJSON(ieAnimalito);
+				} else {
+					animalito = Hembra.fromJSON(ieAnimalito);
+				}
+				this.arrayAscendencia.push(animalito);
+			}
 		}
-
-		this.arrayDescendencia = new Array<Animal>();
-		this.arrayAscendencia = new Array<Animal>();
-		this.fechaNacimiento = "";
-		this.fechaUltimoNacimiento = "";
 	}
 
 
 	ionViewDidLoad() {
-
-		console.log("No sabemos que guardar aqui");
 		// picture options
 		this.pictureOpts = {
 			width: 1280,
@@ -143,23 +156,39 @@ export class Nuevo {
 	protected guardaDatosAnimal() {
 		this.submitAttempt = true;
 		if (this.formularioAnimal.valid) {
-			this.animal.descendencia = this.arrayDescendencia;
-			this.animal.ascendencia = this.arrayAscendencia;
+			//this.animal.descendencia = this.arrayDescendencia;
+			//this.animal.ascendencia = this.arrayAscendencia;
+			this.animal.ascendenciaIds = this.arrayAscendencia.map(anim=>{return anim.id});
+
 			this.animal.fechaNacimiento = new Date(String(this.fechaNacimiento));
 			if (this.animal instanceof Hembra) {
 				this.animal.fechaUltimoNacimiento = new Date(String(this.fechaUltimoNacimiento));
 			}
 			this.animal.metadatoFechaMod = new Date();
 			this.animal.metadatoEmail = this.usuario.usuario.email;
-			console.log("Animal!!!" + this.animal);
+			console.log("GUARDA NUEVO", this.animal);
 			if (!this.compra) {
-				let correcto = this.ganadoServicio.guardaModificaAnimal(true, this.animal);
-				if (correcto) {
-					this.vaciarFormulario();
-					this.toastCtrl.push("Guardado correcto", "CORRECTO");
-				} else {
+				this.ganadoServicio.guardaAnimal(this.animal).then(data => {
+					this.animal.id=data.id
+					this.ganadoServicio.ganado.push(data);
+					let explo: Explotacion = new Explotacion().fromJSON(this.explotacion.encontrarExplotacion({ id: this.explotacionId }));
+					if (!explo.arrayIdAnimales) {
+						explo.arrayIdAnimales = new Array<IEIdentification>();
+					}
+					explo.arrayIdAnimales.push({ id: data.id });
+					this.actualizarDatosAscendencia();
+					this.explotacion.actualizarExplotacion(explo).then(data => {
+						this.vaciarFormulario();
+						this.toastCtrl.push("Guardado correcto", "CORRECTO");
+						this.volver();
+					}).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err); });
+				}, err => {
+					console.error("Errr al guardar los datos del animal!", err);
 					this.toastCtrl.push("Error al guardar", "ERROR");
-				};
+				}).catch(err => {
+					console.error("Errr al guardar los datos del animal!", err);
+					this.toastCtrl.push("Error al guardar", "ERROR");
+				});
 			} else {
 				this.arrayAnimales.push(this.animal);
 				this.vaciarFormulario();
@@ -169,6 +198,21 @@ export class Nuevo {
 		}
 	}
 
+	actualizarDatosAscendencia(){
+		for(let anim of this.arrayAscendencia){
+			console.log("ACTUALIZA", anim);
+
+			/*if (!anim.getDescendencia()){
+				anim.setDescendencia(new Array<IEAnimal>());
+			}
+			anim.getDescendencia().push(this.animal);*/
+			if (!anim.descendenciaIds){
+				anim.descendenciaIds=new Array<string>();
+			}
+			anim.descendenciaIds.push(this.animal.id);
+			this.ganadoServicio.actualizarAnimal(anim);
+		}
+	}
 
 	isInstanceOfHembra(objeto: Animal): boolean {
 		return objeto instanceof Hembra;
@@ -215,8 +259,6 @@ export class Nuevo {
 			this.isHembra = false;
 			objetoCast = Macho.fromJSON(this.animal.toJSON() as Macho);
 		}
-		console.log("EL OBJETO ES:");
-		console.log(objetoCast);
 		this.animal = objetoCast;
 
 	}
@@ -284,7 +326,6 @@ export class Nuevo {
 	}
 
 	changeEffect() {
-		console.log("Estamos aqui2");
 		this.analyze();
 		// Create an array with 5 effects
 		/*   let effects: any = ['none', 'negative','mono', 'aqua', 'sepia'];
@@ -297,7 +338,6 @@ export class Nuevo {
 	}
 
 	holawola() {
-		console.log("Estamos aqui3");
 		/*
 		// Switch camera
 		this.cameraPreview.switchCamera();

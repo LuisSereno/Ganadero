@@ -27,7 +27,11 @@ export class DetalleExplotacion {
 	}
 
 	ngOnInit() {
-		this.explota = new Explotacion();
+		if(this.explotacion.explotacionSeleccionada){
+			this.explota=this.explotacion.encontrarExplotacion(this.explotacion.explotacionSeleccionada);
+		}else{
+			this.explota = new Explotacion();
+		}
 	}
 
 	protected salir() {
@@ -68,4 +72,7 @@ export class DetalleExplotacion {
 		});
 	}
 
+	protected cambiaExplotacion(){
+		this.router.navigate(['ganadero/listado-explotaciones']);
+	}
 }

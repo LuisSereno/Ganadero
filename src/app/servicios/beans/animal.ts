@@ -36,6 +36,8 @@ export abstract class Animal implements IEAnimal{
 
 	fechaUltimoNacimiento ?: Date;
 	
+	sexo: number;
+	
 	constructor() {
 		this.id = "";
 		this.alias="";
@@ -47,9 +49,12 @@ export abstract class Animal implements IEAnimal{
 		this.enfermedades=new Array<string>();
 		this.ascendencia=new Array<IEAnimal>();
 		this.descendencia=new Array<IEAnimal>();
+		this.ascendenciaIds=new Array<string>();
+		this.descendenciaIds=new Array<string>();
 		this.precioCompra=0;
 		this.precioVenta=0;
 	}
+	
 
 	public getId(): string {
 		return this.id;

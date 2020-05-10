@@ -4,15 +4,17 @@ import { IEExplotacion } from './beans/interfaces/explotacion.interface';
 import { ConexionGenericaService } from './conexionGenerica.service';
 import { Constantes } from './genericos/constantes';
 import { IEIdentification } from './beans/interfaces/identification.interface';
-import { isDate } from 'util';
 
 @Injectable()
 export class ExplotacionServicio  implements IEexplotacionServicio{
 
     explotaciones: Array<IEExplotacion>;
 
+    explotacionSeleccionada: IEIdentification;
+
 	constructor(@Inject('ExplotacionConexionServicio') private conn: ConexionGenericaService<IEExplotacion>) {
         this.conn.crearConexion(Constantes.prefixDatabaseProject + "explotaciones") ;
+        this.explotaciones=new Array<IEExplotacion>();
     }
     
     obtenerDatosExplotacion(explotacion: IEExplotacion): Promise<IEExplotacion> {
@@ -56,7 +58,7 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
     guardaExplotacion(explo: IEExplotacion): Promise<IEExplotacion> {
         return new Promise((resolve, reject) => {
             this.conn.addObjectWithoutID(explo).then(function(docRef) {
-                resolve(explo);
+                resolve(docRef);
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
@@ -67,9 +69,11 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
     }
 
     actualizarExplotacion(explo: IEExplotacion): Promise<IEExplotacion> {
+        var explotacion=this.explotaciones;
         return new Promise((resolve, reject) => {
             this.conn.updateObject(explo).then(function(docRef) {
-                console.log("Document update", docRef);
+                let index = explotacion.findIndex(x => x.id === explo.id);
+                explotacion[index] = explo;
                 resolve(explo);
             })
             .catch(function(error) {
@@ -78,5 +82,11 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
             });;
         });
     }
+
+    encontrarExplotacion(explo:IEIdentification):IEExplotacion{
+        return this.explotaciones.find(x => x.id == explo.id);
+    }
+
+    
 
 }

@@ -4,7 +4,7 @@
         <ion-grid>
             <ion-row>
             	<ion-item>
-                    <ion-label floating>
+                    <ion-label position="floating">
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre 
                     </ion-label>
                       <ion-input type="string" [(ngModel)]="operacion.agrupacion"></ion-input>
@@ -12,7 +12,7 @@
          	</ion-row>
              <ion-row>
                 <ion-item class="text-label">
-                  <ion-label floating><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
+                  <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
                   </ion-label>
                 
                     <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>
@@ -20,7 +20,7 @@
          	</ion-row>
             <ion-row>
                   <ion-item  class="text-label">
-                    <ion-label floating>
+                    <ion-label position="floating">
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio 
                     </ion-label>
                       <ion-input type="number"  [(ngModel)]="operacion.precio" disabled></ion-input>

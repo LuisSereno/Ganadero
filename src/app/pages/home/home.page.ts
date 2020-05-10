@@ -42,10 +42,8 @@ export class HomePage {
   constructor(private platform: Platform, public menuCtrl: MenuController, public servicio: ServicioDatos,
     private router: Router, private splashScreen: SplashScreen, private statusBar: StatusBar,
     public auth: AuthService, private user:UsuarioServicio, private explotacion:ExplotacionServicio) {
-    console.log("El constructor de app.ts");
   }
   ngOnInit() {
-    console.log("Entra en ngOnInit");
     this.splashScreen.show();
 
     this.platform.ready().then(() => {
@@ -60,8 +58,8 @@ export class HomePage {
     });
     // set our app's pages
     this.pages = [
-      { title: 'Explotacion', url: "ganadero/explotacion-detalle", icon: "home"},
-      { title: 'Ganado', url: "", icon: "home"},
+      { title: 'Explotacion', url: "/ganadero/explotacion-detalle/", icon: "home"},
+      { title: 'Ganado', url: "/ganadero/listado-ganado", icon: "home"},
       { title: 'Documentos', url: "", icon: "home" },
       { title: 'Ventas', url: "", icon: "home" },
       { title: 'Informes', url: "", icon: "home" },
@@ -72,11 +70,9 @@ export class HomePage {
         this.rootPage=event.url;
       }
     });
-    console.log("PERO JODEEER", this.auth.user);
   }
 
   ionViewWillEnter() {
-    console.log("Entra en ionViewWillEnter");
 
     let usuario:Usuario=new Usuario("","luisalbertosereno@gmail.com");
     this.user.obtenerUsuario(usuario).then(user=>{

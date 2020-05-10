@@ -25,7 +25,8 @@ export class ListaExplotaciones {
 
 	
 	protected seleccionarExplotacion(explo:IEExplotacion){
-		this.router.navigate(['ganadero/listado-ganado'],{queryParams:{"explotacion":JSON.stringify(explo)}});
+		this.explotacion.explotacionSeleccionada=explo;
+		this.router.navigate(['ganadero/listado-ganado'],{queryParams:{"explotacionID":explo.id}});
 	}  
 
 	protected crearExplotacion(){

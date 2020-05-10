@@ -37,6 +37,14 @@ export class Explotacion implements IEExplotacion{
 
 	arrayParcelas?: Array<IEParcela>;
 	
+	arrayIdAnimales ?: Array<IEIdentification>;
+
+	arrayIdOperaciones ?: Array<IEIdentification>;
+
+	arrayIdDocumentos ?: Array<IEIdentification>;
+
+	arrayIdParcelas ?: Array<IEIdentification>;
+	
 	metadatoEmail?: string;
 	
 	metadatoFechaMod?: Date;
@@ -57,11 +65,10 @@ export class Explotacion implements IEExplotacion{
 	}
 
     toJSON():{} {
-        var json=Object.assign({}, this,{
-        	id: (this.id),
-        });
- 
-        return json;
+        const { arrayMachos,arrayHembras, ...rest } = this;
+        const projectedObject = rest;
+
+        return projectedObject;
     }
 
     fromJSON(json: Explotacion|string): Explotacion {

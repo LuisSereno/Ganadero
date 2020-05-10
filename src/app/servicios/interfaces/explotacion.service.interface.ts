@@ -1,6 +1,4 @@
 import { IEExplotacion } from '../beans/interfaces/explotacion.interface';
-import { IEconexionServicio } from './conexion.service.interface';
-import { Observable } from 'rxjs';
 import { IEIdentification } from '../beans/interfaces/identification.interface';
 
 export interface IEexplotacionServicio{
@@ -15,4 +13,6 @@ export interface IEexplotacionServicio{
 
     actualizarExplotacion(explo:IEExplotacion):Promise<IEExplotacion>;
 
+    encontrarExplotacion(explo:IEIdentification):IEExplotacion;
+    
 }

@@ -1,17 +1,27 @@
-<cabecera-ganadero nombrePagina="Nueva explotacion"></cabecera-ganadero>
+<cabecera-ganadero nombrePagina="Nueva explotacion">
+  holacarabola
+</cabecera-ganadero>
 
 <ion-content>
         <ion-grid>
             <ion-row>
               <ion-col>
                 <ion-row>
-                <ion-col col-sm-12>
+                <ion-col col-sm-6>
                   <ion-item  class="text-label">
                     <ion-label class="text-center">
-                      <b>Introduzca los datos de su explotación</b>
+                      <b>Datos de su explotación</b>
                     </ion-label>
-                    </ion-item>
-                  </ion-col>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-sm-6>
+                  <ion-item button (click)="cambiaExplotacion()" detail>
+                    <ion-label>
+                      <b>Cambiar Explotacion</b>
+                    </ion-label>
+                    <ion-icon name="swap-horizontal-outline" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
                 </ion-row>
                 <ion-row>
                 <ion-col col-sm-12>

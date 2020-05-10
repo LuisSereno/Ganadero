@@ -39,8 +39,6 @@ export class ListaVentas {
 
 		if (this.arrayVentas.length==0){
 	 		this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().id,true).subscribe((data:any) => {
-				console.log("guapito de cara");
-				console.log(data);
 				let arrayTotal:Array<Animal>=new Array<Animal>();
 				let machito:Macho;
 				let hembrita:Hembra;
@@ -65,14 +63,13 @@ export class ListaVentas {
 					}
 				}
 			},err => {
-			    console.log("Errr al obtener los datos de la venta del ganado!" + err);
+			    console.error("Errr al obtener los datos de la venta del ganado!" + err);
 			});
 		}
 
 		if (this.arrayCompras.length==0){
   			this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().id,false).subscribe((data:any) => {
-				console.log("guapito de cara");
-				console.log(data);
+
 				let arrayTotal:Array<Animal>=new Array<Animal>();
 				let machito:Macho;
 				let hembrita:Hembra;
@@ -99,7 +96,7 @@ export class ListaVentas {
 				}
 
 			},err => {
-			    console.log("Errr al obtener los datos de la compra del ganado!" + err);
+			    console.error("Errr al obtener los datos de la compra del ganado!" + err);
 			});
 		}
 	}
