@@ -1,0 +1,26 @@
+<cabecera-ganadero nombrePagina="{{textoCabecera}}"></cabecera-ganadero>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Seleccione las conocidas en su zona
+    </ion-list-header>
+
+    <ion-item *ngFor="let vacuEnf of arrayDataShow;let i=index">
+        <ion-avatar slot="start" (click)="anadirVacEnf(true,vacuEnf.id)">
+          <img *ngIf="this.tipoMostrado==='vacuna'" src="assets/img/vacuna.png">
+          <img *ngIf="this.tipoMostrado==='enfermedad'" src="assets/img/enfermedad.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{vacuEnf.nombre}}</h2>
+          <p>{{vacuEnf.descripcion}}</p>
+        </ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="vacuEnf.isChecked" (ionChange)="anadirElementoExplotacion()"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
+    <ion-fab-button color="dark" (click)="anadirVacEnf(false)">
+      <ion-icon name="add" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
+      </ion-icon><div class="button-effect"></div>
+    </ion-fab-button>
+
+</ion-content>

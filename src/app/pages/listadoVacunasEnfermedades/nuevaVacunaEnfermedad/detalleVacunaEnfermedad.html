@@ -1,0 +1,58 @@
+<ion-content>
+  <form [formGroup]="formularioVacunaEnf">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-img #scannedImg
+            [src]="getFotoAnimal()"
+            class="tam_image_animal"></ion-img>
+
+
+          <ion-row>
+            <ion-col col-sm-8>
+              <ion-item class="text-label">
+                <ion-label position="floating">
+                  <ion-icon name='trending-up'
+                    item-left
+                    class="color-iconos"></ion-icon>Nombre
+                </ion-label>
+                <ion-input type="string" [disabled]="params.snapshot.queryParams.vacunaEnfID"
+                  formControlName="nombre"
+                  [(ngModel)]="vacunaEnf.nombre"></ion-input>
+              </ion-item>
+              <ion-item
+                *ngIf="!formularioVacunaEnf.controls.nombre.valid  && (formularioVacunaEnf.controls.nombre.dirty || submitAttempt)">
+                <p>Introduce un nombre correctamente.</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-sm-8>
+              <ion-item class="text-label">
+                <ion-label position="floating">
+                  <ion-icon name='trending-up'
+                    item-left
+                    class="color-iconos"></ion-icon>Descripción
+                </ion-label>
+                <ion-input type="string" [disabled]="params.snapshot.queryParams.vacunaEnfID"
+                  formControlName="descripcion"
+                  [(ngModel)]="vacunaEnf.descripcion"></ion-input>
+              </ion-item>
+              <ion-item
+                *ngIf="!formularioVacunaEnf.controls.descripcion.valid  && (formularioVacunaEnf.controls.descripcion.dirty || submitAttempt)">
+                <p>Introduce una descripcion correctamente</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-col col-sm-12>
+      <ion-button size="large" [disabled]="params.snapshot.queryParams.vacunaEnfID"
+        color="primary"
+        expand="block"
+        (click)="guardaDatosVacunaEnf()">Guardar</ion-button>
+    </ion-col>
+  </form>
+</ion-content>
