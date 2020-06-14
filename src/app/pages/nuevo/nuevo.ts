@@ -12,7 +12,7 @@ import { Macho } from '../../servicios/beans/macho'
 import { Animal } from '../../servicios/beans/animal'
 import { Compra } from '../../servicios/beans/compra'
 import { Camera, CameraOptions } from '@ionic-native/camera';
-//import Tesseract from 'tesseract.js';  
+//import Tesseract from 'tesseract.js';
 import { Constantes } from '../../servicios/genericos/constantes';
 import { ToastService } from '../../servicios/genericos/mensajeToast';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -158,7 +158,14 @@ export class Nuevo {
 		if (this.formularioAnimal.valid) {
 			//this.animal.descendencia = this.arrayDescendencia;
 			//this.animal.ascendencia = this.arrayAscendencia;
-			this.animal.ascendenciaIds = this.arrayAscendencia.map(anim=>{return anim.id});
+			this.animal.ascendenciaIds = this.arrayAscendencia.map(anim=>{
+				if (anim instanceof String){
+					return anim.toString();
+				}else{
+					return anim.id;
+				}
+
+			});
 
 			this.animal.fechaNacimiento = new Date(String(this.fechaNacimiento));
 			if (this.animal instanceof Hembra) {
@@ -299,11 +306,11 @@ export class Nuevo {
 				  if (imagenAnimal===0){
 					let base64Image = 'data:image/png;base64,' + imageData;
 						this.animal.setFoto(base64Image);
-	
+
 				  }else{
-	
+
 					this.toastCtrl.push('Please wait...',"WARNING");
-					/*Tesseract.recognize(imageData)  
+					/*Tesseract.recognize(imageData)
 					.progress((progress) => {
 						console.log('progress', progress);
 					})
@@ -315,9 +322,9 @@ export class Nuevo {
 						alert(this.recognizedText);
 					});
 				  }
-	
-	
-	
+
+
+
 			}, (err) => {
 			 // Handle error
 				  console.error(err);
@@ -329,7 +336,7 @@ export class Nuevo {
 		this.analyze();
 		// Create an array with 5 effects
 		/*   let effects: any = ['none', 'negative','mono', 'aqua', 'sepia'];
-	    
+
 		   let randomEffect: string = effects[Math.floor(
 									   Math.random() * effects.length)];
 		   this.cameraPreview.setColorEffect(randomEffect);
@@ -356,9 +363,9 @@ export class Nuevo {
 	  let loader = this.loadingCtrl.create({
 		  content: 'Please wait...'
 	  });
-	
 
-	  Tesseract.recognize(this.scannedImg.nativeElement.src)  
+
+	  Tesseract.recognize(this.scannedImg.nativeElement.src)
 	  .progress((progress) => {
 		  loader.present();
 		  console.log('progress', progress);

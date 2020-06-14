@@ -1,6 +1,8 @@
 import { GanadoServicio } from './../../servicios/ganado.service';
 import { IEExplotacion } from './../../servicios/beans/interfaces/explotacion.interface';
 import { IEDocumento } from './../../servicios/beans/interfaces/documento.interface';
+import { IEVacuna } from './../../servicios/beans/interfaces/vacuna.interface';
+import { IEEnfermedad } from './../../servicios/beans/interfaces/enfermedad.interface';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { IEOperacion } from './../../servicios/beans/interfaces/operacion.interface';
 import { IonicModule } from '@ionic/angular';
@@ -26,7 +28,6 @@ import { Informes } from '../informes/informes';
 import { AscDesc } from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia';
 import { ListaDocumentos } from '../listadoDocumentos/listado';
 import { Cabecera } from '../cabecera/cabecera';
-import { ListVacEnf } from '../listadoVacunasEnfermedades/listaVacunasEnfermedades';
 import { ServicioDatos } from 'src/app/servicios/serviciodatos';
 import { AuthService } from 'src/app/servicios/auth/auth';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
@@ -42,6 +43,10 @@ import { Toast } from '@ionic-native/toast/ngx';
 import { OperacionServicio } from 'src/app/servicios/operacion.service';
 import { ToastBrowserService } from 'src/app/servicios/genericos/mensajeToastBrowser';
 import { ToastNativeService } from 'src/app/servicios/genericos/mensajeToastNative';
+import { VacunaServicio } from 'src/app/servicios/vacuna.service';
+import { EnfermedadServicio } from 'src/app/servicios/enfermedad.service';
+import { VacunasEnfermedadesPage } from '../listadoVacunasEnfermedades/listaVacunasEnfermedades';
+import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacunaEnfermedad/detalleVacunaEnfermedad';
 
 @NgModule({
   imports: [
@@ -52,7 +57,7 @@ import { ToastNativeService } from 'src/app/servicios/genericos/mensajeToastNati
     GanaderoPageRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    AngularFireModule.initializeApp(firebaseConfig,'ganadero'), 
+    AngularFireModule.initializeApp(firebaseConfig,'ganadero'),
     AngularFireDatabaseModule
   ],providers: [
     ServicioDatos,
@@ -64,19 +69,23 @@ import { ToastNativeService } from 'src/app/servicios/genericos/mensajeToastNati
     UsuarioServicio,
     ExplotacionServicio,
     GanadoServicio,
+    VacunaServicio,
+    EnfermedadServicio,
     OperacionServicio,
     SafariViewController,
     { provide: 'UsuarioConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<{}>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'OperacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEOperacion>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'GanadoConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEAnimal>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'DocumentoConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEDocumento>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'ExplotacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEExplotacion>(dep1)), deps: [AngularFireDatabase] }
+    { provide: 'ExplotacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEExplotacion>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'EnfermedadConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEEnfermedad>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'VacunaConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEVacuna>(dep1)), deps: [AngularFireDatabase] }
   ],
   declarations: [
-    HomePage, 
-    ListaGanado, 
-    ListaVentas, 
-    ListaExplotaciones, 
+    HomePage,
+    ListaGanado,
+    ListaVentas,
+    ListaExplotaciones,
     ListadoAnimalesVendidos,
     PerfilAutenticacion,
     Nuevo,
@@ -86,8 +95,9 @@ import { ToastNativeService } from 'src/app/servicios/genericos/mensajeToastNati
     AscDesc,
     ListaDocumentos,
     Cabecera,
-    ListVacEnf       
-  ], 
+    VacunasEnfermedadesPage,
+    DetalleVacunaEnfermedad
+    ],
   exports: [
     HomePage
   ]

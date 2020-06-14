@@ -12,7 +12,7 @@ export class GanadoServicio implements IEganadoServicio {
     ganado: Array<IEAnimal>;
 
     constructor(@Inject('GanadoConexionServicio') private conn: ConexionGenericaService<IEAnimal>) {
-        this.conn.crearConexion(Constantes.prefixDatabaseProject + "ganado");
+        this.conn.crearConexion(Constantes.prefixDatabaseProject + 'ganado');
         this.ganado=new Array<IEAnimal>();
     }
 
@@ -20,14 +20,14 @@ export class GanadoServicio implements IEganadoServicio {
         return new Promise((resolve, reject) => {
             return this.conn.getObject(btoa(animal.id)).subscribe((anim: IEAnimal) => {
                 if (anim == null) {
-                    reject(new Error("No existe el usuario"));
+                    reject(new Error('No existe el animal'));
                 } else {
                     animal = anim;
                     resolve(animal);
                 }
             }, err => {
-                console.error("Error finding user: ", err);
-                reject(new Error("No existe el usuario"));
+                console.error('Error finding user: ', err);
+                reject(new Error('No existe el animal'));
             })
         });
     }
@@ -41,13 +41,13 @@ export class GanadoServicio implements IEganadoServicio {
             return new Promise((resolve, reject) => {
                 return this.conn.getObjects(arrayIdString).subscribe((ganado: IEAnimal[]) => {
                     if (ganado == null) {
-                        reject(new Error("No existe ganado"));
+                        reject(new Error('No existe ganado'));
                     } else {
                         resolve(ganado);
                     }
                 }, err => {
-                    console.error("Error finding user: ", err);
-                    reject(new Error("No existe el usuario"));
+                    console.error('Error finding user: ', err);
+                    reject(new Error('No existe el usuario'));
                 })
             });
         }
@@ -55,7 +55,7 @@ export class GanadoServicio implements IEganadoServicio {
     }
 
     getBusquedaAscDesc(arrayAnimales: IEAnimal[] | number[]): IEAnimal[] {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 
     guardaAnimal(animal: IEAnimal): Promise<IEAnimal> {
@@ -65,30 +65,30 @@ export class GanadoServicio implements IEganadoServicio {
                 resolve(docRef);
             })
                 .catch(function (error) {
-                    console.error("Error adding document: ", error);
-                    reject(new Error("No guardado"));
+                    console.error('Error adding document: ', error);
+                    reject(new Error('No guardado'));
                 });;
         });
     }
 
     actualizarAnimal(animal: IEAnimal): Promise<IEAnimal> {
-        let animWithoutRelatives:IEAnimal=animal.toJSON() as IEAnimal;
+        //let animWithoutRelatives:IEAnimal=animal.toJSON() as IEAnimal;
         var rebano=this.ganado;
         return new Promise((resolve, reject) => {
-            this.conn.updateObject(animWithoutRelatives).then(function (docRef) {
+            this.conn.updateObject(animal).then(function (docRef) {
                 let index = rebano.findIndex(x => x.id === animal.id);
                 rebano[index] = animal;
                 resolve(animal);
             })
                 .catch(function (error) {
-                    console.error("Error adding document: ", error);
-                    reject(new Error("No actualizado"));
+                    console.error('Error adding document: ', error);
+                    reject(new Error('No actualizado'));
                 });;
         });
     }
 
     encontrarAnimal(animal: IEIdentification): IEAnimal {
-        return this.ganado.find(x => x.id == animal.id);
+        return this.ganado.find(x => x.id === animal.id);
     }
 
 }

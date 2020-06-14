@@ -9,6 +9,8 @@ import { Macho } from './macho';
 import { Hembra } from './hembra';
 import { Documento } from './documento';
 import { IEIdentification } from './interfaces/identification.interface';
+import { IEVacuna } from './interfaces/vacuna.interface';
+import { IEEnfermedad } from './interfaces/enfermedad.interface';
 
 
 export class Explotacion implements IEExplotacion{
@@ -36,7 +38,11 @@ export class Explotacion implements IEExplotacion{
 	arrayDocumentos?: Array<IEDocumento>;
 
 	arrayParcelas?: Array<IEParcela>;
-	
+
+	arrayVacunas?: Array<IEVacuna>;
+
+	arrayEnfermedades?: Array<IEEnfermedad>;
+
 	arrayIdAnimales ?: Array<IEIdentification>;
 
 	arrayIdOperaciones ?: Array<IEIdentification>;
@@ -44,14 +50,18 @@ export class Explotacion implements IEExplotacion{
 	arrayIdDocumentos ?: Array<IEIdentification>;
 
 	arrayIdParcelas ?: Array<IEIdentification>;
-	
+
+	arrayIdVacunas ?: Array<IEIdentification>;
+
+	arrayIdEnfermedades ?: Array<IEIdentification>;
+
 	metadatoEmail?: string;
-	
+
 	metadatoFechaMod?: Date;
 
 	constructor() {
-		this.id = "";
-		this.nombre="";
+		this.id = '';
+		this.nombre='';
 		this.usuarios=null;
 		this.fechaAlta=new Date();
 		this.dineroTotal=0;
@@ -62,6 +72,8 @@ export class Explotacion implements IEExplotacion{
 		this.arrayVentas=new Array<Venta>();
 		this.arrayDocumentos=new Array<Documento>();
 		this.arrayParcelas=new Array<IEParcela>();
+		this.arrayVacunas=new Array<IEVacuna>();
+		this.arrayEnfermedades=new Array<IEEnfermedad>();
 	}
 
     toJSON():{} {

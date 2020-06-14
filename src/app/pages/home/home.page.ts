@@ -58,7 +58,7 @@ export class HomePage {
     });
     // set our app's pages
     this.pages = [
-      { title: 'Explotacion', url: "/ganadero/explotacion-detalle/", icon: "home"},
+      { title: 'Explotacion', url: "/ganadero/explotacion-detalle/true", icon: "home"},
       { title: 'Ganado', url: "/ganadero/listado-ganado", icon: "home"},
       { title: 'Documentos', url: "", icon: "home" },
       { title: 'Ventas', url: "", icon: "home" },
@@ -103,14 +103,14 @@ export class HomePage {
             this.explotacion.explotaciones = data;
             this.router.navigate(['ganadero/listado-explotaciones']);
           }else{
-            this.router.navigate(['ganadero/explotacion-detalle']);
+            this.router.navigate(['ganadero/explotacion-detalle', true]);
           }
         }).catch((error) => {
           console.error(error);
-          this.router.navigate(['ganadero/explotacion-detalle']);
+          this.router.navigate(['ganadero/explotacion-detalle', true]);
         });
     }else{
-      this.router.navigate(['ganadero/explotacion-detalle']);
+      this.router.navigate(['ganadero/explotacion-detalle', true]);
     }
 
   }

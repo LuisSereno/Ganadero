@@ -25,6 +25,10 @@ export interface IEExplotacion extends IEMetadatos, transformJSON<IEExplotacion>
 
 	arrayIdDocumentos ?: Array<IEIdentification>;
 
-    arrayIdParcelas ?: Array<IEIdentification>;
+	arrayIdParcelas ?: Array<IEIdentification>;
+
+	arrayIdVacunas ?: Array<IEIdentification>;
+
+	arrayIdEnfermedades ?: Array<IEIdentification>;
 
 }

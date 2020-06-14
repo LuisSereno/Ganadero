@@ -12,6 +12,8 @@ import { AscDesc } from '../listadoAscendenciaDescendencia/listaAscendenciaDesce
 import { ListaDocumentos } from '../listadoDocumentos/listado';
 import { DetalleExplotacion } from '../ajustes/explotacion/nueva/nueva';
 import { ListaExplotaciones } from '../ajustes/explotacion/listado/listado';
+import { VacunasEnfermedadesPage } from '../listadoVacunasEnfermedades/listaVacunasEnfermedades';
+import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacunaEnfermedad/detalleVacunaEnfermedad';
 
 const routes: Routes = [
   {
@@ -19,44 +21,48 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
-        path: 'home', component: HomePage 
+        path: 'home', component: HomePage
       },
       {
-        path: 'listado-ganado', component: ListaGanado 
+        path: 'listado-ganado', component: ListaGanado
       },
       {
-        path: 'listado-ventas', component: ListaVentas 
+        path: 'listado-ventas', component: ListaVentas
       },
       {
-        path: 'listado-explotaciones', component: ListaExplotaciones 
+        path: 'listado-explotaciones', component: ListaExplotaciones
       },
       {
-        path: 'listado-animales-vendidos', component: ListadoAnimalesVendidos 
+        path: 'listado-animales-vendidos', component: ListadoAnimalesVendidos
       },
       {
-        path: 'perfil-autenticacion', component: PerfilAutenticacion 
+        path: 'perfil-autenticacion', component: PerfilAutenticacion
       },
       {
-        path: 'animal-nuevo', component: Nuevo 
+        path: 'animal-nuevo', component: Nuevo
       },
       {
-        path: 'animal-detalle/:id', component: Detalle 
-      },    
-      {
-        path: 'explotacion-detalle', component: DetalleExplotacion 
-      },      
-      {
-        path: 'informes', component: Informes 
+        path: 'animal-detalle/:id', component: Detalle
       },
       {
-        path: 'listado-ascdesc-ganado', component: AscDesc 
+        path: 'explotacion-detalle/:es_edicion', component: DetalleExplotacion
       },
       {
-        path: 'listado-documentos', component: ListaDocumentos 
+        path: 'informes', component: Informes
+      },
+      {
+        path: 'listado-ascdesc-ganado', component: AscDesc
+      },
+      {
+        path: 'listado-documentos', component: ListaDocumentos
+      },{
+        path: 'listado-vacunasenfermedades/:tipo', component: VacunasEnfermedadesPage
+      },{
+        path: 'detalle-vacunasenfermedades', component: DetalleVacunaEnfermedad
       },
       {
         path: 'ganadero',
-        redirectTo: '/ganadero/explotacion-detalle',
+        redirectTo: '/ganadero/explotacion-detalle/false',
         pathMatch: 'full'
       }
     ]

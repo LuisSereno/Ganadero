@@ -9,10 +9,11 @@ import { Explotacion } from '../../../../servicios/beans/explotacion';
 //import {Constantes} from '../../servicios/constantes';
 import { ListaGanado } from '../../../listadoGanado/listado';
 import { PerfilAutenticacion } from '../../../profile/profile';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
 import { UsuarioServicio } from 'src/app/servicios/usuario.service';
 import {Location} from '@angular/common';
+import { Constantes } from 'src/app/servicios/genericos/constantes';
 
 
 @Component({
@@ -22,11 +23,15 @@ export class DetalleExplotacion {
 
 	explota: Explotacion;
 
+	edicion:boolean;
 
-	constructor(private location: Location, private router: Router, private user: UsuarioServicio, private explotacion: ExplotacionServicio) {
+
+	constructor(private location: Location, private params: ActivatedRoute,
+		private router: Router, private user: UsuarioServicio, private explotacion: ExplotacionServicio) {
 	}
 
 	ngOnInit() {
+		this.edicion=JSON.parse(this.params.snapshot.paramMap.get('es_edicion'));
 		if(this.explotacion.explotacionSeleccionada){
 			this.explota=this.explotacion.encontrarExplotacion(this.explotacion.explotacionSeleccionada);
 		}else{
@@ -74,5 +79,13 @@ export class DetalleExplotacion {
 
 	protected cambiaExplotacion(){
 		this.router.navigate(['ganadero/listado-explotaciones']);
+	}
+
+	protected cambiarVacunas(){
+		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.VACUNA ]);
+   	}
+
+   	protected cambiarEnfermedad(){
+		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.ENFERMEDAD]);
 	}
 }

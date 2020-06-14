@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IEIdentification } from './beans/interfaces/identification.interface';
 import { IEconexionServicio } from './interfaces/conexion.service.interface';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
- 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -19,20 +19,24 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
     this.nameCollection=nameCollection;
     this.genericObjectsCollection = this.afs.list<K>(nameCollection);
   }
- 
+
   getObjects(ids: Array<string>): Observable<K[]> {
     return this.genericObjectsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
-          if (ids.includes(a.payload.key)){
-            const data = a.payload.val();
-            return data;
+          if (ids===null){
+            return a.payload.val();
+          }else{
+            if (ids.includes(a.payload.key)){
+              const data = a.payload.val();
+              return data;
+            }
           }
         });
       })
     );
   }
- 
+
   getObject(identificador: string): Observable<K> {
     return this.afs.object(this.nameCollection.concat("/" + identificador)).valueChanges().pipe(
       map((actions) => {
@@ -41,9 +45,9 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
       })
     );;
   }
- 
+
   addObjectWithoutID(genericObject: K): Promise<K> {
-    const _this = this; 
+    const _this = this;
     return new Promise((resolve, reject) => {
       console.log("llama firebase WITHOUT ID" ,genericObject);
       this.genericObjectsCollection.push(genericObject).then(function(newReference){
@@ -53,13 +57,13 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
         resolve(genericObject);
       }).catch(function(error) {
         console.error("Error adding document: ", error);
-        reject(new Error("No guardado")); 
+        reject(new Error("No guardado"));
       });
     });
   }
- 
+
   addObjectWithID(genericObject: K, id:string):Promise<void>{
-    const _this = this; 
+    const _this = this;
     return new Promise((resolve, reject) => {
       console.log("llama firebase WITH ID", id ,genericObject);
       this.genericObjectsCollection.set(id,genericObject).then(function(newReference){
@@ -68,7 +72,7 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
         resolve();
       }).catch(function(error) {
         console.error("Error adding document: ", error);
-        reject(new Error("No guardado")); 
+        reject(new Error("No guardado"));
       });
     });
   }
@@ -77,7 +81,7 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
     console.log("llama firebase update WITH ID", genericObject.id ,genericObject);
     return this.genericObjectsCollection.update(genericObject.id,genericObject);
   }
- 
+
   deleteObject(id: string): Promise<void> {
     return this.genericObjectsCollection.remove(id);
   }

@@ -14,18 +14,18 @@ import { GanadoServicio } from 'src/app/servicios/ganado.service';
 })
 
 export class AscDesc {
-  @Input() model:Array<IEAnimal>;  
+  @Input() model:Array<IEAnimal>;
 
   @Input('tipo') tipo: boolean;
 
   @Input() texto: string;
 
-  @Input() animalesSelecionados: Array<IEAnimal>;
+  @Input() animalesSelecionados: any;
 
   @Output() animalesSelecionadosChange = new EventEmitter<Array<IEAnimal>>();
-  
+
   constructor(private servicio: GanadoServicio) {
-    
+
   }
 
   ngAfterContentInit(){
@@ -40,9 +40,9 @@ export class AscDesc {
 
    console.log("ENTRA EN EL onChange listaAscendenciaDescendencia ");
 
-   var arrayAux:Array<string>;
+  // var arrayAux:Array<string>;
    //vaciamos el array de model para que no se solapen vacas y toros y no haya mas de la cuenta
-   this.model=new Array<Animal>();
+  // this.model=new Array<Animal>();
 /*
     if (this.macho && !(this.macho instanceof Array)){
       arrayAux=new Array<string>();
@@ -73,7 +73,15 @@ export class AscDesc {
 
      this.arraySalida.emit(this.model);
   */
-    this.animalesSelecionadosChange.emit(this.animalesSelecionados);
+      const arrayAux: Array<IEAnimal>= new Array<IEAnimal>();
+      if (typeof(this.animalesSelecionados) === 'string'){
+        arrayAux.push(this.servicio.encontrarAnimal({id:this.animalesSelecionados.toString()}));
+      }else{
+        this.animalesSelecionados.forEach(element => {
+          arrayAux.push(this.servicio.encontrarAnimal({id:element.toString()}));
+        });
+      }
+    this.animalesSelecionadosChange.emit(arrayAux);
   }
 
   comprobarDentroArray(animal:Animal):boolean{
@@ -129,10 +137,14 @@ export class AscDesc {
         }
     }, 100);
 }
-  
+
   compareById(o1, o2) {
     try{
-      return o1 === o2.id
+      if (o2.id!==undefined){
+        return o1 === o2.id
+      }else{
+        return o1 === o2
+      }
     }catch(e){
       console.error("no se puede comparar",e)
     }

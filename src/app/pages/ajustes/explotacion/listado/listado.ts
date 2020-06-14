@@ -23,14 +23,14 @@ export class ListaExplotaciones {
 		this.arrayExplotaciones=this.explotacion.explotaciones;
 	}
 
-	
+
 	protected seleccionarExplotacion(explo:IEExplotacion){
 		this.explotacion.explotacionSeleccionada=explo;
 		this.router.navigate(['ganadero/listado-ganado'],{queryParams:{"explotacionID":explo.id}});
-	}  
+	}
 
 	protected crearExplotacion(){
- 		this.router.navigate(['ganadero/explotacion-detalle']);
+ 		this.router.navigate(['ganadero/explotacion-detalle', false ]);
 	}
 
 }
