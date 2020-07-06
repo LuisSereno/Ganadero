@@ -24,7 +24,7 @@ export class VacunaServicio  implements IEVacunaServicio{
                 if (vacunas == null) {
                     reject(new Error('No existen vacunas'));
                 } else {
-                    this.vacunas=vacunas;
+                    this.vacunas=vacunas.filter(e=>e != null);
                     resolve(vacunas);
                 }
             }, err => {
@@ -35,7 +35,7 @@ export class VacunaServicio  implements IEVacunaServicio{
     }
 
     guardaVacuna(vacuna: IEVacuna): Promise<IEVacuna> {
-        //throw new Error('Method not implemented.');
+        // throw new Error('Method not implemented.');
         const vacunaAux:IEVacuna=vacuna.toJSON() as IEVacuna;
         return new Promise((resolve, reject) => {
             this.conn.addObjectWithoutID(vacunaAux).then(function (docRef) {
@@ -48,11 +48,11 @@ export class VacunaServicio  implements IEVacunaServicio{
         });
     }
     actualizarVacuna(vacuna: IEVacuna): Promise<IEVacuna> {
-        //throw new Error('Method not implemented.');
-        var conjuntoVacunas=this.vacunas;
+        // throw new Error('Method not implemented.');
+        let conjuntoVacunas=this.vacunas;
         return new Promise((resolve, reject) => {
             this.conn.updateObject(vacuna).then(function (docRef) {
-                let index = conjuntoVacunas.findIndex(x => x.id === vacuna.id);
+                const index = conjuntoVacunas.findIndex(x => x.id === vacuna.id);
                 conjuntoVacunas[index] = vacuna;
                 resolve(vacuna);
             })
@@ -63,7 +63,7 @@ export class VacunaServicio  implements IEVacunaServicio{
         });
     }
     obtenerDatosVacunas(vacuna: IEVacuna): Promise<IEVacuna> {
-        //throw new Error('Method not implemented.');
+        // throw new Error('Method not implemented.');
         return new Promise((resolve, reject) => {
             return this.conn.getObject(btoa(vacuna.id)).subscribe((anim: IEVacuna) => {
                 if (anim == null) {
@@ -79,7 +79,7 @@ export class VacunaServicio  implements IEVacunaServicio{
         });
     }
     obtenerDatosVacunaIds(ids: IEIdentification[]): Promise<IEVacuna[]> {
-        //throw new Error('Method not implemented.');
+        // throw new Error('Method not implemented.');
         const arrayIdString: Array<string> = new Array<string>();
         if (ids && ids.length > 0) {
             for (const iden of ids) {
@@ -90,7 +90,7 @@ export class VacunaServicio  implements IEVacunaServicio{
                     if (vacunas == null) {
                         reject(new Error('No existe vacunas'));
                     } else {
-                        resolve(vacunas);
+                        resolve(vacunas.filter(e=>e != null));
                     }
                 }, err => {
                     console.error('Error finding vacunas: ', err);
@@ -105,7 +105,7 @@ export class VacunaServicio  implements IEVacunaServicio{
     }
 
     encontrarVacuna(vacuna: IEIdentification, soloExplotacion:boolean=true): IEVacuna {
-        //throw new Error('Method not implemented.');
+        // throw new Error('Method not implemented.');
         if (soloExplotacion){
             return this.vacunasExplotacion.find(x => x.id === vacuna.id);
         }else{

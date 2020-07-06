@@ -1,8 +1,29 @@
 <cabecera-ganadero nombrePagina="{{textoCabecera}}"></cabecera-ganadero>
 <ion-content>
   <ion-list>
-    <ion-list-header>
+    <ion-list-header *ngIf="!this.identificacionAnimal">
       Seleccione las conocidas en su zona
+    </ion-list-header>
+
+    <!-- List Header with Outline Button -->
+    <ion-list-header lines="full"  *ngIf="this.identificacionAnimal">
+      <ion-label>
+        <ion-list>
+          <ion-item>
+            <ion-label>Seleccione</ion-label>
+            <ion-select okText="Añadir" cancelText="Cancelar" (ionChange)="getIdSeleccion($event)">
+              <ion-select-option *ngFor="let vacuEnf of arrayDataShow;let i=index" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-label>
+      <ion-label>
+        <ion-item>
+          <ion-label>Fecha</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="anadirAGanado.fecha"> </ion-datetime>
+        </ion-item>
+      </ion-label>
+      <ion-button fill="outline"(click)="anadirDatosAGanado()">Añadir</ion-button>
     </ion-list-header>
 
     <ion-item *ngFor="let vacuEnf of arrayDataShow;let i=index">
@@ -14,11 +35,11 @@
           <h2>{{vacuEnf.nombre}}</h2>
           <p>{{vacuEnf.descripcion}}</p>
         </ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="vacuEnf.isChecked" (ionChange)="anadirElementoExplotacion()"></ion-checkbox>
+      <ion-checkbox *ngIf="!this.identificacionAnimal" slot="end" [(ngModel)]="vacuEnf.isChecked" (ionChange)="anadirElementoExplotacion()"></ion-checkbox>
     </ion-item>
 
   </ion-list>
-    <ion-fab-button color="dark" (click)="anadirVacEnf(false)">
+    <ion-fab-button *ngIf="!this.identificacionAnimal"  color="dark" (click)="anadirVacEnf(false)">
       <ion-icon name="add" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
       </ion-icon><div class="button-effect"></div>
     </ion-fab-button>

@@ -95,16 +95,16 @@ export class Detalle {
 				}else{
 					this.fechaUltimoNacimiento="";
 				}
-				
+
 				this.arrayAscendencia=this.servicio.getBusquedaAscDesc(this.animal.ascendencia?this.animal.ascendencia:this.animal.ascendenciaIds);
-				this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.descendencia?this.animal.descendencia:this.animal.descendenciaIds);		
+				this.arrayDescendencia=this.servicio.getBusquedaAscDesc(this.animal.descendencia?this.animal.descendencia:this.animal.descendenciaIds);
 				console.log("ANTES DE ASIGNAR ARRAYASCENDENCIA Y ARRAYDESCENDENCIA");
 				console.log(this.arrayAscendencia);
 				console.log(this.arrayDescendencia);
 				this.animal.setAscendencia(this.arrayAscendencia);
 				this.animal.setDescendencia(this.arrayDescendencia);
 			}
-	
+
 		}
 	*/
 	protected irDetalleDesdeDetalle(animalito: Animal) {
@@ -188,7 +188,7 @@ export class Detalle {
 					elemento.value=null;
 			}
 		}
-	
+
 		anadirElementoVacunas(elemento:HTMLInputElement){
 			if (elemento.value!=""){
 					if (this.animal.getVacunas()==null){
@@ -211,5 +211,13 @@ export class Detalle {
 		} else {
 			this.toastCtrl.push("Guarda primero el animal actual", "WARNING");
 		}
+	}
+
+	protected cambiarVacunas(){
+		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.VACUNA, {'id-animal':this.animal.id}]);
+   	}
+
+   	protected cambiarEnfermedad(){
+		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.ENFERMEDAD, {'id-animal':this.animal.id}]);
 	}
 }

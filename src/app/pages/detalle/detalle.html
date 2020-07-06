@@ -29,7 +29,7 @@
                   <ion-col col-sm-8>
                   <ion-item  class="text-label">
                     <ion-label position="floating">
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Raza 
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Raza
                     </ion-label>
                     <ion-input type="string" formControlName="raza" [(ngModel)]="animal.raza"></ion-input>
                      </ion-item>
@@ -43,7 +43,7 @@
                     <ion-item class="text-label">
                       <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
                       </ion-label>
-                    
+
                         <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento"> </ion-datetime>
                       </ion-item>
                     <ion-item *ngIf="!formularioAnimal.controls.fechaNacimiento.valid  && (formularioAnimal.controls.fechaNacimiento.dirty || submitAttempt)">
@@ -64,9 +64,9 @@
                     <ion-col col-sm-8>
                       <ion-item class="text-label">
                       <ion-label position="floating">
-                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra 
+                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra
                       </ion-label>
-                      
+
                        <ion-input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="animal.precioCompra"></ion-input>
                       </ion-item>
                     </ion-col>
@@ -75,7 +75,7 @@
                     <ion-col col-sm-8>
                     <ion-item class="text-label">
                       <ion-label position="floating">
-                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta 
+                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio venta
                       </ion-label>
                         <ion-input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="animal.precioVenta"></ion-input>
                       </ion-item>
@@ -83,27 +83,24 @@
                   </ion-row>
                 <ion-row>
                   <ion-col col-sm-8>
-                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Ascendencia'" [tipo]="false" 
+                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Ascendencia'" [tipo]="false"
                      [(animalesSelecionados)]="this.animal.ascendencia"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col col-sm-8>
-                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Descendencia'" [tipo]="true" 
+                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Descendencia'" [tipo]="true"
                      [(animalesSelecionados)]="this.animal.descendencia"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
-                <!--<ion-row>
-                  <ion-col col-sm-8>
-                    <my-list-vacunasenfermedades [model]="animal.getVacunas()"  [texto]="'Vacunas'" (arraySalida)="modificaElementoVacunas($event)"></my-list-vacunasenfermedades>   
-                  </ion-col>
-                </ion-row>
                 <ion-row>
-                  <ion-col col-sm-8>
-                    <my-list-vacunasenfermedades [model]="animal.getEnfermedades()" [texto]="'Enfermedades'" (arraySalida)="modificaElementoEnfermedad($event)"></my-list-vacunasenfermedades>
+                  <ion-col col-sm-6>
+                    <ion-button color="primary" expand="block" (click)="cambiarVacunas()">Vacunas</ion-button>
+                  </ion-col>
+                  <ion-col col-sm-6>
+                    <ion-button color="primary" expand="block" (click)="cambiarEnfermedad()">Enfermedades</ion-button>
                   </ion-col>
                 </ion-row>
-              -->
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -116,7 +113,7 @@
               </ion-icon>
           </ion-fab-button>
         </ion-fab>
-      
+
        <ion-col col-sm-12>
         <ion-button size="large" color="primary" expand="block" (click)="modificaDatosAnimal()" [disabled]="!formularioAnimal.valid">Guardar</ion-button>
      </ion-col>

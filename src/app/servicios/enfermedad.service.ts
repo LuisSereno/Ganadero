@@ -26,7 +26,7 @@ export class EnfermedadServicio  implements IEEnfermedadServicio{
                 if (enfermedades == null) {
                     reject(new Error('No existe enfermedad'));
                 } else {
-                    this.enfermedades=enfermedades;
+                    this.enfermedades=enfermedades.filter(e=>e != null);
                     resolve(enfermedades);
                 }
             }, err => {
@@ -65,7 +65,7 @@ export class EnfermedadServicio  implements IEEnfermedadServicio{
                     if (enfermedades == null) {
                         reject(new Error('No existe enfermedad'));
                     } else {
-                        resolve(enfermedades);
+                        resolve(enfermedades.filter(e=>e != null));
                     }
                 }, err => {
                     console.error('Error finding enfermedad: ', err);
