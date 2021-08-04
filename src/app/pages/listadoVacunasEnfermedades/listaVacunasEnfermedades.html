@@ -12,7 +12,7 @@
           <ion-item>
             <ion-label>Seleccione</ion-label>
             <ion-select okText="Añadir" cancelText="Cancelar" (ionChange)="getIdSeleccion($event)">
-              <ion-select-option *ngFor="let vacuEnf of arrayDataShow;let i=index" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
+              <ion-select-option *ngFor="let vacuEnf of arrayDataShowExplotacion;let i=index" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>

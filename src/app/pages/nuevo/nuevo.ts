@@ -225,14 +225,6 @@ export class Nuevo {
 		return objeto instanceof Hembra;
 	}
 
-	anadirElementoEnfermedad(elemento: Array<string>) {
-		this.animal.setEnfermedades(elemento);
-	}
-
-	anadirElementoVacunas(elemento: Array<string>) {
-		this.animal.setVacunas(elemento);
-	}
-
 	private anadirArrayDescendencia(datos: Array<Animal>) {
 		this.arrayDescendencia = datos;
 	}

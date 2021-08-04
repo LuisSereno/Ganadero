@@ -14,6 +14,9 @@ import { Enfermedad } from 'src/app/servicios/beans/enfermedad';
 import { IEVacuna } from 'src/app/servicios/beans/interfaces/vacuna.interface';
 import { IEEnfermedad } from 'src/app/servicios/beans/interfaces/enfermedad.interface';
 import { Vacuna } from 'src/app/servicios/beans/vacuna';
+import { IEganadoServicio } from 'src/app/servicios/interfaces/ganado.service.interface';
+import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
+import { Hembra } from 'src/app/servicios/beans/hembra';
 //import {Hembra} from '../../servicios/beans/hembra'
 
 @Component({
@@ -34,12 +37,16 @@ export class VacunasEnfermedadesPage {
 
   arrayDataShow:Array<any>;
 
+  arrayDataShowExplotacion:Array<any>;
+
   anadirAGanado:any;
+
+  ganado:IEAnimal;
 
 
   constructor(private navCtrl: Router,private servicioVac: VacunaServicio,private servicioEnf: EnfermedadServicio,
-    private explotacionServ: ExplotacionServicio,
-    private router: Router, private params: ActivatedRoute) {
+    private explotacionServ: ExplotacionServicio,private ganadoServ: GanadoServicio,
+    private router: Router, private toastCtrl: ToastService,private params: ActivatedRoute) {
 
   }
 
@@ -57,10 +64,16 @@ export class VacunasEnfermedadesPage {
     if(this.tipoMostrado===Constantes.VACUNA){
       this.textoCabecera= 'Vacunas conocidas';
       if (this.identificacionAnimal){
-
-        ///EL ERROR AQUI ES QUE EL IDENFERMEDADES NO ESTA RESPETANDO LA INTERFAZ
+        this.ganado=this.ganadoServ.encontrarAnimal({id:this.identificacionAnimal});
+        if (this.ganado.sexo === Constantes.MACHO) {
+          this.ganado = Macho.fromJSON(this.ganado);
+        } else {
+          this.ganado = Hembra.fromJSON(this.ganado);
+        }
+        //AQUI HAY QUE TRANSFORMAR LAS VACUNAS EN CASO DE QUE NO HAYAN SIDO YA TRASNFORMADAS
+        this.arrayDataShow=this.ganado.vacunas;
         this.servicioVac.obtenerDatosVacunaIds(this.explotacion.arrayIdVacunas).then(listaVacunas=>{
-          this.arrayDataShow=listaVacunas;
+          this.arrayDataShowExplotacion=listaVacunas;
         })
           .catch(err=>{console.error('no hay vacunas',err); this.arrayDataShow=new Array<IEVacuna>()});
           this.anadirAGanado=new Vacuna();
@@ -74,10 +87,16 @@ export class VacunasEnfermedadesPage {
     }else if(this.tipoMostrado===Constantes.ENFERMEDAD){
       this.textoCabecera= 'Enfermedades conocidas';
       if (this.identificacionAnimal){
-
-        ///EL ERROR AQUI ES QUE EL IDENFERMEDADES NO ESTA RESPETANDO LA INTERFAZ
+        this.ganado=this.ganadoServ.encontrarAnimal({id:this.identificacionAnimal});
+        if (this.ganado.sexo === Constantes.MACHO) {
+          this.ganado = Macho.fromJSON(this.ganado);
+        } else {
+          this.ganado = Hembra.fromJSON(this.ganado);
+        }
+        //AQUI HAY QUE TRANSFORMAR LAS VACUNAS EN CASO DE QUE NO HAYAN SIDO YA TRASNFORMADAS
+        this.arrayDataShow=this.ganado.enfermedades;
         this.servicioEnf.obtenerDatosEnfermedadIds(this.explotacion.arrayIdEnfermedades).then(listaEnfermedades=>{
-          this.arrayDataShow=listaEnfermedades;
+          this.arrayDataShowExplotacion=listaEnfermedades;
         })
         .catch(err=>{console.error('no hay enfermedades',err); this.arrayDataShow=new Array<IEEnfermedad>()});
         this.anadirAGanado=new Enfermedad();
@@ -164,10 +183,36 @@ export class VacunasEnfermedadesPage {
 
   anadirDatosAGanado(){
     console.log('anadirDatosAGanado', this.anadirAGanado);
+    if(this.tipoMostrado===Constantes.VACUNA){
+      if (!this.ganado.vacunas) { this.ganado.vacunas= new Array <Vacuna>(); }
+      if (!this.ganado.vacunasIds) { this.ganado.vacunasIds= new Array <string>(); }
+      this.ganado.vacunas.push(this.anadirAGanado);
+      this.ganado.vacunasIds.push(this.anadirAGanado.id);
+
+    }else{
+      if (!this.ganado.enfermedades) { this.ganado.enfermedades= new Array <Enfermedad>(); }
+      if (!this.ganado.enfermedadesIds) { this.ganado.enfermedadesIds= new Array <string>(); }
+      this.ganado.enfermedades.push(this.anadirAGanado);
+      this.ganado.enfermedadesIds.push(this.anadirAGanado.id);
+    }
+		this.ganadoServ.actualizarAnimal(this.ganado).then(data => {
+      this.toastCtrl.push('Modificación correcta', 'CORRECTO');
+		}, err => {
+			console.error('Errr al guardar los datos del animal!', err);
+			this.toastCtrl.push('Error al modificar', 'ERROR');
+		}).catch(err => {
+			console.error('Errr al guardar los datos del animal!', err);
+			this.toastCtrl.push('Error al modificar', 'ERROR');
+		});
+
   }
 
   getIdSeleccion($event){
     console.log('getIdSeleccion($event)', $event.target.value);
-    this.anadirAGanado.id=$event.target.value;
+    if(this.tipoMostrado===Constantes.VACUNA){
+      this.anadirAGanado=this.servicioVac.encontrarVacuna($event.target.value);
+    }else{
+      this.anadirAGanado=this.servicioEnf.encontrarEnfermedad($event.target.value);
+    }
   }
 }

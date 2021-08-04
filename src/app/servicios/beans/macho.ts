@@ -1,12 +1,14 @@
 import { IEAnimal } from './interfaces/animal.interface';
 import {Animal} from './animal';
 import {Constantes} from '../genericos/constantes';
+import { Enfermedad } from './enfermedad';
+import { Vacuna } from './vacuna';
 
 export class Macho extends Animal{
 
 	constructor(id:string,alias:string,raza:string,foto:string,
-		numero:number,fechaNacimiento:Date,vacu:Array<string>,
-		enfer:Array<string>,
+		numero:number,fechaNacimiento:Date,vacu:Array<Vacuna>,
+		enfer:Array<Enfermedad>,
 		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number){
 		super();
 		this.setId(id);
@@ -25,14 +27,14 @@ export class Macho extends Animal{
 
     public getFoto()  : string{
         if (super.getFoto()!=null){
-            return super.getFoto();            
+            return super.getFoto();
         }else{
             return Constantes.FOTO_ANIMAL_MACHO_DEFECTO;
         }
     }
 
     toJSON():{} {
-        const { ascendencia,descendencia, ...rest } = this;
+        const { ascendencia,descendencia,vacunas, enfermedades, ...rest } = this;
         const projectedObject = rest;
 
         return projectedObject;
@@ -47,7 +49,7 @@ export class Macho extends Animal{
             let mach = Object.create(Macho.prototype);
             return Object.assign(mach, json,{
                 id:json["id"],
-                fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]) ,        
+                fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]) ,
                 metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])
 
             });

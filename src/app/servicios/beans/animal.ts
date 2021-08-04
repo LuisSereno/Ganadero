@@ -1,4 +1,6 @@
 import { IEAnimal } from './interfaces/animal.interface';
+import { Vacuna } from './vacuna';
+import { Enfermedad } from './enfermedad';
 
 export abstract class Animal implements IEAnimal{
 
@@ -14,9 +16,13 @@ export abstract class Animal implements IEAnimal{
 
 	fechaNacimiento: Date;
 
-	vacunas: Array<string>;
+	vacunas: Array<Vacuna>;
 
-	enfermedades: Array<string>;
+	enfermedades: Array<Enfermedad>;
+
+	vacunasIds : Array<string>;
+
+	enfermedadesIds : Array<string>;
 
 	ascendencia: Array<IEAnimal>;
 
@@ -35,9 +41,9 @@ export abstract class Animal implements IEAnimal{
 	metadatoFechaMod: Date;
 
 	fechaUltimoNacimiento ?: Date;
-	
+
 	sexo: number;
-	
+
 	constructor() {
 		this.id = "";
 		this.alias="";
@@ -45,8 +51,10 @@ export abstract class Animal implements IEAnimal{
 		this.foto="";
 		this.numero=0
 		this.fechaNacimiento = new Date();
-		this.vacunas=new Array<string>();
-		this.enfermedades=new Array<string>();
+		this.vacunas=new Array<Vacuna>();
+		this.enfermedades=new Array<Enfermedad>();
+		this.vacunasIds=new Array<string>();
+		this.enfermedadesIds=new Array<string>();
 		this.ascendencia=new Array<IEAnimal>();
 		this.descendencia=new Array<IEAnimal>();
 		this.ascendenciaIds=new Array<string>();
@@ -54,7 +62,7 @@ export abstract class Animal implements IEAnimal{
 		this.precioCompra=0;
 		this.precioVenta=0;
 	}
-	
+
 
 	public getId(): string {
 		return this.id;
@@ -81,7 +89,7 @@ export abstract class Animal implements IEAnimal{
 	}
 
 	public getFoto()  : string{
-		return this.foto;	
+		return this.foto;
 	}
 
 	public setFoto(foto:string){
@@ -108,19 +116,19 @@ export abstract class Animal implements IEAnimal{
 		this.fechaNacimiento = fecNac;
 	}
 
-	public getVacunas():Array<string>{
+	public getVacunas():Array<Vacuna>{
 		return this.vacunas;
 	}
 
-	public setVacunas(vacunas:Array<string>){
+	public setVacunas(vacunas:Array<Vacuna>){
 		this.vacunas = vacunas;
 	}
 
-	public getEnfermedades()  : Array<string>{
+	public getEnfermedades()  : Array<Enfermedad>{
 		return this.enfermedades;
 	}
 
-	public setEnfermedades(enf:Array<string>){
+	public setEnfermedades(enf:Array<Enfermedad>){
 		this.enfermedades = enf;
 	}
 
@@ -155,7 +163,7 @@ export abstract class Animal implements IEAnimal{
 	public setPrecioVenta(precio:number){
 		this.precioVenta = Number(precio);
 	}
-	
+
 	toJSON(): {} {
 		throw new Error("Method not implemented.");
 	}

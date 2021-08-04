@@ -154,15 +154,6 @@ export class Detalle {
 		};
 	}
 
-	protected modificaElementoEnfermedad(elemento: Array<string>) {
-		this.animal.setEnfermedades(elemento);
-	}
-
-	protected modificaElementoVacunas(elemento: Array<string>) {
-		this.animal.setVacunas(elemento);
-	}
-
-
 	isInstanceOfHembra(objeto: Animal): boolean {
 		return objeto instanceof Hembra;
 	}
