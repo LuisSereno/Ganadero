@@ -1,8 +1,8 @@
 import { IEMetadatos } from './metadatos.interface';
 import { transformJSON } from './transformJSON.interface';
 import { IEIdentification } from './identification.interface';
-import { IEVacuna } from './vacuna.interface';
-import { IEEnfermedad } from './enfermedad.interface';
+import { IEEnfermedadAnimal } from './enfermedadAnimal.interface';
+import { IEVacunaAnimal } from './vacunaAnimal.interface';
 
 export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdentification{
 
@@ -16,13 +16,13 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 
 	fechaNacimiento: Date;
 
-	vacunas ?: Array<IEVacuna>;
+	vacunas ?: Array<IEVacunaAnimal>;
 
-	enfermedades ?: Array<IEEnfermedad>;
+	enfermedades ?: Array<IEEnfermedadAnimal>;
 
-	vacunasIds ?: Array<string>;
+	//vacunasIds ?: Array<IEVacunaAnimal>;
 
-	enfermedadesIds ?: Array<string>;
+	//enfermedadesIds ?: Array<IEEnfermedadAnimal>;
 
 	ascendencia?: Array<IEAnimal>;
 

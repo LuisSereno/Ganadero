@@ -11,8 +11,8 @@
         <ion-list>
           <ion-item>
             <ion-label>Seleccione</ion-label>
-            <ion-select okText="Añadir" cancelText="Cancelar" (ionChange)="getIdSeleccion($event)">
-              <ion-select-option *ngFor="let vacuEnf of arrayDataShowExplotacion;let i=index" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
+            <ion-select #selectEnferVac okText="Añadir" cancelText="Cancelar" (ionBlur)="getIdSeleccion($event)">
+              <ion-select-option *ngFor="let vacuEnf of arrayDataShowExplotacion | async" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
@@ -25,18 +25,30 @@
       </ion-label>
       <ion-button fill="outline"(click)="anadirDatosAGanado()">Añadir</ion-button>
     </ion-list-header>
-
-    <ion-item *ngFor="let vacuEnf of arrayDataShow;let i=index">
+    <div *ngIf="arrayDataShow | async">
+      <ion-item *ngFor="let vacuEnf of arrayDataShow | async">
         <ion-avatar slot="start" (click)="anadirVacEnf(true,vacuEnf.id)">
           <img *ngIf="this.tipoMostrado==='vacuna'" src="assets/img/vacuna.png">
           <img *ngIf="this.tipoMostrado==='enfermedad'" src="assets/img/enfermedad.png">
         </ion-avatar>
-        <ion-label>
+        <ion-label *ngIf="!this.identificacionAnimal">
           <h2>{{vacuEnf.nombre}}</h2>
           <p>{{vacuEnf.descripcion}}</p>
         </ion-label>
+        <ion-label *ngIf="this.identificacionAnimal && this.tipoMostrado==='vacuna'">
+          <h2>{{vacuEnf.vacuna.nombre}}</h2>
+          <p>{{vacuEnf.vacuna.descripcion}}</p>
+        </ion-label>
+        <ion-label *ngIf="this.identificacionAnimal && this.tipoMostrado==='enfermedad'">
+          <h2>{{vacuEnf.enfermedad.nombre}}</h2>
+          <p>{{vacuEnf.enfermedad.descripcion}}</p>
+        </ion-label>
+        <ion-label *ngIf="this.identificacionAnimal">{{vacuEnf.fecha.split("T")[0]}}</ion-label>
       <ion-checkbox *ngIf="!this.identificacionAnimal" slot="end" [(ngModel)]="vacuEnf.isChecked" (ionChange)="anadirElementoExplotacion()"></ion-checkbox>
     </ion-item>
+
+    </div>
+
 
   </ion-list>
     <ion-fab-button *ngIf="!this.identificacionAnimal"  color="dark" (click)="anadirVacEnf(false)">

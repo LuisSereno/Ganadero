@@ -5,6 +5,8 @@ import { Component,EventEmitter, Input,Output   } from '@angular/core';
 import {Animal} from '../../servicios/beans/animal'
 import {Macho} from '../../servicios/beans/macho'
 import { GanadoServicio } from 'src/app/servicios/ganado.service';
+import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
+import { SSL_OP_NO_TLSv1_2 } from 'constants';
 //import {Hembra} from '../../servicios/beans/hembra'
 
 @Component({
@@ -22,9 +24,11 @@ export class AscDesc {
 
   @Input() animalesSelecionados: any;
 
+  @Input() animalHerencia:IEIdentification;
+
   @Output() animalesSelecionadosChange = new EventEmitter<Array<IEAnimal>>();
 
-  constructor(private servicio: GanadoServicio) {
+  constructor(private servicio: GanadoServicio,private toastCtrl: ToastService) {
 
   }
 
@@ -36,43 +40,12 @@ export class AscDesc {
     }
   }
 
-  onChange(tipo:boolean){
+  onChange(){
+    if (!this.tipo && this.animalesSelecionados.length>2){
+      this.toastCtrl.push("El máximo de ascendentes es 2, por favor, deseleccione alguno", "WARNING");
+    }else{
+      console.log("ENTRA EN EL onChange listaAscendenciaDescendencia ");
 
-   console.log("ENTRA EN EL onChange listaAscendenciaDescendencia ");
-
-  // var arrayAux:Array<string>;
-   //vaciamos el array de model para que no se solapen vacas y toros y no haya mas de la cuenta
-  // this.model=new Array<Animal>();
-/*
-    if (this.macho && !(this.macho instanceof Array)){
-      arrayAux=new Array<string>();
-      arrayAux.push(this.macho);
-      this.macho=arrayAux;
-    }
-    if (this.hembra && !(this.hembra instanceof Array)){
-      arrayAux=new Array<string>();
-      arrayAux.push(this.hembra);
-      this.hembra=arrayAux;
-    }
-
-      for (let i of this.macho){
-        let ani=this.servicio.ganado.find(x => x.id == i);
-        if (ani){
-          this.model.push(ani);
-        }
-      }
-
-     for (let i of this.hembra){
-        let ani=this.servicio.ganado.find(x => x.id == i);
-        if (ani){
-          this.model.push(ani);
-        }
-      }
-    console.log("this.model");
-    console.log(this.model);
-
-     this.arraySalida.emit(this.model);
-  */
       const arrayAux: Array<IEAnimal>= new Array<IEAnimal>();
       if (typeof(this.animalesSelecionados) === 'string'){
         arrayAux.push(this.servicio.encontrarAnimal({id:this.animalesSelecionados.toString()}));
@@ -82,6 +55,7 @@ export class AscDesc {
         });
       }
     this.animalesSelecionadosChange.emit(arrayAux);
+    }
   }
 
   comprobarDentroArray(animal:Animal):boolean{
@@ -114,34 +88,61 @@ export class AscDesc {
     setTimeout(() => {
         let buttonElements = document.querySelectorAll('div.alert-radio-group button');
         if (!buttonElements.length) {
-            this.prepareImageSelector();
-        } else {
-            for (let index = 0; index < buttonElements.length; index++) {
-                let buttonElement = buttonElements[index];
-                let optionLabelElement = buttonElement.querySelector('.alert-radio-label');
-                let image = optionLabelElement.innerHTML.trim();
-
-                let anim:IEAnimal= this.model.find(x => {
-                  if (x.alias == image){
-                    return x;
-                  }else if (x.numero.toString() == image){
-                    return x;
-                  }
-                });
-                if (anim.sexo==Constantes.MACHO){
-                  optionLabelElement.innerHTML='<img src="assets/img/toro.png" style="width: 2vw;">'+ image;
-                }else{
-                  optionLabelElement.innerHTML='<img src="assets/img/vaca.png" style="width: 2vw;">'+ image;
-                }
+            buttonElements = document.querySelectorAll('button.alert-checkbox-button');
+            if (!buttonElements.length){
+              this.prepareImageSelector();
+            }else{
+              this.createRadioElements(buttonElements,false);
             }
+        } else {
+            this.createRadioElements(buttonElements,true);
         }
     }, 100);
+
+    console.log(this.animalesSelecionados);
 }
+
+  private createRadioElements(buttonElements: NodeListOf<Element>, isRadio:boolean) {
+
+    for (let index = 0; index < buttonElements.length; index++) {
+      let buttonElement = buttonElements[index];
+      let optionLabelElement = null;
+      if (isRadio){
+        optionLabelElement = buttonElement.querySelector('.alert-radio-label');
+      }else{
+        optionLabelElement = buttonElement.querySelector('.alert-checkbox-label');
+      }
+      let image = optionLabelElement.innerHTML.trim();
+
+      let anim: IEAnimal = this.model.find(x => {
+        if (x.alias == image) {
+          return x;
+        } else if (x.numero.toString() == image) {
+          return x;
+        }
+      });
+      if (anim.sexo == Constantes.MACHO) {
+        optionLabelElement.innerHTML = '<img src="assets/img/toro.png" style="width: 2vw;">' + image;
+      } else {
+        optionLabelElement.innerHTML = '<img src="assets/img/vaca.png" style="width: 2vw;">' + image;
+      }
+    }
+  }
 
   compareById(o1, o2) {
     try{
       if (o2.id!==undefined){
         return o1 === o2.id
+      }else if(Array.isArray(o2)){
+        let valorExiste=false;
+        o2.forEach(x => {
+          if (x.id == o1) {
+            valorExiste=true;
+          }
+        });
+        if(valorExiste){
+          return true;
+        }
       }else{
         return o1 === o2
       }

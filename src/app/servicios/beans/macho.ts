@@ -1,14 +1,14 @@
 import { IEAnimal } from './interfaces/animal.interface';
 import {Animal} from './animal';
 import {Constantes} from '../genericos/constantes';
-import { Enfermedad } from './enfermedad';
-import { Vacuna } from './vacuna';
+import { IEVacunaAnimal } from './interfaces/vacunaAnimal.interface';
+import { IEEnfermedadAnimal } from './interfaces/enfermedadAnimal.interface';
 
 export class Macho extends Animal{
 
 	constructor(id:string,alias:string,raza:string,foto:string,
-		numero:number,fechaNacimiento:Date,vacu:Array<Vacuna>,
-		enfer:Array<Enfermedad>,
+		numero:number,fechaNacimiento:Date,vacu:Array<IEVacunaAnimal>,
+		enfer:Array<IEEnfermedadAnimal>,
 		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number){
 		super();
 		this.setId(id);
@@ -34,7 +34,7 @@ export class Macho extends Animal{
     }
 
     toJSON():{} {
-        const { ascendencia,descendencia,vacunas, enfermedades, ...rest } = this;
+        const { ascendencia,descendencia, ...rest } = this;
         const projectedObject = rest;
 
         return projectedObject;

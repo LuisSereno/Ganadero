@@ -1,14 +1,14 @@
 import {Constantes} from '../genericos/constantes';
 import { Animal } from './animal';
 import { IEAnimal } from './interfaces/animal.interface';
-import { Vacuna } from './vacuna';
-import { Enfermedad } from './enfermedad';
+import { IEVacunaAnimal } from './interfaces/vacunaAnimal.interface';
+import { IEEnfermedadAnimal } from './interfaces/enfermedadAnimal.interface';
 
 export class Hembra extends Animal{
 
 	constructor(id:string,alias:string,raza:string,foto:string,
-		numero:number,fechaNacimiento:Date,vacu:Array<Vacuna>,
-		enfer:Array<Enfermedad>,fechaUltimoNacimiento:Date,
+		numero:number,fechaNacimiento:Date,vacu:Array<IEVacunaAnimal>,
+		enfer:Array<IEEnfermedadAnimal>,fechaUltimoNacimiento:Date,
 		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number){
         super();
         this.setId(id);
@@ -54,7 +54,7 @@ export class Hembra extends Animal{
 
 
     toJSON():{} {
-        const { ascendencia,descendencia, vacunas, enfermedades, ...rest } = this;
+        const { ascendencia,descendencia, ...rest } = this;
         const projectedObject = rest;
         return projectedObject;
     }

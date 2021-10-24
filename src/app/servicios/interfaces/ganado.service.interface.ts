@@ -10,11 +10,11 @@ export interface IEganadoServicio {
   obtenerDatosGanadoIds(ids: Array<IEIdentification>):Promise<IEAnimal[]>;
 
   getBusquedaAscDesc(arrayAnimales:Array<IEAnimal>|Array<number>):Array<IEAnimal>;
-  
+
   guardaAnimal(animal: IEAnimal): Promise<IEAnimal>;
 
-  actualizarAnimal(animal: IEAnimal): Promise<IEAnimal>;
+  actualizarAnimal(animal: IEAnimal, deep:boolean): Promise<IEAnimal>;
 
   encontrarAnimal(animal: IEIdentification): IEAnimal;
-  
+
 }

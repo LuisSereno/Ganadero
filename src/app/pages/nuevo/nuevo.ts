@@ -83,7 +83,7 @@ export class Nuevo {
 
 		this.formularioAnimal = this.formBuilder.group({
 			numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
-			alias: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
+			alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
 			raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
 			fechaNacimiento: ['value', Validators.compose([Validators.required])]
 		});
@@ -217,7 +217,7 @@ export class Nuevo {
 				anim.descendenciaIds=new Array<string>();
 			}
 			anim.descendenciaIds.push(this.animal.id);
-			this.ganadoServicio.actualizarAnimal(anim);
+			this.ganadoServicio.actualizarAnimal(anim,true);
 		}
 	}
 

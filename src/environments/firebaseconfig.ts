@@ -6,4 +6,5 @@ export const firebaseConfig = {
   storageBucket: "ganadero-146707.appspot.com",
   messagingSenderId: "583744183360",
   appId: "1:583744183360:web:8794754ccc9a8b07a9d3a5"
+  //Token depuracion ->  token_ganadero_app  CA290E54-3E7D-4FB0-ADB4-B44968EF2B1E
 };

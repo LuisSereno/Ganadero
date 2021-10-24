@@ -83,22 +83,22 @@
                   </ion-row>
                 <ion-row>
                   <ion-col col-sm-8>
-                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Ascendencia'" [tipo]="false"
+                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Ascendencia'" [tipo]="false" [animalHerencia]="this.animal.id"
                      [(animalesSelecionados)]="this.animal.ascendencia"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col col-sm-8>
-                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Descendencia'" [tipo]="true"
+                    <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Descendencia'" [tipo]="true" [animalHerencia]="this.animal.id"
                      [(animalesSelecionados)]="this.animal.descendencia"></my-list-opcionesAscDesc>
                   </ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col col-sm-6>
-                    <ion-button color="primary" expand="block" (click)="cambiarVacunas()">Vacunas</ion-button>
+                    <ion-button color="primary" expand="block" (click)="cambiarEnfermedad()">Enfermedades</ion-button>
                   </ion-col>
                   <ion-col col-sm-6>
-                    <ion-button color="primary" expand="block" (click)="cambiarEnfermedad()">Enfermedades</ion-button>
+                    <ion-button color="primary" expand="block" (click)="cambiarVacunas()">Vacunas</ion-button>
                   </ion-col>
                 </ion-row>
             </ion-col>

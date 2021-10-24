@@ -35,7 +35,7 @@
                       <ion-input type="number" formControlName="numero" [(ngModel)]="animal.numero"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="!formularioAnimal.controls.numero.valid  && (formularioAnimal.controls.numero.dirty || submitAttempt)">
-                        <p>Introduce un numero correcto.</p>
+                        <p style="color:red;">Introduce un numero correcto</p>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -48,9 +48,10 @@
                     </ion-label>
                       <ion-input type="string" formControlName="alias" [(ngModel)]="animal.alias"></ion-input>
                     </ion-item>
-                    <ion-item *ngIf="!formularioAnimal.controls.alias.valid  && (formularioAnimal.controls.alias.dirty || submitAttempt)">
-                        <p>Introduce un alias correcto.</p>
+                   <!-- <ion-item *ngIf="!formularioAnimal.controls.alias.valid  && (formularioAnimal.controls.alias.dirty || submitAttempt)">
+                        <p style="color:red;">Introduce un alias correcto</p>
                     </ion-item>
+                    -->
                   </ion-col>
                 </ion-row>
 
@@ -63,7 +64,7 @@
                     <ion-input type="string" formControlName="raza" [(ngModel)]="animal.raza"></ion-input>
                      </ion-item>
                     <ion-item *ngIf="!formularioAnimal.controls.raza.valid  && (formularioAnimal.controls.raza.dirty || submitAttempt)">
-                        <p>Introduce una raza correcto</p>
+                        <p style="color:red;">Introduce una raza</p>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -76,7 +77,7 @@
                         <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento"> </ion-datetime>
                       </ion-item>
                     <ion-item *ngIf="!formularioAnimal.controls.fechaNacimiento.valid  && (formularioAnimal.controls.fechaNacimiento.dirty || submitAttempt)">
-                        <p>Introduce una fecha correcta</p>
+                        <p style="color:red;">Introduce una fecha correcta</p>
                     </ion-item>
                   </ion-col>
                 </ion-row>

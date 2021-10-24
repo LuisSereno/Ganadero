@@ -145,7 +145,7 @@ export class Detalle {
 		if (this.animal instanceof Hembra) {
 			this.animal.setFechaUltimoNacimiento(this.fechaUltimoNacimiento ? new Date(String(this.fechaUltimoNacimiento)) : null);
 		}
-		let correcto = this.servicio.actualizarAnimal(this.animal);
+		let correcto = this.servicio.actualizarAnimal(this.animal,true);
 
 		if (correcto) {
 			this.toastCtrl.push("Modificación correcta", "CORRECTO");

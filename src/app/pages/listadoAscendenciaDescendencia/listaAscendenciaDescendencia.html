@@ -4,9 +4,9 @@
       <ion-icon name="{{tipo!=null &&  tipo?'chevron-down-circle-outline':'chevron-up-circle-outline'}}"></ion-icon>{{texto}}
     </ion-label>
   </ion-list-header>
-  <ion-select [(ngModel)]="animalesSelecionados" multiple="{{tipo}}" (ngModelChange)="onChange(true)" (click)="prepareImageSelector()"  [compareWith]="compareById">
+  <ion-select [(ngModel)]="animalesSelecionados" multiple="true" (ngModelChange)="onChange()" (click)="prepareImageSelector()"  [compareWith]="compareById">
       <ion-select-option *ngFor="let animal of this.model"  value="{{animal.id}}">
-      {{animal!=null &&  animal.alias!=""?animal.alias:animal.numero}}
+      {{animal!=null && ( animal.alias!=null && animal.alias.trim()!="")?animal.alias:animal.numero}}
       </ion-select-option>
   </ion-select>
 </ion-list>

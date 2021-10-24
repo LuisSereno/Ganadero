@@ -1,6 +1,6 @@
 import { IEAnimal } from './interfaces/animal.interface';
-import { Vacuna } from './vacuna';
-import { Enfermedad } from './enfermedad';
+import { IEVacunaAnimal } from './interfaces/vacunaAnimal.interface';
+import { IEEnfermedadAnimal } from './interfaces/enfermedadAnimal.interface';
 
 export abstract class Animal implements IEAnimal{
 
@@ -16,9 +16,9 @@ export abstract class Animal implements IEAnimal{
 
 	fechaNacimiento: Date;
 
-	vacunas: Array<Vacuna>;
+	vacunas: Array<IEVacunaAnimal>;
 
-	enfermedades: Array<Enfermedad>;
+	enfermedades: Array<IEEnfermedadAnimal>;
 
 	vacunasIds : Array<string>;
 
@@ -51,8 +51,8 @@ export abstract class Animal implements IEAnimal{
 		this.foto="";
 		this.numero=0
 		this.fechaNacimiento = new Date();
-		this.vacunas=new Array<Vacuna>();
-		this.enfermedades=new Array<Enfermedad>();
+		this.vacunas=new Array<IEVacunaAnimal>();
+		this.enfermedades=new Array<IEEnfermedadAnimal>();
 		this.vacunasIds=new Array<string>();
 		this.enfermedadesIds=new Array<string>();
 		this.ascendencia=new Array<IEAnimal>();
@@ -116,19 +116,19 @@ export abstract class Animal implements IEAnimal{
 		this.fechaNacimiento = fecNac;
 	}
 
-	public getVacunas():Array<Vacuna>{
+	public getVacunas():Array<IEVacunaAnimal>{
 		return this.vacunas;
 	}
 
-	public setVacunas(vacunas:Array<Vacuna>){
+	public setVacunas(vacunas:Array<IEVacunaAnimal>){
 		this.vacunas = vacunas;
 	}
 
-	public getEnfermedades()  : Array<Enfermedad>{
+	public getEnfermedades()  : Array<IEEnfermedadAnimal>{
 		return this.enfermedades;
 	}
 
-	public setEnfermedades(enf:Array<Enfermedad>){
+	public setEnfermedades(enf:Array<IEEnfermedadAnimal>){
 		this.enfermedades = enf;
 	}
 

@@ -20,7 +20,7 @@
 	      </ion-thumbnail>
 	      <ion-label>
 	        <h2>{{animal.numero}}</h2>
-	    	<p>{{animal.alias}} {{animal.raza}}
+	    	<p>{{animal.alias}}#{{animal.raza}}
 				{{animal.fechaUltimoNacimiento ? animal.fechaUltimoNacimiento.toLocaleString() : ''}}
 	    		<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.precioCompra}} € - <b>Venta:</b> {{animal.precioVenta}} €</span>
 	    	</p>
@@ -37,7 +37,7 @@
 	      </ion-thumbnail>
 	      <ion-label>
 	      	<h2>{{animal.numero}}</h2>
-			<p>{{animal.alias}} {{animal.raza}}
+			<p>{{animal.alias}}#{{animal.raza}}
 				<span *ngIf="venta!=0"> <b>Compra:</b> {{animal.precioCompra}} € - <b>Venta:</b> {{animal.precioVenta}} €</span>
 			</p>
 		  </ion-label>

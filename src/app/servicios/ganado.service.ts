@@ -71,20 +71,61 @@ export class GanadoServicio implements IEganadoServicio {
         });
     }
 
-    actualizarAnimal(animal: IEAnimal): Promise<IEAnimal> {
-        //let animWithoutRelatives:IEAnimal=animal.toJSON() as IEAnimal;
+    actualizarAnimal(animal: IEAnimal, deep:boolean): Promise<IEAnimal> {
+
         var rebano=this.ganado;
         return new Promise((resolve, reject) => {
             this.conn.updateObject(animal).then(function (docRef) {
-                let index = rebano.findIndex(x => x.id === animal.id);
+                 let index = rebano.findIndex(x => x.id === animal.id);
                 rebano[index] = animal;
                 resolve(animal);
-            })
-                .catch(function (error) {
+            }).catch(function (error) {
                     console.error('Error adding document: ', error);
                     reject(new Error('No actualizado'));
-                });;
+            });;
+            if (deep){
+                this.descendenciaUpdate(animal);
+                this.ascendenciaUpdate(animal);
+            }
         });
+    }
+
+    private descendenciaUpdate(animal: IEAnimal) {
+        if (animal.descendenciaIds != null && animal.descendenciaIds.length > 0) {
+            animal.descendenciaIds.forEach(animalBString => {
+                let identificacionAnimalB = { id: animalBString };
+                let animalB: IEAnimal = this.encontrarAnimal(identificacionAnimalB);
+                if (animalB != null) {
+                    if (animalB.ascendenciaIds == null){
+                        animalB.ascendenciaIds= new Array<string>();
+                    }
+                    let isIncluded = animalB.ascendenciaIds.find(descendeciaId => descendeciaId == animal.id);
+                    if (!isIncluded) {
+                        animalB.ascendenciaIds.push(animal.id);
+                        this.actualizarAnimal(animalB, false);
+                    }
+                }
+            });
+        }
+    }
+
+    private ascendenciaUpdate(animal: IEAnimal) {
+        if (animal.ascendenciaIds != null && animal.ascendenciaIds.length > 0) {
+            animal.ascendenciaIds.forEach(animalBString => {
+                let identificacionAnimalB = { id: animalBString };
+                let animalB: IEAnimal = this.encontrarAnimal(identificacionAnimalB);
+                if (animalB != null) {
+                    if(animalB.descendenciaIds == null){
+                        animalB.descendenciaIds= new Array<string>();
+                    }
+                    let isIncluded = animalB.descendenciaIds.find(descendeciaId => descendeciaId == animal.id);
+                    if (!isIncluded) {
+                        animalB.descendenciaIds.push(animal.id);
+                        this.actualizarAnimal(animalB, false);
+                    }
+                }
+            });
+        }
     }
 
     encontrarAnimal(animal: IEIdentification): IEAnimal {
