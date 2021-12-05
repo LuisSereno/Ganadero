@@ -61,7 +61,7 @@ export class HomePage {
       { title: 'Explotacion', url: "/ganadero/explotacion-detalle/true", icon: "home"},
       { title: 'Ganado', url: "/ganadero/listado-ganado", icon: "home"},
       { title: 'Documentos', url: "", icon: "home" },
-      { title: 'Ventas', url: "", icon: "home" },
+      { title: 'Ventas', url: "/ganadero/listado-ventas", icon: "home" },
       { title: 'Informes', url: "", icon: "home" },
     ];
 

@@ -17,15 +17,6 @@
                   </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="compra==4">
-                  <ion-col col-sm-4>
-                      <ion-button [class.btn-redondo]="!isHembra" [class.btn-redondo-activo]="isHembra" (click)="seleccionarSexo(0)"><img src="assets/img/vaca.png"></ion-button>
-                  </ion-col>
-                  <ion-col col-sm-4>
-                     <ion-button [class.btn-redondo]="isHembra" [class.btn-redondo-activo]="!isHembra" (click)="seleccionarSexo(1)"><img src="assets/img/toro.png"></ion-button>
-                  </ion-col>
-                </ion-row>
-
                 <ion-row>
                   <ion-col col-sm-8>
                   <ion-item  class="text-label">
@@ -96,7 +87,6 @@
                     <ion-label position="floating">
                      <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio compra
                     </ion-label>
-
                      <ion-input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="animal.precioCompra"></ion-input>
                     </ion-item>
                   </ion-col>
@@ -168,22 +158,26 @@
 </div> -->
 
 <div *ngIf="compra==4">
-  <ion-fab right top>
-      <button ion-fab (click)="guardaDatosAnimal()">
-          <ion-icon name="arrow-round-forward"></ion-icon>
-      </button>
+
+  <ion-fab vertical="top" horizontal="end">
+    <ion-fab-button  (click)="guardaDatosAnimal()">
+      <ion-icon name="arrow-forward-outline" role="img" class="icon icon-ios arrow-back" aria-label="arrow-round-forward">
+        </ion-icon>
+    </ion-fab-button>
   </ion-fab>
 
-  <ion-fab left bottom>
-      <button ion-fab color="primary" (click)="volver()">
-          <ion-icon name="close"></ion-icon>
-      </button>
+  <ion-fab vertical="top" horizontal="start">
+    <ion-fab-button color="dark"  (click)="volver()">
+      <ion-icon name="arrow-back" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
+        </ion-icon>
+    </ion-fab-button>
   </ion-fab>
 
-  <ion-fab right bottom>
-      <button ion-fab color="secondary" (click)="enviarResultadoACompras()">
-          <ion-icon name="checkmark"></ion-icon>
-      </button>
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button color="success"  (click)="enviarResultadoACompras()">
+      <ion-icon name="checkmark" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
+        </ion-icon>
+    </ion-fab-button>
   </ion-fab>
 </div>
 </form>

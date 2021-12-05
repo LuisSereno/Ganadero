@@ -12,13 +12,13 @@
 	  </ion-segment>
 	</div>
 	<div [ngSwitch]="tipoMostrado">
-	  <ion-list *ngSwitchCase="'ventas'">
-	    <ion-item *ngFor="let venta of servicio.getExplotacion().getArrayVentas()" (click)="verListadoAnimales(venta.getAnimales(),2)">
+	  <ion-list *ngSwitchCase="ventas">
+	    <ion-item *ngFor="let venta of arrayVentas" (click)="verListadoAnimales(venta.getAnimales(),2)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/up-price.png">
 	      </ion-thumbnail>
 	      	<h1>{{venta.getAgrupacion()}}</h1>
-	      	
+
 	      	<ion-row>
 	      		<ion-col width-33>
 		      		<label>
@@ -36,17 +36,12 @@
 		      		</label>
 	      		</ion-col>
 	      	</ion-row>
-	      	
 	    </ion-item>
-    	<ion-fab right bottom>
-		    <button ion-fab color="dark" (click)="anadirDatosVentas()">
-		        <ion-icon name="add"></ion-icon>
-		    </button>
-		</ion-fab>
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'compras'">
-	    <ion-item *ngFor="let compra of servicio.getExplotacion().getArrayCompras()" (click)="verListadoAnimales(compra.getAnimales(),1)">
+
+	    <ion-item *ngFor="let compra of arrayCompras" (click)="verListadoAnimales(compra.getAnimales(),1)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/down-price.png">
 	      </ion-thumbnail>
@@ -69,12 +64,23 @@
 	      		</ion-col>
 	      	</ion-row>
 	    </ion-item>
-	    <ion-fab right bottom>
-		    <button ion-fab color="dark" (click)="anadirDatosCompras()">
-		        <ion-icon name="add"></ion-icon>
-		    </button>
-		</ion-fab>
 	  </ion-list>
+	  <div *ngIf="tipoMostrado=='ventas'">
+		<ion-fab vertical="bottom" horizontal="start">
+			<ion-fab-button color="success">
+				<ion-icon name="cash-outline" role="img" class="icon icon-ios ion-ios-add" aria-label="add" (click)="anadirDatosVentas()">
+				</ion-icon>
+			</ion-fab-button>
+		</ion-fab>
+	  </div>
+	  <div *ngIf="tipoMostrado=='compras'">
+		<ion-fab vertical="bottom" horizontal="start">
+			<ion-fab-button color="danger">
+				<ion-icon name="wallet-outline" role="img" class="icon icon-ios ion-ios-add" aria-label="add" (click)="anadirDatosCompras()">
+				</ion-icon>
+			</ion-fab-button>
+		</ion-fab>
+	  </div>
 	</div>
-	
+
 </ion-content>

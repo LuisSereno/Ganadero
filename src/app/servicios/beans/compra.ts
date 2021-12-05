@@ -1,7 +1,6 @@
 import {Operacion} from './operacion';
 import {Animal} from './animal';
 import {Constantes} from '../genericos/constantes';
-
 export class Compra extends Operacion{
 
 	constructor(id:string,agru:string,animales:Array<Animal>,pCompra:number,fecha:Date){

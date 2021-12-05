@@ -42,6 +42,11 @@ public static VACUNA = 'vacuna';
 
 public static ENFERMEDAD = 'enfermedad';
 
+public static COMPRA_STRING= 'Compra';
+
+public static VENTA_STRING= 'Venta';
+
+
 public static ARRAY_TIPOS_DOCUMENTOS_ADMITIDOS=[{'contentType':'image/png','tipo':'png','imagen':'img'},{'contentType':'image/jpg','tipo':'jpg','imagen':'img'},
 {'contentType':'image/jpeg','tipo':'jpeg','imagen':'img'},{'contentType':'image/tiff','tipo':'tif','imagen':'img'},{'contentType':'application/pdf','tipo':'pdf','imagen':'pdf'},
 {'contentType':'application/msword','tipo':'docx','imagen':'word'},{'contentType':'application/msword','tipo':'doc','imagen':'word'}, {'contentType':'application/rtf','tipo':'rtf','imagen':'word'},

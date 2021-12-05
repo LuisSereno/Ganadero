@@ -33,7 +33,7 @@ export class ListaGanado {
 
 	venta:number;
 
-	  constructor(public navCtrl: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio,
+	  constructor(public router: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio,
 		public explotacionServ: ExplotacionServicio) {
 
 	}
@@ -64,7 +64,7 @@ export class ListaGanado {
 			this.ganadoServicio.ganado=data;
 		})
 		.catch(e=>console.error("Animales no encontrados",e));
-		
+
 		/*
 		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
 				let animalesTotales:Array<Animal>=JSON.parse(this.params.snapshot.paramMap.get("animales"));
@@ -139,12 +139,12 @@ export class ListaGanado {
 					}else{
 						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
-						         );		
+						         );
 						if (animalCompleto){
-							dat=animalCompleto;	
+							dat=animalCompleto;
 						}else{
 							dat=null;
-						}			
+						}
 					}
 
 					arrayVacio.push(dat);
@@ -162,12 +162,12 @@ export class ListaGanado {
 					}else{
 						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
-						         );		
+						         );
 						if (animalCompleto){
-							dat=animalCompleto;	
+							dat=animalCompleto;
 						}else{
 							dat=null;
-						}			
+						}
 					}
 					arrayVacio.push(dat);
 				}
@@ -186,13 +186,13 @@ export class ListaGanado {
 					}else{
 						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
-						         );		
+						         );
 						if (animalCompleto){
-							dat=animalCompleto;	
+							dat=animalCompleto;
 						}else{
 							dat=null;
-						}			
-					}	
+						}
+					}
 					arrayVacio.push(dat);
 				}
 				mach.ascendencia =  arrayVacio;
@@ -207,23 +207,23 @@ export class ListaGanado {
 					}else{
 						animalCompleto = this.explotacion.arrayMachos.find(hemb =>
 						         +hemb.id === +dat
-						         );		
+						         );
 						if (animalCompleto){
-							dat=animalCompleto;	
+							dat=animalCompleto;
 						}else{
 							dat=null;
-						}			
-					}	
-					arrayVacio.push(dat);	
+						}
+					}
+					arrayVacio.push(dat);
 				}
 				mach.descendencia = arrayVacio;
 			}
-		}			
+		}
 	}
-	
+
 	protected detalle(animalito:Animal){
 		if (this.venta==Constantes.INDEFINIDO){
-			this.navCtrl.navigate(['ganadero/animal-detalle',animalito.id]);
+			this.router.navigate(['ganadero/animal-detalle',animalito.id]);
 		}
 	}
 
@@ -237,9 +237,9 @@ export class ListaGanado {
 
 		*/
 
-		this.navCtrl.navigate(['ganadero/animal-nuevo'],{queryParams:{"explotacionID":this.explotacion.id,
+		this.router.navigate(['ganadero/animal-nuevo'],{queryParams:{"explotacionID":this.explotacion.id,
 																	  "animalID":null,
-																	  "sexo":sexo,}}); 
+																	  "sexo":sexo,}});
 	}
 
 
@@ -251,7 +251,7 @@ export class ListaGanado {
 		for (let value in this.checkedItemsMachos){
 			arrayAnimales.push(this.explotacion.arrayMachos[value]);
 		}
-		this.navCtrl.navigate(['ganadero/listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
+		this.router.navigate(['ganadero/listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
 	}
 
 	protected anadeAnimal(anim:IEAnimal){
@@ -263,8 +263,8 @@ export class ListaGanado {
 		} else {
 			if (!this.explotacion.arrayHembras){
 				this.explotacion.arrayHembras= new Array<IEAnimal>();
-			}	
-			this.explotacion.arrayHembras.push(anim);	
+			}
+			this.explotacion.arrayHembras.push(anim);
 		}
 		if (!this.explotacion.arrayIdAnimales) {
 			this.explotacion.arrayIdAnimales= new Array<IEIdentification>();
@@ -285,7 +285,7 @@ export class ListaGanado {
 				for (let mach of data.arrayMachos){
 					let machito:Macho=Macho.fromJSON(mach);
 					this.arrayMachos.push(machito);
-				}					
+				}
 			}
 			if (data.arrayHembras!=undefined){
 				for (let hem of data.arrayHembras){
@@ -302,7 +302,7 @@ export class ListaGanado {
 		});
 */
 	}
-	
+
 
 	volver(){
 		console.log("VUELVE");

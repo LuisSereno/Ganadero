@@ -24,7 +24,7 @@ export class ListaVentas {
 
 	arrayCompras: Array<IEOperacion>;
 
-  	constructor(public navCtrl: Router,public servicio: ServicioDatos) {
+  	constructor(public router: Router,public servicio: ServicioDatos) {
 	}
 
 	ionViewDidLoad() {
@@ -119,14 +119,25 @@ export class ListaVentas {
 	 }
 */
 	protected verListadoAnimales(animalitos:Array<Animal>,tipoOperacion:number){
-		this.navCtrl.navigate(['listado-ganado',{animales:animalitos,venta:tipoOperacion}]);
+		this.router.navigate(['listado-ganado',{animales:animalitos,venta:tipoOperacion}]);
 	}
 
 	protected anadirDatosVentas(){
-		this.navCtrl.navigate(['listado-ganado',{venta:Constantes.VENTA_VENDER}]);	
+		this.router.navigate(['ganadero/operacion-nueva',Constantes.VENTA_VENDER]);
 	}
 
 	protected anadirDatosCompras(){
-		this.navCtrl.navigate(['animal-nuevo',{animal:null,compra:Constantes.COMPRA_COMPRA}]);	
+		//this.router.navigate(['animal-nuevo',{animal:null,compra:Constantes.COMPRA_COMPRA}]);
+		this.router.navigate(['ganadero/operacion-nueva',Constantes.COMPRA_COMPRA]);
+
+	/*	this.router.navigate(['ganadero/animal-nuevo'], {
+			queryParams: {
+				"explotacionID": this.servicio.getExplotacion().id,
+				"animalID": null,
+				"sexo": sexo,
+				"compra":Constantes.COMPRA_COMPRA
+			}
+		});
+*/
 	}
 }

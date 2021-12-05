@@ -24,11 +24,11 @@ export class ListadoAnimalesVendidos {
 				  protected servicio: ServicioCompraVenta,private toastCtrl: ToastService,
 				  private location: Location) {
 
-  		this.arrayAnimales=JSON.parse(params.snapshot.paramMap.get("animalesSeleccionados"));	
-  		this.operacion=JSON.parse(params.snapshot.paramMap.get("operacion"));			
+  		this.arrayAnimales=JSON.parse(params.snapshot.queryParams.animalesSeleccionados);
+  		this.operacion=JSON.parse(params.snapshot.queryParams.operacion);
   		this.sumarCantidad();
   		this.servicio.esCompra(false);
-	}		
+	}
 
 
 	protected volver(){
@@ -44,7 +44,7 @@ export class ListadoAnimalesVendidos {
 
 
 		let correcto:boolean=this.servicio.crearOperacion(this.operacion);
-	
+
 		if (correcto){
 			this.toastCtrl.push("Guardado correcto","CORRECTO");
 			this.navCtrl.navigate(['']);
@@ -52,7 +52,7 @@ export class ListadoAnimalesVendidos {
 			this.toastCtrl.push("Error al guardar","ERROR");
 		}
 
-	}	
+	}
 
 	isInstanceOfVenta(objeto:Operacion):boolean{
 		return objeto instanceof Venta;
@@ -75,7 +75,7 @@ export class ListadoAnimalesVendidos {
 				}
 			}
 		}
-		
+
 		this.operacion.precio= suma;
 	}
 

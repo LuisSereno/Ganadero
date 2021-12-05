@@ -47,6 +47,7 @@ import { VacunaServicio } from 'src/app/servicios/vacuna.service';
 import { EnfermedadServicio } from 'src/app/servicios/enfermedad.service';
 import { VacunasEnfermedadesPage } from '../listadoVacunasEnfermedades/listaVacunasEnfermedades';
 import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacunaEnfermedad/detalleVacunaEnfermedad';
+import { OperacionComponent } from '../listadoVentas/operacion/operacion.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,7 @@ import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacu
     { provide: 'DocumentoConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEDocumento>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'ExplotacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEExplotacion>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'EnfermedadConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEEnfermedad>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'VacunaConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEVacuna>(dep1)), deps: [AngularFireDatabase] }
+    { provide: 'VacunaConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEVacuna>(dep1)), deps: [AngularFireDatabase] },
   ],
   declarations: [
     HomePage,
@@ -96,7 +97,8 @@ import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacu
     ListaDocumentos,
     Cabecera,
     VacunasEnfermedadesPage,
-    DetalleVacunaEnfermedad
+    DetalleVacunaEnfermedad,
+    OperacionComponent
     ],
   exports: [
     HomePage

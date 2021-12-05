@@ -64,7 +64,7 @@ export class Nuevo {
 
 	private recognizedText: string;
 
-	constructor(public navCtrl: Router, public params: ActivatedRoute,
+	constructor(public router: Router, public params: ActivatedRoute,
 		private toastCtrl: ToastService, public modalCtrl: ModalController,
 				/*private camera: Camera ,*/ public loadingCtrl: LoadingController,
 		protected compraVenta: OperacionServicio, /*private diagnostic:Diagnostic,*/
@@ -81,25 +81,45 @@ export class Nuevo {
 		this.fechaNacimiento = "";
 		this.fechaUltimoNacimiento = "";
 
-		this.formularioAnimal = this.formBuilder.group({
-			numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
-			alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
-			raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
-			fechaNacimiento: ['value', Validators.compose([Validators.required])]
-		});
-
 		if (this.params.snapshot.queryParams.compra) {
-			this.compra = JSON.parse(this.params.snapshot.queryParams.compra);
-			if (this.compra != Constantes.COMPRA_COMPRA) {
-				this.compra = Constantes.INDEFINIDO;
-				let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
-				this.animal = valueParse.sexo === Constantes.MACHO ? Macho.fromJSON(valueParse) : Hembra.fromJSON(valueParse);
-			} else {
+				this.compra = JSON.parse(this.params.snapshot.queryParams.compra);
+		//	if (this.compra != Constantes.COMPRA_COMPRA) {
+				//this.compra = Constantes.INDEFINIDO;
+				this.arrayAnimales = new Array<Animal>();
+				this.explotacionId = this.explotacion.explotacionSeleccionada.id;
+				if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
+					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null);
+					this.animal.sexo= Constantes.MACHO;
+				} else {
+					this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);
+					this.animal.sexo= Constantes.HEMBRA;
+				}
+				//let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
+				//this.animal = valueParse.sexo === Constantes.MACHO ? Macho.fromJSON(valueParse) : Hembra.fromJSON(valueParse);
+		/*	} else {
 				this.compraVenta.esCompra(false);
 				this.animal = new Macho(null, null, null, null, 0, null, null, null, null, null, null, null);
 				this.arrayAnimales = new Array<Animal>();
 			}
+			*/
+
+			this.formularioAnimal = this.formBuilder.group({
+				numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
+				alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
+				raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
+				//fechaNacimiento: ['value', Validators.compose([Validators.required])],
+				precioCompra: ['value', Validators.compose([Validators.required])]
+			});
+
 		} else {
+
+			this.formularioAnimal = this.formBuilder.group({
+				numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
+				alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
+				raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
+				fechaNacimiento: ['value', Validators.compose([Validators.required])]
+			});
+
 			this.compra = Constantes.INDEFINIDO;
 			this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 			if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
@@ -199,6 +219,8 @@ export class Nuevo {
 			} else {
 				this.arrayAnimales.push(this.animal);
 				this.vaciarFormulario();
+				this.submitAttempt = false;
+				this.toastCtrl.push("Animal almacenado, no te olvides de guardar en el icono verde cuando hayas añadido todos los animales", "WARNING");
 			}
 		} else {
 			this.toastCtrl.push("Faltan campos por rellenar", "WARNING");
@@ -234,9 +256,13 @@ export class Nuevo {
 	}
 
 	protected enviarResultadoACompras() {
-		this.arrayAnimales.push(this.animal);
-		this.vaciarFormulario();
-		this.navCtrl.navigate(['listado-animales-vendidos', { animalesSeleccionados: this.arrayAnimales, operacion: new Compra(null, null, null, null, null) }]);
+		this.submitAttempt = true;
+		if (this.formularioAnimal.valid) {
+			this.arrayAnimales.push(this.animal);
+			this.vaciarFormulario();
+		}
+		// se comenta por errores a trabajar
+		//this.router.navigate(['ganadero/listado-animales-vendidos'], { animalesSeleccionados: this.arrayAnimales, operacion: new Compra(null, null, null, null, null) });
 	}
 
 	protected vaciarFormulario() {

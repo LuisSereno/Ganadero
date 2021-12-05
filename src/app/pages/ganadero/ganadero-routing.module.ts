@@ -14,6 +14,7 @@ import { DetalleExplotacion } from '../ajustes/explotacion/nueva/nueva';
 import { ListaExplotaciones } from '../ajustes/explotacion/listado/listado';
 import { VacunasEnfermedadesPage } from '../listadoVacunasEnfermedades/listaVacunasEnfermedades';
 import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacunaEnfermedad/detalleVacunaEnfermedad';
+import { OperacionComponent } from '../listadoVentas/operacion/operacion.component';
 
 const routes: Routes = [
   {
@@ -55,10 +56,15 @@ const routes: Routes = [
       },
       {
         path: 'listado-documentos', component: ListaDocumentos
-      },{
+      },
+      {
         path: 'listado-vacunasenfermedades/:tipo', component: VacunasEnfermedadesPage
-      },{
+      },
+      {
         path: 'detalle-vacunasenfermedades', component: DetalleVacunaEnfermedad
+      },
+      {
+        path: 'operacion-nueva/:es_compra', component: OperacionComponent
       },
       {
         path: 'ganadero',
