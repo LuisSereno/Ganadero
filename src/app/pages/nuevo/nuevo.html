@@ -159,13 +159,6 @@
 
 <div *ngIf="compra==4">
 
-  <ion-fab vertical="top" horizontal="end">
-    <ion-fab-button  (click)="guardaDatosAnimal()">
-      <ion-icon name="arrow-forward-outline" role="img" class="icon icon-ios arrow-back" aria-label="arrow-round-forward">
-        </ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
   <ion-fab vertical="top" horizontal="start">
     <ion-fab-button color="dark"  (click)="volver()">
       <ion-icon name="arrow-back" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
@@ -173,8 +166,8 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button color="success"  (click)="enviarResultadoACompras()">
+  <ion-fab vertical="top" horizontal="end">
+    <ion-fab-button color="success"  (click)="guardaDatosAnimal()">
       <ion-icon name="checkmark" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
         </ion-icon>
     </ion-fab-button>

@@ -54,8 +54,6 @@ export class Nuevo {
 
 	compra: number;
 
-	arrayAnimales: Array<Animal>;
-
 	formularioAnimal: FormGroup;
 
 	public submitAttempt: boolean = false;
@@ -70,7 +68,7 @@ export class Nuevo {
 		protected compraVenta: OperacionServicio, /*private diagnostic:Diagnostic,*/
 		private formBuilder: FormBuilder, public ganadoServicio: GanadoServicio,
 		private location: Location, private usuario: UsuarioServicio
-		, private explotacion: ExplotacionServicio) {
+		, private explotacion: ExplotacionServicio,protected operacionServicio: OperacionServicio) {
 	}
 
 	ngOnInit() {
@@ -85,7 +83,6 @@ export class Nuevo {
 				this.compra = JSON.parse(this.params.snapshot.queryParams.compra);
 		//	if (this.compra != Constantes.COMPRA_COMPRA) {
 				//this.compra = Constantes.INDEFINIDO;
-				this.arrayAnimales = new Array<Animal>();
 				this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 				if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
 					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null);
@@ -212,15 +209,21 @@ export class Nuevo {
 				}, err => {
 					console.error("Errr al guardar los datos del animal!", err);
 					this.toastCtrl.push("Error al guardar", "ERROR");
+					this.submitAttempt=false;
 				}).catch(err => {
 					console.error("Errr al guardar los datos del animal!", err);
-					this.toastCtrl.push("Error al guardar", "ERROR");
+					this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
+					this.submitAttempt=false;
 				});
 			} else {
-				this.arrayAnimales.push(this.animal);
+				if (this.operacionServicio.operacionSeleccionada.animales==null){
+					this.operacionServicio.operacionSeleccionada.animales =  new Array<IEAnimal>();
+				}
+				this.operacionServicio.operacionSeleccionada.animales.push(this.animal);
+				this.operacionServicio.operacionSeleccionada.precio+=this.animal.precioCompra;
 				this.vaciarFormulario();
 				this.submitAttempt = false;
-				this.toastCtrl.push("Animal almacenado, no te olvides de guardar en el icono verde cuando hayas añadido todos los animales", "WARNING");
+				this.toastCtrl.push("Animal almacenado", "SUCCESS");
 			}
 		} else {
 			this.toastCtrl.push("Faltan campos por rellenar", "WARNING");
@@ -255,16 +258,16 @@ export class Nuevo {
 		this.arrayAscendencia = datos;
 	}
 
-	protected enviarResultadoACompras() {
+/*	protected enviarResultadoACompras() {
 		this.submitAttempt = true;
 		if (this.formularioAnimal.valid) {
-			this.arrayAnimales.push(this.animal);
+			//this.arrayAnimales.push(this.animal);
 			this.vaciarFormulario();
 		}
 		// se comenta por errores a trabajar
 		//this.router.navigate(['ganadero/listado-animales-vendidos'], { animalesSeleccionados: this.arrayAnimales, operacion: new Compra(null, null, null, null, null) });
 	}
-
+*/
 	protected vaciarFormulario() {
 		if (this.animal instanceof Hembra) {
 			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);

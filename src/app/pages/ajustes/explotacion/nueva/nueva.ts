@@ -49,7 +49,7 @@ export class DetalleExplotacion {
 
 		if (this.edicion){
 			console.log("es una edicion");
-			this.explotacion.actualizarExplotacion(this.explota).then(data => {
+			this.explotacion.actualizarExplotacion(Explotacion.fromJSON(this.explota)).then(data => {
 				if (data) {
 					console.log("Los datos han sido actualizados");
 					this.toastCtrl.push("Modificación correcta", "CORRECTO");

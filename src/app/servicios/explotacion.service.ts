@@ -4,6 +4,7 @@ import { IEExplotacion } from './beans/interfaces/explotacion.interface';
 import { ConexionGenericaService } from './conexionGenerica.service';
 import { Constantes } from './genericos/constantes';
 import { IEIdentification } from './beans/interfaces/identification.interface';
+import { Explotacion } from './beans/explotacion';
 
 @Injectable()
 export class ExplotacionServicio  implements IEexplotacionServicio{
@@ -16,7 +17,7 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
         this.conn.crearConexion(Constantes.prefixDatabaseProject + "explotaciones") ;
         this.explotaciones=new Array<IEExplotacion>();
     }
-    
+
     obtenerDatosExplotacion(explotacion: IEExplotacion): Promise<IEExplotacion> {
         return new Promise((resolve, reject) => {
             return this.conn.getObject(btoa(explotacion.id)).subscribe((explo:IEExplotacion) => {
@@ -28,7 +29,7 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
                 }
             }, err=>{
                 console.error("Error finding user: ", err);
-                reject(new Error("No existe el usuario"));   
+                reject(new Error("No existe el usuario"));
             })
         });
     }
@@ -48,7 +49,7 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
                     }
                 }, err=>{
                     console.error("Error finding user: ", err);
-                    reject(new Error("No existe el usuario"));   
+                    reject(new Error("No existe el usuario"));
                 })
             });
         }
@@ -62,7 +63,7 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
-                reject(new Error("No guardado")); 
+                reject(new Error("No guardado"));
             });;
         });
 
@@ -78,7 +79,7 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
-                reject(new Error("No actualizado")); 
+                reject(new Error("No actualizado"));
             });;
         });
     }
@@ -87,6 +88,6 @@ export class ExplotacionServicio  implements IEexplotacionServicio{
         return this.explotaciones.find(x => x.id == explo.id);
     }
 
-    
+
 
 }

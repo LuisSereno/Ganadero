@@ -11,6 +11,9 @@ import {Nuevo} from '../nuevo/nuevo'
 import {ServicioDatos} from '../../servicios/serviciodatos';
 import {Constantes} from '../../servicios/genericos/constantes';
 import { Router } from '@angular/router';
+import { OperacionServicio } from 'src/app/servicios/operacion.service';
+import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
+import { Operacion } from 'src/app/servicios/beans/operacion';
 
 @Component({
   templateUrl: 'listado.html'
@@ -24,7 +27,7 @@ export class ListaVentas {
 
 	arrayCompras: Array<IEOperacion>;
 
-  	constructor(public router: Router,public servicio: ServicioDatos) {
+  	constructor(public router: Router,public operacion: OperacionServicio,	public explotacionServ: ExplotacionServicio) {
 	}
 
 	ionViewDidLoad() {
@@ -33,72 +36,30 @@ export class ListaVentas {
 	}
 
 	ionViewWillEnter (){
+		this.arrayVentas=new Array<Venta>();
+		this.arrayCompras=new Array<Compra>();
 
-		this.arrayVentas=this.servicio.getExplotacion().arrayVentas;
-		this.arrayCompras=this.servicio.getExplotacion().arrayCompras;
+		let explotacion=this.explotacionServ.encontrarExplotacion(this.explotacionServ.explotacionSeleccionada);
+		if (explotacion){
+				this.operacion.obtenerDatosOperaciones(explotacion.arrayIdOperaciones).then((dataOperacion:IEOperacion[]) => {
 
-		if (this.arrayVentas.length==0){
-	 		this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().id,true).subscribe((data:any) => {
-				let arrayTotal:Array<Animal>=new Array<Animal>();
-				let machito:Macho;
-				let hembrita:Hembra;
-				let venta:Venta;
-				if (data.compraVentas){
-					for (let mach of data.compraVentas){
-						if (mach.animales){
-							for(let array of mach.animales){
-								if (array.sexo==Constantes.HEMBRA){
-									machito=Macho.fromJSON(array);
-									arrayTotal.push(machito);
-								}else if (array.sexo==Constantes.MACHO){
-									hembrita=Hembra.fromJSON(array);
-									arrayTotal.push(hembrita);
-								}
+					for (let operacion of dataOperacion){
+						if (operacion){
+							operacion.fechaOperacion=new Date(String(operacion.fechaOperacion));
+							if (operacion instanceof Venta){
+								this.arrayVentas.push(operacion);
+							}else{
+								this.arrayCompras.push(operacion);
 							}
 						}
-						venta=Venta.fromJSON(mach);
-						venta.animales = arrayTotal;
-						this.arrayVentas.push(venta);
-						this.servicio.getExplotacion().arrayVentas = this.arrayVentas;
-					}
-				}
-			},err => {
-			    console.error("Errr al obtener los datos de la venta del ganado!" + err);
-			});
-		}
-
-		if (this.arrayCompras.length==0){
-  			this.servicio.obtenerDatosOperaciones(this.servicio.getExplotacion().id,false).subscribe((data:any) => {
-
-				let arrayTotal:Array<Animal>=new Array<Animal>();
-				let machito:Macho;
-				let hembrita:Hembra;
-				let compra:Compra;
-				if (data.compraVentas){
-					for (let mach of data.compraVentas){
-						if (mach.animales){
-							for(let array of mach.animales){
-								if (array.sexo==Constantes.HEMBRA){
-									machito=Macho.fromJSON(array);
-									arrayTotal.push(machito);
-								}else if (array.sexo==Constantes.MACHO){
-									hembrita=Hembra.fromJSON(array);
-									arrayTotal.push(hembrita);
-								}
-							}
-						}
-						compra=Compra.fromJSON(mach);
-						compra.animales = arrayTotal;
-						this.arrayCompras.push(compra);
-						this.servicio.getExplotacion().arrayCompras = this.arrayCompras;
 					}
 
-				}
+			   },err => {
+				   console.error("Errr al obtener los datos de la venta del ganado!" + err);
+			   });
 
-			},err => {
-			    console.error("Errr al obtener los datos de la compra del ganado!" + err);
-			});
 		}
+
 	}
 
 
@@ -139,5 +100,10 @@ export class ListaVentas {
 			}
 		});
 */
+	}
+
+	protected verDetalleOperacion(operation:Operacion,kindOperation:number){
+		this.operacion.operacionSeleccionada=operation;
+		this.router.navigate(['ganadero/operacion-nueva',kindOperation]);
 	}
 }

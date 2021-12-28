@@ -3,12 +3,16 @@ import { IEIdentification } from './identification.interface';
 
 export interface IEOperacion extends IEIdentification {
 
+	identificador:string;
+
 	agrupacion: string;
 
-	animales: Array<IEAnimal>;
+	arrayIdAnimales: Array<IEIdentification>;
 
 	precio: number;
 
 	fechaOperacion: Date;
+
+	tipo: number;
 
 }

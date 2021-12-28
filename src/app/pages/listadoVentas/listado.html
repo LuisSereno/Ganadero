@@ -13,7 +13,7 @@
 	</div>
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="ventas">
-	    <ion-item *ngFor="let venta of arrayVentas" (click)="verListadoAnimales(venta.getAnimales(),2)">
+	    <ion-item button *ngFor="let venta of arrayVentas" (click)="verDetalleOperacion(venta,3)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/up-price.png">
 	      </ion-thumbnail>
@@ -41,42 +41,44 @@
 
 	  <ion-list *ngSwitchCase="'compras'">
 
-	    <ion-item *ngFor="let compra of arrayCompras" (click)="verListadoAnimales(compra.getAnimales(),1)">
+	    <ion-item button *ngFor="let compra of arrayCompras" (click)="verDetalleOperacion(compra,4)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/down-price.png">
 	      </ion-thumbnail>
-	      <h1>{{compra.getAgrupacion()}}</h1>
-	      	<ion-row>
-	      		<ion-col width-33>
-		      		<label>
-		      			<b>Precio:</b> {{compra.getPrecio()}}
-		      		</label>
-	      		</ion-col>
-	      		<ion-col width-33>
-		      		<label>
-		      			<b>Fecha:</b> {{compra.getFechaOperacion() ? compra.getFechaOperacion().toLocaleDateString() : ''}}
-		      		</label>
-	      		</ion-col>
-	      		<ion-col width-33>
-		      		<label>
-		      			<b>Animales:</b> {{compra.getAnimales().length}}
-		      		</label>
-	      		</ion-col>
-	      	</ion-row>
+		  <ion-label>
+			<h1>{{compra.agrupacion}}</h1>
+				<ion-row>
+					<ion-col width-33>
+						<label>
+							<b>Precio:</b> {{compra.precio}}
+						</label>
+					</ion-col>
+					<ion-col width-33>
+						<label>
+							<b>Fecha:</b> {{compra.fechaOperacion ? compra.fechaOperacion.toLocaleDateString() : ''}}
+						</label>
+					</ion-col>
+					<ion-col width-33>
+						<label>
+							<b>Animales:</b> {{compra.arrayIdAnimales? compra.arrayIdAnimales.length : 0}}
+						</label>
+					</ion-col>
+				</ion-row>
+		</ion-label>
 	    </ion-item>
 	  </ion-list>
 	  <div *ngIf="tipoMostrado=='ventas'">
-		<ion-fab vertical="bottom" horizontal="start">
+		<ion-fab vertical="bottom" horizontal="start" (click)="anadirDatosVentas()">
 			<ion-fab-button color="success">
-				<ion-icon name="cash-outline" role="img" class="icon icon-ios ion-ios-add" aria-label="add" (click)="anadirDatosVentas()">
+				<ion-icon name="cash-outline" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
 				</ion-icon>
 			</ion-fab-button>
 		</ion-fab>
 	  </div>
 	  <div *ngIf="tipoMostrado=='compras'">
-		<ion-fab vertical="bottom" horizontal="start">
+		<ion-fab vertical="bottom" horizontal="start" (click)="anadirDatosCompras()">
 			<ion-fab-button color="danger">
-				<ion-icon name="wallet-outline" role="img" class="icon icon-ios ion-ios-add" aria-label="add" (click)="anadirDatosCompras()">
+				<ion-icon name="wallet-outline" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
 				</ion-icon>
 			</ion-fab-button>
 		</ion-fab>

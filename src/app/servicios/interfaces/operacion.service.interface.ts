@@ -1,7 +1,6 @@
 import { IEAnimal } from '../beans/interfaces/animal.interface';
 import { IEIdentification } from '../beans/interfaces/identification.interface';
 import { IEOperacion } from '../beans/interfaces/operacion.interface';
-import { IEconexionServicio } from './conexion.service.interface';
 
 export interface IEoperacionServicio{
 
@@ -17,7 +16,7 @@ export interface IEoperacionServicio{
 
     anadirAnimal(anim:IEAnimal, operacion:IEOperacion);
 
-    anadirOperacion(operacion:IEOperacion);
+    anadirOperacion(operacion:IEOperacion): Promise<IEOperacion>;
 
     actualizarOperacion(operacion:IEOperacion);
 

@@ -75,6 +75,9 @@ export class Explotacion implements IEExplotacion{
 		this.arrayVacunas=new Array<IEVacuna>();
 		this.arrayEnfermedades=new Array<IEEnfermedad>();
 	}
+	fromJSON(json: string | IEExplotacion): IEExplotacion {
+		return Explotacion.fromJSON(json);
+	}
 
     toJSON():{} {
         const { arrayMachos,arrayHembras, ...rest } = this;
@@ -83,7 +86,7 @@ export class Explotacion implements IEExplotacion{
         return projectedObject;
     }
 
-    fromJSON(json: Explotacion|string): Explotacion {
+    static fromJSON(json: IEExplotacion|string): Explotacion {
         if (typeof json === 'string') {
 			let explo:IEExplotacion;
             return JSON.parse(json, explo.reviver);

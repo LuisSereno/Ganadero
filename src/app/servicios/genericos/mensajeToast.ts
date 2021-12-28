@@ -20,4 +20,14 @@ export class ToastService {
     }
   }
 
+  async presentToastWithOptions(msg:string,clase:string,buttonOkFunction: () => void, buttonKoFunction: () => void) {
+    if(this.platform.is('desktop')){
+      return this.toastBrowser.pushWithButtons(msg,clase,buttonOkFunction, buttonKoFunction);
+    }else{
+
+    }
+
+  }
+
+
 }

@@ -270,7 +270,7 @@ export class ListaGanado {
 			this.explotacion.arrayIdAnimales= new Array<IEIdentification>();
 		}
 		this.explotacion.arrayIdAnimales.push({ id: anim.id });
-		this.explotacionServ.actualizarExplotacion(this.explotacion).then((explo:IEExplotacion)=>{
+		this.explotacionServ.actualizarExplotacion(Explotacion.fromJSON(this.explotacion)).then((explo:IEExplotacion)=>{
 			console.log("El animal ha sido sincronizado con la explotacion");
 		}).catch(err=>console.error("El animal no ha sido sincronizado con la explotacion",err));
 	}

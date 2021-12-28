@@ -21,7 +21,7 @@ export class ToastBrowserService {
          break;
        case "ERROR":
          cssClass= "danger";
-         break;      
+         break;
        default:
          cssClass= "success";
          break;
@@ -50,6 +50,51 @@ export class ToastBrowserService {
           }
         }
       ]*/
+    });
+    toast.present();
+  }
+
+  async pushWithButtons(msg:string,clase:string,buttonOkFunction: (n:any) => any, buttonKoFunction: (n:any) => any) {
+
+    var cssClass="";
+     switch (clase) {
+       case "CORRECTO":
+         cssClass= "success";
+         break;
+       case "WARNING":
+         cssClass= "warning";
+         break;
+       case "ERROR":
+         cssClass= "danger";
+         break;
+       default:
+         cssClass= "success";
+         break;
+     }
+
+
+    const toast = await this.toastController.create({
+      //header: 'Toast header',
+      message: msg,
+      position: 'top',
+      duration: 3000,
+      color: cssClass,
+      buttons: [
+        {
+          side: 'end',
+          text: 'OK',
+          handler: () => {
+           buttonOkFunction(null);
+          }
+        }, {
+          side: 'end',
+          text: 'KO',
+          role: 'cancel',
+          handler: () => {
+            buttonKoFunction(null);
+          }
+        }
+      ]
     });
     toast.present();
   }
