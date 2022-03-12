@@ -12,30 +12,31 @@
 	  </ion-segment>
 	</div>
 	<div [ngSwitch]="tipoMostrado">
-	  <ion-list *ngSwitchCase="ventas">
+	  <ion-list *ngSwitchCase="'ventas'">
 	    <ion-item button *ngFor="let venta of arrayVentas" (click)="verDetalleOperacion(venta,3)">
 	     <ion-thumbnail item-left>
 	        <img src="assets/icon/up-price.png">
 	      </ion-thumbnail>
-	      	<h1>{{venta.getAgrupacion()}}</h1>
-
+		  <ion-label>
+	      	<h1>{{venta.agrupacion}}</h1>
 	      	<ion-row>
 	      		<ion-col width-33>
 		      		<label>
-		      			<b>Precio:</b> {{venta.getPrecio()}}
+		      			<b>Precio:</b> {{venta.precio}}
 		      		</label>
 	      		</ion-col>
 	      		<ion-col width-33>
 		      		<label>
-		      			<b>Fecha:</b> {{venta.getFechaOperacion() ? venta.getFechaOperacion().toLocaleDateString() : ''}}
+		      			<b>Fecha:</b> {{venta.fechaOperacion ? venta.fechaOperacion.toLocaleDateString() : ''}}
 		      		</label>
 	      		</ion-col>
 	      		<ion-col width-33>
 		      		<label>
-		      			<b>Animales:</b> {{venta.getAnimales().length}}
+		      			<b>Animales:</b> {{venta.arrayIdAnimales? venta.arrayIdAnimales.length : 0}}
 		      		</label>
 	      		</ion-col>
 	      	</ion-row>
+		</ion-label>
 	    </ion-item>
 	  </ion-list>
 

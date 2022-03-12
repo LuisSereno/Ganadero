@@ -49,6 +49,7 @@ export class OperacionComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.submitAttempt = false;
 		this.esCompra=JSON.parse(this.params.snapshot.paramMap.get('es_compra'));
     if (this.operacionServicio.operacionSeleccionada!=null){
       this.operacion=this.operacionServicio.operacionSeleccionada;
@@ -195,39 +196,71 @@ export class OperacionComponent implements OnInit {
     let error:boolean=false;
     let index:number=0;
     let promise:Promise<Boolean>=new Promise((resolve, reject) => {
-      for (let animal of this.operacion.animales){
-        this.ganadoServicio.guardaAnimal(animal).then(data => {
-          animal.id=data.id;
-          if (!this.operacion.arrayIdAnimales){
-            this.operacion.arrayIdAnimales=new Array<IEIdentification>();
-          }
-          this.operacion.arrayIdAnimales.push({ id: data.id });
-          this.ganadoServicio.ganado.push(data);
-          let explo: Explotacion = new Explotacion().fromJSON(this.explotacionServ.encontrarExplotacion({ id: this.explotacionServ.explotacionSeleccionada.id }));
-          if (!explo.arrayIdAnimales) {
-            explo.arrayIdAnimales = new Array<IEIdentification>();
-          }
-          explo.arrayIdAnimales.push({ id: data.id });
-          //Si es una compra, no va a tener descendencia ni ascendencia
-          //this.actualizarDatosAscendencia();
-          index+=1;
-          if (index==this.operacion.animales.length){
-            this.explotacionServ.actualizarExplotacion(explo).then(data => {
+      if (this.operacion.animales!=null && this.operacion.animales.length>0){
+        for (let animal of this.operacion.animales){
+          if(this.esCompra==Constantes.COMPRA_COMPRA){
+            // removemos los animales de los animales que tiene la granja
+            console.log("va a añadir animales a la explotacion en  una compra");
+
+            this.ganadoServicio.guardaAnimal(animal).then(data => {
+              animal.id=data.id;
+              if (!this.operacion.arrayIdAnimales){
+                this.operacion.arrayIdAnimales=new Array<IEIdentification>();
+              }
+              this.operacion.arrayIdAnimales.push({ id: data.id });
+              this.ganadoServicio.ganado.push(data);
+              let explo: Explotacion = new Explotacion().fromJSON(this.explotacionServ.encontrarExplotacion({ id: this.explotacionServ.explotacionSeleccionada.id }));
+              if (!explo.arrayIdAnimales) {
+                explo.arrayIdAnimales = new Array<IEIdentification>();
+              }
+              explo.arrayIdAnimales.push({ id: data.id });
+              //Si es una compra, no va a tener descendencia ni ascendencia
+              //this.actualizarDatosAscendencia();
+              index+=1;
+              if (index==this.operacion.animales.length){
+                this.explotacionServ.actualizarExplotacion(explo).then(data => {
+                    resolve(true);
+                }).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err); error=true; resolve(false);});
+              }
+            }, err => {
+              error=true;
+              console.error("Errr al guardar los datos del animal!", err);
+              this.toastCtrl.push("Error al guardar", "ERROR");
+              resolve(false);
+            }).catch(err => {
+              error=true;
+              console.error("Errr al guardar los datos del animal!", err);
+              this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
+              resolve(false);
+            });
+            let operacionCompra:Compra=Compra.fromJSON(this.operacion);
+            this.operacion=operacionCompra.toJSON() as Operacion;
+
+          }else{
+            if (!this.operacion.arrayIdAnimales){
+              this.operacion.arrayIdAnimales=new Array<IEIdentification>();
+            }
+            this.operacion.arrayIdAnimales.push({ id: animal.id });
+            this.ganadoServicio.actualizarAnimal(animal,false).then(data=>{
+              console.log("animal actualizado", data);
+              index+=1;
+              if (index==this.operacion.animales.length){
+                let operacionCompra:Venta=Venta.fromJSON(this.operacion);
+                this.operacion=operacionCompra.toJSON() as Operacion;
                 resolve(true);
-            }).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err); error=true; resolve(false);});
+              }
+            }).catch(err => {
+              error=true;
+              console.error("Errr al guardar los datos del animal!", err);
+              this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
+              resolve(false);
+            });
           }
-        }, err => {
-          error=true;
-          console.error("Errr al guardar los datos del animal!", err);
-          this.toastCtrl.push("Error al guardar", "ERROR");
-          resolve(false);
-        }).catch(err => {
-          error=true;
-          console.error("Errr al guardar los datos del animal!", err);
-          this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
-          resolve(false);
-        });
+        }
+      }else{
+        resolve(false);
       }
+
     });
 
     promise.then(doUpdate=>{
@@ -289,7 +322,7 @@ export class OperacionComponent implements OnInit {
         }
       });
 		}else{
-
+      this.router.navigate(['ganadero/listado-ganado'],{queryParams:{"venta":Constantes.VENTA}});
 		}
 
 

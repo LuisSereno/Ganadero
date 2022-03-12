@@ -1,7 +1,5 @@
 import {Operacion} from './operacion';
-import {Animal} from './animal';
 import {Constantes} from '../genericos/constantes';
-import { IEIdentification } from './interfaces/identification.interface';
 import { IEAnimal } from './interfaces/animal.interface';
 import { IEOperacion } from './interfaces/operacion.interface';
  export class Venta extends Operacion{
@@ -15,10 +13,6 @@ import { IEOperacion } from './interfaces/operacion.interface';
 		this.fechaOperacion = fecha;
         this.tipo=Constantes.VENTA;
 	}
-
-    fromOperacion(){
-
-    }
 
     toJSON():{} {
         //var json=Object.assign({}, this);
@@ -37,7 +31,7 @@ import { IEOperacion } from './interfaces/operacion.interface';
             let mach = Object.create(Venta.prototype);
             return Object.assign(mach, json,{
                 fechaOperacion: (json["fechaOperacion"]==null || json["fechaOperacion"].toString()=="") ? null : new Date(json["fechaOperacion"]),
-                aniamles: new Array<IEAnimal>(),
+                animales: new Array<IEAnimal>(),
                 id: (json["id"])});
         }
     }

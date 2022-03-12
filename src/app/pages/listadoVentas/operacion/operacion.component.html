@@ -91,8 +91,8 @@
       <ion-label>
         <h2>{{animal.numero}}</h2>
         <p>{{animal.alias}}#{{animal.raza}}
-        <span *ngIf="venta!=0"> <b>Compra:</b> {{animal.precioCompra}} €</span>
-        <span *ngIf="venta==0"> <b>Venta:</b> {{animal.precioVenta}} €</span>
+        <span *ngIf="esCompra==4"> <b>Compra:</b> {{animal.precioCompra}} €</span>
+        <span *ngIf="esCompra==3"> <b>Venta:</b> {{animal.precioVenta}} €</span>
         </p>
       </ion-label>
       <ion-button color="danger" expand="block" (click)="borrarAnimal(true,animal)">
@@ -110,8 +110,8 @@
       <ion-label>
         <h2>{{animal.numero}}</h2>
         <p>{{animal.alias}}#{{animal.raza}}
-          <span *ngIf="venta!=0"> <b>Compra:</b> {{animal.precioCompra}} €</span>
-          <span *ngIf="venta==0"> <b>Venta:</b> {{animal.precioVenta}} €</span>
+          <span *ngIf="esCompra==4"> <b>Compra:</b> {{animal.precioCompra}} €</span>
+          <span *ngIf="esCompra==3"> <b>Venta:</b> {{animal.precioVenta}} €</span>
         </p>
       </ion-label>
       <ion-button color="danger" slot="end" (click)="borrarAnimal(false,animal)">

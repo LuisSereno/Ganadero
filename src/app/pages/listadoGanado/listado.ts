@@ -15,6 +15,8 @@ import {ServicioDatos} from '../../servicios/serviciodatos';
 import {Constantes} from '../../servicios/genericos/constantes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Explotacion } from 'src/app/servicios/beans/explotacion';
+import { OperacionServicio } from 'src/app/servicios/operacion.service';
+import { Location } from '@angular/common';
 
 @Component({
   templateUrl: 'listado.html'
@@ -34,11 +36,18 @@ export class ListaGanado {
 	venta:number;
 
 	  constructor(public router: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio,
-		public explotacionServ: ExplotacionServicio) {
+		public explotacionServ: ExplotacionServicio, private location: Location,protected operacionServicio: OperacionServicio) {
 
 	}
 	ngOnInit(){
-		this.venta=Constantes.INDEFINIDO;
+		//this.venta=Constantes.INDEFINIDO;
+		this.venta=this.params.snapshot.queryParams.venta;
+		if (this.venta==null){
+			this.venta=Constantes.INDEFINIDO;
+		}else{
+			this.checkedItemsHembras = new Array<boolean>();
+			this.checkedItemsMachos = new Array<boolean>();
+		}
 		if(this.explotacionServ.explotacionSeleccionada){
 			this.explotacion=this.explotacionServ.encontrarExplotacion(this.explotacionServ.explotacionSeleccionada);
 		}else{
@@ -55,9 +64,27 @@ export class ListaGanado {
 			for(let animal of data){
 				if(animal){
 					if (animal.sexo==Constantes.MACHO){
-						this.explotacion.arrayMachos.push(Macho.fromJSON(animal));
+						let macho:Macho;
+						if (this.venta==Constantes.VENTA &&
+							this.operacionServicio.operacionSeleccionada.animales!=null&&
+							this.operacionServicio.operacionSeleccionada.animales.find(anim => anim.id==animal.id)!=null){
+							//anadimos los datos de precios de la venta
+							macho=Macho.fromJSON(this.operacionServicio.operacionSeleccionada.animales.find(anim => anim.id==animal.id));
+						}else{
+							macho=Macho.fromJSON(animal);
+						}
+						this.explotacion.arrayMachos.push(macho);
 					}else{
-						this.explotacion.arrayHembras.push(Hembra.fromJSON(animal));
+						let hembra:Hembra;
+						if (this.venta==Constantes.VENTA &&
+							this.operacionServicio.operacionSeleccionada.animales!=null&&
+							this.operacionServicio.operacionSeleccionada.animales.find(anim => anim.id==animal.id)!=null){
+							//anadimos los datos de precios de la venta
+							hembra=Hembra.fromJSON(this.operacionServicio.operacionSeleccionada.animales.find(anim => anim.id==animal.id));
+						}else{
+							hembra=Hembra.fromJSON(animal);
+						}
+						this.explotacion.arrayHembras.push(hembra);
 					}
 				}
 			}
@@ -65,6 +92,21 @@ export class ListaGanado {
 		})
 		.catch(e=>console.error("Animales no encontrados",e));
 
+		if (this.venta==Constantes.VENTA){
+
+			if (this.operacionServicio.operacionSeleccionada.animales != null){
+				let arrayMachosAux=new Array<IEAnimal>();
+				let arrayHembrasAux=new Array<IEAnimal>();
+				arrayMachosAux = this.operacionServicio.operacionSeleccionada.animales.filter(anim => anim instanceof Macho);
+				arrayHembrasAux = this.operacionServicio.operacionSeleccionada.animales.filter(anim => anim instanceof Hembra);
+				this.explotacion.arrayMachos.forEach(anim=>{
+					this.checkedItemsMachos.push(arrayMachosAux.find(animAux => animAux.id==anim.id)!=null);
+				});
+				this.explotacion.arrayHembras.forEach(anim=>{
+					this.checkedItemsHembras.push(arrayHembrasAux.find(animAux => animAux.id==anim.id)!=null);
+				});
+			  }
+		}
 		/*
 		if (this.venta==Constantes.COMPRA || this.venta==Constantes.VENTA){
 				let animalesTotales:Array<Animal>=JSON.parse(this.params.snapshot.paramMap.get("animales"));
@@ -244,14 +286,25 @@ export class ListaGanado {
 
 
 	protected enviarResultadoAVentas(){
-		var arrayAnimales: Array<IEAnimal>=new Array<Animal>();
+		if (this.operacionServicio.operacionSeleccionada.animales==null){
+			this.operacionServicio.operacionSeleccionada.animales =  new Array<IEAnimal>();
+		}
 		for (let value in this.checkedItemsHembras){
-			arrayAnimales.push(this.explotacion.arrayHembras[value]);
+			if (this.checkedItemsHembras[value] &&
+				this.operacionServicio.operacionSeleccionada.animales.find(anim => anim.id==this.explotacion.arrayHembras[value].id)==null){
+				this.operacionServicio.operacionSeleccionada.animales.push(this.explotacion.arrayHembras[value]);
+				this.operacionServicio.operacionSeleccionada.precio+=this.explotacion.arrayHembras[value].precioVenta;
+			}
 		}
 		for (let value in this.checkedItemsMachos){
-			arrayAnimales.push(this.explotacion.arrayMachos[value]);
+			if (this.checkedItemsMachos[value]&&
+				this.operacionServicio.operacionSeleccionada.animales.find(anim => anim.id==this.explotacion.arrayMachos[value].id)==null){
+				this.operacionServicio.operacionSeleccionada.animales.push(this.explotacion.arrayMachos[value]);
+				this.operacionServicio.operacionSeleccionada.precio+=this.explotacion.arrayMachos[value].precioVenta;
+			}
 		}
-		this.router.navigate(['ganadero/listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
+		//this.router.navigate(['ganadero/listado-animales-vendidos',{animalesSeleccionados:arrayAnimales,operacion:new Venta(null,null,null,null,null)}]);
+		this.location.back();
 	}
 
 	protected anadeAnimal(anim:IEAnimal){
@@ -305,6 +358,13 @@ export class ListaGanado {
 
 
 	volver(){
-		console.log("VUELVE");
+		for (let value in this.checkedItemsHembras){
+			this.checkedItemsHembras[value]=false;
+		}
+		for (let value in this.checkedItemsMachos){
+			this.checkedItemsMachos[value]=false;
+		}
+		this.location.back();
 	}
+
 }

@@ -46,7 +46,7 @@ export class ListaVentas {
 					for (let operacion of dataOperacion){
 						if (operacion){
 							operacion.fechaOperacion=new Date(String(operacion.fechaOperacion));
-							if (operacion instanceof Venta){
+							if (operacion.tipo == Constantes.VENTA){
 								this.arrayVentas.push(operacion);
 							}else{
 								this.arrayCompras.push(operacion);

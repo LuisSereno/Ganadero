@@ -64,8 +64,7 @@ export class Nuevo {
 
 	constructor(public router: Router, public params: ActivatedRoute,
 		private toastCtrl: ToastService, public modalCtrl: ModalController,
-				/*private camera: Camera ,*/ public loadingCtrl: LoadingController,
-		protected compraVenta: OperacionServicio, /*private diagnostic:Diagnostic,*/
+				/*private camera: Camera ,*/ public loadingCtrl: LoadingController, /*private diagnostic:Diagnostic,*/
 		private formBuilder: FormBuilder, public ganadoServicio: GanadoServicio,
 		private location: Location, private usuario: UsuarioServicio
 		, private explotacion: ExplotacionServicio,protected operacionServicio: OperacionServicio) {

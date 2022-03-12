@@ -1,7 +1,5 @@
 import {Operacion} from './operacion';
-import {Animal} from './animal';
 import {Constantes} from '../genericos/constantes';
-import { IEIdentification } from './interfaces/identification.interface';
 import { IEAnimal } from './interfaces/animal.interface';
 import { IEOperacion } from './interfaces/operacion.interface';
 export class Compra extends Operacion{
