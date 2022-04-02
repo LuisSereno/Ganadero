@@ -84,10 +84,10 @@ export class Nuevo {
 				//this.compra = Constantes.INDEFINIDO;
 				this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 				if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
-					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null);
+					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false);
 					this.animal.sexo= Constantes.MACHO;
 				} else {
-					this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);
+					this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null, null, false);
 					this.animal.sexo= Constantes.HEMBRA;
 				}
 				//let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
@@ -119,10 +119,10 @@ export class Nuevo {
 			this.compra = Constantes.INDEFINIDO;
 			this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 			if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
-				this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null);
+				this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null,false);
 				this.animal.sexo= Constantes.MACHO;
 			} else {
-				this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);
+				this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false);
 				this.animal.sexo= Constantes.HEMBRA;
 			}
 			if (this.params.snapshot.queryParams.animalID){
@@ -269,10 +269,10 @@ export class Nuevo {
 */
 	protected vaciarFormulario() {
 		if (this.animal instanceof Hembra) {
-			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);
+			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false);
 			this.fechaUltimoNacimiento = "";
 		} else if (this.animal instanceof Macho) {
-			this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null);
+			this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false);
 		}
 		this.fechaNacimiento = "";
 	}

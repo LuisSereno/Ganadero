@@ -20,18 +20,31 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
     this.genericObjectsCollection = this.afs.list<K>(nameCollection);
   }
 
-  getObjects(ids: Array<string>): Observable<K[]> {
+  getObjects(ids: Array<string>, filter?:string,value?:string): Observable<K[]> {
     return this.genericObjectsCollection.snapshotChanges().pipe(
       map(actions => {
-        return actions.map(a => {
+         return actions.map(a => {
           if (ids===null){
             return a.payload.val();
           }else{
             if (ids.includes(a.payload.key)){
-              const data = a.payload.val();
-              return data;
+              if (filter!=null
+                && a.payload.toJSON()[filter]!=null){
+                  if (typeof a.payload.toJSON()[filter] == "boolean" && a.payload.toJSON()[filter]===JSON.parse(value)
+                  || typeof a.payload.toJSON()[filter] == "number" && a.payload.toJSON()[filter]=== +value
+                  || typeof a.payload.toJSON()[filter] == "string" && a.payload.toJSON()[filter]===value){
+                    const data = a.payload.val();
+                    return data;
+                  }
+              }else{
+                const data = a.payload.val();
+                return data;
+              }
             }
           }
+        }).filter(function(record) {
+          console.log(record);
+          return record !=null;
         });
       })
     );

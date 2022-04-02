@@ -32,14 +32,14 @@ export class GanadoServicio implements IEganadoServicio {
         });
     }
 
-    obtenerDatosGanadoIds(ids: Array<IEIdentification>): Promise<IEAnimal[]> {
+    obtenerDatosGanadoIds(ids: Array<IEIdentification>, filter?:string,value?:string): Promise<IEAnimal[]> {
         let arrayIdString: Array<string> = new Array<string>();
         if (ids && ids.length > 0) {
             for (let iden of ids) {
                 arrayIdString.push(iden.id);
             }
             return new Promise((resolve, reject) => {
-                return this.conn.getObjects(arrayIdString).subscribe((ganado: IEAnimal[]) => {
+                return this.conn.getObjects(arrayIdString,filter,value).subscribe((ganado: IEAnimal[]) => {
                     if (ganado == null) {
                         reject(new Error('No existe ganado'));
                     } else {
@@ -130,6 +130,27 @@ export class GanadoServicio implements IEganadoServicio {
 
     encontrarAnimal(animal: IEIdentification): IEAnimal {
         return this.ganado.find(x => x.id === animal.id);
+    }
+
+    borrarAnimal(animalIdList: Array<IEIdentification>){
+        return new Promise((resolve, reject) => {
+            if (animalIdList!=null  && animalIdList.length>0){
+                animalIdList.forEach((animalId, index, arr)=>{
+                    this.conn.deleteObject(animalId.id).then(function (docRef) {
+                        if(index==arr.length-1){
+                            resolve(docRef);
+                        }else{
+                            console.log("El animal se borro correctamente: ", animalId.id);
+                        }
+                    }).catch(function (error) {
+                            console.error('Error deleting document: ', error);
+                            reject(new Error('No borrado'));
+                        });
+                })
+            }else{
+                resolve(new Error('array empty'));
+            }
+        });
     }
 
 }

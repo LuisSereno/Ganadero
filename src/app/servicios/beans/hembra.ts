@@ -9,7 +9,8 @@ export class Hembra extends Animal{
 	constructor(id:string,alias:string,raza:string,foto:string,
 		numero:number,fechaNacimiento:Date,vacu:Array<IEVacunaAnimal>,
 		enfer:Array<IEEnfermedadAnimal>,fechaUltimoNacimiento:Date,
-		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number){
+		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number
+        ,fechaMuerte:Date,baja:boolean){
         super();
         this.setId(id);
         this.setAlias(alias);
@@ -24,6 +25,8 @@ export class Hembra extends Animal{
         this.setDescendencia(descen);
         this.setPrecioCompra(precioCompra);
         this.setPrecioVenta(precioVenta);
+        this.setFechaMuerte(fechaMuerte);
+        this.setBaja(baja);
     }
 
 	public setFechaUltimoNacimiento(fecUlti:Date){
@@ -70,8 +73,8 @@ export class Hembra extends Animal{
                 id:json["id"],
                 fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]),
                 fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==undefined || json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"]),
-                metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"])
-
+                metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"]),
+                fechaMuerte: (json["fechaMuerte"]==null || json["fechaMuerte"].toString()=="") ? null : new Date(json["fechaMuerte"])
             });
         }
     }

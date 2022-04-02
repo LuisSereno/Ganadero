@@ -44,6 +44,10 @@ export abstract class Animal implements IEAnimal{
 
 	sexo: number;
 
+	fechaMuerte: Date;
+
+	baja: boolean;
+
 	constructor() {
 		this.id = "";
 		this.alias="";
@@ -51,6 +55,7 @@ export abstract class Animal implements IEAnimal{
 		this.foto="";
 		this.numero=0
 		this.fechaNacimiento = new Date();
+		this.fechaMuerte = new Date();
 		this.vacunas=new Array<IEVacunaAnimal>();
 		this.enfermedades=new Array<IEEnfermedadAnimal>();
 		this.vacunasIds=new Array<string>();
@@ -61,7 +66,9 @@ export abstract class Animal implements IEAnimal{
 		this.descendenciaIds=new Array<string>();
 		this.precioCompra=0;
 		this.precioVenta=0;
+		this.baja=false;
 	}
+
 
 
 	public getId(): string {
@@ -163,6 +170,21 @@ export abstract class Animal implements IEAnimal{
 	public setPrecioVenta(precio:number){
 		this.precioVenta = Number(precio);
 	}
+
+	public esBaja(): boolean {
+		return this.baja;
+	}
+	public setBaja(value: boolean) {
+		this.baja = value;
+	}
+
+	public getFechaMuerte(): Date {
+		return this.fechaMuerte;
+	}
+	public setFechaMuerte(value: Date) {
+		this.fechaMuerte = value;
+	}
+
 
 	toJSON(): {} {
 		throw new Error("Method not implemented.");

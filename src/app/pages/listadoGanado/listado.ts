@@ -57,7 +57,7 @@ export class ListaGanado {
 
 	ionViewWillEnter (){
 		this.explotacion=this.explotacionServ.encontrarExplotacion(this.explotacionServ.explotacionSeleccionada);
-		this.ganadoServicio.obtenerDatosGanadoIds(this.explotacion.arrayIdAnimales)
+		this.ganadoServicio.obtenerDatosGanadoIds(this.explotacion.arrayIdAnimales, "baja", "false")
 		.then((data:IEAnimal[]) => {
 			this.explotacion.arrayMachos=new Array<IEAnimal>();
 			this.explotacion.arrayHembras=new Array<IEAnimal>();

@@ -181,6 +181,8 @@ export class OperacionComponent implements OnInit {
       explo.arrayIdOperaciones = new Array<IEIdentification>();
     }
     explo.arrayIdOperaciones.push({ id: data.id });
+    explo.dineroAnual+=data.precio;
+    explo.dineroTotal+=data.precio;
     this.explotacionServ.actualizarExplotacion(Explotacion.fromJSON(explo)).then(data => {
       this.vaciarFormulario();
       this.toastCtrl.push("Guardado correcto", "CORRECTO");
@@ -200,67 +202,76 @@ export class OperacionComponent implements OnInit {
         for (let animal of this.operacion.animales){
           if(this.esCompra==Constantes.COMPRA_COMPRA){
             // removemos los animales de los animales que tiene la granja
-            console.log("va a añadir animales a la explotacion en  una compra");
-
-            this.ganadoServicio.guardaAnimal(animal).then(data => {
-              animal.id=data.id;
-              if (!this.operacion.arrayIdAnimales){
-                this.operacion.arrayIdAnimales=new Array<IEIdentification>();
-              }
-              this.operacion.arrayIdAnimales.push({ id: data.id });
-              this.ganadoServicio.ganado.push(data);
-              let explo: Explotacion = new Explotacion().fromJSON(this.explotacionServ.encontrarExplotacion({ id: this.explotacionServ.explotacionSeleccionada.id }));
-              if (!explo.arrayIdAnimales) {
-                explo.arrayIdAnimales = new Array<IEIdentification>();
-              }
-              explo.arrayIdAnimales.push({ id: data.id });
-              //Si es una compra, no va a tener descendencia ni ascendencia
-              //this.actualizarDatosAscendencia();
-              index+=1;
-              if (index==this.operacion.animales.length){
-                this.explotacionServ.actualizarExplotacion(explo).then(data => {
-                    resolve(true);
-                }).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err); error=true; resolve(false);});
-              }
-            }, err => {
-              error=true;
-              console.error("Errr al guardar los datos del animal!", err);
-              this.toastCtrl.push("Error al guardar", "ERROR");
-              resolve(false);
-            }).catch(err => {
-              error=true;
-              console.error("Errr al guardar los datos del animal!", err);
-              this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
-              resolve(false);
-            });
-            let operacionCompra:Compra=Compra.fromJSON(this.operacion);
-            this.operacion=operacionCompra.toJSON() as Operacion;
+            guardarCompra(this.ganadoServicio,this.operacion,this.explotacionServ,this.toastCtrl,animal);
 
           }else{
-            if (!this.operacion.arrayIdAnimales){
-              this.operacion.arrayIdAnimales=new Array<IEIdentification>();
-            }
-            this.operacion.arrayIdAnimales.push({ id: animal.id });
-            this.ganadoServicio.actualizarAnimal(animal,false).then(data=>{
-              console.log("animal actualizado", data);
-              index+=1;
-              if (index==this.operacion.animales.length){
-                let operacionCompra:Venta=Venta.fromJSON(this.operacion);
-                this.operacion=operacionCompra.toJSON() as Operacion;
-                resolve(true);
-              }
-            }).catch(err => {
-              error=true;
-              console.error("Errr al guardar los datos del animal!", err);
-              this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
-              resolve(false);
-            });
+            guardarVenta(this.ganadoServicio, this.operacion,this.toastCtrl, animal);
           }
         }
       }else{
         resolve(false);
       }
 
+
+      function guardarVenta(ganadoServicio:GanadoServicio, operacion:Operacion,toastCtrl:ToastService,animal: IEAnimal) {
+        if (!operacion.arrayIdAnimales) {
+          operacion.arrayIdAnimales = new Array<IEIdentification>();
+        }
+        operacion.arrayIdAnimales.push({ id: animal.id });
+        animal.baja=true;
+        ganadoServicio.actualizarAnimal(animal, false).then(data => {
+          console.log("animal actualizado", data);
+          index += 1;
+          if (index == operacion.animales.length) {
+            let operacionCompra: Venta = Venta.fromJSON(operacion);
+            operacion = operacionCompra.toJSON() as Operacion;
+            resolve(true);
+          }
+        }).catch(err => {
+          error = true;
+          console.error("Errr al guardar los datos del animal!", err);
+          toastCtrl.push("EWARNINGrror al guardar", "ERROR");
+          resolve(false);
+        });
+      }
+
+      function guardarCompra(ganadoServicio:GanadoServicio, operacion:Operacion,explotacionServ:ExplotacionServicio,toastCtrl:ToastService,animal: IEAnimal) {
+        console.log("va a añadir animales a la explotacion en  una compra");
+
+        ganadoServicio.guardaAnimal(animal).then(data => {
+          animal.id = data.id;
+          if (!operacion.arrayIdAnimales) {
+            operacion.arrayIdAnimales = new Array<IEIdentification>();
+          }
+          operacion.arrayIdAnimales.push({ id: data.id });
+          ganadoServicio.ganado.push(data);
+          let explo: Explotacion = new Explotacion().fromJSON(explotacionServ.encontrarExplotacion({ id: explotacionServ.explotacionSeleccionada.id }));
+          if (!explo.arrayIdAnimales) {
+            explo.arrayIdAnimales = new Array<IEIdentification>();
+          }
+          explo.arrayIdAnimales.push({ id: data.id });
+          //Si es una compra, no va a tener descendencia ni ascendencia
+          //this.actualizarDatosAscendencia();
+          index += 1;
+          if (index == operacion.animales.length) {
+            explotacionServ.actualizarExplotacion(explo).then(data => {
+              let operacionCompra: Compra = Compra.fromJSON(operacion);
+              operacion = operacionCompra.toJSON() as Operacion;
+              resolve(true);
+            }).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err); error = true; resolve(false); });
+          }
+        }, err => {
+          error = true;
+          console.error("Errr al guardar los datos del animal!", err);
+          toastCtrl.push("Error al guardar", "ERROR");
+          resolve(false);
+        }).catch(err => {
+          error = true;
+          console.error("Errr al guardar los datos del animal!", err);
+          toastCtrl.push("EWARNINGrror al guardar", "ERROR");
+          resolve(false);
+        });
+      }
     });
 
     promise.then(doUpdate=>{
@@ -289,21 +300,120 @@ export class OperacionComponent implements OnInit {
     var strCallback = () : void => {
       if (this.operacion.id!=null && this.operacion.id.trim()!=""){
         this.toastCtrl;
-        const ide:IEIdentification={id:this.operacion.id};
+        if (this.operacion.tipo==Constantes.COMPRA){
+          borrarOperacionCompra(this.ganadoServicio, this.operacion,this.explotacionServ,this.toastCtrl,this.operacionServicio,this.location);
+        }else{
+          borrarOperacionVenta(this.ganadoServicio, this.operacion,this.explotacionServ,this.toastCtrl,this.operacionServicio,this.location);
+        }
+      }
+      function borrarOperacionVenta(ganadoServicio:GanadoServicio, operacion:Operacion,
+        explotacionServ:ExplotacionServicio,toastCtrl:ToastService,
+        operacionServicio:OperacionServicio,location:Location) {
+        const ide: IEIdentification = { id: operacion.id };
+        let arrayIdOperacionesAux: Array<IEIdentification>;
+        let explo: Explotacion = new Explotacion().fromJSON(explotacionServ.encontrarExplotacion({ id: explotacionServ.explotacionSeleccionada.id }));
+        if (operacion.animales!=null && operacion.animales.length>0){
+          operacion.animales.forEach((anim, index, arr) => {
+            anim.baja=false;
+            anim.precioVenta=0;
+            ganadoServicio.actualizarAnimal(anim, false).then(data => {
+              console.log("animal actualizado", data);
+            }).catch(err => {
+              console.error("Errr al guardar los datos del animal!", err);
+              toastCtrl.push("EWARNINGrror al guardar", "ERROR");
+            });
+          });
+        }
+        if (explo.arrayIdOperaciones != null && explo.arrayIdOperaciones.length > 0) {
+          arrayIdOperacionesAux = explo.arrayIdOperaciones.filter((el) => el.id != operacion.id);
+        }
+        operacionServicio.borrarOperacion(ide).then(data => {
+          toastCtrl.push("Operacion borrada correctamente", "SUCCESS");
+          operacionServicio.operacionSeleccionada = null;
+          if (explo.arrayIdOperaciones != null && explo.arrayIdOperaciones.length > 0) {
+            explo.arrayIdOperaciones = arrayIdOperacionesAux;
+          }
+          explo.dineroAnual-=operacion.precio;
+          explo.dineroTotal-=operacion.precio;
+          explotacionServ.actualizarExplotacion(explo).then((data) => {
+            location.back();
+          }).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err);});
+        }, err => {
+          console.error("Errr al borrar los datos de la operacion!", err);
+          toastCtrl.push("Error al borrar", "ERROR");
+        }).catch(err => {
+          console.error("Errr al borrar los datos de la operacion!", err);
+          toastCtrl.push("Error al borrar", "ERROR");
+        });
+      }
 
-        //  HAY QUE BORRAR LA OPERACION DE LA EXPLOTACION!!!!
+      function borrarOperacionCompra(ganadoServicio:GanadoServicio, operacion:Operacion
+        ,explotacionServ:ExplotacionServicio,toastCtrl:ToastService,
+        operacionServicio:OperacionServicio,location:Location) {
+        const ide: IEIdentification = { id: operacion.id };
+        let arrayIdAnimalesAux: Array<IEIdentification>;
+        let arrayIdOperacionesAux: Array<IEIdentification>;
+        let cancelarBorradoCompra:boolean=false;
+        operacion.animales.forEach(element => {
+          if (!cancelarBorradoCompra){
+            if (element.baja){
+              if (element.precioVenta!=null){
+                //Avisar de que hay que cancelar la venta primero
+                cancelarBorradoCompra=true;
+                toastCtrl.push("No se puede borrar porque el animal: " + element.numero +" ha sido vendido, cancela primero la venta", "ERROR");
+              }else{
+                //El animal ha muerto y no se puede cancelar la compra
+                cancelarBorradoCompra=true;
+                toastCtrl.push("No se puede borrar porque el animal: " + element.numero +" es baja", "ERROR");
+              }
+            }else{
+              if (element.precioVenta!=null){
+                //Avisar de que hay que cancelar la venta primero
+                cancelarBorradoCompra=true;
+                toastCtrl.push("No se puede borrar porque el animal: " + element.numero +" ha sido vendido, cancela primero la venta", "ERROR");
+              }else if ((element.ascendenciaIds!=null && element.ascendenciaIds.length>0 )
+              || (element.descendenciaIds!=null && element.descendenciaIds.length>0 )) {
+                cancelarBorradoCompra=true;
+                toastCtrl.push("No se puede borrar porque el animal: " + element.numero +" tiene descendencia asociada", "ERROR");
+              }
+            }
+          }
 
-        this.operacionServicio.borrarOperacion(ide).then(data => {
-          this.toastCtrl.push("Operacion borrada correctamente", "SUCCESS");
-          this.operacionServicio.operacionSeleccionada=null;
-          this.volver();
-        },err => {
-					console.error("Errr al borrar los datos de la operacion!", err);
-					this.toastCtrl.push("Error al borrar", "ERROR");
-				}).catch(err => {
-					console.error("Errr al borrar los datos de la operacion!", err);
-					this.toastCtrl.push("Error al borrar", "ERROR");
-				});
+        });
+        if (!cancelarBorradoCompra){
+          //  HAY QUE BORRAR LA OPERACION DE LA EXPLOTACION!!!!
+          let explo: Explotacion = new Explotacion().fromJSON(explotacionServ.encontrarExplotacion({ id: explotacionServ.explotacionSeleccionada.id }));
+          if (explo.arrayIdAnimales != null && explo.arrayIdAnimales.length > 0) {
+            arrayIdAnimalesAux = explo.arrayIdAnimales.filter((el) => !operacion.arrayIdAnimales.includes(el));
+          }
+          ganadoServicio.borrarAnimal(operacion.animales).then(data => {
+            if (explo.arrayIdAnimales != null && explo.arrayIdAnimales.length > 0) {
+              explo.arrayIdAnimales = arrayIdAnimalesAux;
+            }
+            if (explo.arrayIdOperaciones != null && explo.arrayIdOperaciones.length > 0) {
+              arrayIdOperacionesAux = explo.arrayIdOperaciones.filter((el) => el.id != operacion.id);
+            }
+            operacionServicio.borrarOperacion(ide).then(data => {
+              toastCtrl.push("Operacion borrada correctamente", "SUCCESS");
+              operacionServicio.operacionSeleccionada = null;
+              if (explo.arrayIdOperaciones != null && explo.arrayIdOperaciones.length > 0) {
+                explo.arrayIdOperaciones = arrayIdOperacionesAux;
+              }
+              explo.dineroAnual-=operacion.precio;
+              explo.dineroTotal-=operacion.precio;
+              explotacionServ.actualizarExplotacion(explo).then((data) => {
+                location.back();
+              }).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err);});
+            }, err => {
+              console.error("Errr al borrar los datos de la operacion!", err);
+              toastCtrl.push("Error al borrar", "ERROR");
+            }).catch(err => {
+              console.error("Errr al borrar los datos de la operacion!", err);
+              toastCtrl.push("Error al borrar", "ERROR");
+            });
+          });
+        }
+
       }
     }
 

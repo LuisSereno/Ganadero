@@ -9,7 +9,7 @@
                 <ion-button color="danger" expand="block" (click)="borrarOperacion()" full>Borrar</ion-button>
                </ion-col>
                <ion-col col-sm-6>
-                <ion-button color="success"  expand="block" (click)="guardarOperacion()" full>Guardar</ion-button>
+                <ion-button color="success"  expand="block" (click)="guardarOperacion()" [disabled]="operacion.id!=null" full>Guardar</ion-button>
                </ion-col>
              </ion-row>
             <ion-row>
@@ -18,7 +18,7 @@
                 <ion-label position="floating">
                  <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Identificador
                 </ion-label>
-                  <ion-input type="string" formControlName="identificador" [(ngModel)]="operacion.identificador"></ion-input>
+                  <ion-input type="string" formControlName="identificador" [disabled]="operacion.id!=null" [(ngModel)]="operacion.identificador"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="!formularioOperacion.controls.identificador.valid  && (formularioOperacion.controls.identificador.dirty || submitAttempt)">
                     <p style="color:red;">Introduce un identificador correcto</p>
@@ -32,7 +32,7 @@
                 <ion-label position="floating">
                  <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Agrupacion
                 </ion-label>
-                  <ion-input type="string" formControlName="agrupacion" [(ngModel)]="operacion.agrupacion"></ion-input>
+                  <ion-input type="string" formControlName="agrupacion"[disabled]="operacion.id!=null" [(ngModel)]="operacion.agrupacion"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="!formularioOperacion.controls.agrupacion.valid  && (formularioOperacion.controls.agrupacion.dirty || submitAttempt)">
                   <p style="color:red;">Introduce una agrupacion correcta</p>
@@ -45,7 +45,7 @@
                   <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
                   </ion-label>
 
-                    <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fecha" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>
+                    <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fecha" [disabled]="operacion.id!=null" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>
                   </ion-item>
                 <ion-item *ngIf="!formularioOperacion.controls.fecha.valid  && (formularioOperacion.controls.fecha.dirty || submitAttempt)">
                     <p style="color:red;">Introduce una fecha correcta</p>
@@ -61,10 +61,10 @@
             </ion-row>
             <ion-row>
               <ion-col col-sm-6>
-                <ion-button color="tertiary" expand="block" (click) = "anadirAnimalesAOperacion(0)" full>Añade Hembras</ion-button>
+                <ion-button color="tertiary" [disabled]="operacion.id!=null" expand="block" (click) = "anadirAnimalesAOperacion(0)" full>Añade Hembras</ion-button>
                </ion-col>
                <ion-col col-sm-6>
-                <ion-button color="tertiary"  expand="block" (click) = "anadirAnimalesAOperacion(1)" full>Añade Machos</ion-button>
+                <ion-button color="tertiary"  [disabled]="operacion.id!=null" expand="block" (click) = "anadirAnimalesAOperacion(1)" full>Añade Machos</ion-button>
                </ion-col>
              </ion-row>
         </ion-col>
@@ -95,7 +95,7 @@
         <span *ngIf="esCompra==3"> <b>Venta:</b> {{animal.precioVenta}} €</span>
         </p>
       </ion-label>
-      <ion-button color="danger" expand="block" (click)="borrarAnimal(true,animal)">
+      <ion-button color="danger" expand="block" (click)="borrarAnimal(true,animal)" [disabled]="operacion.id!=null">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-item>
@@ -114,7 +114,7 @@
           <span *ngIf="esCompra==3"> <b>Venta:</b> {{animal.precioVenta}} €</span>
         </p>
       </ion-label>
-      <ion-button color="danger" slot="end" (click)="borrarAnimal(false,animal)">
+      <ion-button color="danger" slot="end" (click)="borrarAnimal(false,animal)" [disabled]="operacion.id!=null">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-item>

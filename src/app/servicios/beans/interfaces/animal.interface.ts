@@ -16,6 +16,8 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 
 	fechaNacimiento: Date;
 
+	fechaMuerte: Date;
+
 	vacunas ?: Array<IEVacunaAnimal>;
 
 	enfermedades ?: Array<IEEnfermedadAnimal>;
@@ -39,5 +41,7 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 	fechaUltimoNacimiento ?: Date;
 
 	sexo: number;
+
+	baja: boolean;
 
 }

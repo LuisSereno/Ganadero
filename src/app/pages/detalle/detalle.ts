@@ -37,7 +37,7 @@ export class Detalle {
 	}
 
 	ngOnInit() {
-		this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null);
+		this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null, false);
 		this.fechaNacimiento = "";
 		this.fechaUltimoNacimiento = "";
 		this.formularioAnimal = this.formBuilder.group({

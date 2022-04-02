@@ -7,7 +7,7 @@ export interface IEganadoServicio {
 
   obtenerDatosGanado(animal: IEAnimal): Promise<IEAnimal>;
 
-  obtenerDatosGanadoIds(ids: Array<IEIdentification>):Promise<IEAnimal[]>;
+  obtenerDatosGanadoIds(ids: Array<IEIdentification>, filter?:string,value?:string):Promise<IEAnimal[]>;
 
   getBusquedaAscDesc(arrayAnimales:Array<IEAnimal>|Array<number>):Array<IEAnimal>;
 
@@ -16,5 +16,7 @@ export interface IEganadoServicio {
   actualizarAnimal(animal: IEAnimal, deep:boolean): Promise<IEAnimal>;
 
   encontrarAnimal(animal: IEIdentification): IEAnimal;
+
+  borrarAnimal(animalIdList: Array<IEIdentification>);
 
 }
