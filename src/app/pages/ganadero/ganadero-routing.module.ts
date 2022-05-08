@@ -67,6 +67,9 @@ const routes: Routes = [
         path: 'operacion-nueva/:es_compra', component: OperacionComponent
       },
       {
+        path: 'informes', component: Informes
+      },
+      {
         path: 'ganadero',
         redirectTo: '/ganadero/explotacion-detalle/false',
         pathMatch: 'full'

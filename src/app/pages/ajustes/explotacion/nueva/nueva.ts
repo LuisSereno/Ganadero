@@ -15,6 +15,10 @@ import { UsuarioServicio } from 'src/app/servicios/usuario.service';
 import {Location} from '@angular/common';
 import { Constantes } from 'src/app/servicios/genericos/constantes';
 import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
+import { GanadoServicio } from 'src/app/servicios/ganado.service';
+import { IEAnimal } from 'src/app/servicios/beans/interfaces/animal.interface';
+import { Macho } from 'src/app/servicios/beans/macho';
+import { Hembra } from 'src/app/servicios/beans/hembra';
 
 @Component({
 	templateUrl: 'nueva.html',
@@ -25,20 +29,66 @@ export class DetalleExplotacion {
 
 	edicion:boolean;
 
+	numHembras:number;
+
+	numMachos:number;
+
+	numTotal:number;
 
 	constructor(private location: Location, private params: ActivatedRoute,
 		private router: Router, private user: UsuarioServicio,
-		private explotacion: ExplotacionServicio, private toastCtrl: ToastService) {
+		private explotacion: ExplotacionServicio, private toastCtrl: ToastService,
+		public ganadoServicio: GanadoServicio) {
 	}
 
 	ngOnInit() {
+		console.log("ngOnInit");
+		this.numHembras=0;
+		this.numMachos=0;
+		this.numTotal=0;
+		this.explota = new Explotacion();
+	}
+	ionViewWillEnter() {
+		console.log("ionViewWillEnter");
 		this.edicion=JSON.parse(this.params.snapshot.paramMap.get('es_edicion'));
-		if(this.explotacion.explotacionSeleccionada){
+		if(this.edicion==true && this.explotacion.explotacionSeleccionada){
 			this.explota=this.explotacion.encontrarExplotacion(this.explotacion.explotacionSeleccionada);
-		}else{
-			this.explota = new Explotacion();
+			if (this.explota.arrayIdAnimales!=null && this.explota.arrayIdAnimales.length>0){
+				if (this.explota.arrayHembras!=null && this.explota.arrayHembras.length>0
+					&& this.explota.arrayMachos!=null && this.explota.arrayMachos.length>0){
+						this.numMachos= this.explota.arrayMachos.length;
+						this.numHembras= this.explota.arrayHembras.length;
+						this.numTotal=this.numHembras+this.numMachos;
+				}else{
+					this.ganadoServicio.obtenerDatosGanadoIds(this.explota.arrayIdAnimales, "baja", "false")
+					.then((data:IEAnimal[]) => {
+						this.explota.arrayMachos=new Array<IEAnimal>();
+						this.explota.arrayHembras=new Array<IEAnimal>();
+						for(let animal of data){
+							if(animal){
+								if (animal.sexo==Constantes.MACHO){
+									let macho:Macho;
+									macho=Macho.fromJSON(animal);
+									this.explota.arrayMachos.push(macho);
+								}else{
+									let hembra:Hembra;
+									hembra=Hembra.fromJSON(animal);
+
+									this.explota.arrayHembras.push(hembra);
+								}
+							}
+						}
+						this.ganadoServicio.ganado=data;
+						this.numMachos= this.explota.arrayMachos.length;
+						this.numHembras= this.explota.arrayHembras.length;
+						this.numTotal=this.numHembras+this.numMachos;
+					})
+				}
+			}
+
 		}
 	}
+
 
 	protected salir() {
 		//this.auth.logout();
@@ -105,5 +155,14 @@ export class DetalleExplotacion {
 
    	protected cambiarEnfermedad(){
 		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.ENFERMEDAD]);
+	}
+
+	protected getFotoAnimal(hembra:boolean) {
+		if (!hembra) {
+			return "assets/img/toro.png";
+		} else {
+			return "assets/img/vaca.png";
+		}
+
 	}
 }

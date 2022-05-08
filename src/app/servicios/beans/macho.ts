@@ -10,7 +10,7 @@ export class Macho extends Animal{
 		numero:number,fechaNacimiento:Date,vacu:Array<IEVacunaAnimal>,
 		enfer:Array<IEEnfermedadAnimal>,
 		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number
-        ,fechaMuerte:Date,baja:boolean){
+        ,fechaMuerte:Date,baja:boolean,fechaOperacion:Date){
 		super();
 		this.setId(id);
 		this.setAlias(alias);
@@ -26,6 +26,7 @@ export class Macho extends Animal{
 		this.setPrecioVenta(precioVenta);
         this.setFechaMuerte(fechaMuerte);
         this.setBaja(baja);
+        this.setFechaOperacion(fechaOperacion);
 	}
 
     public getFoto()  : string{
@@ -54,7 +55,8 @@ export class Macho extends Animal{
                 id:json["id"],
                 fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]) ,
                 metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"]),
-                fechaMuerte: (json["fechaMuerte"]==null || json["fechaMuerte"].toString()=="") ? null : new Date(json["fechaMuerte"])
+                fechaMuerte: (json["fechaMuerte"]==null || json["fechaMuerte"].toString()=="") ? null : new Date(json["fechaMuerte"]),
+                fechaOperacion: (json["fechaOperacion"]==null || json["fechaOperacion"].toString()=="") ? null : new Date(json["fechaOperacion"])
             });
         }
     }

@@ -35,7 +35,7 @@
                  <ion-col col-sm-12>
                     <ion-item class="text-label">
                     <ion-label position="floating">
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Beneficio anual compras/ventas
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Beneficio parcial compras/ventas
                     </ion-label>
                      <ion-input type="number" [(ngModel)]="explota.dineroAnual"></ion-input>
                     </ion-item>
@@ -51,6 +51,41 @@
                      </ion-item>
                   </ion-col>
                 </ion-row>
+                <ion-row>
+                  <ion-col col-sm-4>
+                   <ion-item  class="text-label">
+                    <ion-thumbnail slot="start">
+                      <img src="assets/img/cattle.png">
+                    </ion-thumbnail>
+                    <ion-label>
+                      <h3>Total animales</h3>
+                      <p>{{numTotal}}</p>
+                    </ion-label>
+                  </ion-item>
+                   </ion-col>
+                   <ion-col col-sm-4>
+                    <ion-item  class="text-label">
+                      <ion-thumbnail slot="start">
+                        <img [src]="getFotoAnimal(true)">
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>Hembras</h3>
+                        <p>{{numHembras}}</p>
+                      </ion-label>
+                    </ion-item>
+                    </ion-col>
+                    <ion-col col-sm-4>
+                      <ion-item  class="text-label">
+                        <ion-thumbnail slot="start">
+                          <img [src]="getFotoAnimal(false)">
+                        </ion-thumbnail>
+                        <ion-label>
+                          <h3>Machos</h3>
+                          <p>{{numMachos}}</p>
+                        </ion-label>
+                      </ion-item>
+                      </ion-col>
+                 </ion-row>
                 <ion-row *ngIf="edicion">
                   <ion-col col-sm-6>
                     <ion-button color="dark" expand="block" (click)="cambiarEnfermedad()" full>Enfermedades</ion-button>

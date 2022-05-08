@@ -200,6 +200,7 @@ export class OperacionComponent implements OnInit {
     let promise:Promise<Boolean>=new Promise((resolve, reject) => {
       if (this.operacion.animales!=null && this.operacion.animales.length>0){
         for (let animal of this.operacion.animales){
+          animal.fechaOperacion= new Date();
           if(this.esCompra==Constantes.COMPRA_COMPRA){
             // removemos los animales de los animales que tiene la granja
             guardarCompra(this.ganadoServicio,this.operacion,this.explotacionServ,this.toastCtrl,animal);
@@ -237,7 +238,6 @@ export class OperacionComponent implements OnInit {
 
       function guardarCompra(ganadoServicio:GanadoServicio, operacion:Operacion,explotacionServ:ExplotacionServicio,toastCtrl:ToastService,animal: IEAnimal) {
         console.log("va a añadir animales a la explotacion en  una compra");
-
         ganadoServicio.guardaAnimal(animal).then(data => {
           animal.id = data.id;
           if (!operacion.arrayIdAnimales) {
@@ -316,6 +316,7 @@ export class OperacionComponent implements OnInit {
           operacion.animales.forEach((anim, index, arr) => {
             anim.baja=false;
             anim.precioVenta=0;
+            anim.fechaOperacion= null;
             ganadoServicio.actualizarAnimal(anim, false).then(data => {
               console.log("animal actualizado", data);
             }).catch(err => {
@@ -475,11 +476,13 @@ export class OperacionComponent implements OnInit {
 
   private calculatePrice(){
     let numberPrice:number = 0;
+    let numberPeso:number = 0;
     if(this.esCompra==Constantes.COMPRA_COMPRA){
-      this.operacion.animales.forEach(element=>{numberPrice+=element.precioCompra});
+      this.operacion.animales.forEach(element=>{numberPrice+=element.precioCompra;numberPeso+=element.peso;});
 		}else{
-      this.operacion.animales.forEach(element=>{numberPrice+=element.precioVenta});
+      this.operacion.animales.forEach(element=>{numberPrice+=element.precioVenta;numberPeso+=element.peso;});
 		}
     this.operacion.precio=numberPrice;
+    this.operacion.peso=numberPeso;
   }
 }

@@ -40,8 +40,12 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 
 	fechaUltimoNacimiento ?: Date;
 
+	fechaOperacion ?: Date;
+
 	sexo: number;
 
 	baja: boolean;
+
+	peso ?: number;
 
 }

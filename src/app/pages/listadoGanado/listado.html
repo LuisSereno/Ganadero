@@ -1,6 +1,14 @@
 <cabecera-ganadero  nombrePagina="Lista ganado"></cabecera-ganadero>
 
 <ion-content>
+
+	<ion-row>
+		<ion-col col-sm-10>
+			<ion-searchbar placeholder="Buscar..." [(ngModel)]="filterTerm" animated="true" (ionChange)="filterItems()"></ion-searchbar>
+		</ion-col>
+		<ion-button (click)="CreatePopover()">Avanzada</ion-button>
+	</ion-row>
+
 	<div padding>
 	  <ion-segment [(ngModel)]="tipoMostrado">
 	    <ion-segment-button value="hembras">
@@ -13,43 +21,63 @@
 	</div>
 	<div [ngSwitch]="tipoMostrado">
 	  <ion-list *ngSwitchCase="'hembras'">
-	    <ion-item button *ngFor="let animal of explotacion.arrayHembras;let i=index" (click)="detalle(animal)">
-	      <ion-checkbox *ngIf="venta==2" [(ngModel)]="checkedItemsHembras[i]"></ion-checkbox>
+	    <ion-item button *ngFor="let animal of arrayHembrasTemp | filter:filterTerm;let i=index" (click)="detalle(animal)">
+	      <ion-checkbox *ngIf="venta==2 && (animal.baja!=true)" [(ngModel)]="checkedItemsHembras[animal.id]" value="animal.id"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img [src]="getFotoAnimal(animal)" class="tam_image_animal">
 	      </ion-thumbnail>
-	      <ion-label>
-	        <h2>{{animal.numero}}</h2>
-	    	<p>{{animal.alias}}#{{animal.raza}}
+	      <ion-label class="ion-text-wrap" [color]="animal.baja ? 'danger' : 'dark'">
+	        <h2><b>Número:</b>{{animal.numero}}</h2>
+	    	<p>
+				<span *ngIf="animal.alias!=null"><b>Alias:</b> {{animal.alias}} </span>
+				<span *ngIf="animal.raza!=null"><b>Raza:</b> {{animal.raza}} </span>
+				<span *ngIf="animal.fechaUltimoNacimiento!=null"><b>Parición:</b> {{animal.fechaUltimoNacimiento ? animal.fechaUltimoNacimiento.toLocaleString("es", {weekday: "short",year: "numeric",month: "2-digit",day: "numeric"}) : ''}} </span>
+				<span *ngIf="animal.peso!=null"><b>Peso:</b> {{animal.peso}} </span>
 				<span *ngIf="venta!=2">
-				{{animal.fechaUltimoNacimiento ? animal.fechaUltimoNacimiento.toLocaleString() : ''}}
-	    		<span *ngIf="animal.precioCompra!=0"><b>Compra:</b> {{animal.precioCompra}} €</span>
-				<span *ngIf="animal.precioVenta!=0"><b>Venta:</b> {{animal.precioVenta}} €</span>
+					<span *ngIf="animal.precioCompra!=0"><b>Compra:</b> {{animal.precioCompra}} € </span>
+					<span *ngIf="animal.precioVenta!=0"><b>Venta:</b> {{animal.precioVenta}} € </span>
 				</span>
 	    	</p>
 	      </ion-label>
 		  <!-- Number type input -->
-			<ion-input *ngIf="venta==2" type="number" [(ngModel)]="animal.precioVenta" class="ion-text-right"></ion-input>
+		  <ion-item *ngIf="venta==2">
+			<ion-label>Peso</ion-label>
+			<ion-input type="number" [(ngModel)]="animal.peso" min="0" class="ion-text-right"></ion-input>
+		  </ion-item>
+		  <ion-item *ngIf="venta==2">
+			<ion-label>Precio</ion-label>
+			<ion-input type="number" [(ngModel)]="animal.precioVenta" min="0" class="ion-text-right"></ion-input>
+		  </ion-item>
 	    </ion-item>
 
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'machos'">
-	    <ion-item button *ngFor="let animal of explotacion.arrayMachos;let i=index" (click)="detalle(animal)">
-	      <ion-checkbox *ngIf="venta==2" [(ngModel)]="checkedItemsMachos[i]"></ion-checkbox>
+	    <ion-item button *ngFor="let animal of arrayMachosTemp | filter:filterTerm;let i=index" (click)="detalle(animal)">
+	      <ion-checkbox *ngIf="venta==2 && (animal.baja!=true)" [(ngModel)]="checkedItemsMachos[animal.id]" value="animal.id"></ion-checkbox>
 	      <ion-thumbnail item-left>
 	        <img [src]="getFotoAnimal(animal)" class="tam_image_animal">
 	      </ion-thumbnail>
-	      <ion-label>
-	      	<h2>{{animal.numero}}</h2>
-			<p>{{animal.alias}}#{{animal.raza}}
+	      <ion-label class="ion-text-wrap" [color]="animal.baja ? 'danger' : 'dark'">
+	        <h2><b>Número:</b>{{animal.numero}}</h2>
+	    	<p>
+				<span *ngIf="animal.alias!=null"><b>Alias:</b> {{animal.alias}} </span>
+				<span *ngIf="animal.raza!=null"><b>Raza:</b> {{animal.raza}} </span>
+				<span *ngIf="animal.peso!=null"><b>Peso:</b> {{animal.peso}} </span>
 				<span *ngIf="venta!=2">
-					<span *ngIf="animal.precioCompra!=0"><b>Compra:</b> {{animal.precioCompra}} €</span>
-					<span *ngIf="animal.precioVenta!=0"><b>Venta:</b> {{animal.precioVenta}} €</span>
+					<span *ngIf="animal.precioCompra!=0"><b>Compra:</b> {{animal.precioCompra}} € </span>
+					<span *ngIf="animal.precioVenta!=0"><b>Venta:</b> {{animal.precioVenta}} € </span>
 				</span>
-			</p>
-		  </ion-label>
-		  <ion-input *ngIf="venta==2" type="number" [(ngModel)]="animal.precioVenta" class="ion-text-right"></ion-input>
+	    	</p>
+	      </ion-label>
+		  <ion-item *ngIf="venta==2">
+			<ion-label>Peso</ion-label>
+			<ion-input type="number" [(ngModel)]="animal.peso" min="0" class="ion-text-right"></ion-input>
+		  </ion-item>
+		  <ion-item *ngIf="venta==2">
+			<ion-label>Precio</ion-label>
+			<ion-input type="number" [(ngModel)]="animal.precioVenta" min="0" class="ion-text-right"></ion-input>
+		  </ion-item>
 	    </ion-item>
 
 	  </ion-list>

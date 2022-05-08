@@ -48,6 +48,9 @@ import { EnfermedadServicio } from 'src/app/servicios/enfermedad.service';
 import { VacunasEnfermedadesPage } from '../listadoVacunasEnfermedades/listaVacunasEnfermedades';
 import { DetalleVacunaEnfermedad } from '../listadoVacunasEnfermedades/nuevaVacunaEnfermedad/detalleVacunaEnfermedad';
 import { OperacionComponent } from '../listadoVentas/operacion/operacion.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FiltroAvanzado } from '../filtroAvanzado/filtroAvanzado';
+import { FiltroAvanzadoComponentPageModule } from '../filtro-avanzado-component/filtro-avanzado-component.module';
 
 @NgModule({
   imports: [
@@ -59,7 +62,9 @@ import { OperacionComponent } from '../listadoVentas/operacion/operacion.compone
     HttpClientModule,
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig,'ganadero'),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    Ng2SearchPipeModule,
+    FiltroAvanzadoComponentPageModule
   ],providers: [
     ServicioDatos,
     Toast,
@@ -98,7 +103,8 @@ import { OperacionComponent } from '../listadoVentas/operacion/operacion.compone
     Cabecera,
     VacunasEnfermedadesPage,
     DetalleVacunaEnfermedad,
-    OperacionComponent
+    OperacionComponent,
+    FiltroAvanzado
     ],
   exports: [
     HomePage

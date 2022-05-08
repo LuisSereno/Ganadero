@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./pages/ganadero/ganadero.module').then(m => m.GanaderoModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'filtro-avanzado-component',
+    loadChildren: () => import('./pages/filtro-avanzado-component/filtro-avanzado-component.module').then( m => m.FiltroAvanzadoComponentPageModule)
   }
 ];
 @NgModule({

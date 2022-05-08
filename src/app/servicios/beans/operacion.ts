@@ -27,6 +27,8 @@ export class Operacion implements  IEMetadatos, transformJSON<IEOperacion>,IEOpe
 
 	metadatoFechaMod?: Date;
 
+	peso ?: number;
+
 	constructor() {
 		this.id = "";
 		this.identificador = "";
@@ -35,6 +37,7 @@ export class Operacion implements  IEMetadatos, transformJSON<IEOperacion>,IEOpe
 		this.precio=0;
 		this.fechaOperacion=new Date();
 		this.tipo=null;
+		this.peso=0;
 	}
 	toJSON(): {} {
 		throw new Error('Method not implemented.');

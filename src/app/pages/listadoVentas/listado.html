@@ -25,6 +25,11 @@
 		      			<b>Precio:</b> {{venta.precio}}
 		      		</label>
 	      		</ion-col>
+				<ion-col width-33 *ngIf="venta.peso!=null && venta.peso!=0">
+					<label>
+						<b>Peso:</b> {{venta.peso}}
+					</label>
+				</ion-col>
 	      		<ion-col width-33>
 		      		<label>
 		      			<b>Fecha:</b> {{venta.fechaOperacion ? venta.fechaOperacion.toLocaleDateString() : ''}}
@@ -52,6 +57,11 @@
 					<ion-col width-33>
 						<label>
 							<b>Precio:</b> {{compra.precio}}
+						</label>
+					</ion-col>
+					<ion-col width-33 *ngIf="compra.peso!=null && compra.peso!=0">
+						<label>
+							<b>Peso:</b> {{compra.peso}}
 						</label>
 					</ion-col>
 					<ion-col width-33>

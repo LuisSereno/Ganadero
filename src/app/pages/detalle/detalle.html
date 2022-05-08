@@ -1,12 +1,12 @@
 <ion-content>
   <form [formGroup]="formularioAnimal">
-  <ion-card>
+  <ion-card [disabled]="animal.baja">
   	<ion-fab vertical="top" horizontal="end">
       <ion-fab-button color="dark">
         <ion-icon name="add" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
           </ion-icon>
       </ion-fab-button>
-      <ion-fab-list side="bottom">
+      <ion-fab-list side="bottom" >
         <ion-fab-button (click)="anadirDescendencia(0)"><img src="assets/img/vaca.png" ></ion-fab-button>
         <ion-fab-button (click)="anadirDescendencia(1)"><img src="assets/img/toro.png" ></ion-fab-button>
       </ion-fab-list>
@@ -41,7 +41,7 @@
                 <ion-row>
                   <ion-col col-sm-8>
                     <ion-item class="text-label">
-                      <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Nacimiento
+                      <ion-label position="floating"><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Fecha nacimiento
                       </ion-label>
 
                         <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento"> </ion-datetime>
@@ -54,7 +54,7 @@
                 <ion-row *ngIf="isInstanceOfHembra(animal)">
                   <ion-col col-sm-8>
                     <ion-item class="text-label">
-                      <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha Último Nacimiento
+                      <ion-label position="floating"><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Fecha última parición
                        </ion-label>
                           <ion-datetime displayFormat="YYYY-MM-DD" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
                         </ion-item>
@@ -81,6 +81,16 @@
                       </ion-item>
                     </ion-col>
                   </ion-row>
+                  <ion-row>
+                    <ion-col col-sm-8>
+                    <ion-item  class="text-label">
+                      <ion-label position="floating">
+                       <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Peso
+                      </ion-label>
+                      <ion-input type="number"  [ngModelOptions]="{standalone: true}" [(ngModel)]="animal.peso" min="0"></ion-input>
+                    </ion-item>
+                    </ion-col>
+                  </ion-row>
                 <ion-row>
                   <ion-col col-sm-8>
                     <my-list-opcionesAscDesc [model]="servicio.ganado" [texto]="'Ascendencia'" [tipo]="false" [animalHerencia]="this.animal.id"
@@ -95,10 +105,10 @@
                 </ion-row>
                 <ion-row>
                   <ion-col col-sm-6>
-                    <ion-button color="primary" expand="block" (click)="cambiarEnfermedad()">Enfermedades</ion-button>
+                    <ion-button color="primary" expand="block" [disabled]="animal.baja" (click)="cambiarEnfermedad()">Enfermedades</ion-button>
                   </ion-col>
                   <ion-col col-sm-6>
-                    <ion-button color="primary" expand="block" (click)="cambiarVacunas()">Vacunas</ion-button>
+                    <ion-button color="primary" expand="block" [disabled]="animal.baja" (click)="cambiarVacunas()">Vacunas</ion-button>
                   </ion-col>
                 </ion-row>
             </ion-col>
@@ -115,7 +125,7 @@
         </ion-fab>
 
        <ion-col col-sm-12>
-        <ion-button size="large" color="primary" expand="block" (click)="modificaDatosAnimal()" [disabled]="!formularioAnimal.valid">Guardar</ion-button>
+        <ion-button size="large" color="primary" expand="block" (click)="modificaDatosAnimal()" [disabled]="!formularioAnimal.valid || animal.baja">Guardar</ion-button>
      </ion-col>
     </ion-row>
 

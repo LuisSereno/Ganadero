@@ -42,11 +42,15 @@ export abstract class Animal implements IEAnimal{
 
 	fechaUltimoNacimiento ?: Date;
 
+	fechaOperacion ?: Date;
+
 	sexo: number;
 
 	fechaMuerte: Date;
 
 	baja: boolean;
+
+	peso ?: number;
 
 	constructor() {
 		this.id = "";
@@ -67,6 +71,7 @@ export abstract class Animal implements IEAnimal{
 		this.precioCompra=0;
 		this.precioVenta=0;
 		this.baja=false;
+		this.peso=0;
 	}
 
 
@@ -183,6 +188,13 @@ export abstract class Animal implements IEAnimal{
 	}
 	public setFechaMuerte(value: Date) {
 		this.fechaMuerte = value;
+	}
+
+	public getFechaOperacion(): Date {
+		return this.fechaOperacion;
+	}
+	public setFechaOperacion(value: Date) {
+		this.fechaOperacion = value;
 	}
 
 

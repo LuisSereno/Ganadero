@@ -84,10 +84,10 @@ export class Nuevo {
 				//this.compra = Constantes.INDEFINIDO;
 				this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 				if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
-					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false);
+					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false,null);
 					this.animal.sexo= Constantes.MACHO;
 				} else {
-					this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null, null, false);
+					this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null, null, false,null);
 					this.animal.sexo= Constantes.HEMBRA;
 				}
 				//let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
@@ -104,7 +104,7 @@ export class Nuevo {
 				alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
 				raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
 				//fechaNacimiento: ['value', Validators.compose([Validators.required])],
-				precioCompra: ['value', Validators.compose([Validators.required])]
+				precioCompra: ['value', Validators.compose([Validators.required])],
 			});
 
 		} else {
@@ -113,16 +113,16 @@ export class Nuevo {
 				numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
 				alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
 				raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
-				fechaNacimiento: ['value', Validators.compose([Validators.required])]
+				fechaNacimiento: ['value', Validators.compose([Validators.required])],
 			});
 
 			this.compra = Constantes.INDEFINIDO;
 			this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 			if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
-				this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null,false);
+				this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null,false,null);
 				this.animal.sexo= Constantes.MACHO;
 			} else {
-				this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false);
+				this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false,null);
 				this.animal.sexo= Constantes.HEMBRA;
 			}
 			if (this.params.snapshot.queryParams.animalID){
@@ -220,6 +220,7 @@ export class Nuevo {
 				}
 				this.operacionServicio.operacionSeleccionada.animales.push(this.animal);
 				this.operacionServicio.operacionSeleccionada.precio+=this.animal.precioCompra;
+				this.operacionServicio.operacionSeleccionada.peso+=this.animal.peso;
 				this.vaciarFormulario();
 				this.submitAttempt = false;
 				this.toastCtrl.push("Animal almacenado", "SUCCESS");
@@ -269,10 +270,10 @@ export class Nuevo {
 */
 	protected vaciarFormulario() {
 		if (this.animal instanceof Hembra) {
-			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false);
+			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false,null);
 			this.fechaUltimoNacimiento = "";
 		} else if (this.animal instanceof Macho) {
-			this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false);
+			this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false,null);
 		}
 		this.fechaNacimiento = "";
 	}

@@ -15,4 +15,6 @@ export interface IEOperacion extends IEIdentification {
 
 	tipo: number;
 
+	peso ?: number;
+
 }

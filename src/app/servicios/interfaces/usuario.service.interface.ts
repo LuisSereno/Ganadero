@@ -1,5 +1,4 @@
 import { IEUsuario } from '../beans/interfaces/usuario.interface';
-import { Observable } from 'rxjs';
 
 export interface IEusuarioServicio{
 

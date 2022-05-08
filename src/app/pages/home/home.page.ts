@@ -62,7 +62,7 @@ export class HomePage {
       { title: 'Ganado', url: "/ganadero/listado-ganado", icon: "home"},
       { title: 'Documentos', url: "", icon: "home" },
       { title: 'Ventas', url: "/ganadero/listado-ventas", icon: "home" },
-      { title: 'Informes', url: "", icon: "home" },
+      { title: 'Informes', url: "/ganadero/informes", icon: "home" },
     ];
 
     this.router.events.subscribe((event:RouterEvent) => {

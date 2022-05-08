@@ -3,21 +3,28 @@
  */
 
 import { Component, EventEmitter, Output } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { Filtro } from 'src/app/servicios/beans/filtro';
 
-//import {ServicioDatos} from '../../servicios/serviciodatos';
 
 @Component({
-  templateUrl: 'informes.html'
+  selector: 'ganadero-filtro-avanzado',
+  templateUrl: 'filtroAvanzado.html'
 })
-export class Informes {
+export class FiltroAvanzado {
 
   @Output() typeChanged = new EventEmitter<Filtro>();
 
   filtroAvanzado:Filtro;
 
-  constructor() {
+  constructor(private popover:PopoverController) {}
+
+  ngOnInit() {
     this.filtroAvanzado=new Filtro();
+  }
+  ClosePopover()
+  {
+    this.popover.dismiss();
   }
 
   emit() {
