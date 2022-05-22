@@ -31,11 +31,11 @@ export class ListadoAnimalesVendidos {
 	}
 
 
-	protected volver(){
+	public volver(){
 		this.location.back();
 	}
 
-	protected enviarOperacion(){
+	public enviarOperacion(){
 		this.operacion.animales = this.arrayAnimales;
 
 		if (!(this.operacion.fechaOperacion instanceof Date)){
@@ -58,7 +58,7 @@ export class ListadoAnimalesVendidos {
 		return objeto instanceof Venta;
 	}
 
-	protected sumarCantidad(){
+	public sumarCantidad(){
 		var suma:number=0;
 		if (this.operacion instanceof Venta){
 			for (let anim of this.arrayAnimales){
@@ -80,7 +80,7 @@ export class ListadoAnimalesVendidos {
 	}
 
 
-	protected comprobarCampos(){
+	public comprobarCampos(){
 		if (!this.operacion.agrupacion){
 			return false;
 		}

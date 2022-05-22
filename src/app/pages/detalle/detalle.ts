@@ -30,7 +30,7 @@ export class Detalle {
 
 	public submitAttempt: boolean = false;
 
-	constructor(private router: Router, private params: ActivatedRoute, protected servicio: GanadoServicio,
+	constructor(private router: Router, private params: ActivatedRoute, public servicio: GanadoServicio,
 		private toastCtrl: ToastService, private usuario: UsuarioServicio, private location: Location,
 		private formBuilder: FormBuilder) {
 
@@ -107,19 +107,19 @@ export class Detalle {
 
 		}
 	*/
-	protected irDetalleDesdeDetalle(animalito: Animal) {
+	public irDetalleDesdeDetalle(animalito: Animal) {
 		this.router.navigate(['animal-detalle', { animal: animalito }]);
 	}
 
-	protected devuelveColorBadge(tipoObjeto: any): String {
+	public devuelveColorBadge(tipoObjeto: any): String {
 		return tipoObjeto instanceof Macho ? 'danger' : 'secondary'
 	}
 
-	protected volver() {
+	public volver() {
 		this.location.back();
 	}
 
-	protected modificaDatosAnimal() {
+	public modificaDatosAnimal() {
 		this.submitAttempt = true;
 		if(this.animal.descendencia){
 			for(let animId of this.animal.descendencia){
@@ -158,7 +158,7 @@ export class Detalle {
 		return objeto instanceof Hembra;
 	}
 
-	protected getFotoAnimal() {
+	public getFotoAnimal() {
 		if (this.animal.foto) {
 			return this.animal.foto;
 		} else {
@@ -204,11 +204,11 @@ export class Detalle {
 		}
 	}
 
-	protected cambiarVacunas(){
+	public cambiarVacunas(){
 		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.VACUNA, {'id-animal':this.animal.id}]);
    	}
 
-   	protected cambiarEnfermedad(){
+   	public cambiarEnfermedad(){
 		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.ENFERMEDAD, {'id-animal':this.animal.id}]);
 	}
 }

@@ -9,10 +9,10 @@ export class FileUploadServicio  implements IEFileUploadServicio{
 
     fileUpload: IEFileUpload;
 
-    constructor(@Inject('FilesConexionServicio') private conn: ConexionGenericaService<IEFileUpload>) {
+/*    constructor(@Inject('FilesConexionServicio') private conn: ConexionGenericaService<IEFileUpload>) {
         this.conn.crearConexion(Constantes.prefixDatabaseProject + 'files');
     }
-
+*/
     obtenerFile(): Promise<IEFileUpload> {
         throw new Error('Method not implemented.');
     }

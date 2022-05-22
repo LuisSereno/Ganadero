@@ -50,7 +50,7 @@ export class ListaDocumentos {
 		}
 	}
 
-	protected descargar(doc:Documento){
+	public descargar(doc:Documento){
 		this.servicioFich.setDocumento(doc);
 		this.servicioFich.obtenerURLBajada(this.servicio.getUsuario().getEmail()).then(data => {
 			window.open(data, '_system', 'location=yes');
@@ -59,10 +59,10 @@ export class ListaDocumentos {
 			console.log(error);
 			this.toastCtrl.push('No se puede visualizar el fichero',"ERROR");
 		});
-		
+
 	}
 
-	protected seleccionarDocumento(){
+	public seleccionarDocumento(){
 		let url="";
 		 if (this.plt.is('core')) {
 			this.botonSubir.nativeElement.click();
@@ -78,9 +78,9 @@ export class ListaDocumentos {
 			  	}).catch(err => console.log(err));
 			});
 		 }
-	}  
+	}
 
-	protected insertarDatosFile(){
+	public insertarDatosFile(){
 			let valorTextoSubida=this.botonSubir.nativeElement.value;
 		 	alert(valorTextoSubida);
 		 	if (valorTextoSubida) {
@@ -89,7 +89,7 @@ export class ListaDocumentos {
 			    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
 			        filename = filename.substring(1);
 			    }
-			   
+
 			    if (filename){
 				   	let tipoSeleccionado=filename.split(".");
 		   		 	if (tipoSeleccionado[1]){
@@ -104,7 +104,7 @@ export class ListaDocumentos {
 		   		 		}catch(e){
 		   		 			this.toastCtrl.push("El tipo seleccionado no existe","WARNING");
 		   		 		}
-		   		 		
+
 
 		   		 	}else{
 		   		 		alert();
@@ -124,7 +124,7 @@ export class ListaDocumentos {
 			}
 		}
 	}
- 
+
 
 	private subirDocumento() {
 	    this.file.resolveLocalFilesystemUrl(this.nativepath).then(res => {
@@ -142,13 +142,13 @@ export class ListaDocumentos {
 				   		 	docu.setMetaDatoFechaMod(new Date());
 				   		 	docu.setMetaDatoEmail(this.servicio.getExplotacion().getUsuario().getEmail());
 				   		 	this.servicioFich.setDocumento(docu);
-					 		this.servicioFich.guardaDocumento(this.servicio.getExplotacion()).then(dataDoc => {						  
+					 		this.servicioFich.guardaDocumento(this.servicio.getExplotacion()).then(dataDoc => {
 							 let options: FileUploadOptions = {
 							     headers: {'Content-Type': docu.getTipo()}
 							     		   //'Authorization': 'Bearer ' + this.auth.accessToken
 							  }
 							  console.log("El header es")
-							  console.log(options);							
+							  console.log(options);
 							  this.fileTransfer.upload(res.nativeURL, this.servicioFich.obtenerURLSubida(this.servicio.getUsuario().getEmail()),options).then((data) => {
 
 								this.toastCtrl.push("El fichero se ha subido correctamente","CORRECTO");
@@ -160,7 +160,7 @@ export class ListaDocumentos {
 									this.toastCtrl.push("El fichero ya existe","WARNING");
 								}else{
 									this.toastCtrl.push("No se ha podido almacenar el documento","ERROR");
-								}								
+								}
 							});
 							},err => {
 							  console.log("Errr al guardar el documento!");
@@ -169,14 +169,14 @@ export class ListaDocumentos {
 		   		 		}catch(e){
 		   		 			this.toastCtrl.push("El tipo seleccionado no existe","WARNING");
 		   		 		}
-		   		 		
+
 
 		   		 	}else{
 		   		 		alert();
 		   		 		this.toastCtrl.push("El fichero no tiene formato","WARNING");
 		   		 	}
 
-				
+
 	    	}
 
 	    })
@@ -215,7 +215,7 @@ export class ListaDocumentos {
 			if (valor.contentType==tipoDocumento){
 				return valor.imagen;
 			}
-		}		
+		}
 	}
 	*/
 }

@@ -149,11 +149,11 @@ export class Nuevo {
 		this.isHembra = false;
 	}
 
-	protected devuelveColorBadge(tipoObjeto: any): String {
+	public devuelveColorBadge(tipoObjeto: any): String {
 		return tipoObjeto instanceof Macho ? 'danger' : 'secondary'
 	}
 
-	protected getFotoAnimal() {
+	public getFotoAnimal() {
 		if (this.animal.foto) {
 			return this.animal.foto;
 		} else {
@@ -165,11 +165,11 @@ export class Nuevo {
 		}
 	}
 
-	protected volver() {
+	public volver() {
 		this.location.back();
 	}
 
-	protected guardaDatosAnimal() {
+	public guardaDatosAnimal() {
 		this.submitAttempt = true;
 		if (this.formularioAnimal.valid) {
 			//this.animal.descendencia = this.arrayDescendencia;
@@ -258,7 +258,7 @@ export class Nuevo {
 		this.arrayAscendencia = datos;
 	}
 
-/*	protected enviarResultadoACompras() {
+/*	public enviarResultadoACompras() {
 		this.submitAttempt = true;
 		if (this.formularioAnimal.valid) {
 			//this.arrayAnimales.push(this.animal);
@@ -268,7 +268,7 @@ export class Nuevo {
 		//this.router.navigate(['ganadero/listado-animales-vendidos'], { animalesSeleccionados: this.arrayAnimales, operacion: new Compra(null, null, null, null, null) });
 	}
 */
-	protected vaciarFormulario() {
+	public vaciarFormulario() {
 		if (this.animal instanceof Hembra) {
 			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false,null);
 			this.fechaUltimoNacimiento = "";
@@ -278,7 +278,7 @@ export class Nuevo {
 		this.fechaNacimiento = "";
 	}
 
-	protected seleccionarSexo(hembra: number) {
+	public seleccionarSexo(hembra: number) {
 		let objetoCast: any;
 		if (hembra == 0) {
 			this.isHembra = true;

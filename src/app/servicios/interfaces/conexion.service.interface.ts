@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { DocumentReference } from '@angular/fire/firestore';
 import { IEIdentification } from '../beans/interfaces/identification.interface';
 
 export interface IEconexionServicio <K extends IEIdentification>{

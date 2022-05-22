@@ -3,22 +3,16 @@ import { IEIdentification } from './../../servicios/beans/interfaces/identificat
 import { GanadoServicio } from './../../servicios/ganado.service';
 import { IEExplotacion } from './../../servicios/beans/interfaces/explotacion.interface';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import {Animal} from '../../servicios/beans/animal'
 import {Hembra} from '../../servicios/beans/hembra'
 import {Macho} from '../../servicios/beans/macho'
-import {Venta} from '../../servicios/beans/venta'
-import {Detalle} from '../detalle/detalle'
-import {ListadoAnimalesVendidos} from '../listadoVentas/listaAnimalesVendidos/listadoAnimalesVendidos'
-import {Nuevo} from '../nuevo/nuevo'
-import {ServicioDatos} from '../../servicios/serviciodatos';
 import {Constantes} from '../../servicios/genericos/constantes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Explotacion } from 'src/app/servicios/beans/explotacion';
 import { OperacionServicio } from 'src/app/servicios/operacion.service';
 import { Location } from '@angular/common';
 import { Filtro } from 'src/app/servicios/beans/filtro';
-import { FiltroAvanzado } from '../filtroAvanzado/filtroAvanzado';
 import { PopoverController } from '@ionic/angular';
 import { FiltroAvanzadoComponentPage } from '../filtro-avanzado-component/filtro-avanzado-component.page';
 import { FiltroServicio } from 'src/app/servicios/filtro.service';
@@ -52,7 +46,7 @@ export class ListaGanado {
 
 	  constructor(public router: Router,protected params: ActivatedRoute,public ganadoServicio: GanadoServicio,
 		public explotacionServ: ExplotacionServicio, private location: Location,
-		protected operacionServicio: OperacionServicio,private popover:PopoverController, private filtroServicio:FiltroServicio) {
+		protected operacionServicio: OperacionServicio,private popover:PopoverController, public filtroServicio:FiltroServicio) {
 
 	}
 	ngOnInit(){
@@ -156,7 +150,7 @@ export class ListaGanado {
 
 	}
 
-	protected getFotoAnimal(anim:Animal) {
+	public getFotoAnimal(anim:Animal) {
 		if (anim.foto) {
 			return anim.foto;
 		} else {
@@ -265,13 +259,13 @@ export class ListaGanado {
 		}
 	}
 */
-	protected detalle(animalito:Animal){
+	public detalle(animalito:Animal){
 		if (this.venta==Constantes.INDEFINIDO){
 			this.router.navigate(['ganadero/animal-detalle',animalito.id]);
 		}
 	}
 
-	protected nuevo(sexo:number){
+	public nuevo(sexo:number){
 
 		this.router.navigate(['ganadero/animal-nuevo'],{queryParams:{"explotacionID":this.explotacion.id,
 																	  "animalID":null,
@@ -279,7 +273,7 @@ export class ListaGanado {
 	}
 
 
-	protected enviarResultadoAVentas(){
+	public enviarResultadoAVentas(){
 		if (this.operacionServicio.operacionSeleccionada.animales==null){
 			this.operacionServicio.operacionSeleccionada.animales =  new Array<IEAnimal>();
 		}
@@ -309,7 +303,7 @@ export class ListaGanado {
 		this.location.back();
 	}
 
-	protected anadeAnimal(anim:IEAnimal){
+	public anadeAnimal(anim:IEAnimal){
 		if (anim instanceof Macho) {
 			if (!this.explotacion.arrayMachos){
 				this.explotacion.arrayMachos= new Array<IEAnimal>();

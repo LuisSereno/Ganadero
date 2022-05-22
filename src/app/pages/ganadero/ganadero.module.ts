@@ -6,7 +6,7 @@ import { IEEnfermedad } from './../../servicios/beans/interfaces/enfermedad.inte
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { IEOperacion } from './../../servicios/beans/interfaces/operacion.interface';
 import { IonicModule } from '@ionic/angular';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -33,11 +33,9 @@ import { AuthService } from 'src/app/servicios/auth/auth';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { firebaseConfig } from 'src/environments/firebaseconfig';
 import { UsuarioServicio } from 'src/app/servicios/usuario.service';
-import { AngularFireModule } from '@angular/fire';
-import { IEUsuario } from 'src/app/servicios/beans/interfaces/usuario.interface';
+import { AngularFireModule} from '@angular/fire/compat'
 import { ConexionGenericaService } from 'src/app/servicios/conexionGenerica.service';
-import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
-import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
 import { Toast } from '@ionic-native/toast/ngx';
 import { OperacionServicio } from 'src/app/servicios/operacion.service';
@@ -51,6 +49,8 @@ import { OperacionComponent } from '../listadoVentas/operacion/operacion.compone
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FiltroAvanzado } from '../filtroAvanzado/filtroAvanzado';
 import { FiltroAvanzadoComponentPageModule } from '../filtro-avanzado-component/filtro-avanzado-component.module';
+import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
+import { FiltroServicio } from 'src/app/servicios/filtro.service';
 
 @NgModule({
   imports: [
@@ -79,6 +79,7 @@ import { FiltroAvanzadoComponentPageModule } from '../filtro-avanzado-component/
     EnfermedadServicio,
     OperacionServicio,
     SafariViewController,
+    FiltroServicio,
     { provide: 'UsuarioConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<{}>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'OperacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEOperacion>(dep1)), deps: [AngularFireDatabase] },
     { provide: 'GanadoConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEAnimal>(dep1)), deps: [AngularFireDatabase] },
@@ -108,6 +109,7 @@ import { FiltroAvanzadoComponentPageModule } from '../filtro-avanzado-component/
     ],
   exports: [
     HomePage
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class GanaderoModule {}

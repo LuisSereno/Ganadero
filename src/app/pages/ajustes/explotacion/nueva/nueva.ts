@@ -90,12 +90,12 @@ export class DetalleExplotacion {
 	}
 
 
-	protected salir() {
+	public salir() {
 		//this.auth.logout();
 		navigator['app'].exitApp();
 	}
 
-	protected guardaDatosExplotacion() {
+	public guardaDatosExplotacion() {
 
 		if (this.edicion){
 			console.log("es una edicion");
@@ -145,19 +145,19 @@ export class DetalleExplotacion {
 		}
 	}
 
-	protected cambiaExplotacion(){
+	public cambiaExplotacion(){
 		this.router.navigate(['ganadero/listado-explotaciones']);
 	}
 
-	protected cambiarVacunas(){
+	public cambiarVacunas(){
 		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.VACUNA ]);
    	}
 
-   	protected cambiarEnfermedad(){
+   	public cambiarEnfermedad(){
 		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.ENFERMEDAD]);
 	}
 
-	protected getFotoAnimal(hembra:boolean) {
+	public getFotoAnimal(hembra:boolean) {
 		if (!hembra) {
 			return "assets/img/toro.png";
 		} else {

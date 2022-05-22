@@ -59,11 +59,11 @@ export class DetalleVacunaEnfermedad {
 
 	}
 
-	protected devuelveColorBadge(tipoObjeto: any): string {
+	public devuelveColorBadge(tipoObjeto: any): string {
 		return tipoObjeto instanceof Macho ? 'danger' : 'secondary'
 	}
 
-	protected getFotoAnimal() {
+	public getFotoAnimal() {
 		if (this.params.snapshot.queryParams.type===Constantes.ENFERMEDAD) {
 			return 'assets/img/enfermedad.png';
 		} else {
@@ -72,11 +72,11 @@ export class DetalleVacunaEnfermedad {
 
 	}
 
-	protected volver() {
+	public volver() {
 		this.location.back();
 	}
 
-	protected guardaDatosVacunaEnf() {
+	public guardaDatosVacunaEnf() {
 		this.submitAttempt = true;
 		if (this.formularioVacunaEnf.valid) {
 			this.vacunaEnf.metadatoFechaMod = new Date();
@@ -164,7 +164,7 @@ export class DetalleVacunaEnfermedad {
 		return objeto instanceof Vacuna;
 	}
 
-	protected vaciarFormulario() {
+	public vaciarFormulario() {
 		if (this.isInstanceOfVacuna(this.vacunaEnf)) {
 			this.vacunaEnf = new Vacuna();
 		} else {

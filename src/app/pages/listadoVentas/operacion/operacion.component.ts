@@ -284,7 +284,7 @@ export class OperacionComponent implements OnInit {
 
   }
 
-  protected vaciarFormulario() {
+  public vaciarFormulario() {
 		if(this.esCompra==Constantes.COMPRA_COMPRA){
 			this.operacion=new Compra(null,null,null,0,null);
 		}else{
@@ -292,7 +292,7 @@ export class OperacionComponent implements OnInit {
 		}
 	}
 
-	protected volver() {
+	public volver() {
 		this.location.back();
 	}
 
@@ -438,7 +438,7 @@ export class OperacionComponent implements OnInit {
 
 
   }
-	protected getFotoAnimal(animal) {
+	public getFotoAnimal(animal) {
 		if (animal.foto) {
 			return animal.foto;
 		} else {

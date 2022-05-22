@@ -5,7 +5,7 @@
             <ion-row>
             	<ion-item>
                     <ion-label position="floating">
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre 
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Nombre
                     </ion-label>
                       <ion-input type="string" [(ngModel)]="operacion.agrupacion"></ion-input>
             	</ion-item>
@@ -14,36 +14,36 @@
                 <ion-item class="text-label">
                   <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
                   </ion-label>
-                
+
                     <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>
                   </ion-item>
          	</ion-row>
             <ion-row>
                   <ion-item  class="text-label">
                     <ion-label position="floating">
-                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio 
+                     <ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>Precio
                     </ion-label>
                       <ion-input type="number"  [(ngModel)]="operacion.precio" disabled></ion-input>
                   </ion-item>
          	</ion-row>
 
         </ion-grid>
-       
 
-	  <ion-list *ngIf="compra!=4 && isInstanceOfVenta(operacion)">
+<!-- ESTO VA DENTRO DEL ION-LIST PERO NO SE SI SE UTILIZA NI DE DONDE SALE COMPRA *ngIf="compra!=4 && isInstanceOfVenta(operacion)" b-->
+	  <ion-list >
 	   <ion-item>
 	       <ion-label>
-	       		Precio por animal:
+	       		Precio por animal: GUARANAAAAAA
 	       </ion-label>
        </ion-item>
 
 	    <ion-item *ngFor="let animal of arrayAnimales;let i=index" >
 			<ion-label fixed>
-             	<ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>{{animal.getNumero()}} 
+             	<ion-icon name='trending-up' item-left class="color-iconos"></ion-icon>{{animal.getNumero()}}
             </ion-label>
               <ion-input type="number"  [(ngModel)]="animal.precioVenta" (change)="sumarCantidad()"></ion-input>
 	    </ion-item>
-	    
+
 	  </ion-list>
 
 	</ion-card-content>

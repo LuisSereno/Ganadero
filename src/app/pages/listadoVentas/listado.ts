@@ -79,15 +79,15 @@ export class ListaVentas {
 		this.arrayCompras=new Array<Compra>();
 	 }
 */
-	protected verListadoAnimales(animalitos:Array<Animal>,tipoOperacion:number){
+	public verListadoAnimales(animalitos:Array<Animal>,tipoOperacion:number){
 		this.router.navigate(['listado-ganado',{animales:animalitos,venta:tipoOperacion}]);
 	}
 
-	protected anadirDatosVentas(){
+	public anadirDatosVentas(){
 		this.router.navigate(['ganadero/operacion-nueva',Constantes.VENTA_VENDER]);
 	}
 
-	protected anadirDatosCompras(){
+	public anadirDatosCompras(){
 		//this.router.navigate(['animal-nuevo',{animal:null,compra:Constantes.COMPRA_COMPRA}]);
 		this.router.navigate(['ganadero/operacion-nueva',Constantes.COMPRA_COMPRA]);
 
@@ -102,7 +102,7 @@ export class ListaVentas {
 */
 	}
 
-	protected verDetalleOperacion(operation:Operacion,kindOperation:number){
+	public verDetalleOperacion(operation:Operacion,kindOperation:number){
 		this.operacion.operacionSeleccionada=operation;
 		this.router.navigate(['ganadero/operacion-nueva',kindOperation]);
 	}
