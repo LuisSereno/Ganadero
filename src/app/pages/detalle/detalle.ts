@@ -1,18 +1,19 @@
 import { UsuarioServicio } from './../../servicios/usuario.service';
 import { Constantes } from './../../servicios/genericos/constantes';
 import { GanadoServicio } from './../../servicios/ganado.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Hembra } from '../../servicios/beans/hembra'
 import { Macho } from '../../servicios/beans/macho'
 import { Animal } from '../../servicios/beans/animal'
 import { ServicioDatos } from '../../servicios/serviciodatos';
-//import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
+// import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
 import { ToastService } from '../../servicios/genericos/mensajeToast';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IEAnimal } from 'src/app/servicios/beans/interfaces/animal.interface';
-//import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia'
+// import {AscDesc} from '../listadoAscendenciaDescendencia/listaAscendenciaDescendencia'
 import { Location } from '@angular/common';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UploadFileComponent } from '../upload-file-component/upload-file-component';
 
 @Component({
 	templateUrl: 'detalle.html',
@@ -28,7 +29,9 @@ export class Detalle {
 
 	formularioAnimal: FormGroup;
 
-	public submitAttempt: boolean = false;
+	@ViewChild(UploadFileComponent) childUploadFile:UploadFileComponent;
+
+	public submitAttempt = false;
 
 	constructor(private router: Router, private params: ActivatedRoute, public servicio: GanadoServicio,
 		private toastCtrl: ToastService, private usuario: UsuarioServicio, private location: Location,
@@ -38,8 +41,8 @@ export class Detalle {
 
 	ngOnInit() {
 		this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null, false,null);
-		this.fechaNacimiento = "";
-		this.fechaUltimoNacimiento = "";
+		this.fechaNacimiento = '';
+		this.fechaUltimoNacimiento = '';
 		this.formularioAnimal = this.formBuilder.group({
 			numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
 			alias: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
@@ -49,7 +52,7 @@ export class Detalle {
 	}
 
 	ionViewWillEnter() {
-		let animalInterface: IEAnimal = this.servicio.encontrarAnimal({ id: this.params.snapshot.paramMap.get('id') })
+		const animalInterface: IEAnimal = this.servicio.encontrarAnimal({ id: this.params.snapshot.paramMap.get('id') })
 		if (animalInterface.sexo === Constantes.MACHO) {
 			this.animal = Macho.fromJSON(animalInterface);
 		} else {
@@ -57,16 +60,16 @@ export class Detalle {
 		}
 
 		if (this.animal) {
-			let fechaFormateada = this.animal.getFechaNacimiento();
+			const fechaFormateada = this.animal.getFechaNacimiento();
 			this.fechaNacimiento = fechaFormateada ? fechaFormateada.toISOString() : '';
 			if (this.animal instanceof Hembra) {
-				let fechaUltNacFormateada = this.animal.getFechaUltimoNacimiento();
+				const fechaUltNacFormateada = this.animal.getFechaUltimoNacimiento();
 				this.fechaUltimoNacimiento = fechaUltNacFormateada ? fechaUltNacFormateada.toISOString() : '';
 			} else {
-				this.fechaUltimoNacimiento = "";
+				this.fechaUltimoNacimiento = '';
 			}
 			if (this.animal.descendenciaIds) {
-				for (let desc of this.animal.descendenciaIds) {
+				for (const desc of this.animal.descendenciaIds) {
 					if (!this.animal.descendencia) {
 						this.animal.descendencia = new Array<IEAnimal>();
 					}
@@ -74,7 +77,7 @@ export class Detalle {
 				}
 			}
 			if (this.animal.ascendenciaIds) {
-				for (let asc of this.animal.ascendenciaIds) {
+				for (const asc of this.animal.ascendenciaIds) {
 					if (!this.animal.ascendencia) {
 						this.animal.ascendencia = new Array<IEAnimal>();
 					}
@@ -122,7 +125,7 @@ export class Detalle {
 	public modificaDatosAnimal() {
 		this.submitAttempt = true;
 		if(this.animal.descendencia){
-			for(let animId of this.animal.descendencia){
+			for(const animId of this.animal.descendencia){
 				if(!this.animal.descendenciaIds){
 					this.animal.descendenciaIds=new Array<string>();
 				}
@@ -131,7 +134,7 @@ export class Detalle {
 			this.animal.descendenciaIds.splice(0, this.animal.descendenciaIds.length, ...(new Set(this.animal.descendenciaIds)))
 		}
 		if(this.animal.ascendencia){
-			for(let animId of this.animal.ascendencia){
+			for(const animId of this.animal.ascendencia){
 				if(!this.animal.ascendenciaIds){
 					this.animal.ascendenciaIds=new Array<string>();
 				}
@@ -145,13 +148,52 @@ export class Detalle {
 		if (this.animal instanceof Hembra) {
 			this.animal.setFechaUltimoNacimiento(this.fechaUltimoNacimiento ? new Date(String(this.fechaUltimoNacimiento)) : null);
 		}
-		let correcto = this.servicio.actualizarAnimal(this.animal,true);
 
-		if (correcto) {
-			this.toastCtrl.push("Modificación correcta", "CORRECTO");
-		} else {
-			this.toastCtrl.push("Error al modificar", "ERROR");
-		};
+		const promise:Promise<boolean>=this.uploadPhoto();
+
+        promise.then(doUpdate=>{
+            if (doUpdate){
+				const correcto = this.servicio.actualizarAnimal(this.animal,true);
+
+				if (correcto) {
+					this.toastCtrl.push('Modificación correcta', 'CORRECTO');
+				} else {
+					this.toastCtrl.push('Error al modificar', 'ERROR');
+				};
+            }
+        });
+
+	}
+
+	private uploadPhoto(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+
+			if (this.childUploadFile.currentFileUpload) {
+				this.childUploadFile.save().then(result => {
+					if (result) {
+						if (this.animal.foto != null && this.animal.foto.length === 3) {
+							this.toastCtrl.push('No puedes tener más de 3 fotos por animal', 'WARNING');
+						} else {
+							if (this.animal.foto == null) {
+								this.animal.foto = new Array<string>();
+								this.animal.setFoto(new Array<string>());
+							}
+							console.log(this.animal.foto);
+							console.log(this.childUploadFile.currentFileUpload.url);
+							this.animal.getFoto().push(this.childUploadFile.currentFileUpload.url);
+							console.log(this.animal.getFoto());
+						}
+					}
+					resolve(true);
+				}).catch(error => {
+					this.toastCtrl.push(error.stack + '', 'WARNING');
+					console.error(error);
+					resolve(true);
+				});
+			} else {
+				resolve(true);
+			}
+		});
 	}
 
 	isInstanceOfHembra(objeto: Animal): boolean {
@@ -163,9 +205,9 @@ export class Detalle {
 			return this.animal.foto;
 		} else {
 			if (this.animal instanceof Macho) {
-				return "assets/img/toro.png";
+				return 'assets/img/toro.png';
 			} else {
-				return "assets/img/vaca.png";
+				return 'assets/img/vaca.png';
 			}
 		}
 	}
@@ -194,13 +236,13 @@ export class Detalle {
 		if (this.animal.id) {
 			this.router.navigate(['ganadero/animal-nuevo'], {
 				queryParams: {
-					"explotacionID": null,
-					"animalID": this.animal.id,
-					"sexo": sexo
+					'explotacionID': null,
+					'animalID': this.animal.id,
+					'sexo': sexo
 				}
 			});
 		} else {
-			this.toastCtrl.push("Guarda primero el animal actual", "WARNING");
+			this.toastCtrl.push('Guarda primero el animal actual', 'WARNING');
 		}
 	}
 

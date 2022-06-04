@@ -51,6 +51,10 @@ import { FiltroAvanzado } from '../filtroAvanzado/filtroAvanzado';
 import { FiltroAvanzadoComponentPageModule } from '../filtro-avanzado-component/filtro-avanzado-component.module';
 import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
 import { FiltroServicio } from 'src/app/servicios/filtro.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ConexionGenericaFilesService } from 'src/app/servicios/conexionGenericaFiles.service';
+import { UploadFileComponent } from '../upload-file-component/upload-file-component';
+import { FileUploadServicio } from 'src/app/servicios/fileUpload.service';
 
 @NgModule({
   imports: [
@@ -65,7 +69,7 @@ import { FiltroServicio } from 'src/app/servicios/filtro.service';
     AngularFireDatabaseModule,
     Ng2SearchPipeModule,
     FiltroAvanzadoComponentPageModule
-  ],providers: [
+    ],providers: [
     ServicioDatos,
     Toast,
     ToastService,
@@ -80,13 +84,23 @@ import { FiltroServicio } from 'src/app/servicios/filtro.service';
     OperacionServicio,
     SafariViewController,
     FiltroServicio,
-    { provide: 'UsuarioConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<{}>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'OperacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEOperacion>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'GanadoConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEAnimal>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'DocumentoConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEDocumento>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'ExplotacionConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEExplotacion>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'EnfermedadConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEEnfermedad>(dep1)), deps: [AngularFireDatabase] },
-    { provide: 'VacunaConexionServicio', useFactory: (dep1: AngularFireDatabase) => (new ConexionGenericaService<IEVacuna>(dep1)), deps: [AngularFireDatabase] },
+    FileUploadServicio,
+    { provide: 'UsuarioConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<{}>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'OperacionConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<IEOperacion>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'GanadoConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<IEAnimal>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'DocumentoConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<IEDocumento>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'ExplotacionConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<IEExplotacion>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'EnfermedadConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<IEEnfermedad>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'VacunaConexionServicio', useFactory: (dep1: AngularFireDatabase) =>
+    (new ConexionGenericaService<IEVacuna>(dep1)), deps: [AngularFireDatabase] },
+    { provide: 'FilesConexionServicio', useFactory: (dep1: AngularFireDatabase, dep2:AngularFireStorage) =>
+    (new ConexionGenericaFilesService(dep1,dep2)), deps: [AngularFireDatabase,AngularFireStorage] },
   ],
   declarations: [
     HomePage,
@@ -105,7 +119,8 @@ import { FiltroServicio } from 'src/app/servicios/filtro.service';
     VacunasEnfermedadesPage,
     DetalleVacunaEnfermedad,
     OperacionComponent,
-    FiltroAvanzado
+    FiltroAvanzado,
+    UploadFileComponent
     ],
   exports: [
     HomePage

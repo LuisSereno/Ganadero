@@ -6,13 +6,13 @@ import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { UsuarioServicio } from './../../servicios/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter, ContentChild } from '@angular/core';
 import { Hembra } from '../../servicios/beans/hembra'
 import { Macho } from '../../servicios/beans/macho'
 import { Animal } from '../../servicios/beans/animal'
 import { Compra } from '../../servicios/beans/compra'
 import { Camera, CameraOptions } from '@ionic-native/camera';
-//import Tesseract from 'tesseract.js';
+// import Tesseract from 'tesseract.js';
 import { Constantes } from '../../servicios/genericos/constantes';
 import { ToastService } from '../../servicios/genericos/mensajeToast';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -20,11 +20,12 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { GanadoServicio } from 'src/app/servicios/ganado.service';
 import { OperacionServicio } from 'src/app/servicios/operacion.service';
+import { UploadFileComponent } from '../upload-file-component/upload-file-component';
 
 @Component({
 	templateUrl: 'nuevo.html',
 	styleUrls: ['./nuevo.scss'],
-	//	providers: [Diagnostic]
+	// 	providers: [Diagnostic]
 })
 export class Nuevo {
 
@@ -50,15 +51,17 @@ export class Nuevo {
 
 	OCRAD: any;
 
-	//srcImage: string;
+	// srcImage: string;
 
 	compra: number;
 
 	formularioAnimal: FormGroup;
 
-	public submitAttempt: boolean = false;
+	public submitAttempt = false;
 
-	//@ViewChild('scannedImg') private scannedImg: ElementRef;
+	// @ViewChild('scannedImg') private scannedImg: ElementRef;
+
+	@ViewChild(UploadFileComponent) childUploadFile:UploadFileComponent;
 
 	private recognizedText: string;
 
@@ -72,16 +75,15 @@ export class Nuevo {
 
 	ngOnInit() {
 
-
 		this.arrayDescendencia = new Array<Animal>();
 		this.arrayAscendencia = new Array<Animal>();
-		this.fechaNacimiento = "";
-		this.fechaUltimoNacimiento = "";
+		this.fechaNacimiento = '';
+		this.fechaUltimoNacimiento = '';
 
 		if (this.params.snapshot.queryParams.compra) {
 				this.compra = JSON.parse(this.params.snapshot.queryParams.compra);
-		//	if (this.compra != Constantes.COMPRA_COMPRA) {
-				//this.compra = Constantes.INDEFINIDO;
+		// 	if (this.compra != Constantes.COMPRA_COMPRA) {
+				// this.compra = Constantes.INDEFINIDO;
 				this.explotacionId = this.explotacion.explotacionSeleccionada.id;
 				if (JSON.parse(this.params.snapshot.queryParams.sexo) == Constantes.MACHO) {
 					this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false,null);
@@ -90,8 +92,8 @@ export class Nuevo {
 					this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null, null, false,null);
 					this.animal.sexo= Constantes.HEMBRA;
 				}
-				//let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
-				//this.animal = valueParse.sexo === Constantes.MACHO ? Macho.fromJSON(valueParse) : Hembra.fromJSON(valueParse);
+				// let valueParse = JSON.parse(this.params.snapshot.queryParams.animal);
+				// this.animal = valueParse.sexo === Constantes.MACHO ? Macho.fromJSON(valueParse) : Hembra.fromJSON(valueParse);
 		/*	} else {
 				this.compraVenta.esCompra(false);
 				this.animal = new Macho(null, null, null, null, 0, null, null, null, null, null, null, null);
@@ -103,7 +105,7 @@ export class Nuevo {
 				numero: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
 				alias: ['value', Validators.compose([Validators.minLength(0), Validators.maxLength(25)])],
 				raza: ['value', Validators.compose([Validators.required, Validators.minLength(1), Validators.required, Validators.maxLength(25)])],
-				//fechaNacimiento: ['value', Validators.compose([Validators.required])],
+				// fechaNacimiento: ['value', Validators.compose([Validators.required])],
 				precioCompra: ['value', Validators.compose([Validators.required])],
 			});
 
@@ -126,7 +128,7 @@ export class Nuevo {
 				this.animal.sexo= Constantes.HEMBRA;
 			}
 			if (this.params.snapshot.queryParams.animalID){
-				let ieAnimalito:IEAnimal=this.ganadoServicio.encontrarAnimal({id:this.params.snapshot.queryParams.animalID});
+				const ieAnimalito:IEAnimal=this.ganadoServicio.encontrarAnimal({id:this.params.snapshot.queryParams.animalID});
 				let animalito:Animal;
 				if (ieAnimalito.sexo == Constantes.MACHO) {
 					animalito = Macho.fromJSON(ieAnimalito);
@@ -136,6 +138,7 @@ export class Nuevo {
 				this.arrayAscendencia.push(animalito);
 			}
 		}
+
 	}
 
 
@@ -147,6 +150,7 @@ export class Nuevo {
 			quality: 85
 		}
 		this.isHembra = false;
+		this.childUploadFile.noSubida=(this.compra===4);
 	}
 
 	public devuelveColorBadge(tipoObjeto: any): String {
@@ -158,9 +162,9 @@ export class Nuevo {
 			return this.animal.foto;
 		} else {
 			if (this.animal instanceof Macho) {
-				return "assets/img/toro.png";
+				return 'assets/img/toro.png';
 			} else {
-				return "assets/img/vaca.png";
+				return 'assets/img/vaca.png';
 			}
 		}
 	}
@@ -172,8 +176,8 @@ export class Nuevo {
 	public guardaDatosAnimal() {
 		this.submitAttempt = true;
 		if (this.formularioAnimal.valid) {
-			//this.animal.descendencia = this.arrayDescendencia;
-			//this.animal.ascendencia = this.arrayAscendencia;
+			// this.animal.descendencia = this.arrayDescendencia;
+			// this.animal.ascendencia = this.arrayAscendencia;
 			this.animal.ascendenciaIds = this.arrayAscendencia.map(anim=>{
 				if (anim instanceof String){
 					return anim.toString();
@@ -189,31 +193,38 @@ export class Nuevo {
 			}
 			this.animal.metadatoFechaMod = new Date();
 			this.animal.metadatoEmail = this.usuario.usuario.email;
-			console.log("GUARDA NUEVO", this.animal);
+			console.log('GUARDA NUEVO', this.animal);
 			if (!this.compra) {
-				this.ganadoServicio.guardaAnimal(this.animal).then(data => {
-					this.animal.id=data.id
-					this.ganadoServicio.ganado.push(data);
-					let explo: Explotacion = new Explotacion().fromJSON(this.explotacion.encontrarExplotacion({ id: this.explotacionId }));
-					if (!explo.arrayIdAnimales) {
-						explo.arrayIdAnimales = new Array<IEIdentification>();
+				const promise:Promise<boolean>=this.uploadPhoto();
+				promise.then(doUpdate=>{
+					if (doUpdate){
+						this.ganadoServicio.guardaAnimal(this.animal).then(data => {
+							this.animal.id=data.id
+							this.ganadoServicio.ganado.push(data);
+							const explo: Explotacion = new Explotacion().fromJSON(this.explotacion.encontrarExplotacion({ id: this.explotacionId }));
+							if (!explo.arrayIdAnimales) {
+								explo.arrayIdAnimales = new Array<IEIdentification>();
+							}
+							explo.arrayIdAnimales.push({ id: data.id });
+							this.actualizarDatosAscendencia();
+							this.explotacion.actualizarExplotacion(explo).then(data => {
+								this.vaciarFormulario();
+								this.toastCtrl.push('Guardado correcto', 'CORRECTO');
+								this.volver();
+							}).catch(err => { throw new Error('Imposible sincronizar datos del animal con la explotacion: ' + err); });
+						}, err => {
+							console.error('Errr al guardar los datos del animal!', err);
+							this.toastCtrl.push('Error al guardar', 'ERROR');
+							this.submitAttempt=false;
+						}).catch(err => {
+							console.error('Errr al guardar los datos del animal!', err);
+							this.toastCtrl.push('EWARNINGrror al guardar', 'ERROR');
+							this.submitAttempt=false;
+						});
+					}else{
+					  this.submitAttempt = false;
 					}
-					explo.arrayIdAnimales.push({ id: data.id });
-					this.actualizarDatosAscendencia();
-					this.explotacion.actualizarExplotacion(explo).then(data => {
-						this.vaciarFormulario();
-						this.toastCtrl.push("Guardado correcto", "CORRECTO");
-						this.volver();
-					}).catch(err => { throw new Error("Imposible sincronizar datos del animal con la explotacion: " + err); });
-				}, err => {
-					console.error("Errr al guardar los datos del animal!", err);
-					this.toastCtrl.push("Error al guardar", "ERROR");
-					this.submitAttempt=false;
-				}).catch(err => {
-					console.error("Errr al guardar los datos del animal!", err);
-					this.toastCtrl.push("EWARNINGrror al guardar", "ERROR");
-					this.submitAttempt=false;
-				});
+				  });
 			} else {
 				if (this.operacionServicio.operacionSeleccionada.animales==null){
 					this.operacionServicio.operacionSeleccionada.animales =  new Array<IEAnimal>();
@@ -223,16 +234,47 @@ export class Nuevo {
 				this.operacionServicio.operacionSeleccionada.peso+=this.animal.peso;
 				this.vaciarFormulario();
 				this.submitAttempt = false;
-				this.toastCtrl.push("Animal almacenado", "SUCCESS");
+				this.toastCtrl.push('Animal almacenado', 'SUCCESS');
 			}
 		} else {
-			this.toastCtrl.push("Faltan campos por rellenar", "WARNING");
+			this.toastCtrl.push('Faltan campos por rellenar', 'WARNING');
 		}
 	}
 
+	private uploadPhoto(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+
+			if (this.childUploadFile.currentFileUpload) {
+				this.childUploadFile.save().then(result => {
+					if (result) {
+						if (this.animal.foto != null && this.animal.foto.length === 3) {
+							this.toastCtrl.push('No puedes tener más de 3 fotos por animal', 'WARNING');
+						} else {
+							if (this.animal.foto == null) {
+								this.animal.foto = new Array<string>();
+								this.animal.setFoto(new Array<string>());
+							}
+							console.log(this.animal.foto);
+							console.log(this.childUploadFile.currentFileUpload.url);
+							this.animal.getFoto().push(this.childUploadFile.currentFileUpload.url);
+							console.log(this.animal.getFoto());
+						}
+					}
+					resolve(true);
+				}).catch(error => {
+					this.toastCtrl.push(error.stack + '', 'WARNING');
+					console.error(error);
+					resolve(true);
+				});
+			} else {
+				resolve(true);
+			}
+		});
+	}
+
 	actualizarDatosAscendencia(){
-		for(let anim of this.arrayAscendencia){
-			console.log("ACTUALIZA", anim);
+		for(const anim of this.arrayAscendencia){
+			console.log('ACTUALIZA', anim);
 
 			/*if (!anim.getDescendencia()){
 				anim.setDescendencia(new Array<IEAnimal>());
@@ -271,11 +313,11 @@ export class Nuevo {
 	public vaciarFormulario() {
 		if (this.animal instanceof Hembra) {
 			this.animal = new Hembra(null, null, null, null, null, null, null, null, null, null, null, null, null,null,false,null);
-			this.fechaUltimoNacimiento = "";
+			this.fechaUltimoNacimiento = '';
 		} else if (this.animal instanceof Macho) {
 			this.animal = new Macho(null, null, null, null, null, null, null, null, null, null, null, null,null, false,null);
 		}
-		this.fechaNacimiento = "";
+		this.fechaNacimiento = '';
 	}
 
 	public seleccionarSexo(hembra: number) {
@@ -293,7 +335,7 @@ export class Nuevo {
 
 
 	takePicture(imagenAnimal: number) {
-		console.log("Entra en takePicture");
+		console.log('Entra en takePicture');
     	/*if (imagenAnimal===2){
     		this.options.sourceType=this.camera.PictureSourceType.PHOTOLIBRARY;
     		imagenAnimal=0;

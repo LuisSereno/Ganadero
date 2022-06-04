@@ -10,7 +10,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 })
 export class ConexionGenericaService <K extends IEIdentification,> implements IEconexionServicio <K> {
   private genericObjectsCollection: AngularFireList<K>;
-  private nameCollection:string;
+  protected nameCollection:string;
 
   constructor(private afs: AngularFireDatabase) {
   }

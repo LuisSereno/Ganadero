@@ -4,19 +4,7 @@
         <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-img #scannedImg [src]="getFotoAnimal()" class="tam_image_animal"></ion-img>
-                <ion-row *ngIf="compra!=4">
-                  <ion-col col-sm-8>
-                  <ion-item  class="text-label">
-                    <ion-label>
-                      <ion-icon name="cloud-upload-outline"></ion-icon> Cargar Imagen
-                    </ion-label>
-                    <ion-button slot="start" size="small" (click)="takePicture(2)">Galeria</ion-button>
-                    <ion-button slot="start" size="small" (click)="takePicture(0)">Foto</ion-button>
-                   </ion-item>
-                  </ion-col>
-                </ion-row>
-
+                <upload-file-component [getFotoAnimal]="getFotoAnimal()"></upload-file-component>
                 <ion-row>
                   <ion-col col-sm-8>
                   <ion-item  class="text-label">

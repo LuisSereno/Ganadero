@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GanaderoModule } from './pages/ganadero/ganadero.module';
 import { RoutingState } from './routing-state.service';
-//import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -19,7 +19,7 @@ import { RoutingState } from './routing-state.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     GanaderoModule,
-//    AngularFireStorageModule
+    AngularFireStorageModule
   ],
   providers: [
     StatusBar,

@@ -1,3 +1,4 @@
+import { Observable } from "rxjs/internal/Observable";
 import { IEFileUpload } from "../beans/interfaces/fileUpload.interface";
 
 export interface IEFileUploadServicio{
@@ -6,7 +7,7 @@ export interface IEFileUploadServicio{
 
     obtenerFile():Promise<IEFileUpload>;
 
-    guardaFile(file:IEFileUpload):Promise<IEFileUpload>;
+    guardaFile(file:IEFileUpload): Observable<number>;
 
     actualizarFile(file:IEFileUpload):Promise<IEFileUpload>;
 

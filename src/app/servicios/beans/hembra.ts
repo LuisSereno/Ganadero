@@ -1,4 +1,3 @@
-import {Constantes} from '../genericos/constantes';
 import { Animal } from './animal';
 import { IEAnimal } from './interfaces/animal.interface';
 import { IEVacunaAnimal } from './interfaces/vacunaAnimal.interface';
@@ -6,7 +5,7 @@ import { IEEnfermedadAnimal } from './interfaces/enfermedadAnimal.interface';
 
 export class Hembra extends Animal{
 
-	constructor(id:string,alias:string,raza:string,foto:string,
+	constructor(id:string,alias:string,raza:string,foto:Array<string>,
 		numero:number,fechaNacimiento:Date,vacu:Array<IEVacunaAnimal>,
 		enfer:Array<IEEnfermedadAnimal>,fechaUltimoNacimiento:Date,
 		ascen:Array<IEAnimal>,descen:Array<IEAnimal>,precioCompra:number,precioVenta:number
@@ -30,30 +29,52 @@ export class Hembra extends Animal{
         this.setFechaOperacion(fechaOperacion);
     }
 
+    // fromJSON is used to convert an serialized version
+    // of the User to an instance of the class
+    static fromJSON(json: IEAnimal|string): Hembra {
+        if (typeof json === 'string') {
+            return JSON.parse(json, Hembra.reviver);
+        } else {
+            const hemb = Object.create(Hembra.prototype);
+            return Object.assign(hemb, json,{
+                id:json.id,
+                fechaNacimiento: (json.fechaNacimiento==null ||
+                    json.fechaNacimiento.toString()==='') ? null : new Date(json.fechaNacimiento),
+                fechaUltimoNacimiento: (json.fechaUltimoNacimiento===undefined ||
+                    json.fechaUltimoNacimiento==null ||
+                    json.fechaUltimoNacimiento.toString()==='') ? null : new Date(json.fechaUltimoNacimiento),
+                metadatoFechaMod: (json.metadatoFechaMod==null ||
+                    json.metadatoFechaMod.toString()==='') ? null : new Date(json.metadatoFechaMod),
+                fechaMuerte: (json.fechaMuerte==null || json.fechaMuerte.toString()==='') ? null : new Date(json.fechaMuerte),
+                fechaOperacion: (json.fechaOperacion==null || json.fechaOperacion.toString()==='') ? null : new Date(json.fechaOperacion)
+            });
+        }
+    }
+
+    static reviver(key: string, value: any): any {
+        return key === '' ? Hembra.fromJSON(value) : value;
+    }
+
 	public setFechaUltimoNacimiento(fecUlti:Date){
 		this.fechaUltimoNacimiento = fecUlti;
 	}
 
 	public getFechaUltimoNacimiento()  : Date{
         try{
-            var timestamp=Date.parse(this.fechaUltimoNacimiento.toLocaleDateString())
+            const timestamp=Date.parse(this.fechaUltimoNacimiento.toLocaleDateString())
             if (isNaN(timestamp)){
                 this.fechaUltimoNacimiento=null;
             }
         }catch(e){
             console.warn(e);
-        }finally{
-            return this.fechaUltimoNacimiento;
         }
+
+        return this.fechaUltimoNacimiento;
 
 	}
 
-    public getFoto()  : string{
-        if (this.getFoto()!=null){
-            return this.getFoto();
-        }else{
-            return Constantes.FOTO_ANIMAL_DEFECTO;
-        }
+    public getFoto()  : Array<string>{
+        return this.getFoto();
     }
 
 
@@ -61,28 +82,6 @@ export class Hembra extends Animal{
         const { ascendencia,descendencia, ...rest } = this;
         const projectedObject = rest;
         return projectedObject;
-    }
-
-    // fromJSON is used to convert an serialized version
-    // of the User to an instance of the class
-    static fromJSON(json: IEAnimal|string): Hembra {
-        if (typeof json === 'string') {
-            return JSON.parse(json, Hembra.reviver);
-        } else {
-            let hemb = Object.create(Hembra.prototype);
-            return Object.assign(hemb, json,{
-                id:json["id"],
-                fechaNacimiento: (json["fechaNacimiento"]==null || json["fechaNacimiento"].toString()=="") ? null : new Date(json["fechaNacimiento"]),
-                fechaUltimoNacimiento: (json["fechaUltimoNacimiento"]==undefined || json["fechaUltimoNacimiento"]==null || json["fechaUltimoNacimiento"].toString()=="") ? null : new Date(json["fechaUltimoNacimiento"]),
-                metadatoFechaMod: (json["metadatoFechaMod"]==null || json["metadatoFechaMod"].toString()=="") ? null : new Date(json["metadatoFechaMod"]),
-                fechaMuerte: (json["fechaMuerte"]==null || json["fechaMuerte"].toString()=="") ? null : new Date(json["fechaMuerte"]),
-                fechaOperacion: (json["fechaOperacion"]==null || json["fechaOperacion"].toString()=="") ? null : new Date(json["fechaOperacion"])
-            });
-        }
-    }
-
-    static reviver(key: string, value: any): any {
-        return key === "" ? Hembra.fromJSON(value) : value;
     }
 
 }

@@ -10,7 +10,7 @@ export abstract class Animal implements IEAnimal{
 
 	raza: string;
 
-	foto: string;
+	foto: Array<string>;
 
 	numero: number;
 
@@ -56,7 +56,7 @@ export abstract class Animal implements IEAnimal{
 		this.id = "";
 		this.alias="";
 		this.raza="";
-		this.foto="";
+		this.foto=new Array<string>();
 		this.numero=0
 		this.fechaNacimiento = new Date();
 		this.fechaMuerte = new Date();
@@ -100,16 +100,12 @@ export abstract class Animal implements IEAnimal{
 		this.raza = raza;
 	}
 
-	public getFoto()  : string{
+	public getFoto()  : Array<string>{
 		return this.foto;
 	}
 
-	public setFoto(foto:string){
-		if (foto!=null && foto.trim()!=""){
-			this.foto = foto;
-		}else{
-			this.foto = null;
-		}
+	public setFoto(foto:Array<string>){
+		this.foto=foto;
 	}
 
 	public getNumero()  : number{

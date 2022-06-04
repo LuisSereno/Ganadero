@@ -10,7 +10,7 @@ export interface IEAnimal extends IEMetadatos, transformJSON<IEAnimal>, IEIdenti
 
 	raza: string;
 
-	foto ?: string;
+	foto ?: Array<string>;
 
 	numero: number;
 
