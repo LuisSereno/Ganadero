@@ -1,14 +1,8 @@
-<ion-img #scannedImg [src]="getFotoAnimal" class="tam_image_animal"></ion-img>
-
-<ion-slides [options]="slideOpts" pager="true">
-  <ion-slide>
-    <img src="assets/img/enfermedad.png" alt=”slide-1”>
-  </ion-slide>
-  <ion-slide>
-    <img src="assets/img/cattle.png" alt=”slide-2”>
-  </ion-slide>
-  <ion-slide>
-    <img src="assets/img/toro.png" alt=”slide-2”>
+<!--<ion-img #scannedImg [src]="getFotoAnimal[0]" class="tam_image_animal"></ion-img> -->
+<ion-slides [options]="slideOpts" pager={{true}}>
+  <ion-slide *ngFor="let foto of getFotoAnimal;let counter=index">
+    <!-- <img [src]="foto" alt=”slide-{{counter}}+1” class="tam_image_animal"> -->
+    <ion-img [src]="foto" alt=”slide-{{counter}}+1” class="tam_image_animal"></ion-img>
   </ion-slide>
 </ion-slides>
 
@@ -17,7 +11,11 @@
   <ion-label>
     <ion-input accept="image/*" type="file" (change)="selectFile($event)"></ion-input>
   </ion-label>
-  <ion-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Subir</ion-button>
+  <ion-button color="secondary" [disabled]="!selectedFiles" (click)="upload()">Subir Foto</ion-button>
+  <ion-button color="primary"  (click)="addPhotoToGallery()">    <ion-icon name="camera"></ion-icon>
+    Tomar Foto</ion-button>
+  <!-- <ion-button color="primary" (click)="loadPhotoToGallery()">Cargar Foto</ion-button> -->
+  <ion-button color="danger" (click)="deletePhoto()">Borrar</ion-button>
   <div *ngIf="currentFileUpload" class="progress mt-2">
     <ion-progress-bar color="secondary" value="{{ percentage }}">{{ percentage }}%</ion-progress-bar>
   </div>

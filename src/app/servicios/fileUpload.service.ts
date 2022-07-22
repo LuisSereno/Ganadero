@@ -4,13 +4,14 @@ import { IEFileUpload } from './beans/interfaces/fileUpload.interface';
 import { ConexionGenericaFilesService } from './conexionGenericaFiles.service';
 import { Constantes } from './genericos/constantes';
 import { IEFileUploadServicio } from './interfaces/fileUpload.service.interface';
+import { PhotoServicio } from './photo.service';
 
 @Injectable()
 export class FileUploadServicio  implements IEFileUploadServicio{
 
     fileUpload: IEFileUpload;
 
-    constructor(private conn: ConexionGenericaFilesService) {
+    constructor(private conn: ConexionGenericaFilesService, private photoService:PhotoServicio) {
         this.conn.crearConexion(Constantes.prefixDatabaseProject + 'files');
     }
 
@@ -26,8 +27,8 @@ export class FileUploadServicio  implements IEFileUploadServicio{
         throw new Error('Method not implemented.');
     }
 
-    borrarFile(file: IEFileUpload): Promise<IEFileUpload> {
-        throw new Error('Method not implemented.');
+    borrarFile(file: IEFileUpload): Promise<void> {
+        return this.conn.deleteFileStorage(file.url);
     }
 
 }

@@ -5,7 +5,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Hembra } from '../../servicios/beans/hembra'
 import { Macho } from '../../servicios/beans/macho'
 import { Animal } from '../../servicios/beans/animal'
-import { ServicioDatos } from '../../servicios/serviciodatos';
 // import {ListVacEnf} from '../listadoVacunasEnfermedades/listaVacunasEnfermedades'
 import { ToastService } from '../../servicios/genericos/mensajeToast';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -153,16 +152,20 @@ export class Detalle {
 
         promise.then(doUpdate=>{
             if (doUpdate){
-				const correcto = this.servicio.actualizarAnimal(this.animal,true);
-
-				if (correcto) {
-					this.toastCtrl.push('Modificación correcta', 'CORRECTO');
-				} else {
-					this.toastCtrl.push('Error al modificar', 'ERROR');
-				};
+				this.updateAnimal();
             }
         });
 
+	}
+
+	private updateAnimal() {
+		const correcto = this.servicio.actualizarAnimal(this.animal, true);
+
+		if (correcto) {
+			this.toastCtrl.push('Modificación correcta', 'CORRECTO');
+		} else {
+			this.toastCtrl.push('Error al modificar', 'ERROR');
+		};
 	}
 
 	private uploadPhoto(): Promise<boolean> {
@@ -178,10 +181,7 @@ export class Detalle {
 								this.animal.foto = new Array<string>();
 								this.animal.setFoto(new Array<string>());
 							}
-							console.log(this.animal.foto);
-							console.log(this.childUploadFile.currentFileUpload.url);
-							this.animal.getFoto().push(this.childUploadFile.currentFileUpload.url);
-							console.log(this.animal.getFoto());
+							this.animal.foto.push(this.childUploadFile.currentFileUpload.url);
 						}
 					}
 					resolve(true);
@@ -203,11 +203,11 @@ export class Detalle {
 	public getFotoAnimal() {
 		if (this.animal.foto) {
 			return this.animal.foto;
-		} else {
+		} else if (this.animal.id!=null){
 			if (this.animal instanceof Macho) {
-				return 'assets/img/toro.png';
-			} else {
-				return 'assets/img/vaca.png';
+				return [Constantes.FOTO_ANIMAL_MACHO_DEFECTO];
+			} else if (this.animal instanceof Hembra) {
+				return [Constantes.FOTO_ANIMAL_HEMBRA_DEFECTO];
 			}
 		}
 	}
@@ -236,9 +236,9 @@ export class Detalle {
 		if (this.animal.id) {
 			this.router.navigate(['ganadero/animal-nuevo'], {
 				queryParams: {
-					'explotacionID': null,
-					'animalID': this.animal.id,
-					'sexo': sexo
+					explotacionID: null,
+					animalID: this.animal.id,
+					sexo
 				}
 			});
 		} else {
@@ -253,4 +253,19 @@ export class Detalle {
    	public cambiarEnfermedad(){
 		this.router.navigate(['ganadero/listado-vacunasenfermedades', Constantes.ENFERMEDAD, {'id-animal':this.animal.id}]);
 	}
+
+	public deletePhoto(urlPhoto:string){
+		// actualizamos el animal
+		if (this.animal.getFoto()){
+			const indexFinded:number=this.animal.getFoto().findIndex(photo=>photo===urlPhoto);
+			if (indexFinded > -1) {
+				this.animal.getFoto().splice(indexFinded, 1);
+				this.updateAnimal();
+			}
+		}
+
+
+	}
+
+
 }

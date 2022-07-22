@@ -11,6 +11,6 @@ export interface IEFileUploadServicio{
 
     actualizarFile(file:IEFileUpload):Promise<IEFileUpload>;
 
-    borrarFile(file:IEFileUpload):Promise<IEFileUpload>;
+    borrarFile(file:IEFileUpload):Promise<void>;
 
 }

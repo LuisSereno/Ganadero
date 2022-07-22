@@ -2,7 +2,7 @@
 
 export class Constantes{
 
-public static FOTO_ANIMAL_DEFECTO ='assets/img/vaca.png';
+public static FOTO_ANIMAL_HEMBRA_DEFECTO ='assets/img/vaca.png';
 
 public static FOTO_ANIMAL_MACHO_DEFECTO ='assets/img/toro.png';
 

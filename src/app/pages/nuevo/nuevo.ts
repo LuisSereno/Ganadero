@@ -1,17 +1,14 @@
 import { Explotacion } from 'src/app/servicios/beans/explotacion';
-import { IEExplotacion } from 'src/app/servicios/beans/interfaces/explotacion.interface';
 import { IEIdentification } from './../../servicios/beans/interfaces/identification.interface';
 import { ExplotacionServicio } from './../../servicios/explotacion.service';
 import { IEAnimal } from './../../servicios/beans/interfaces/animal.interface';
 import { UsuarioServicio } from './../../servicios/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Component, ViewChild, ElementRef, Output, EventEmitter, ContentChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Hembra } from '../../servicios/beans/hembra'
 import { Macho } from '../../servicios/beans/macho'
 import { Animal } from '../../servicios/beans/animal'
-import { Compra } from '../../servicios/beans/compra'
-import { Camera, CameraOptions } from '@ionic-native/camera';
 // import Tesseract from 'tesseract.js';
 import { Constantes } from '../../servicios/genericos/constantes';
 import { ToastService } from '../../servicios/genericos/mensajeToast';
@@ -47,19 +44,13 @@ export class Nuevo {
 
 	picture: any;
 
-	options: CameraOptions;
-
 	OCRAD: any;
-
-	// srcImage: string;
 
 	compra: number;
 
 	formularioAnimal: FormGroup;
 
 	public submitAttempt = false;
-
-	// @ViewChild('scannedImg') private scannedImg: ElementRef;
 
 	@ViewChild(UploadFileComponent) childUploadFile:UploadFileComponent;
 
@@ -162,9 +153,9 @@ export class Nuevo {
 			return this.animal.foto;
 		} else {
 			if (this.animal instanceof Macho) {
-				return 'assets/img/toro.png';
+				return ['assets/img/toro.png'];
 			} else {
-				return 'assets/img/vaca.png';
+				return ['assets/img/vaca.png'];
 			}
 		}
 	}

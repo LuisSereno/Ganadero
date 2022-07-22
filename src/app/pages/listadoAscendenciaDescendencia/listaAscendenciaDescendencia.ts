@@ -122,9 +122,11 @@ export class AscDesc {
         }
       });
       if (anim.sexo == Constantes.MACHO) {
-        optionLabelElement.innerHTML = '<img src="assets/img/toro.png" style="width: 2vw;">' + image;
+        //optionLabelElement.innerHTML = '<img src="assets/img/toro.png" style="width: 2vw;">' + image;
+        optionLabelElement.innerHTML = '<ion-item><ion-thumbnail slot="start"><ion-img src="assets/img/toro.png"></ion-img></ion-thumbnail>' + '<ion-label><p>' + image + '</p></ion-label>' + '</ion-item>';
       } else {
-        optionLabelElement.innerHTML = '<img src="assets/img/vaca.png" style="width: 2vw;">' + image;
+        //optionLabelElement.innerHTML = '<img src="assets/img/vaca.png" style="width: 2vw;">' + image;
+        optionLabelElement.innerHTML = '<ion-item><ion-thumbnail slot="start"><ion-img src="assets/img/vaca.png"></ion-img></ion-thumbnail>' + '<ion-label><p>' + image + '</p></ion-label>'+ '</ion-item>';
       }
     }
   }

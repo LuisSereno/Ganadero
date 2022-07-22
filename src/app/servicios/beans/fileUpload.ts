@@ -1,4 +1,5 @@
 import { IEFileUpload } from './interfaces/fileUpload.interface';
+import { UserPhoto } from './interfaces/userPhoto.interface';
 
 export class FileUpload implements IEFileUpload{
 

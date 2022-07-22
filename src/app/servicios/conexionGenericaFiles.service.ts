@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { ConexionGenericaService } from './conexionGenerica.service';
 import { IEFileUpload } from './beans/interfaces/fileUpload.interface';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable, finalize } from 'rxjs';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 
 @Injectable({
@@ -29,6 +30,10 @@ export class ConexionGenericaFilesService extends ConexionGenericaService<IEFile
     ).subscribe();
     return uploadTask.percentageChanges();
 
+ }
+
+ deleteFileStorage(downloadUrl:string):Promise<void> {
+  return this.storage.storage.refFromURL(downloadUrl).delete();
  }
 
 }

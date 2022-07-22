@@ -19,7 +19,6 @@ import { OperacionComponent } from '../listadoVentas/operacion/operacion.compone
 const routes: Routes = [
   {
     path: 'ganadero',
-    component: HomePage,
     children: [
       {
         path: 'home', component: HomePage

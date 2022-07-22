@@ -1,31 +1,22 @@
 import { IEExplotacion } from './../../servicios/beans/interfaces/explotacion.interface';
 import { ExplotacionServicio } from './../../servicios/explotacion.service';
 import { AuthService } from '../../servicios/auth/auth';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 //import { StatusBar, Splashscreen } from 'ionic-native';
 //import {ToolBarMenu} from '../pages/toolbarMenu/toolbarMenu';
 //import { TabsPage } from '../pages/tabs/tabs';
-import { PerfilAutenticacion } from '../profile/profile';
-import { ListaDocumentos } from '../listadoDocumentos/listado';
-import { ListaGanado } from '../listadoGanado/listado';
-import { ListaVentas } from '../listadoVentas/listado';
-import { Informes } from '../informes/informes';
-import { DetalleExplotacion } from '../ajustes/explotacion/nueva/nueva';
-import { ListaExplotaciones } from '../ajustes/explotacion/listado/listado';
 //import {AuthService} from '../../servicios/auth/auth';
 import { ServicioDatos } from '../../servicios/serviciodatos';
-import { Explotacion } from '../../servicios/beans/explotacion';
 import { Usuario } from '../../servicios/beans/usuario';
 // Import Auth0Cordova
 import { Platform, MenuController } from '@ionic/angular';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+//import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
+import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 
 // Import Auth0Cordova
 import Auth0Cordova from '@auth0/cordova';
 import { UsuarioServicio } from 'src/app/servicios/usuario.service';
-import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'home-central-page',
@@ -58,11 +49,11 @@ export class HomePage {
     });
     // set our app's pages
     this.pages = [
-      { title: 'Explotacion', url: "/ganadero/explotacion-detalle/true", icon: "home"},
-      { title: 'Ganado', url: "/ganadero/listado-ganado", icon: "home"},
-      { title: 'Documentos', url: "", icon: "home" },
-      { title: 'Ventas', url: "/ganadero/listado-ventas", icon: "home" },
-      { title: 'Informes', url: "/ganadero/informes", icon: "home" },
+      { title: 'Explotacion', url: "/ganadero/explotacion-detalle/true", icon: "cog"},
+      { title: 'Ganado', url: "/ganadero/listado-ganado", icon: "transgender"},
+      { title: 'Documentos', url: "", icon: "briefcase" },
+      { title: 'Ventas', url: "/ganadero/listado-ventas", icon: "cash" },
+      { title: 'Informes', url: "/ganadero/informes", icon: "information" },
     ];
 
     this.router.events.subscribe((event:RouterEvent) => {

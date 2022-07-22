@@ -55,6 +55,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ConexionGenericaFilesService } from 'src/app/servicios/conexionGenericaFiles.service';
 import { UploadFileComponent } from '../upload-file-component/upload-file-component';
 import { FileUploadServicio } from 'src/app/servicios/fileUpload.service';
+import { PhotoServicio } from 'src/app/servicios/photo.service';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import { FileUploadServicio } from 'src/app/servicios/fileUpload.service';
     UsuarioServicio,
     ExplotacionServicio,
     GanadoServicio,
+    PhotoServicio,
     VacunaServicio,
     EnfermedadServicio,
     OperacionServicio,

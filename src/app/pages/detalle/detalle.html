@@ -11,7 +11,7 @@
         <ion-fab-button (click)="anadirDescendencia(1)"><img src="assets/img/toro.png" ></ion-fab-button>
       </ion-fab-list>
     </ion-fab>
-    <upload-file-component [getFotoAnimal]="getFotoAnimal()"></upload-file-component>
+    <upload-file-component [getFotoAnimal]="getFotoAnimal()" (deletePhotoNumber)="deletePhoto($event)"></upload-file-component>
    <ion-card-content>
       <h2 class="card-title text-center">
         <b></b>

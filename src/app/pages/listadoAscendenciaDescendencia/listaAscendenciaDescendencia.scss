@@ -7,7 +7,12 @@
 }
 
 .tam_image_animal{
-    width: 10vw;
-    margin: auto;
-    display: block;
-  }
+  width: 10vw;
+  margin: auto;
+  display: block;
+}
+
+::ng-deep .alert-wrapper{
+  max-width: 80% !important;
+  width: 80% !important;
+}
