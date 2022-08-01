@@ -48,6 +48,8 @@ export class VacunasEnfermedadesPage {
 
   ganado: IEAnimal;
 
+  isSelect: boolean;
+
   @ViewChild("selectEnferVac", { static: false }) selectEnferVac: IonSelect;
 
 
@@ -60,6 +62,7 @@ export class VacunasEnfermedadesPage {
   }
 
   ngOnInit() {
+    this.isSelect = false;
     if (this.explotacionServ.explotacionSeleccionada) {
       this.explotacion = this.explotacionServ.encontrarExplotacion(this.explotacionServ.explotacionSeleccionada);
     } else {
@@ -251,6 +254,7 @@ export class VacunasEnfermedadesPage {
       }
       this.ganadoServ.actualizarAnimal(this.ganado,false).then(data => {
         this.toastCtrl.push('Modificación correcta', 'CORRECTO');
+        this.isSelect = false;
       }, err => {
         console.error('Errr al guardar los datos del animal!', err);
         this.toastCtrl.push('Error al modificar', 'ERROR');
@@ -268,14 +272,18 @@ export class VacunasEnfermedadesPage {
   getIdSeleccion($event) {
     console.log('getIdSeleccion($event)', $event.target.value);
     if (this.tipoMostrado === Constantes.VACUNA) {
-      //this.anadirAGanado=this.servicioVac.encontrarVacuna($event.target.value);
       this.arrayDataShowExplotacion.then(arrayData => {
         this.anadirAGanado.vacuna = arrayData.find(x => x.id === $event.target.value)
+        if (this.anadirAGanado.vacuna!=null){
+          this.isSelect = true;
+        }
       });
     } else {
-      //this.anadirAGanado=this.servicioEnf.encontrarEnfermedad($event.target.value);
       this.arrayDataShowExplotacion.then(arrayData => {
         this.anadirAGanado.enfermedad = arrayData.find(x => x.id === $event.target.value)
+        if (this.anadirAGanado.enfermedad!=null){
+          this.isSelect = true;
+        }
       });
     }
   }

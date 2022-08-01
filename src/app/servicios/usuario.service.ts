@@ -24,7 +24,7 @@ export class UsuarioServicio  implements IEusuarioServicio{
                 }
             }, err=>{
                 console.error("Error finding user: ", err);
-                reject(new Error("No existe el usuario"));   
+                reject(new Error("No existe el usuario"));
             })
         });
     }
@@ -37,7 +37,7 @@ export class UsuarioServicio  implements IEusuarioServicio{
             })
             .catch(function(error) {
                 console.error("Error adding user: ", error);
-                reject(new Error("No guardado")); 
+                reject(new Error("No guardado"));
             });
         });
     }
@@ -48,7 +48,7 @@ export class UsuarioServicio  implements IEusuarioServicio{
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
-                reject(new Error("No actualizado")); 
+                reject(new Error("No actualizado"));
             });;
         });
     }

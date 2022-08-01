@@ -128,15 +128,6 @@
         </ion-grid>
 
     <ion-row *ngIf="compra!=4">
-
-  	<ion-fab vertical="bottom" horizontal="start">
-      <ion-fab-button color="dark"  (click)="volver()">
-        <ion-icon name="arrow-back" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
-          </ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-
-
        <ion-col col-sm-12>
           <ion-button size="large" color="primary" expand="block" (click)="guardaDatosAnimal()">Guardar</ion-button>
        </ion-col>
@@ -174,3 +165,11 @@
 </div>
 </form>
 </ion-content>
+<ion-footer *ngIf="compra!=4">
+  	<ion-fab vertical="bottom" horizontal="start">
+      <ion-fab-button color="dark"  (click)="volver()">
+        <ion-icon name="arrow-back" role="img" class="icon icon-ios arrow-back" aria-label="arrow-back">
+          </ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+</ion-footer>

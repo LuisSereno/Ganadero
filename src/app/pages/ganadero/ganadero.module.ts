@@ -56,6 +56,7 @@ import { ConexionGenericaFilesService } from 'src/app/servicios/conexionGenerica
 import { UploadFileComponent } from '../upload-file-component/upload-file-component';
 import { FileUploadServicio } from 'src/app/servicios/fileUpload.service';
 import { PhotoServicio } from 'src/app/servicios/photo.service';
+import { MenuComponent } from '../cabecera/menu/menu.component';
 
 @NgModule({
   imports: [
@@ -106,6 +107,7 @@ import { PhotoServicio } from 'src/app/servicios/photo.service';
   ],
   declarations: [
     HomePage,
+    MenuComponent,
     ListaGanado,
     ListaVentas,
     ListaExplotaciones,

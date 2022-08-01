@@ -43,7 +43,6 @@ export class ConexionGenericaService <K extends IEIdentification,> implements IE
             }
           }
         }).filter(function(record) {
-          console.log(record);
           return record !=null;
         });
       })

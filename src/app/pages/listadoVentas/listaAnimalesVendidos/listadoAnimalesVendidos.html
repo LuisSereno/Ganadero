@@ -48,20 +48,19 @@
 
 	</ion-card-content>
 
-	<div>
-	  <ion-fab left bottom>
-	      <button ion-fab color="primary" (click)="volver()">
-	          <ion-icon name="close"></ion-icon>
-	      </button>
-	  </ion-fab>
-
-	  <ion-fab right bottom>
-	      <button ion-fab color="secondary" [disabled]="!comprobarCampos()" (click)="enviarOperacion()">
-	          <ion-icon name="checkmark"></ion-icon>
-	      </button>
-	  </ion-fab>
-	</div>
-
-
-
 </ion-content>
+<ion-footer>
+	<div>
+		<ion-fab left bottom>
+			<button ion-fab color="primary" (click)="volver()">
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-fab>
+
+		<ion-fab right bottom>
+			<button ion-fab color="secondary" [disabled]="!comprobarCampos()" (click)="enviarOperacion()">
+				<ion-icon name="checkmark"></ion-icon>
+			</button>
+		</ion-fab>
+	  </div>
+</ion-footer>

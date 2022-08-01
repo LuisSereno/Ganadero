@@ -24,7 +24,7 @@
 	    <ion-item button *ngFor="let animal of arrayHembrasTemp | filter:filterTerm;let i=index" (click)="detalle(animal)">
 	      <ion-checkbox *ngIf="venta==2 && (animal.baja!=true)" [(ngModel)]="checkedItemsHembras[animal.id]" value="animal.id"></ion-checkbox>
 	      <ion-thumbnail item-left>
-	        <img [src]="getFotoAnimal(animal)" class="tam_image_animal">
+	        <ion-img [src]="getFotoAnimal(animal)" class="tam_image_animal"></ion-img>
 	      </ion-thumbnail>
 	      <ion-label class="ion-text-wrap" [color]="animal.baja ? 'danger' : 'dark'">
 	        <h2><b>Número:</b>{{animal.numero}}</h2>
@@ -83,8 +83,9 @@
 	  </ion-list>
 	</div>
 
-
-  	<ion-fab vertical="bottom" horizontal="start" *ngIf="venta!=2 && venta!=1 && venta!=3">
+</ion-content>
+<ion-footer>
+	<ion-fab vertical="bottom" horizontal="start" *ngIf="venta!=2 && venta!=1 && venta!=3">
 		<ion-fab-button color="dark">
 			<ion-icon name="add" role="img" class="icon icon-ios ion-ios-add" aria-label="add">
 	    	</ion-icon>
@@ -108,5 +109,4 @@
 	      </ion-fab-button>
 	  </ion-fab>
 	</div>
-
-</ion-content>
+</ion-footer>

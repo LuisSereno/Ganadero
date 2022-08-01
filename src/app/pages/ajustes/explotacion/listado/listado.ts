@@ -1,7 +1,7 @@
 import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
 
 import {Component} from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IEExplotacion } from 'src/app/servicios/beans/interfaces/explotacion.interface';
 
 @Component({
@@ -12,7 +12,7 @@ export class ListaExplotaciones {
 	//Este valor dependera de lo que seas tu, asi se te mostrara el primero
 	arrayExplotaciones: Array<IEExplotacion>;
 
-  	constructor(protected router: Router,public explotacion: ExplotacionServicio) {
+  	constructor(protected router: Router,public explotacion: ExplotacionServicio, protected params: ActivatedRoute) {
 	}
 
 	ngOnInit(){
@@ -20,7 +20,22 @@ export class ListaExplotaciones {
 	}
 
 	ionViewWillEnter(){
-		this.arrayExplotaciones=this.explotacion.explotaciones;
+		if (this.explotacion.explotaciones != null && this.explotacion.explotaciones.length>0){
+			this.arrayExplotaciones=this.explotacion.explotaciones;
+		}else if (this.params.snapshot.queryParams.explotaciones!=null){
+			this.explotacion.obtenerDatosExplotacionesIds(
+				JSON.parse(this.params.snapshot.queryParams.explotaciones)).then((data: Array<IEExplotacion>) => {
+				if (!this.explotacion.explotaciones){
+				  this.explotacion.explotaciones= new Array<IEExplotacion>();
+				}
+				this.explotacion.explotaciones = data;
+				this.arrayExplotaciones = this.explotacion.explotaciones;
+			  }).catch((error) => {
+				console.error(error);
+				this.crearExplotacion();
+			  });
+
+		}
 	}
 
 

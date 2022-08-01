@@ -6,25 +6,33 @@
     </ion-list-header>
 
     <!-- List Header with Outline Button -->
-    <ion-list-header lines="full"  *ngIf="this.identificacionAnimal">
-      <ion-label>
-        <ion-list>
-          <ion-item>
-            <ion-label>Seleccione</ion-label>
-            <ion-select #selectEnferVac okText="Añadir" cancelText="Cancelar" (ionBlur)="getIdSeleccion($event)">
-              <ion-select-option *ngFor="let vacuEnf of arrayDataShowExplotacion | async" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-list>
-      </ion-label>
-      <ion-label>
-        <ion-item>
-          <ion-label>Fecha</ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="anadirAGanado.fecha"> </ion-datetime>
-        </ion-item>
-      </ion-label>
-      <ion-button fill="outline"(click)="anadirDatosAGanado()">Añadir</ion-button>
-    </ion-list-header>
+    <ion-row>
+      <ion-col col-md-12>
+        <ion-list-header lines="full"  *ngIf="this.identificacionAnimal">
+          <ion-label>
+            <ion-list>
+              <ion-item>
+                <ion-label *ngIf="!isSelect">Seleccione</ion-label>
+                <ion-select #selectEnferVac okText="Añadir" cancelText="Cancelar" (ionBlur)="getIdSeleccion($event)">
+                  <ion-select-option *ngFor="let vacuEnf of arrayDataShowExplotacion | async" value="{{vacuEnf.id}}">{{vacuEnf.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </ion-label>
+          <ion-label>
+            <ion-item>
+              <ion-label>Fecha</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="anadirAGanado.fecha"> </ion-datetime>
+            </ion-item>
+          </ion-label>
+        </ion-list-header>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-md-12>
+        <ion-button expand="block" fill="outline"(click)="anadirDatosAGanado()">Añadir</ion-button>
+      </ion-col>
+    </ion-row>
     <div *ngIf="arrayDataShow | async">
       <ion-item *ngFor="let vacuEnf of arrayDataShow | async">
         <ion-avatar slot="start" (click)="anadirVacEnf(true,vacuEnf.id)">
