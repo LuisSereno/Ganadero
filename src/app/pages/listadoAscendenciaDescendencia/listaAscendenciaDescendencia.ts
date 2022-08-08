@@ -7,6 +7,7 @@ import {Macho} from '../../servicios/beans/macho'
 import { GanadoServicio } from 'src/app/servicios/ganado.service';
 import { ToastService } from 'src/app/servicios/genericos/mensajeToast';
 import { SSL_OP_NO_TLSv1_2 } from 'constants';
+import { timingSafeEqual } from 'crypto';
 //import {Hembra} from '../../servicios/beans/hembra'
 
 @Component({
@@ -72,7 +73,7 @@ export class AscDesc {
 
   }
 
-  protected getFotoAnimal(animal:Animal) {
+  protected getFotoAnimal(animal:IEAnimal) {
 		if (animal.foto) {
 			return animal.foto;
 		} else {
@@ -122,11 +123,9 @@ export class AscDesc {
         }
       });
       if (anim.sexo == Constantes.MACHO) {
-        //optionLabelElement.innerHTML = '<img src="assets/img/toro.png" style="width: 2vw;">' + image;
-        optionLabelElement.innerHTML = '<ion-item><ion-thumbnail slot="start"><ion-img src="assets/img/toro.png"></ion-img></ion-thumbnail>' + '<ion-label><p>' + image + '</p></ion-label>' + '</ion-item>';
+        optionLabelElement.innerHTML = '<ion-item><ion-thumbnail slot="start"><ion-img src="' + this.getFotoAnimal(anim) + '"></ion-img></ion-thumbnail>' + '<ion-label><p>' + image + '</p></ion-label>' + '</ion-item>';
       } else {
-        //optionLabelElement.innerHTML = '<img src="assets/img/vaca.png" style="width: 2vw;">' + image;
-        optionLabelElement.innerHTML = '<ion-item><ion-thumbnail slot="start"><ion-img src="assets/img/vaca.png"></ion-img></ion-thumbnail>' + '<ion-label><p>' + image + '</p></ion-label>'+ '</ion-item>';
+        optionLabelElement.innerHTML = '<ion-item><ion-thumbnail slot="start"><ion-img src="'+ this.getFotoAnimal(anim) +'"></ion-img></ion-thumbnail>' + '<ion-label><p>' + image + '</p></ion-label>'+ '</ion-item>';
       }
     }
   }

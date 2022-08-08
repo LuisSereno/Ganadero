@@ -1,6 +1,7 @@
 <cabecera-ganadero nombrePagina="Nueva explotacion"></cabecera-ganadero>
 
 <ion-content>
+  <upload-file-component [getFotoAnimal]="getFotoExplotacion()" (deletePhotoNumber)="deletePhoto($event)"></upload-file-component>
         <ion-grid>
             <ion-row>
               <ion-col>

@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@angular/core';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { UserPhoto } from './beans/interfaces/userPhoto.interface';
-import { Storage } from '@capacitor/storage';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 

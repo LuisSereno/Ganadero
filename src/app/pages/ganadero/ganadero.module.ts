@@ -15,7 +15,7 @@ import { GanaderoPageRoutingModule } from './ganadero-routing.module';
 import { HomePage } from '../home/home.page';
 import { HttpClientModule } from '@angular/common/http';
 //import { AuthService } from 'src/app/servicios/auth/auth';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { ListaGanado } from '../listadoGanado/listado';
 import { ListaVentas } from '../listadoVentas/listado';
 import { ListaExplotaciones } from '../ajustes/explotacion/listado/listado';
@@ -66,7 +66,7 @@ import { MenuComponent } from '../cabecera/menu/menu.component';
     ReactiveFormsModule,
     GanaderoPageRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot(),
+   IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig,'ganadero'),
     AngularFireDatabaseModule,
     Ng2SearchPipeModule,
@@ -127,7 +127,7 @@ import { MenuComponent } from '../cabecera/menu/menu.component';
     UploadFileComponent
     ],
   exports: [
-    HomePage
+    MenuComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

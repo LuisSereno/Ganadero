@@ -6,6 +6,8 @@ public static FOTO_ANIMAL_HEMBRA_DEFECTO ='assets/img/vaca.png';
 
 public static FOTO_ANIMAL_MACHO_DEFECTO ='assets/img/toro.png';
 
+public static FOTO_EXPLPOTACION_DEFECTO ='assets/img/farm.png';
+
 public static MACHO = 1;
 
 public static HEMBRA = 0;

@@ -23,6 +23,8 @@ export class Explotacion implements IEExplotacion{
 
 	fechaAlta: Date;
 
+	foto ?: Array<string>;
+
 	dineroTotal?: number;
 
 	dineroAnual?: number;
@@ -74,6 +76,7 @@ export class Explotacion implements IEExplotacion{
 		this.arrayParcelas=new Array<IEParcela>();
 		this.arrayVacunas=new Array<IEVacuna>();
 		this.arrayEnfermedades=new Array<IEEnfermedad>();
+		this.foto=new Array<string>();
 	}
 	fromJSON(json: string | IEExplotacion): IEExplotacion {
 		return Explotacion.fromJSON(json);
@@ -110,6 +113,5 @@ export class Explotacion implements IEExplotacion{
 		let explo:IEExplotacion;
         return key === "" ? explo.fromJSON(value) : value;
     }
-
 
 }

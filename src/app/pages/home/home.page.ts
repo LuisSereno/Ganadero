@@ -49,14 +49,14 @@ export class HomePage implements OnInit{
       }
     });
 
-   const usuario:Usuario=new Usuario('','luisalbertosereno@gmail.com');
+  const usuario:Usuario=new Usuario('','luisalbertosereno@gmail.com');
     this.user.obtenerUsuario(usuario).then(user=>{
-      this.user.changeThemeColor(user);
+      this.user.usuario=user;
       this.cargarListadoGanadoInicio();
     }).catch(error=>{
       console.warn(error);
       this.user.guardaUsuario(usuario).then(user=>{
-        this.user.changeThemeColor(user);
+        this.user.usuario=user;
         this.cargarListadoGanadoInicio();
       }).catch(e => {console.error(e);this.logoutApp();});
 
@@ -65,15 +65,12 @@ export class HomePage implements OnInit{
   }
 
   private cargarListadoGanadoInicio() {
-    //MIERDA-SECA
-    //if (this.user.usuario.getValue().explotaciones && this.user.usuario.getValue().explotaciones.length>0){
-      this.user.usuario.subscribe(val=>{
-        this.router.navigate(['ganadero/listado-explotaciones'],
-        {queryParams:{explotaciones:JSON.stringify(val.explotaciones)}});
-      });
-    //}else{
-    //  this.router.navigate(['ganadero/explotacion-detalle', true]);
-   // }
+    if (this.user.usuario.explotaciones && this.user.usuario.explotaciones.length>0){
+      this.router.navigate(['ganadero/listado-explotaciones'],
+      {queryParams:{explotaciones:JSON.stringify(this.user.usuario.explotaciones)}});
+    }else{
+      this.router.navigate(['ganadero/explotacion-detalle', true]);
+    }
   }
 
   logoutApp() {

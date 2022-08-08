@@ -1,6 +1,6 @@
 // src/app/services/auth.service.ts
 import { Injectable, NgZone } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 // Import AUTH_CONFIG, Auth0Cordova, and auth0.js
 import Auth0Cordova from '@auth0/cordova';
@@ -26,6 +26,11 @@ export class AuthService {
     private safariViewController: SafariViewController
   ) {
     console.log("CONSTRUCTOR AUTH")
+    this.initService();
+  }
+
+  async initService(){
+    await this.storage.create();
     this.onAuthFailureUrl="www.marca.es";
     this.storage.get('profile').then(user => this.user = user);
     this.storage.get('access_token').then(token => this.accessToken = token);
@@ -81,7 +86,7 @@ export class AuthService {
       });
 
     });
-    
+
   }
 
   logout() {

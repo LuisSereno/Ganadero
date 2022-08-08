@@ -8,7 +8,7 @@
 	<ion-card *ngFor="let expl of arrayExplotaciones" (click)="seleccionarExplotacion(expl)">
 	  <ion-item >
 	   	<ion-thumbnail slot="start">
-	        <img src="/aqui/foto/tipo/explotacion">
+	        <img [src]="getFotoExplotacion(expl)">
 	     </ion-thumbnail>
 	  	<ion-label>
         	<h1>{{expl.nombre}}</h1>

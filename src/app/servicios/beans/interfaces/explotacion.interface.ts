@@ -19,6 +19,8 @@ export interface IEExplotacion extends IEMetadatos, transformJSON<IEExplotacion>
 
 	dineroAnual ?: number;
 
+	foto ?: Array<string>;
+
 	arrayIdAnimales ?: Array<IEIdentification>;
 
 	arrayIdOperaciones ?: Array<IEIdentification>;

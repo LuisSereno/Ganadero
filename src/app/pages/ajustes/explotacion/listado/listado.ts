@@ -3,6 +3,7 @@ import { ExplotacionServicio } from 'src/app/servicios/explotacion.service';
 import {Component} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IEExplotacion } from 'src/app/servicios/beans/interfaces/explotacion.interface';
+import { Constantes } from 'src/app/servicios/genericos/constantes';
 
 @Component({
   templateUrl: 'listado.html',
@@ -48,4 +49,12 @@ export class ListaExplotaciones {
  		this.router.navigate(['ganadero/explotacion-detalle', false ]);
 	}
 
+
+	public getFotoExplotacion(explota:IEExplotacion) {
+		if (explota && explota.foto) {
+			return explota.foto;
+		} else{
+			return Constantes.FOTO_EXPLPOTACION_DEFECTO;
+		}
+	}
 }
