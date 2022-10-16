@@ -12,10 +12,12 @@
          	</ion-row>
              <ion-row>
                 <ion-item class="text-label">
-                  <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
+                  <ion-label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
                   </ion-label>
 
-                    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>
+                    <!--<ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>-->
+					<ion-datetime-button datetime="datetime"></ion-datetime-button>
+
                   </ion-item>
          	</ion-row>
             <ion-row>
@@ -64,3 +66,8 @@
 		</ion-fab>
 	  </div>
 </ion-footer>
+<ion-modal [keepContentsMounted]="true">
+	<ng-template>
+	  <ion-datetime id="datetime" presentation="date" [(ngModel)]="operacion.fechaOperacion"></ion-datetime>
+	</ng-template>
+  </ion-modal>

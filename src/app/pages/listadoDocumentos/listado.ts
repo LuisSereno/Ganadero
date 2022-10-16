@@ -7,7 +7,6 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
-//import {AuthService} from '../../servicios/auth/auth';
 import {ToastService} from '../../servicios/genericos/mensajeToast';
 import { NavController, Platform } from '@ionic/angular';
 

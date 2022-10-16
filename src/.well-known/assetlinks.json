@@ -1,0 +1,5 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "com.serenapp.ganadero",
+                 "sha256_cert_fingerprints": ["5B:9F:38:87:90:5F:C4:10:11:B8:19:B5:87:E2:09:B8:3A:1A:FB:F8:00:84:1C:DF:94:F1:29:FB:C0:BD:17:C6"] }
+  }]

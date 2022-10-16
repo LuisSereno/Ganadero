@@ -42,10 +42,12 @@
             <ion-row>
               <ion-col col-sm-8>
                 <ion-item class="text-label">
-                  <ion-label position="floating"><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
+                  <ion-label><ion-icon name='map' item-left class="color-iconos"></ion-icon>Fecha
                   </ion-label>
 
-                    <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fecha" [disabled]="operacion.id!=null" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>
+                    <!--<ion-datetime displayFormat="YYYY-MM-DD" formControlName="fecha" [disabled]="operacion.id!=null" [(ngModel)]="operacion.fechaOperacion"> </ion-datetime>-->
+                    <ion-datetime-button datetime="datetime" [disabled]="operacion.id!=null" formControlName="fecha"></ion-datetime-button>
+
                   </ion-item>
                 <ion-item *ngIf="!formularioOperacion.controls.fecha.valid  && (formularioOperacion.controls.fecha.dirty || submitAttempt)">
                     <p style="color:red;">Introduce una fecha correcta</p>
@@ -126,7 +128,10 @@
 
   </ion-list>
 </div>
-
-
-
 </ion-content>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime" presentation="date" [(ngModel)]="operacion.fechaOperacion"></ion-datetime>
+  </ng-template>
+</ion-modal>

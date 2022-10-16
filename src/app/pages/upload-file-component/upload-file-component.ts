@@ -91,12 +91,16 @@ export class UploadFileComponent implements OnInit, OnChanges {
   deletePhoto() {
     const arrayFoto=this.getFotoAnimal;
     this.slides.getActiveIndex().then(index => {
-      if (index>0){
-        const indexAux=index-1;
+      if (index>=0){
+        const indexAux=index;
         const fileUpload:FileUpload= new FileUpload(null);
         if (arrayFoto[indexAux]){
           fileUpload.url= arrayFoto[indexAux];
-          this.uploadService.borrarFile(fileUpload).then(()=> this.deletePhotoNumber.emit(fileUpload.url));
+          this.uploadService.borrarFile(fileUpload).then(()=> this.deletePhotoNumber.emit(fileUpload.url)).
+          catch(err => {
+            console.warn(err);
+            this.deletePhotoNumber.emit(fileUpload.url)
+          });
         }
       }
     });

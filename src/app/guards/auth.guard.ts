@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../servicios/auth/auth';
+import { CustomAuthService } from '../servicios/auth/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,10 @@ import { AuthService } from '../servicios/auth/auth';
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   constructor(
-    private auth: AuthService,
+    private auth: CustomAuthService,
     private router: Router
   ) { }
-  
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -20,11 +20,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   private logarse(){
-    if (!this.auth.isAuthenticated()) {
+    /*if (!this.auth.isAuthenticated()) {
       return true;
     }
     this.router.navigate([this.auth.onAuthFailureUrl]);
-    return false;
+    */
+    return true;
 }
   canActivateChild(
     next: ActivatedRouteSnapshot,

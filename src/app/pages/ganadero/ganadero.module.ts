@@ -14,7 +14,7 @@ import { GanaderoPageRoutingModule } from './ganadero-routing.module';
 
 import { HomePage } from '../home/home.page';
 import { HttpClientModule } from '@angular/common/http';
-//import { AuthService } from 'src/app/servicios/auth/auth';
+import { CustomAuthService } from 'src/app/servicios/auth/auth';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { ListaGanado } from '../listadoGanado/listado';
 import { ListaVentas } from '../listadoVentas/listado';
@@ -29,7 +29,6 @@ import { AscDesc } from '../listadoAscendenciaDescendencia/listaAscendenciaDesce
 import { ListaDocumentos } from '../listadoDocumentos/listado';
 import { Cabecera } from '../cabecera/cabecera';
 import { ServicioDatos } from 'src/app/servicios/serviciodatos';
-import { AuthService } from 'src/app/servicios/auth/auth';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { firebaseConfig } from 'src/environments/firebaseconfig';
 import { UsuarioServicio } from 'src/app/servicios/usuario.service';
@@ -57,7 +56,12 @@ import { UploadFileComponent } from '../upload-file-component/upload-file-compon
 import { FileUploadServicio } from 'src/app/servicios/fileUpload.service';
 import { PhotoServicio } from 'src/app/servicios/photo.service';
 import { MenuComponent } from '../cabecera/menu/menu.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { Constantes } from 'src/app/servicios/genericos/constantes';
 
+// Build the URL that Auth0 should redirect back to
+const redirectUri = `${Constantes.AUTH_CONFIG.packageIdentifier}://${Constantes.AUTH_CONFIG.domain}/capacitor/${Constantes.AUTH_CONFIG.packageIdentifier}/callback`;
+console.log(redirectUri);
 @NgModule({
   imports: [
     IonicModule,
@@ -70,16 +74,21 @@ import { MenuComponent } from '../cabecera/menu/menu.component';
     AngularFireModule.initializeApp(firebaseConfig,'ganadero'),
     AngularFireDatabaseModule,
     Ng2SearchPipeModule,
-    FiltroAvanzadoComponentPageModule
+    FiltroAvanzadoComponentPageModule,
+    AuthModule.forRoot({
+      domain: Constantes.AUTH_CONFIG.domain,
+      clientId: Constantes.AUTH_CONFIG.clientID,
+      redirectUri
+    }),
     ],providers: [
     ServicioDatos,
     Toast,
     ToastService,
     ToastBrowserService,
     ToastNativeService,
-    AuthService,
     UsuarioServicio,
     ExplotacionServicio,
+    CustomAuthService,
     GanadoServicio,
     PhotoServicio,
     VacunaServicio,

@@ -1,10 +1,10 @@
- <!-- app/pages/profile/profile.html 
+ <!-- app/pages/profile/profile.html
 <ion-navbar *navbar>
   <ion-title>Profile</ion-title>
 </ion-navbar>
 
 <ion-content  style="height:100vh;" padding *ngIf="!auth.authenticated()">
-  
+
   <button block (click)="auth.login()">Login</button>
 
 </ion-content>
@@ -20,13 +20,15 @@
 
   <!-- a card with your picture and name, plus a logout button -->
   <div *ngIf="isLoggedIn">
-    <ion-card>
-      <img [src]="auth.user.picture" />
-      <ion-card-content>
-        <ion-card-title>{{ auth.user.name }}</ion-card-title>
-      </ion-card-content>
-    </ion-card>
-    <ion-button size="large" expand="block" (click)="auth.logout()">Logout</ion-button>
+    <div *ngIf="auth.getProfileUserData() | async as user">
+      <ion-card>
+        <img [src]="'user.picture'" />
+        <ion-card-content>
+          <ion-card-title>{{ 'user.name' }} - {{ user.email }}</ion-card-title>
+        </ion-card-content>
+      </ion-card>
+      <ion-button size="large" expand="block" (click)="logout()">Logout</ion-button>
+    </div>
   </div>
 
 </ion-content>

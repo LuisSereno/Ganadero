@@ -40,10 +40,11 @@
                 <ion-row>
                   <ion-col col-sm-8>
                     <ion-item class="text-label">
-                      <ion-label position="floating"><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Fecha nacimiento
+                      <ion-label><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Fecha nacimiento
                       </ion-label>
 
-                        <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento"> </ion-datetime>
+                        <!-- <ion-datetime displayFormat="YYYY-MM-DD" formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento"> </ion-datetime> -->
+                        <ion-datetime-button datetime="datetime"></ion-datetime-button>
                       </ion-item>
                     <ion-item *ngIf="!formularioAnimal.controls.fechaNacimiento.valid  && (formularioAnimal.controls.fechaNacimiento.dirty || submitAttempt)">
                         <p>Introduce una fecha correcta</p>
@@ -53,9 +54,10 @@
                 <ion-row *ngIf="isInstanceOfHembra(animal)">
                   <ion-col col-sm-8>
                     <ion-item class="text-label">
-                      <ion-label position="floating"><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Fecha última parición
+                      <ion-label><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Fecha última parición
                        </ion-label>
-                          <ion-datetime displayFormat="YYYY-MM-DD" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime>
+                          <!--<ion-datetime displayFormat="YYYY-MM-DD" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaUltimoNacimiento"> </ion-datetime> -->
+                          <ion-datetime-button datetime="datetime2"></ion-datetime-button>
                         </ion-item>
                     </ion-col>
                   </ion-row>
@@ -134,3 +136,16 @@
     </ion-fab-button>
   </ion-fab>
 </ion-footer>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime" presentation="date" [(ngModel)]="fechaNacimiento"></ion-datetime>
+  </ng-template>
+</ion-modal>
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime2" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechaUltimoNacimiento"></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+

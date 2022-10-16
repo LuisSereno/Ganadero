@@ -8,16 +8,20 @@
   <ion-row>
     <ion-col col-xs-12 col-sm-6>
       <ion-item class="text-label">
-        <ion-label position="floating"><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Desde:
+        <ion-label><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Desde:
         </ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="filtroAvanzado.fechaDesde"> </ion-datetime>
+          <!--<ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="filtroAvanzado.fechaDesde"> </ion-datetime>-->
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
         </ion-item>
     </ion-col>
     <ion-col col-xs-12 col-sm-6>
       <ion-item class="text-label">
-        <ion-label position="floating"><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Hasta:
+        <ion-label><ion-icon name='calendar' item-left class="color-iconos"></ion-icon>Hasta:
         </ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="filtroAvanzado.fechaHasta"> </ion-datetime>
+          <!--<ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="filtroAvanzado.fechaHasta"> </ion-datetime>-->
+          <ion-datetime-button datetime="datetime2"></ion-datetime-button>
+
         </ion-item>
     </ion-col>
   </ion-row>
@@ -85,10 +89,16 @@
         <ion-radio slot="start"  [value]=true></ion-radio>
       </ion-item>
     </ion-radio-group>
-  </ion-list>
-
+  </ion-list>ç
   <ion-button size="small" color="primary" expand="full" fill="clear" (click)="emit()">Guardar</ion-button>
-
 </ion-content>
-
-
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime" presentation="date" [(ngModel)]="filtroAvanzado.fechaDesde"></ion-datetime>
+  </ng-template>
+</ion-modal>
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime2" presentation="date" [(ngModel)]="filtroAvanzado.fechaHasta"></ion-datetime>
+  </ng-template>
+</ion-modal>

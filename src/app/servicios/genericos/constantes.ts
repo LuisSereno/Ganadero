@@ -22,7 +22,8 @@ public static URL_STORAGE_UPDATE='https://www.googleapis.com/upload/storage/v1'
 
 public static BUCKET_STORAGE='ganadero-146707.appspot.com'
 
-public static AUTH0_CLIENT_ID = 'pYEZiVRhnq7oYS6uhbLAQ57sep58v7sJ';
+//public static AUTH0_CLIENT_ID = 'pYEZiVRhnq7oYS6uhbLAQ57sep58v7sJ';
+public static AUTH0_CLIENT_ID = 'sc9eaZIbshwwxm9oucLiGv6mbmgUfGWM';
 
 public static AUTH0_DOMAIN = 'sereno.eu.auth0.com';
 
@@ -59,7 +60,6 @@ public static ARRAY_TIPOS_DOCUMENTOS_ADMITIDOS=[{'contentType':'image/png','tipo
 public static AUTH_CONFIG = {
     // needed for auth0
     clientID: Constantes.AUTH0_CLIENT_ID,
-
     // needed for auth0cordova
     clientId: Constantes.AUTH0_CLIENT_ID,
     domain: Constantes.AUTH0_DOMAIN,

@@ -22,7 +22,9 @@
           <ion-label>
             <ion-item>
               <ion-label>Fecha</ion-label>
-              <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="anadirAGanado.fecha"> </ion-datetime>
+              <!--<ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="anadirAGanado.fecha"> </ion-datetime>-->
+              <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
             </ion-item>
           </ion-label>
         </ion-list-header>
@@ -65,3 +67,8 @@
     </ion-fab-button>
 
 </ion-content>
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime" presentation="date" [(ngModel)]="anadirAGanado.fecha"></ion-datetime>
+  </ng-template>
+</ion-modal>

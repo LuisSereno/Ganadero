@@ -204,7 +204,8 @@ export class DetalleExplotacion {
 				this.childUploadFile.save().then(result => {
 					if (result) {
 						if (this.explota.foto != null && this.explota.foto.length === 3) {
-							this.toastCtrl.push('No puedes tener más de 3 fotos por animal', 'WARNING');
+							this.toastCtrl.push('No puedes tener más de 3 fotos por animal, borra alguna', 'WARNING');
+							resolve(false);
 						} else {
 							if (this.explota.foto == null) {
 								this.explota.foto = new Array<string>();

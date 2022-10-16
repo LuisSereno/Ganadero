@@ -2,18 +2,24 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 
-// Import AUTH_CONFIG, Auth0Cordova, and auth0.js
-import Auth0Cordova from '@auth0/cordova';
-import * as auth0 from 'auth0-js';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { Constantes } from '../genericos/constantes';
+import { AuthService } from '@auth0/auth0-angular';
+import { Browser } from '@capacitor/browser';
+import { mergeMap } from 'rxjs/operators';
+import { App } from '@capacitor/app';
+import { Observable } from 'rxjs';
+import { Validators } from '@angular/forms';
 
 declare let cordova: any;
 
+const callbackUri = `${Constantes.AUTH_CONFIG.packageIdentifier}://${Constantes.AUTH_CONFIG.domain}/capacitor/${Constantes.AUTH_CONFIG.packageIdentifier}/callback`;
 @Injectable()
-export class AuthService {
-  Auth0 = new auth0.WebAuth(Constantes.AUTH_CONFIG);
-  Client = new Auth0Cordova(Constantes.AUTH_CONFIG);
+export class CustomAuthService {
+  //Auth0 = new auth0.WebAuth(Constantes.AUTH_CONFIG);
+  //Client = new Auth0Cordova(Constantes.AUTH_CONFIG);
+  Auth0 = null;
+  Client = null;
   accessToken: string;
   user: any;
   loggedIn: boolean;
@@ -23,7 +29,8 @@ export class AuthService {
   constructor(
     public zone: NgZone,
     private storage: Storage,
-    private safariViewController: SafariViewController
+    private safariViewController: SafariViewController,
+    public auth: AuthService
   ) {
     console.log("CONSTRUCTOR AUTH")
     this.initService();
@@ -40,12 +47,65 @@ export class AuthService {
     });
   }
 
-  public isAuthenticated():boolean {
+  public isAuthenticated():Promise<boolean> {
     console.log("isAuthenticated AUTH")
-    let expiresAt = null;
-    this.storage.get('expires_at').then(token => expiresAt = token);
-    let valor:boolean=Date.now() < expiresAt;
-    return valor;
+    return new Promise<boolean>((resolve) => {
+      this.auth.isAuthenticated$.subscribe((text: boolean) => {
+        console.log("EL VALOR DE LA AUTENTICACION ES " +  text);
+        resolve(text);
+      });
+    });
+  }
+
+  loginNew(){
+    return this.auth
+		.buildAuthorizeUrl()
+		.pipe(mergeMap((url) => {
+			console.log ("URL MALA " + url);
+			return Browser.open({ url, windowName: '_self' })
+		})).subscribe();
+  }
+
+  getDataFromLogin(){
+    console.log("callbackUri " + callbackUri);
+
+    // Use Capacitor's App plugin to subscribe to the `appUrlOpen` event
+    App.addListener('appUrlOpen', ({ url }) => {
+      console.log("entra en appurlopen " + url);
+
+      // Must run inside an NgZone for Angular to pick up the changes
+      // https://capacitorjs.com/docs/guides/angular
+      this.zone.run(() => {
+        console.log("entra ngZonerun ");
+
+        if (url?.startsWith(callbackUri)) {
+          // If the URL is an authentication callback URL..
+          if (
+            url.includes('state=') &&
+            (url.includes('error=') || url.includes('code='))
+          ) {
+            console.log("entra en handleredirectcallback")
+            // Call handleRedirectCallback and close the browser
+            this.auth
+              .handleRedirectCallback(url)
+              .pipe(mergeMap(() => Browser.close()))
+              .subscribe();
+              this.auth.user$.subscribe(data=>{
+                console.log("LUIS subscrito: " + data);
+              });
+          } else {
+            console.log("entra BrowserClose ");
+
+            Browser.close();
+          }
+        }
+      });
+    });
+  }
+
+  public getProfileUserData():Observable<any>{
+
+    return this.auth.user$;
   }
 
   login():Promise<boolean> {
@@ -124,5 +184,6 @@ export class AuthService {
         }
       );
     }
+
 }
 
